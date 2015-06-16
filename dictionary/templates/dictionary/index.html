@@ -1,0 +1,18 @@
+<form action="{% url 'search' %}" method="get">
+    <input type="text" name="q" />
+    <input type="submit" value="Search" />
+</form>
+
+{% if chunk_list %}
+    <ul>
+    {% for chunk in chunk_list %}
+        <div class="chunk">
+            <a class="entry" href="{% url 'entry' chunk.id %}">{{ chunk.entry }}</a>
+            <span class="pos">{{ chunk.pos }}</span>
+            <div class="defn">
+                {{ chunk.defn }}
+            </div>
+        </div>
+    {% endfor %}
+    </ul>
+{% endif %}
