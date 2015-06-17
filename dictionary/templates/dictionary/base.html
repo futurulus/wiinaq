@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+<html>
+<head>
+    <title>Kinguk Alutiiq Dictionary</title>
+    <link rel="stylesheet" href="{% static "dictionary/styles.css" %}">
+</head>
+
+<body>
+    <div id="content">
+    {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

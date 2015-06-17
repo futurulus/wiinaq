@@ -1,3 +1,11 @@
-<h1>{{ chunk.entry }}</h1>
-<p class="pos">{{ chunk.pos }}</p>
-<p class="defn">{{ chunk.defn }}</p>
+{% extends "dictionary/base.html" %}
+
+{% block content %}
+<div class="listing">
+    <h1>{{ chunk.entry }}</h1>
+
+    <p class="listing-defn"><span class="pos">{{ chunk.pos }}</span> {{ chunk.defn }}</p>
+
+    <p class="sources">Source: <span class="source">{{ chunk.source }}</span></p>
+</div>
+{% endblock %}

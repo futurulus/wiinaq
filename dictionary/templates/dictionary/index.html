@@ -1,13 +1,19 @@
-<form action="{% url 'search' %}" method="get">
-    <input type="text" name="q" />
-    <input type="submit" value="Search" />
+{% extends "dictionary/base.html" %}
+
+{% block content %}
+<form class="searchform" action="{% url 'search' %}" method="get">
+    <span class="expand"><input type="text" class="searchbox" name="q" /></span>
+    <input class="submit" type="submit" value="Search" />
 </form>
 
 {% if chunk_list %}
-    <ul>
+    <ul class="results">
     {% for chunk in chunk_list %}
         <div class="chunk">
-            <a class="entry" href="{% url 'entry' chunk.id %}">{{ chunk.entry }}</a>
+            <a class="entry" href="{% url 'entry' chunk.id %}">
+                {{ chunk.entry }}
+                <span class="link-expander"></span>
+            </a>
             <span class="pos">{{ chunk.pos }}</span>
             <div class="defn">
                 {{ chunk.defn }}
@@ -16,3 +22,4 @@
     {% endfor %}
     </ul>
 {% endif %}
+{% endblock %}

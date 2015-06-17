@@ -1,3 +1,13 @@
+# Database
 db.sqlite3
+
+# Temporary files
 *.pyc
+*~
+
+# Secret key for admin
 secret.py
+
+# Dictionary data
+dictionary/fixtures
+dict_sources
