@@ -6,6 +6,7 @@ class Chunk(models.Model):
     pos = models.CharField(max_length=10)
     defn = models.TextField()
     search_text = models.TextField(editable=False, default='')
+    source = models.CharField(max_length=200)
 
     def save(self):
         self.search_text = '%s %s' % (self.entry, self.defn)
