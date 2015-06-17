@@ -25,6 +25,7 @@ a:hover { text-decoration: none; color: #0088cc; }
 
 ul {
     list-style-type: none;
+    margin: 0px;
 }
 
 h1 {
@@ -54,6 +55,19 @@ p {
     color: #777777;
 }
 
+.assembled {
+    border-radius: 5px;
+    border: 1px solid #BBBBBB;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+.button {
+    border-radius: 5px;
+    border: 1px solid #BBBBBB;
+    padding: 5px;
+}
+
 .results {
     border-radius: 5px;
     border: 1px solid #BBBBBB;
@@ -64,6 +78,11 @@ p {
     border-radius: 5px;
     border: 1px solid #BBBBBB;
     padding: 5px 5px 0px 5px;
+}
+
+.searchbar {
+    width: 100%;
+    height: 38px;
 }
 
 .searchform {
@@ -91,8 +110,21 @@ p {
 }
 
 .chunk {
-    position: relative;
+    display: table;
+    width: 100%;
     padding: 0px 0px 5px 0px;
+}
+
+.details {
+    display: table-cell;
+    position: relative;
+    width: 100%;
+}
+
+.buttons {
+    display: table-cell;
+    vertical-align: middle;
+    width: 60px;
 }
 
 .link-expander {

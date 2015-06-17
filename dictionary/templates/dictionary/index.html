@@ -1,22 +1,36 @@
 {% extends "dictionary/base.html" %}
 
 {% block content %}
-<form class="searchform" action="{% url 'search' %}" method="get">
-    <span class="expand"><input type="text" class="searchbox" name="q" /></span>
-    <input class="submit" type="submit" value="Search" />
-</form>
+{% if partial_word %}
+    <div class="assembled">
+        <h1>{{ partial_word }}</h1>
+    </div>
+{% endif %}
+
+<div class="searchbar">
+    <form class="searchform" action="{% url 'search' %}" method="get">
+        <input type="hidden" name="w" value="{{ build_chunks }}" />
+        <div class="expand"><input type="text" class="searchbox" name="q" value="{{ query }}" /></div>
+        <input class="submit" type="submit" value="Search" />
+    </form>
+</div>
 
 {% if chunk_list %}
     <ul class="results">
     {% for chunk in chunk_list %}
         <div class="chunk">
-            <a class="entry" href="{% url 'entry' chunk.id %}">
-                {{ chunk.entry }}
-                <span class="link-expander"></span>
-            </a>
-            <span class="pos">{{ chunk.pos }}</span>
-            <div class="defn">
-                {{ chunk.defn }}
+            <div class="details">
+                <a class="entry" href="{% url 'entry' chunk.id %}">
+                    {{ chunk.entry }}
+                    <span class="link-expander"></span>
+                </a>
+                <span class="pos">{{ chunk.pos }}</span>
+                <div class="defn">
+                    {{ chunk.defn }}
+                </div>
+            </div>
+            <div class="buttons">
+                <a class="button" href="{% url 'build' %}?q={% if query %}{{ query }}{% endif %}&w={% if build_chunks %}{{ build_chunks }}_{{ chunk.entry }}{% else %}{{ chunk.entry }}{% endif %}">build</a>
             </div>
         </div>
     {% endfor %}
