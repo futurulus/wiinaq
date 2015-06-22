@@ -6,10 +6,14 @@
 
     <p class="listing-defn"><span class="pos">{{ chunk.pos }}</span> {{ chunk.defn }}</p>
 
+    <p class="sources">Source: <span class="source">{{ chunk.source }}</span></p>
+
     {% if inflections %}
-    <div class="endings">
+    <div class="popout">
+        <h2 class="popout-header">Endings</h2>
+
         {% for sec in inflections %}
-        <h2>{{ sec.title }}</h2>
+        <h3>{{ sec.title }}</h3>
         <table class="inflection">
             <tr>
                 <th />
@@ -27,9 +31,10 @@
             {% endfor %}
         </table>
         {% endfor %}
+
+        <p class="disclaimer">(Endings are automatically generated. Help us out by reporting
+        errors!)</p>
     </div>
     {% endif %}
-
-    <p class="sources">Source: <span class="source">{{ chunk.source }}</span></p>
 </div>
 {% endblock %}
