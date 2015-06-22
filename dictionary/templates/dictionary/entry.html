@@ -6,6 +6,30 @@
 
     <p class="listing-defn"><span class="pos">{{ chunk.pos }}</span> {{ chunk.defn }}</p>
 
+    {% if inflections %}
+    <div class="endings">
+        {% for sec in inflections %}
+        <h2>{{ sec.title }}</h2>
+        <table class="inflection">
+            <tr>
+                <th />
+                {% for h in sec.column_headers %}
+                <th>{{ h }}</th>
+                {% endfor %}
+            </tr>
+            {% for r in sec.rows %}
+            <tr>
+                <th>{{ r.header }}</th>
+                {% for c in r.cells %}
+                <td>{{ c }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <p class="sources">Source: <span class="source">{{ chunk.source }}</span></p>
 </div>
 {% endblock %}

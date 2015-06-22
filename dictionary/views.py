@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import Chunk
-from .alutiiq import morpho_join
+from .alutiiq import morpho_join, inflection_data
 
 
 def index(request):
@@ -10,7 +10,9 @@ def index(request):
 
 def entry(request, chunk_id):
     chunk = get_object_or_404(Chunk, pk=chunk_id)
-    return render(request, 'dictionary/entry.html', {'chunk': chunk})
+    context = {'chunk': chunk}
+    context.update(inflection_data(chunk))
+    return render(request, 'dictionary/entry.html', context)
 
 
 def search(request):
