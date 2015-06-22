@@ -7,10 +7,11 @@ def get_root(word):
                'luku', 'lukek', 'luki', 'kunaku', 'kunakek', 'kunaki']
     for ending in endings:
         if ending.startswith('l') and word.endswith('l' + ending):
-            return word[:-len(ending) - 1] + 't'
-        if ending.startswith('l') and (word.endswith('g' + ending) or
-                                       word.endswith('t' + ending)):
-            return word[:-len(ending)] + 't'
+            base = word[:-len(ending) - 1]
+            if base.endswith('g') or base.endswith('r'):
+                return base
+            else:
+                return base + 't'
         if ending.startswith('k') and word.endswith('g' + ending):
             return word[:-len(ending) - 1]
         if word.endswith(ending):
@@ -36,15 +37,18 @@ def apply_vowel_alternation(center, before):
 
     if before is not None:
         before = get_root(before)
-        if '(' in center[:2]:
-            start_pos = center.index('(')
-            end_pos = center.index(')')
-            combine_cons = center[:start_pos]
-            if before[-1:] in 'aeiou' or (combine_cons == '-' and
-                                          before[-2:].startswith('e')):
-                center = center[start_pos + 1:end_pos] + center[end_pos + 1:]
-            else:
-                center = center[:start_pos] + center[end_pos + 1:]
+        for left, right in ['()', '[]']:
+            if left in center[:2]:
+                start_pos = center.index(left)
+                end_pos = center.index(right)
+                combine_cons = center[:start_pos]
+                vowel_ending = (before[-1:] in 'aeiou' or
+                                (combine_cons == '-' and
+                                 before[-2:].startswith('e')))
+                if vowel_ending == (left == '('):
+                    center = center[start_pos + 1:end_pos] + center[end_pos + 1:]
+                else:
+                    center = center[:start_pos] + center[end_pos + 1:]
 
     return center
 
@@ -115,6 +119,10 @@ def morpho_join(chunks):
 COLUMN_HEADERS = {
     'n': ['1', '2', '3+'],
     'vi': ['1', '2', '3+'],
+    'vt': ['gui', 'guangkunuk', 'guangkuta',
+           'ellpet', "ellp'tek", "ellp'ci",
+           'taugna', 'taugkuk', 'taugkut',
+           'ellmenek', 'ellmegtegnek', 'ellmegtenek'],
 }
 ROW_HEADERS = {
     'n': ['-', 'gui', 'guangkunuk', 'guangkuta',
@@ -122,10 +130,15 @@ ROW_HEADERS = {
           'taugna', 'taugkuk', 'taugkut',
           'ellmenek', 'ellmegtegnek', 'ellmegtenek'],
     'vi': ['gui', 'ellpet', 'taugna', 'ellmenek'],
+    'vt': ['gui', 'guangkunuk', 'guangkuta',
+           'ellpet', "ellp'tek", "ellp'ci",
+           'taugna', 'taugkuk', 'taugkut',
+           'ellmenek', 'ellmegtegnek', 'ellmegtenek'],
 }
 SECTION_HEADERS = {
     'n': ['normal', 'at', 'to', 'from', 'through', 'like', 'possessive'],
     'vi': ['present', 'past', 'conjunctive', 'dependent'],
+    'vt': ['present', 'past', 'conjunctive', 'dependent'],
 }
 ENDINGS = {
     'n': [
@@ -171,9 +184,9 @@ ENDINGS = {
     ],
     'vi': [
         [
-            ['+(+g)ua', '+ukuk', '+ukut'],
-            ['+uten', '+utek', '+uci'],
-            ['+uq', '+uk', '+ut'],
+            ['+(+g)[+t]ua', '+[+t]ukuk', '+[+t]ukut'],
+            ['+[+t]uten', '+[+t]utek', '+[+t]uci'],
+            ['+[+t]uq', '+[+t]uk', '+[+t]ut'],
         ],
         [
             ['-llrianga', '-llriakuk', '-llriakut'],
@@ -192,6 +205,66 @@ ENDINGS = {
             ['~kuni', '~kunek', '~kuneng'],
         ],
     ],
+    'vt': [
+        [
+            ['-'] * 3 +
+            ['+amken', '+amtek', '+amci',
+             '+aqa', '+agka', '+anka'],
+            ['-'] * 3 +
+            ['+amken', '+amtek', '+amci',
+             '+agpuk', '+apuk', '+apuk'],
+            ['-'] * 3 +
+            ['+amken', '+amtek', '+amci',
+             '+agpet', '+apet', '+apet'],
+            ["+agp'nga", "+agp'kuk", "+agp'kut"] +
+            ['-'] * 3 +
+            ['+an', '+agken', '+aten'],
+            ["+agp'tegennga", "+agp't'kuk", "+agp't'kut"] +
+            ['-'] * 3 +
+            ['+agtek', '+atek', '+atek'],
+            ["+agp'cia", "+agp'cikuk", "+agp'cikut"] +
+            ['-'] * 3 +
+            ['+agci', '+aci', '+aci'],
+            ['+aanga', '+aakuk', '+aakut',
+             '+aaten', '+aatek', '+aaci',
+             '+aa', '+ak', '+ai'],
+            ['+aagnga', '+aigkuk', '+aigkut',
+             '+aagten', '+aigtek', "+ait'si",
+             '+aak', '+aik', '+aik'],
+            ['+aatnga', '+aitkuk', '+aitkut',
+             '+aaten', "+ait'ek", "+ait'si",
+             '+aat', '+ait', '+ait'],
+        ],
+        [
+            ['-'] * 3 +
+            ['~kemken', '~kemtek', '~kemci',
+             "~k'gka", "~k'gka", '~kenka'],
+            ['-'] * 3 +
+            ['~kemken', '~kemtek', '~kemci',
+             "~k'gpuk", "~k'puk", "~k'puk"],
+            ['-'] * 3 +
+            ['~kemken', '~kemtek', '~kemci',
+             "~k'gpet", "~k'pet", "~k'pet"],
+            ["~kugnga", "~kugkuk", "~kugkut"] +
+            ['-'] * 3 +
+            ['~ken', '~kegken', "~k'ten"],
+            ["~kugt'gennga", "~kugt'kuk", "~kugt'kut"] +
+            ['-'] * 3 +
+            ["~k'gtek", "~k'tek", "~k'tek"],
+            ["~kugcia", "~kugcikuk", "~kugcikut"] +
+            ['-'] * 3 +
+            ["~k'gci", "~k'ci", "~k'ci"],
+            ['~kiinga', '~kiikuk', '~kiikut',
+             '~kiiten', '~kiitek', '~kiici',
+             '~kii', "~kek", '~kai'],
+            ['~kiignga', '~kaigkuk', '~kaigkut',
+             '~kiigten', '~kaigtek', "~kait'si",
+             '~kiik', '~kaik', '~kaik'],
+            ['~kiitnga', '~kaitkuk', '~kaitkut',
+             '~kiiten', "~kait'ek", "~kait'si",
+             '~kiit', '~kait', '~kait'],
+        ],
+    ] * 2,
 }
 
 TableRow = namedtuple('TableRow', ['header', 'cells'])
@@ -215,6 +288,7 @@ def build_section(title, column_headers, rows):
 
 def inflect(entry, cells, section_headers, column_headers, row_headers):
     return [build_section(s, column_headers,
-            [TableRow(rh, [morpho_join([entry, c]) for c in row])
+            [TableRow(rh, ['-' if c == '-' else morpho_join([entry, c])
+                           for c in row])
              for rh, row in zip(row_headers, cells[i])])
             for i, s in enumerate(section_headers)]
