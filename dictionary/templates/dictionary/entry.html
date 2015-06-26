@@ -14,7 +14,7 @@
 
         {% for table in inflections %}
         <h3>{{ table.title }}</h3>
-        <table class="inflection">
+        <table class="inflection" id="{{ table.id }}">
             <tr>
                 <th />
                 {% for h in table.column_headers %}
@@ -25,15 +25,19 @@
             <tr>
                 <th>{{ r.header }}</th>
                 {% for c in r.cells %}
-                <td class="inflection-entry">
+                <td class="inflection-entry" id="{{ c.id }}">
                     {% for id, entry in c.map.items %}
-                    <span class="inflection-option" id="{{ id }}">{{ entry }}</span>
+                    <span class="inflection-option hide" id="{{ id }}">{{ entry }}</span>
                     {% endfor %}
                 </td>
                 {% endfor %}
             </tr>
             {% endfor %}
         </table>
+
+        <script>
+        alutiiq.add_ids("{{ table.rows.0.cells.0.id }}");
+        </script>
         {% endfor %}
 
         <p class="disclaimer">(Endings are automatically generated. Help us out by reporting

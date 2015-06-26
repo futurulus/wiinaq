@@ -116,12 +116,12 @@ def morpho_join(chunks):
     return ''.join(transformed)
 
 
-Widget = namedtuple('Table', ['title', 'rows', 'cols', 'spanrows', 'spancols'])
+Widget = namedtuple('Table', ['id', 'title', 'rows', 'cols', 'spanrows', 'spancols'])
 Widget.__new__.__defaults__ = ([], [], [])
 
 HIERARCHY = {
     'n': [
-        Widget(title='Case',
+        Widget(id='case-number', title='Case/Number',
                rows=[('ABS', 'normal'),
                      ('LOC', 'in'),
                      ('DAT', 'to'),
@@ -132,7 +132,7 @@ HIERARCHY = {
                cols=[('SG', '1'),
                      ('DU', '2'),
                      ('PL', '3+')]),
-        Widget(title='Possessor',
+        Widget(id='possessor', title='Possessor',
                rows=[('UNPOSS', '-'),
                      ('POSS1P', 'gui'),
                      ('POSS2P', 'ellpet'),
@@ -143,12 +143,12 @@ HIERARCHY = {
                spancols=['UNPOSS']),
     ],
     'vi': [
-        Widget(title='Tense',
+        Widget(id='tense', title='Tense',
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
                      ('DEP', 'dependent')]),
-        Widget(title='Subject',
+        Widget(id='subject', title='Subject',
                rows=[('1P', 'gui'),
                      ('2P', 'ellpet'),
                      ('3P', 'taugna'),
@@ -158,12 +158,12 @@ HIERARCHY = {
                      ('PL', '3+')]),
     ],
     'vt': [
-        Widget(title='Tense',
+        Widget(id='tense', title='Tense',
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
                      ('DEP', 'dependent')]),
-        Widget(title='Subject',
+        Widget(id='subject', title='Subject',
                rows=[('S1P', 'gui'),
                      ('S2P', 'ellpet'),
                      ('S3P', 'taugna'),
@@ -171,7 +171,7 @@ HIERARCHY = {
                cols=[('SSG', '1'),
                      ('SDU', '2'),
                      ('SPL', '3+')]),
-        Widget(title='Object',
+        Widget(id='object', title='Object',
                rows=[('O1P', 'gui'),
                      ('O2P', 'ellpet'),
                      ('O3P', 'taugna'),
@@ -213,7 +213,7 @@ ID_LISTS = {
 }
 
 
-Table = namedtuple('Table', ['title', 'column_headers', 'rows'])
+Table = namedtuple('Table', ['id', 'title', 'column_headers', 'rows'])
 TableRow = namedtuple('TableRow', ['id', 'header', 'cells'])
 TableCell = namedtuple('TableCell', ['id', 'map'])
 
@@ -223,7 +223,7 @@ def build_tables(chunk):
 
     for w in HIERARCHY[chunk.pos]:
         column_headers = [header for id_, header in w.cols]
-        table = Table(w.title, column_headers,
+        table = Table(w.id, w.title, column_headers,
                       list(build_rows(w, endings_map)))
         yield table
 
@@ -235,11 +235,20 @@ def build_rows(widget, endings_map):
         yield row
 
 
+def external_subset(full_id, internal):
+    '''
+    >>> external_subset('PAST+1P+DU', ['1P', 'DU'])
+    'PAST'
+    '''
+    return '+'.join(sorted(set(full_id.split('+')) -
+                           set(internal)))
+
+
 def build_cells(row_id, cols, endings_map):
     if cols:
         for col_id, header_ in cols:
             sub_map = {
-                full_id: inflection
+                external_subset(full_id, [row_id, col_id]): inflection
                 for full_id, inflection in endings_map.iteritems()
                 if set([row_id, col_id]).issubset(full_id.split('+'))
             }
@@ -247,7 +256,7 @@ def build_cells(row_id, cols, endings_map):
             yield cell
     else:
         sub_map = {
-            full_id: inflection
+            external_subset(full_id, [row_id]): inflection
             for full_id, inflection in endings_map.iteritems()
             if row_id in full_id.split('+')
         }

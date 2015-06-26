@@ -161,3 +161,7 @@ p {
 .source {
     color: #777733;
 }
+
+.hide {
+    display: none;
+}
