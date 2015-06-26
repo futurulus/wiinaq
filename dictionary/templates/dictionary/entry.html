@@ -12,20 +12,24 @@
     <div class="popout">
         <h2 class="popout-header">Endings</h2>
 
-        {% for sec in inflections %}
-        <h3>{{ sec.title }}</h3>
+        {% for table in inflections %}
+        <h3>{{ table.title }}</h3>
         <table class="inflection">
             <tr>
                 <th />
-                {% for h in sec.column_headers %}
+                {% for h in table.column_headers %}
                 <th>{{ h }}</th>
                 {% endfor %}
             </tr>
-            {% for r in sec.rows %}
+            {% for r in table.rows %}
             <tr>
                 <th>{{ r.header }}</th>
                 {% for c in r.cells %}
-                <td>{{ c }}</td>
+                <td class="inflection-entry">
+                    {% for id, entry in c.map.items %}
+                    <span class="inflection-option" id="{{ id }}">{{ entry }}</span>
+                    {% endfor %}
+                </td>
                 {% endfor %}
             </tr>
             {% endfor %}
