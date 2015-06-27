@@ -8,14 +8,19 @@ def get_root(word):
     for ending in endings:
         if ending.startswith('l') and word.endswith('l' + ending):
             base = word[:-len(ending) - 1]
-            if base.endswith('g') or base.endswith('r'):
+            if base.endswith('r'):
+                return base + base[-1]
+            elif base[-1:] in 'qk':
                 return base
             else:
                 return base + 't'
         if ending.startswith('k') and word.endswith('g' + ending):
             return word[:-len(ending) - 1]
         if word.endswith(ending):
-            return word[:-len(ending)]
+            if re.search('^([^aeiou]?)[aeiou][gr]', word):
+                return word[:-len(ending)] + 'e'
+            else:
+                return word[:-len(ending)]
 
     neg_endings = ['inani', 'inatek', 'inateng', 'inaku', 'inakek', 'inaki']
     for ending in neg_endings:
@@ -37,15 +42,16 @@ def apply_vowel_alternation(center, before):
 
     if before is not None:
         before = get_root(before)
-        for left, right in ['()', '[]']:
-            if left in center[:2]:
+        for left, right in ['<>', '[]']:
+            if left in center:
                 start_pos = center.index(left)
                 end_pos = center.index(right)
                 combine_cons = center[:start_pos]
-                vowel_ending = (before[-1:] in 'aeiou' or
+                vowel_ending = (before[-1:] in 'aiou' or
                                 (combine_cons == '-' and
                                  before[-2:].startswith('e')))
-                if vowel_ending == (left == '('):
+                cons_ending = not vowel_ending and not before.endswith('e')
+                if left == '<' and vowel_ending or left =='[' and cons_ending:
                     center = center[start_pos + 1:end_pos] + center[end_pos + 1:]
                 else:
                     center = center[:start_pos] + center[end_pos + 1:]
@@ -62,24 +68,42 @@ def apply_transformations(before, center, after):
             center = get_root(center)
             if center[-1] not in 'aeiou':
                 center = center[:-1]
+            elif center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
+                center = center[:-1] + "'"
         elif after.startswith('~'):
             center = get_root(center)
             if after.startswith('~k'):
                 if center.endswith('t'):
-                    center = center[:-1] + 's'
-                elif center[-1] not in 'aeiou':
+                    if len(center) >= 2 and center[-2] not in 'aeiou':
+                        center = center[:-1] + "'s"
+                    else:
+                        center = center[:-1] + 's'
+                elif center[-1] not in 'aiou':
                     center = center[:-1]
             elif after.startswith('~g'):
                 if center[-1] not in 'aeiou':
                     center = center[:-1]
             elif after.startswith('~l'):
                 center = get_root(center)
-                if center.endswith('t'):
+                if center[-1] in 'te':
                     center = center[:-1]
+            elif after[:2] in ('~a', '~i', '~u'):
+                center = get_root(center)
+                if center[-1:] == after[1]:
+                    center += "'"
+                elif center.endswith('e'):
+                    center = center[:-1] + "'"
+                elif center.endswith('i'):
+                    center += 'y'
+                elif center.endswith('u'):
+                    center += 'w'
         elif after.startswith('+'):
             center = get_root(center)
-            if center.endswith('i') and after.startswith('+u'):
-                center += 'y'
+            if center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
+                center = center[:-1] + "'"
+
+    if center.endswith('rr') or center.endswith('gg'):
+        center = center[:-1]
 
     if before is not None:
         before = get_root(before)
@@ -94,7 +118,10 @@ def apply_transformations(before, center, after):
             else:
                 center = center[1:]
         elif center.startswith('~l'):
-            if len(before) >= 2 and before[-2] in 'aeiou' and before.endswith('t'):
+            if (before[-1:] in 'qkt' or
+                before.endswith('gg') or
+                before.endswith('rr') or
+                (len(before) >= 2 and before[-2] in 'aeiou' and before.endswith('t'))):
                 center = 'l' + center[1:]
             else:
                 center = center[1:]
@@ -125,12 +152,12 @@ HIERARCHY = {
         Widget(id='case-number', title='Case/Number',
                default='ABS:SG',
                rows=[('ABS', 'normal'),
-                     ('LOC', 'in'),
+                     ('ERG', 'subj/poss'),
+                     ('LOC', 'at'),
                      ('DAT', 'to'),
                      ('ABL', 'from'),
                      ('PER', 'through'),
-                     ('SIM', 'like'),
-                     ('ERG', 'possessive')],
+                     ('SIM', 'like')],
                cols=[('SG', '1'),
                      ('DU', '2'),
                      ('PL', '3+')]),
@@ -326,6 +353,26 @@ def get_endings_map(entry, pos):
     'yaamagka'
     >>> get_endings_map('silugluni', 'vi')['1P:PL:PRES']
     'silugtukut'
+    >>> get_endings_map("tang'rlluni", 'vi')['3P:CONJ:SG']
+    "tang'rlluni"
+    >>> get_endings_map("nerluni", 'vi')['3P:PRES:SG']
+    "ner'uq"
+    >>> get_endings_map("nerluni", 'vi')['3P:CONJ:SG']
+    'nerluni'
+    >>> get_endings_map("aqum'aluni", 'vi')['1P:PRES:SG']
+    "aqum'agua(nga)"
+    >>> get_endings_map('nalluluku', 'vt')['O3P:OSG:PRES:S1P:SSG']
+    'nalluwaqa'
+    >>> get_endings_map('aplluku', 'vt')['O3P:OSG:PRES:S1P:SSG']
+    'aptaqa'
+    >>> get_endings_map('eglluku', 'vt')['O3P:OSG:PRES:S1P:SSG']
+    'egtaqa'
+    >>> get_endings_map('aplluku', 'vt')['O3P:OSG:PAST:S1P:SSG']
+    "ap'sk'gka"
+    >>> get_endings_map('eglluku', 'vt')['O3P:OSG:PAST:S1P:SSG']
+    "eg'sk'gka"
+    >>> get_endings_map('qunuklluku', 'vt')['O3P:OSG:PRES:S1P:SSG']
+    'qunukaqa'
     >>> get_endings_map('nalluluku', 'vt')['O3P:OSG:PAST:S1P:SSG']
     "nalluk'gka"
     '''
@@ -406,11 +453,30 @@ ENDINGS = {
                 ['~gci', '-ci', '-ci'],
             ],
             [
-                ['-(~g)a', '-(~g)ak', '-(~ga)i'],
-                ['-(~g)ak', '-(~ga)ik', '-(~ga)ik'],
-                ['-(~g)at', '-(~ga)it', '-(~ga)it'],
+                ['-<~g>a', '-<~g>ak', '-<~ga>i'],
+                ['-<~g>ak', '-<~ga>ik', '-<~ga>ik'],
+                ['-<~g>at', '-<~ga>it', '-<~ga>it'],
             ],
-        ]] + [
+        ],
+        [
+            ["-m", "-k", "-t"],
+            [
+                ["-ma", "-ma", "-ma"],
+                ["-mnuk", "-mnuk", "-mnuk"],
+                ["-mta", "-mta", "-mta"],
+            ],
+            [
+                ["~gpet", "~gpet", "~gpet"],
+                ["~gp'tek", "~gp'tek", "~gp'tek"],
+                ["~gp'ci", "~gp'ci", "~gp'ci"],
+            ],
+            [
+                ["-n", "-<~ga>ini", "-<~ga>ini"],
+                ["-gta", "-<~ga>igta", "-<~ga>igta"],
+                ["-ta", "-<~ga>ita", "-<~ga>ita"],
+            ],
+        ],
+        ] + [
         [
             ['-men', '-nun', '-nun'] if ending == 'nun' else
             ['-gun', '-gun',  '-tgun'] if ending == 'kun' else
@@ -427,33 +493,15 @@ ENDINGS = {
                 ["~gp't's" + ending] * 3,
             ],
             [
-                ['-(~g)a' + ending, '-(~ga)i' + ending, '-(~ga)i' + ending],
-                ['-(~g)ag' + ending, '-(~ga)ig' + ending, '-(~ga)ig' + ending],
-                ['-(~g)at' + ending, '-(~ga)it' + ending, '-(~ga)it' + ending],
+                ['-<~g>a' + ending, '-<~ga>i' + ending, '-<~ga>i' + ending],
+                ['-<~g>ag' + ending, '-<~ga>ig' + ending, '-<~ga>ig' + ending],
+                ['-<~g>at' + ending, '-<~ga>it' + ending, '-<~ga>it' + ending],
             ],
-        ] for ending in ['ni', 'nun', 'nek', 'kun', "t'stun"]] + [
-        [
-            ["-m", "-k", "-t"],
-            [
-                ["-ma", "-ma", "-ma"],
-                ["-mnuk", "-mnuk", "-mnuk"],
-                ["-mta", "-mta", "-mta"],
-            ],
-            [
-                ["-gpet", "-gpet", "-gpet"],
-                ["-gp'tek", "-gp'tek", "-gp'tek"],
-                ["-gp'ci", "-gp'ci", "-gp'ci"],
-            ],
-            [
-                ["-n", "-(~ga)ini", "-(~ga)ini"],
-                ["-gta", "-(~ga)igta", "-(~ga)igta"],
-                ["-ta", "-(~ga)ita", "-(~ga)ita"],
-            ],
-        ]
+        ] for ending in ['ni', 'nun', 'nek', 'kun', "t'stun"]
     ],
     'vi': [
         [
-            ['+(+g)[+t]ua', '+[+t]ukuk', '+[+t]ukut'],
+            ['+<+g>[+t]ua(nga)', '+[+t]ukuk', '+[+t]ukut'],
             ['+[+t]uten', '+[+t]utek', '+[+t]uci'],
             ['+[+t]uq', '+[+t]uk', '+[+t]ut'],
             ['-'] * 3,
@@ -482,60 +530,60 @@ ENDINGS = {
             [
                 [
                     ['-'] * 3,
-                    ['+amken', '+amtek', '+amci'],
-                    ['+aqa', '+agka', '+anka'],
+                    ['~amken', '~amtek', '~amci'],
+                    ['~aqa', '~agka', '~anka'],
                     ['-'] * 3,
                 ],
                 [
                     ['-'] * 3,
-                    ['+amken', '+amtek', '+amci'],
-                    ['+agpuk', '+apuk', '+apuk'],
+                    ['~amken', '~amtek', '~amci'],
+                    ['~arpuk', '~apuk', '~apuk'],
                     ['-'] * 3,
                 ],
                 [
                     ['-'] * 3,
-                    ['+amken', '+amtek', '+amci'],
-                    ['+agpet', '+apet', '+apet'],
-                    ['-'] * 3,
-                ],
-            ],
-            [
-                [
-                    ["+agp'nga", "+agp'kuk", "+agp'kut"],
-                    ['-'] * 3,
-                    ['+an', '+agken', '+aten'],
-                    ['-'] * 3,
-                ],
-                [
-                    ["+agp'tegennga", "+agp't'kuk", "+agp't'kut"],
-                    ['-'] * 3,
-                    ['+agtek', '+atek', '+atek'],
-                    ['-'] * 3,
-                ],
-                [
-                    ["+agp'cia", "+agp'cikuk", "+agp'cikut"],
-                    ['-'] * 3,
-                    ['+agci', '+aci', '+aci'],
+                    ['~amken', '~amtek', '~amci'],
+                    ['~arpet', '~apet', '~apet'],
                     ['-'] * 3,
                 ],
             ],
             [
                 [
-                    ['+aanga', '+aakuk', '+aakut'],
-                    ['+aaten', '+aatek', '+aaci'],
-                    ['+aa', '+ak', '+ai'],
+                    ["~arp'nga", "~arp'kuk", "~arp'kut"],
+                    ['-'] * 3,
+                    ['~an', '~agken', '~aten'],
                     ['-'] * 3,
                 ],
                 [
-                    ['+aagnga', '+aigkuk', '+aigkut'],
-                    ['+aagten', '+aigtek', "+ait'si"],
-                    ['+aak', '+aik', '+aik'],
+                    ["~arp'tegennga", "~arp't'kuk", "~arp't'kut"],
+                    ['-'] * 3,
+                    ['~artek', '~atek', '~atek'],
                     ['-'] * 3,
                 ],
                 [
-                    ['+aatnga', '+aitkuk', '+aitkut'],
-                    ['+aaten', "+ait'ek", "+ait'si"],
-                    ['+aat', '+ait', '+ait'],
+                    ["~arp'cia", "~arp'cikuk", "~arp'cikut"],
+                    ['-'] * 3,
+                    ['~arci', '~aci', '~aci'],
+                    ['-'] * 3,
+                ],
+            ],
+            [
+                [
+                    ['+<~g>aanga', '+<~g>aakuk', '+<~g>aakut'],
+                    ['+<~g>aaten', '+<~g>aatek', '+<~g>aaci'],
+                    ['+<~g>aa', '~ak', '+<~g>ai'],
+                    ['-'] * 3,
+                ],
+                [
+                    ['+<~g>aagnga', '+<~g>aigkuk', '+<~g>aigkut'],
+                    ['+<~g>aagten', '+<~g>aigtek', "+<~g>ait'si"],
+                    ['+<~g>aak', '+<~g>aik', '+<~g>aik'],
+                    ['-'] * 3,
+                ],
+                [
+                    ['+<~g>aatnga', '+<~g>aitkuk', '+<~g>aitkut'],
+                    ['+<~g>aaten', "+<~g>ait'ek", "+<~g>ait'si"],
+                    ['+<~g>aat', '+<~g>ait', '+<~g>ait'],
                     ['-'] * 3,
                 ],
             ],
