@@ -107,7 +107,7 @@ endings.collapse = {};
             if (id in endings.col_span[table_id] &&
                     (endings.col_span[table_id][id] === "*" ||
                      is_active(endings.col_span[table_id][id]))) {
-                var num_cols = table.find("tr:first td").length;
+                var num_cols = table.find("tr:first th").length - 1;
                 $(this).attr("colspan", num_cols);
             } else {
                 $(this).removeAttr("colspan");
