@@ -84,8 +84,15 @@ endings.collapse = {};
                     (endings.collapse[table_id][id] === "*" ||
                      is_active(endings.collapse[table_id][id]))) {
                 $(this).addClass("hide");
+                $(this).removeClass("active");
             } else {
                 $(this).removeClass("hide");
+
+                if (is_active(id)) {
+                    $(this).addClass("active");
+                } else {
+                    $(this).removeClass("active");
+                }
             }
 
             if (id in endings.row_span[table_id] &&

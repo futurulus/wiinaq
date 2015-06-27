@@ -162,6 +162,18 @@ p {
     color: #777733;
 }
 
+.inflection-entry {
+    padding: 4px;
+    cursor: pointer;
+}
+
 .hide {
     display: none;
+}
+
+.active {
+    border-radius: 5px;
+    border: 1px solid #AAAA77;
+    background-color: #FFFFAA;
+    padding: 3px;
 }
