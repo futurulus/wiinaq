@@ -116,12 +116,14 @@ def morpho_join(chunks):
     return ''.join(transformed)
 
 
-Widget = namedtuple('Table', ['id', 'title', 'rows', 'cols', 'spanrows', 'spancols'])
-Widget.__new__.__defaults__ = ([], [], [])
+Widget = namedtuple('Table', ['id', 'title', 'default', 'rows', 'cols',
+                              'spanrows', 'spancols', 'row_flatten', 'col_flatten'])
+Widget.__new__.__defaults__ = ([], [], [], [], [])
 
 HIERARCHY = {
     'n': [
         Widget(id='case-number', title='Case/Number',
+               default='ABS:SG',
                rows=[('ABS', 'normal'),
                      ('LOC', 'in'),
                      ('DAT', 'to'),
@@ -133,6 +135,7 @@ HIERARCHY = {
                      ('DU', '2'),
                      ('PL', '3+')]),
         Widget(id='possessor', title='Possessor',
+               default='UNPOSS:POSSSG',
                rows=[('UNPOSS', '-'),
                      ('POSS1P', 'gui'),
                      ('POSS2P', 'ellpet'),
@@ -144,11 +147,13 @@ HIERARCHY = {
     ],
     'vi': [
         Widget(id='tense', title='Tense',
+               default='PRES',
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
                      ('DEP', 'dependent')]),
         Widget(id='subject', title='Subject',
+               default='1P:SG',
                rows=[('1P', 'gui'),
                      ('2P', 'ellpet'),
                      ('3P', 'taugna'),
@@ -159,19 +164,24 @@ HIERARCHY = {
     ],
     'vt': [
         Widget(id='tense', title='Tense',
+               default='PRES',
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
                      ('DEP', 'dependent')]),
         Widget(id='subject', title='Subject',
+               default='S1P:SSG',
                rows=[('S1P', 'gui'),
                      ('S2P', 'ellpet'),
                      ('S3P', 'taugna'),
                      ('S4P', 'ellmenek')],
                cols=[('SSG', '1'),
                      ('SDU', '2'),
-                     ('SPL', '3+')]),
+                     ('SPL', '3+')],
+               row_flatten=['CONJ'],
+               col_flatten=['CONJ']),
         Widget(id='object', title='Object',
+               default='O3P:OSG',
                rows=[('O1P', 'gui'),
                      ('O2P', 'ellpet'),
                      ('O3P', 'taugna'),
@@ -187,7 +197,7 @@ def id_list(widget, direction):
     assert direction in ('r', 'c')
     pairs = widget.rows if direction == 'r' else widget.cols
     span = widget.spanrows if direction == 'r' else widget.spancols
-    span_suffix = ('-' + ','.join(span)) if span else ''
+    span_suffix = ('-' + '_'.join(span)) if span else ''
     return [id + span_suffix for id, name in pairs]
 
 
@@ -213,8 +223,9 @@ ID_LISTS = {
 }
 
 
-Table = namedtuple('Table', ['id', 'title', 'column_headers', 'rows'])
-TableRow = namedtuple('TableRow', ['id', 'header', 'cells'])
+Table = namedtuple('Table', ['id', 'title', 'default', 'column_headers',
+                             'rows', 'row_span', 'col_span', 'collapse'])
+TableRow = namedtuple('TableRow', ['header', 'cells'])
 TableCell = namedtuple('TableCell', ['id', 'map'])
 
 
@@ -223,42 +234,63 @@ def build_tables(chunk):
 
     for w in HIERARCHY[chunk.pos]:
         column_headers = [header for id_, header in w.cols]
-        table = Table(w.id, w.title, column_headers,
-                      list(build_rows(w, endings_map)))
+        table = Table(w.id, w.title, w.default, column_headers,
+                      list(build_rows(w, endings_map)),
+                      row_span={}, col_span={}, collapse={})
+
+        for row_num, row in enumerate(table.rows):
+            for col_num, cell in enumerate(row.cells):
+                col_registry = (table.col_span if col_num == 0 else table.collapse)
+                row_registry = (table.row_span if row_num == 0 else table.collapse)
+
+                if cell.id.split(':')[0] in w.spancols:
+                    col_registry[cell.id] = '*'
+                elif w.col_flatten:
+                    col_registry[cell.id] = '_'.join(w.col_flatten)
+
+                if ':' in cell.id and cell.id.split(':')[1] in w.spanrows:
+                    row_registry[cell.id] = '*'
+                elif w.row_flatten:
+                    row_registry[cell.id] = '_'.join(w.row_flatten)
+
         yield table
 
 
 def build_rows(widget, endings_map):
     for id, header in widget.rows:
-        row = TableRow(id, header,
-                       list(build_cells(id, widget.cols, endings_map)))
+        row = TableRow(header,
+                       list(build_cells(id, widget, endings_map)))
         yield row
 
 
 def external_subset(full_id, internal):
     '''
-    >>> external_subset('PAST+1P+DU', ['1P', 'DU'])
+    >>> external_subset('PAST:1P:DU', ['1P', 'DU'])
     'PAST'
     '''
-    return '+'.join(sorted(set(full_id.split('+')) -
+    return ':'.join(sorted(set(full_id.split(':')) -
                            set(internal)))
 
-
-def build_cells(row_id, cols, endings_map):
-    if cols:
-        for col_id, header_ in cols:
+def build_cells(row_id, widget, endings_map):
+    if widget.cols:
+        for col_id, header_ in widget.cols:
+            check_active = set()
+            if row_id not in widget.spancols:
+                check_active.add(col_id)
+            if col_id not in widget.spanrows:
+                check_active.add(row_id)
             sub_map = {
                 external_subset(full_id, [row_id, col_id]): inflection
                 for full_id, inflection in endings_map.iteritems()
-                if set([row_id, col_id]).issubset(full_id.split('+'))
+                if check_active.issubset(full_id.split(':'))
             }
-            cell = TableCell('+'.join([row_id, col_id]), sub_map)
+            cell = TableCell(':'.join([row_id, col_id]), sub_map)
             yield cell
     else:
         sub_map = {
             external_subset(full_id, [row_id]): inflection
             for full_id, inflection in endings_map.iteritems()
-            if row_id in full_id.split('+')
+            if row_id in full_id.split(':')
         }
         cell = TableCell(row_id, sub_map)
         yield cell
@@ -266,13 +298,13 @@ def build_cells(row_id, cols, endings_map):
 
 def get_endings_map(entry, pos):
     '''
-    >>> get_endings_map('yaamaq', 'n')['ABS+PL+UNPOSS']
+    >>> get_endings_map('yaamaq', 'n')['ABS:PL:UNPOSS']
     'yaamat'
-    >>> get_endings_map('yaamaq', 'n')['ABS+DU+POSS1P+POSSSG']
+    >>> get_endings_map('yaamaq', 'n')['ABS:DU:POSS1P:POSSSG']
     'yaamagka'
-    >>> get_endings_map('silugluni', 'vi')['1P+PL+PRES']
+    >>> get_endings_map('silugluni', 'vi')['1P:PL:PRES']
     'silugtukut'
-    >>> get_endings_map('nalluluku', 'vt')['O3P+OSG+PAST+S1P+SSG']
+    >>> get_endings_map('nalluluku', 'vt')['O3P:OSG:PAST:S1P:SSG']
     "nalluk'gka"
     '''
     endings_map = {}
@@ -286,13 +318,13 @@ def spanned(id_list, id_curr):
     False
     >>> spanned(['B-A'], ['A'])
     True
-    >>> spanned(['B-A+C'], ['A'])
+    >>> spanned(['B-A:C'], ['A'])
     False
-    >>> spanned(['B-A+C'], ['A', 'C', 'E'])
+    >>> spanned(['B-A:C'], ['A', 'C', 'E'])
     True
-    >>> spanned(['B-A+D,C+D'], ['A', 'C', 'E'])
+    >>> spanned(['B-A:D_C:D'], ['A', 'C', 'E'])
     False
-    >>> spanned(['B-A+D,C+E'], ['A', 'C', 'E'])
+    >>> spanned(['B-A:D_C:E'], ['A', 'C', 'E'])
     True
     '''
     if not id_list:
@@ -303,7 +335,7 @@ def spanned(id_list, id_curr):
 
     id_curr = set(id_curr)
 
-    conds = [set(cond.split('+')) for cond in id.split('-')[1].split(',')]
+    conds = [set(cond.split(':')) for cond in id.split('-')[1].split('_')]
     return any(c.issubset(id_curr) for c in conds)
 
 
@@ -313,7 +345,7 @@ def build_endings(endings_map, id_lists, entry, endings, id_curr=None):
     >>> TEST_ID_LISTS = [['LOWER', 'UPPER'], ['A', 'B']]
     >>> result = {}
     >>> build_endings(result, TEST_ID_LISTS, 'x', TEST_ENDINGS)
-    >>> result['B+LOWER']
+    >>> result['B:LOWER']
     'xb'
     '''
     if id_curr == None:
@@ -331,7 +363,7 @@ def build_endings(endings_map, id_lists, entry, endings, id_curr=None):
                 build_endings(endings_map, id_lists[1:], entry,
                               sub_endings, id_curr=id_curr + [id])
     else:
-        full_id = '+'.join(sorted(id_curr))
+        full_id = ':'.join(sorted(id_curr))
         cell = '-' if endings == '-' else morpho_join([entry, endings])
         endings_map[full_id] = cell
 

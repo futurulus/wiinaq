@@ -36,7 +36,25 @@
         </table>
 
         <script>
-        alutiiq.add_ids("{{ table.rows.0.cells.0.id }}");
+        endings.row_span["{{ table.id }}"] = {
+        {% for cell_id, conditions in table.row_span.items %}
+            "{{ cell_id }}": "{{ conditions }}",
+        {% endfor %}
+        };
+
+        endings.col_span["{{ table.id }}"] = {
+        {% for cell_id, conditions in table.col_span.items %}
+            "{{ cell_id }}": "{{ conditions }}",
+        {% endfor %}
+        };
+
+        endings.collapse["{{ table.id }}"] = {
+        {% for cell_id, conditions in table.collapse.items %}
+            "{{ cell_id }}": "{{ conditions }}",
+        {% endfor %}
+        };
+
+        endings.activate_cell("{{ table.default }}");
         </script>
         {% endfor %}
 
