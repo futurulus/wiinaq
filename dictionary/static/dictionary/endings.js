@@ -14,7 +14,7 @@ endings.collapse = {};
         var pieces = id.split(":");
         for (var i = 0; i < pieces.length; i++) {
             var id_part = pieces[i];
-            if (id_part.contains("-")) {
+            if (id_part.indexOf("-") > -1) {
                 id_part = id_part.split("-")[0];
             }
 
@@ -26,7 +26,7 @@ endings.collapse = {};
         var pieces = id.split(":");
         for (var i = 0; i < pieces.length; i++) {
             var id_part = pieces[i];
-            if (id_part.contains("-")) {
+            if (id_part.indexOf("-") > -1) {
                 id_part = id_part.split("-")[0];
             }
 
@@ -54,7 +54,7 @@ endings.collapse = {};
         var pieces = id.split(":");
         for (var i = 0; i < pieces.length; i++) {
             var id_part = pieces[i];
-            if (id_part.contains("-")) {
+            if (id_part.indexOf("-") > -1) {
                 id_part = id_part.split("-")[0];
             }
 
