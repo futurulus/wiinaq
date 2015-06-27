@@ -196,7 +196,8 @@ HIERARCHY = {
 def id_list(widget, direction):
     assert direction in ('r', 'c')
     pairs = widget.rows if direction == 'r' else widget.cols
-    span = widget.spanrows if direction == 'r' else widget.spancols
+    span = (widget.spanrows + widget.row_flatten) if direction == 'r' \
+           else (widget.spancols + widget.col_flatten)
     span_suffix = ('-' + '_'.join(span)) if span else ''
     return [id + span_suffix for id, name in pairs]
 
@@ -271,18 +272,39 @@ def external_subset(full_id, internal):
     return ':'.join(sorted(set(full_id.split(':')) -
                            set(internal)))
 
+
+def is_active(row_id, col_id, full_id, widget):
+    '''
+    >>> w = Widget(id='', title='', default='a:A',
+    ...            rows=[('a', ''), ('b', '')],
+    ...            cols=[('A', ''), ('B', '')],
+    ...            row_flatten=['X'],
+    ...            col_flatten=['X'])
+    >>> is_active('a', 'B', 'a:B:Y', w)
+    True
+    >>> is_active('a', 'B', 'a:A:Y', w)
+    False
+    >>> is_active('a', 'B', 'X', w)
+    True
+    '''
+    check_active = set()
+    full_parts = set(full_id.split(':'))
+    if row_id not in widget.spancols and \
+            len(full_parts.intersection(widget.col_flatten)) == 0:
+        check_active.add(col_id)
+    if col_id not in widget.spanrows and \
+            len(full_parts.intersection(widget.row_flatten)) == 0:
+        check_active.add(row_id)
+    return check_active.issubset(full_parts)
+
+
 def build_cells(row_id, widget, endings_map):
     if widget.cols:
         for col_id, header_ in widget.cols:
-            check_active = set()
-            if row_id not in widget.spancols:
-                check_active.add(col_id)
-            if col_id not in widget.spanrows:
-                check_active.add(row_id)
             sub_map = {
                 external_subset(full_id, [row_id, col_id]): inflection
                 for full_id, inflection in endings_map.iteritems()
-                if check_active.issubset(full_id.split(':'))
+                if is_active(row_id, col_id, full_id, widget)
             }
             cell = TableCell(':'.join([row_id, col_id]), sub_map)
             yield cell
@@ -459,135 +481,218 @@ ENDINGS = {
         [
             [
                 [
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['+amken', '+amtek', '+amci'],
                     ['+aqa', '+agka', '+anka'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['+amken', '+amtek', '+amci'],
                     ['+agpuk', '+apuk', '+apuk'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['+amken', '+amtek', '+amci'],
                     ['+agpet', '+apet', '+apet'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
-                [['-'] * 4] * 4,
             ],
             [
                 [
                     ["+agp'nga", "+agp'kuk", "+agp'kut"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['+an', '+agken', '+aten'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
                     ["+agp'tegennga", "+agp't'kuk", "+agp't'kut"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['+agtek', '+atek', '+atek'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
                     ["+agp'cia", "+agp'cikuk", "+agp'cikut"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['+agci', '+aci', '+aci'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
-                [['-'] * 4] * 4,
             ],
             [
                 [
                     ['+aanga', '+aakuk', '+aakut'],
                     ['+aaten', '+aatek', '+aaci'],
                     ['+aa', '+ak', '+ai'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
                     ['+aagnga', '+aigkuk', '+aigkut'],
                     ['+aagten', '+aigtek', "+ait'si"],
                     ['+aak', '+aik', '+aik'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
                     ['+aatnga', '+aitkuk', '+aitkut'],
                     ['+aaten', "+ait'ek", "+ait'si"],
                     ['+aat', '+ait', '+ait'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
-                [['-'] * 4] * 4,
             ],
+            [[['-'] * 3] * 4] * 3,
         ],
         [
             [
                 [
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['~kemken', '~kemtek', '~kemci'],
                     ["~k'gka", "~k'gka", '~kenka'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['~kemken', '~kemtek', '~kemci'],
                     ["~k'gpuk", "~k'puk", "~k'puk"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['~kemken', '~kemtek', '~kemci'],
                     ["~k'gpet", "~k'pet", "~k'pet"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
-                [['-'] * 4] * 4,
             ],
             [
                 [
                     ["~kugnga", "~kugkuk", "~kugkut"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ['~ken', '~kegken', "~k'ten"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
                     ["~kugt'gennga", "~kugt'kuk", "~kugt'kut"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ["~k'gtek", "~k'tek", "~k'tek"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
                     ["~kugcia", "~kugcikuk", "~kugcikut"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                     ["~k'gci", "~k'ci", "~k'ci"],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
-                [['-'] * 4] * 4,
             ],
             [
                 [
                     ['~kiinga', '~kiikuk', '~kiikut'],
                     ['~kiiten', '~kiitek', '~kiici'],
                     ['~kii', "~kek", '~kai'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
                     ['~kiignga', '~kaigkuk', '~kaigkut'],
                     ['~kiigten', '~kaigtek', "~kait'si"],
                     ['~kiik', '~kaik', '~kaik'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
                 [
                     ['~kiitnga', '~kaitkuk', '~kaitkut'],
                     ['~kiiten', "~kait'ek", "~kait'si"],
                     ['~kiit', '~kait', '~kait'],
-                    ['-'] * 4,
+                    ['-'] * 3,
                 ],
-                [['-'] * 4] * 4,
             ],
-            [[['-'] * 4] * 4] * 4,
+            [[['-'] * 3] * 4] * 3,
         ],
-    ] * 2,
+        [
+            ['~lua(nga)', '~lunuk', '~luta', '-'],
+            ['~luten', '~lutek', '~luci', '-'],
+            ['~luku', '~lukek', '~luki', '-'],
+            ['-'] * 4,
+        ],
+        [
+            [
+                [
+                    ['-'] * 3,
+                    ['~kumken', '~kumtek', '~kumci'],
+                    ["~kumgu", "~kumkek", '~kumki'],
+                    ["~kumni", "~kumtek", '~kumteng'],
+                ],
+                [
+                    ['-'] * 3,
+                    ['~kumken', '~kumtek', '~kumci'],
+                    ["~kumt'gen'gu", "~kumt'gen'kek", "~kumt'gen'ki"],
+                    ["~kumt'gni", "~kumt'gtek", "~kumt'gteng"],
+                ],
+                [
+                    ['-'] * 3,
+                    ['~kumken', '~kumtek', '~kumci'],
+                    ["~kumt'gu", "~kumt'kek", "~kumt'ki"],
+                    ["~kumt'ni", "~kumt'stek", "~kumt'steng"],
+                ],
+            ],
+            [
+                [
+                    ["~kugnga", "~kugkuk", "~kugkut"],
+                    ['-'] * 3,
+                    ['~kugu', '~kugkek', "~kugki"],
+                    ['~kugni', '~kugtek', "~kugteng"],
+                ],
+                [
+                    ["~kugt'gennga", "~kugt'kuk", "~kugt'kut"],
+                    ['-'] * 3,
+                    ["~kugt'gengu", "~kugt'genkek", "~kugt'genki"],
+                    ["~kugt'gni", "~kugt'gtek", "~kugt'gteng"],
+                ],
+                [
+                    ["~kugcia", "~kugcikuk", "~kugcikut"],
+                    ['-'] * 3,
+                    ["~kugciu", "~kugcikek", "~kugciki"],
+                    ["~kugt'sni", "~kugt'stek", "~kugt'steng"],
+                ],
+            ],
+            [
+                [
+                    ['~kanga', '~kakuk', '~kakut'],
+                    ['~katen', '~katek', '~kaci'],
+                    ['~kagu', "~kakek", '~kaki'],
+                    ['~kani', '~katek', "~kateng"],
+                ],
+                [
+                    ['~kagnenga', '~kagnekuk', '~kagnekut'],
+                    ['~kagten', '~kagtek', "~kagci"],
+                    ['~kagnegu', "~kagnekek", '~kagneki'],
+                    ['~kagni', '~kagtek', '~kagteng'],
+                ],
+                [
+                    ['~katnga', '~katkuk', '~katkut'],
+                    ['~katen', "~kat'ek", "~kat'si"],
+                    ['~katgu', '~katkek', '~katki'],
+                    ['~katni', "~kat'stek", "~kat'steng"],
+                ],
+            ],
+            [
+                [
+                    ['~kunia', '~kunikuk', '~kunikut'],
+                    ['~kuniten', '~kunitek', '~kunici'],
+                    ['~kuniu', "~kunikek", '~kunikegki'],
+                    ['-'] * 3,
+                ],
+                [
+                    ["~kunegt'gennga", "~kunegt'genkuk", "~kunegt'genkut"],
+                    ["~kunegt'gten", "~kunegt'gtek", "~kunegt'gci"],
+                    ["~kunegt'gengu", "~kunegt'genkek", "~kunegt'genki"],
+                    ['-'] * 3,
+                ],
+                [
+                    ["~kunegt'nga", "~kunegt'kuk", "~kunegt'kut"],
+                    ["~kunegt'sten", "~kunegt'stek", "~kunegt'si"],
+                    ["~kunegt'gu", "~kunegt'kek", "~kunegt'ki"],
+                    ['-'] * 3,
+                ],
+            ],
+        ],
+    ],
 }
 
 def inflection_data(chunk):
