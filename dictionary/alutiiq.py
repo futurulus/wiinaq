@@ -52,8 +52,7 @@ def apply_vowel_alternation(center, before):
                 vowel_ending = (before[-1:] in 'aiou' or
                                 (combine_cons == '-' and
                                  before[-2:].startswith('e')))
-                cons_ending = (not vowel_ending and not before.endswith('e') and
-                               not before.endswith("'"))
+                cons_ending = before[-1:] in 'rg'
                 if left == '<' and vowel_ending or left =='[' and cons_ending:
                     center = center[start_pos + 1:end_pos] + center[end_pos + 1:]
                 else:
@@ -97,7 +96,7 @@ def apply_transformations(before, center, after):
                 if center[-1:] == after[1]:
                     center += "'"
                 elif center.endswith('e'):
-                    center = center[:-1] + "'"
+                    center = center[:-1]
                 elif center.endswith('i'):
                     center += 'y'
                 elif center.endswith('u'):
@@ -111,7 +110,14 @@ def apply_transformations(before, center, after):
 
         if re.search("[aeiou][aeiou]$", center) and \
                 len(after) >= 2 and after[1] in 'aeiou':
-            center = center + "'"
+            if center[-1:] == after[1]:
+                center += "'"
+            elif center.endswith('i') and after.startswith('~'):
+                center += 'y'
+            elif center.endswith('u') and after.startswith('~'):
+                center += 'w'
+            else:
+                center += "'"
 
     if center.endswith('rr') or center.endswith('gg'):
         center = center[:-1]
@@ -512,9 +518,9 @@ ENDINGS = {
     ],
     'vi': [
         [
-            ['+<+g>[+t]ua(nga)', '+[+t]ukuk', '+[+t]ukut'],
-            ['+[+t]uten', '+[+t]utek', '+[+t]uci'],
-            ['+[+t]uq', '+[+t]uk', '+[+t]ut'],
+            ['~<+g>[+t]ua(nga)', '~[+t]ukuk', '~[+t]ukut'],
+            ['~[+t]uten', '~[+t]utek', '~[+t]uci'],
+            ['~[+t]uq', '~[+t]uk', '~[+t]ut'],
             ['-'] * 3,
         ],
         [

@@ -4,6 +4,8 @@ db.sqlite3
 # Temporary files
 *.pyc
 *~
+.coverage
+coverage_report
 
 # Secret key for admin
 secret.py
