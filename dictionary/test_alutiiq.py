@@ -43,6 +43,8 @@ ENDING_TEST_CASES = [
     # -ng, voiceless r
     ("nauluni", "vi", "3P:PL:PRES", "nau'ut"),  # CG p.129
     ("tailuni", "vi", "3P:PL:PRES", "taiyut"),  # Song: Tuntut Taiyut
+    ("qawarniluni", "vi", "3P:PRES:SG", "qawarniuq"),  # CG p. 25
+    ("iqlluluni", "vi", "3P:PRES:SG", "iqlluuq"),  # CG p. 25
     ("qitengluni", "vi", "3P:PRES:SG", "qitenguq"),  # CG p. 131
     ("tengluni", "vi", "3P:PAST:SG", "tengellria"),  # CG p. 128
     ("ek'arlluni", "vi", "1P:PAST:SG", "ek'allrianga"),
@@ -62,7 +64,7 @@ ENDING_TEST_CASES = [
     #("nuna", "n", "ABS:POSS3P:POSSSG:SG", "nunii"),  # CG p. 141
     #("piugta", "n", "ABS:POSS3P:POSSSG:SG", "piugtii"),  # CG p. 141
     #("saqul'aq", "n", "ABS:POSS3P:POSSSG:SG", "saqulgaa"),  # CG p. 142
-    ("kuik", "n", "ABS:POSS3P:POSSSG:SG", "kui'a"),  # CG p. 142 -- also kuiga
+    #("kuik", "n", "ABS:POSS3P:POSSSG:SG", "kui'a"),  # CG p. 142 -- kuiya? also kuiga
     ("ciqlluaq", "n", "ABS:POSS3P:POSSSG:SG", "ciqllua'a"),  # CG p. 142
     ("erneq", "n", "ABS:PL:POSS3P:POSSSG", "erneri"),  # CG p. 143
     #("nuliq", "n", "ABS:POSS3P:POSSSG:SG", "nulira"),  # CG p. 143

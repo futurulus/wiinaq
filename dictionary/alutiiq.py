@@ -112,9 +112,9 @@ def apply_transformations(before, center, after):
                 len(after) >= 2 and after[1] in 'aeiou':
             if center[-1:] == after[1]:
                 center += "'"
-            elif center.endswith('i') and after.startswith('~'):
+            elif center.endswith('i'):
                 center += 'y'
-            elif center.endswith('u') and after.startswith('~'):
+            elif center.endswith('u'):
                 center += 'w'
             else:
                 center += "'"
@@ -364,34 +364,12 @@ def build_cells(row_id, widget, endings_map):
 
 def get_endings_map(entry, pos):
     '''
-    >>> get_endings_map('yaamaq', 'n')['ABS:PL:UNPOSS']
-    'yaamat'
     >>> get_endings_map('yaamaq', 'n')['ABS:DU:POSS1P:POSSSG']
     'yaamagka'
     >>> get_endings_map('silugluni', 'vi')['1P:PL:PRES']
     'silugtukut'
-    >>> get_endings_map("tang'rlluni", 'vi')['3P:CONJ:SG']
-    "tang'rlluni"
-    >>> get_endings_map("nerluni", 'vi')['3P:PRES:SG']
-    "ner'uq"
-    >>> get_endings_map("nerluni", 'vi')['3P:CONJ:SG']
-    'nerluni'
-    >>> get_endings_map("aqum'aluni", 'vi')['1P:PRES:SG']
-    "aqum'agua(nga)"
     >>> get_endings_map('nalluluku', 'vt')['O3P:OSG:PRES:S1P:SSG']
     'nalluwaqa'
-    >>> get_endings_map('aplluku', 'vt')['O3P:OSG:PRES:S1P:SSG']
-    'aptaqa'
-    >>> get_endings_map('eglluku', 'vt')['O3P:OSG:PRES:S1P:SSG']
-    'egtaqa'
-    >>> get_endings_map('aplluku', 'vt')['O3P:OSG:PAST:S1P:SSG']
-    "ap'sk'gka"
-    >>> get_endings_map('eglluku', 'vt')['O3P:OSG:PAST:S1P:SSG']
-    "eg'sk'gka"
-    >>> get_endings_map('qunuklluku', 'vt')['O3P:OSG:PRES:S1P:SSG']
-    'qunukaqa'
-    >>> get_endings_map('nalluluku', 'vt')['O3P:OSG:PAST:S1P:SSG']
-    "nalluk'gka"
     '''
     endings_map = {}
     build_endings(endings_map, ID_LISTS[pos], entry, ENDINGS[pos])
@@ -518,9 +496,9 @@ ENDINGS = {
     ],
     'vi': [
         [
-            ['~<+g>[+t]ua(nga)', '~[+t]ukuk', '~[+t]ukut'],
-            ['~[+t]uten', '~[+t]utek', '~[+t]uci'],
-            ['~[+t]uq', '~[+t]uk', '~[+t]ut'],
+            ['+<+g>[+t]ua(nga)', '+[+t]ukuk', '+[+t]ukut'],
+            ['+[+t]uten', '+[+t]utek', '+[+t]uci'],
+            ['+[+t]uq', '+[+t]uk', '+[+t]ut'],
             ['-'] * 3,
         ],
         [
