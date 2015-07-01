@@ -17,7 +17,9 @@ def get_root(word):
         if ending.startswith('k') and word.endswith('g' + ending):
             return word[:-len(ending) - 1]
         if word.endswith(ending):
-            if re.search('^([^aeiou]?)[aeiou][gr]', word):
+            if re.search('^([^aeiou]?)[aeiou][gr]$', word[:-len(ending)]):
+                return word[:-len(ending)] + "'"
+            elif word[:-len(ending)].endswith('ng'):
                 return word[:-len(ending)] + 'e'
             else:
                 return word[:-len(ending)]
@@ -50,7 +52,8 @@ def apply_vowel_alternation(center, before):
                 vowel_ending = (before[-1:] in 'aiou' or
                                 (combine_cons == '-' and
                                  before[-2:].startswith('e')))
-                cons_ending = not vowel_ending and not before.endswith('e')
+                cons_ending = (not vowel_ending and not before.endswith('e') and
+                               not before.endswith("'"))
                 if left == '<' and vowel_ending or left =='[' and cons_ending:
                     center = center[start_pos + 1:end_pos] + center[end_pos + 1:]
                 else:
@@ -66,7 +69,9 @@ def apply_transformations(before, center, after):
     if after is not None:
         if after.startswith('-'):
             center = get_root(center)
-            if center[-1] not in 'aeiou':
+            if center.endswith('rr') or center.endswith('gg'):
+                center = center[:-2]
+            elif center[-1] not in 'aeiou':
                 center = center[:-1]
             elif center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
                 center = center[:-1] + "'"
@@ -85,7 +90,7 @@ def apply_transformations(before, center, after):
                     center = center[:-1]
             elif after.startswith('~l'):
                 center = get_root(center)
-                if center[-1] in 'te':
+                if center[-1] in "t'":
                     center = center[:-1]
             elif after[:2] in ('~a', '~i', '~u'):
                 center = get_root(center)
@@ -100,7 +105,13 @@ def apply_transformations(before, center, after):
         elif after.startswith('+'):
             center = get_root(center)
             if center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
-                center = center[:-1] + "'"
+                center = center[:-1]
+            elif center.endswith("'") and len(after) >= 2 and after[1] not in 'aeiou':
+                center = center[:-1]
+
+        if re.search("[aeiou][aeiou]$", center) and \
+                len(after) >= 2 and after[1] in 'aeiou':
+            center = center + "'"
 
     if center.endswith('rr') or center.endswith('gg'):
         center = center[:-1]
@@ -453,9 +464,9 @@ ENDINGS = {
                 ['~gci', '-ci', '-ci'],
             ],
             [
-                ['-<~g>a', '-<~g>ak', '-<~ga>i'],
-                ['-<~g>ak', '-<~ga>ik', '-<~ga>ik'],
-                ['-<~g>at', '-<~ga>it', '-<~ga>it'],
+                ['-<~g>a', '-<~g>k', '-<~g>i'],
+                ['-<~g>ak', '-<~g>ik', '-<~g>ik'],
+                ['-<~g>at', '-<~g>it', '-<~g>it'],
             ],
         ],
         [
@@ -471,9 +482,9 @@ ENDINGS = {
                 ["~gp'ci", "~gp'ci", "~gp'ci"],
             ],
             [
-                ["-n", "-<~ga>ini", "-<~ga>ini"],
-                ["-gta", "-<~ga>igta", "-<~ga>igta"],
-                ["-ta", "-<~ga>ita", "-<~ga>ita"],
+                ["-n", "-<~g>ini", "-<~g>ini"],
+                ["-gta", "-<~g>igta", "-<~g>igta"],
+                ["-ta", "-<~g>ita", "-<~g>ita"],
             ],
         ],
         ] + [
@@ -493,9 +504,9 @@ ENDINGS = {
                 ["~gp't's" + ending] * 3,
             ],
             [
-                ['-<~g>a' + ending, '-<~ga>i' + ending, '-<~ga>i' + ending],
-                ['-<~g>ag' + ending, '-<~ga>ig' + ending, '-<~ga>ig' + ending],
-                ['-<~g>at' + ending, '-<~ga>it' + ending, '-<~ga>it' + ending],
+                ['-<~g>a' + ending, '-<~g>i' + ending, '-<~g>i' + ending],
+                ['-<~g>ag' + ending, '-<~g>ig' + ending, '-<~g>ig' + ending],
+                ['-<~g>at' + ending, '-<~g>it' + ending, '-<~g>it' + ending],
             ],
         ] for ending in ['ni', 'nun', 'nek', 'kun', "t'stun"]
     ],
