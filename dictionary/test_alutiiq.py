@@ -20,6 +20,9 @@ ENDING_TEST_CASES = [
     ("tekilluni", "vi", "3P:PRES:SG", "tekituq"),  # CG p. 25
     ("tekilluni", "vi", "1P:PRES:SG", "tekitua(nga)"),
 
+    # Negative intransitive verbs
+    ("miknani", "vi", "3P:PRES:SG", "miktuq"),  # CG p. 25
+
     # Basic transitive verbs
     ("nalluluku", "vt", "O3P:OSG:PRES:S1P:SSG", "nalluwaqa"),
     ("nalluluku", "vt", "O3P:OSG:PAST:S1P:SSG", "nalluk'gka"),

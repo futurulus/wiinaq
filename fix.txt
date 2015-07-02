@@ -15,8 +15,11 @@ wiinga singular: wi? wik? (no endings) /entry/1346/ [CG p. 141]
 nuna 3p poss: nunii (no endings) /entry/3465/ [CG p. 141]
 neqet singular: neqa ("neqesk") /entry/1013/ [CG p. 141]
 piugta 3p poss: piugtii (no endings) /entry/3431/ [CG p. 141]
-saqul'aq 3p poss: saqulgaa ("saqulaaa") /entry/799/ [CG p. 142]
+saqul'aq 3p poss: saqulgaa ("saqulaa'a") /entry/799/ [CG p. 142]
 nuliq 3p poss: nulira ("nulia") /entry/2989/ [CG p. 143]
+niilluku 4p->3p dep: niskuniu ("niiskuniu") /entry/1256/ [Stories: Ar'ursulek]
+tuumiaqlluku dep/past: tuumiaqk'gkumgu ("tuumiakumgu") /entry/3653/[Stories: Ar'ursulek p. 24]
+miknani pres: miktuq ("miknaniuq") /entry/1554/
 
 TO CHECK
 peklluni 1p past: pek'llrianga ("pellrianga") /entry/65/

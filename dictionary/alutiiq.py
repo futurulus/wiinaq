@@ -24,10 +24,10 @@ def get_root(word):
             else:
                 return word[:-len(ending)]
 
-    neg_endings = ['inani', 'inatek', 'inateng', 'inaku', 'inakek', 'inaki']
+    neg_endings = ['nani', 'natek', 'nateng', 'naku', 'nakek', 'naki']
     for ending in neg_endings:
         if word.endswith(ending):
-            return word[:-len(ending)] + 'it'
+            return word[:-len(ending)] + 't'
 
     if re.search('(^|[^aeiou])[aeiou]teq$', word):
         return word[:-1] + 'r'
