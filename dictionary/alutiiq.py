@@ -740,9 +740,9 @@ ENDINGS = {
 
 def inflection_data(chunk):
     if chunk.pos in ENDINGS:
-        return {'inflections': inflect(chunk)}
+        return inflect(chunk)
     else:
-        return {'inflections': None}
+        return None
 
 
 def inflect(chunk):

@@ -2,17 +2,18 @@
 
 {% block content %}
 <div class="listing">
-    <h1>{{ chunk.entry }}</h1>
+    <h1>{{ word }}</h1>
 
-    <p class="listing-defn"><span class="pos">{{ chunk.pos }}</span> {{ chunk.defn }}</p>
+    {% for chunk in chunks %}
+    <p class="listing-defn"><span class="pos">{{ chunk.chunk.pos }}</span> {{ chunk.chunk.defn }}</p>
 
-    <p class="sources">Source: <span class="source">{{ chunk.source }}</span></p>
+    <p class="sources">Source: <span class="source">{{ chunk.chunk.source }}</span></p>
 
-    {% if inflections %}
+    {% if chunk.inflections %}
     <div class="popout">
         <h2 class="popout-header">Endings</h2>
 
-        {% for table in inflections %}
+        {% for table in chunk.inflections %}
         <h3>{{ table.title }}</h3>
         <table class="inflection" id="{{ table.id }}">
             <tr>
@@ -62,5 +63,6 @@
         errors!)</p>
     </div>
     {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

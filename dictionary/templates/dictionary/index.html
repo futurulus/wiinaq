@@ -15,23 +15,29 @@
     </form>
 </div>
 
-{% if chunk_list %}
+{% if entry_list %}
     <ul class="results">
-    {% for chunk in chunk_list %}
-        <div class="chunk">
+    {% for entry in entry_list %}
+        <div class="entry">
             <div class="details">
-                <a class="entry" href="{% url 'entry' chunk.id %}">
-                    {{ chunk.entry }}
+                <a class="word" href="{% url 'entry' entry.word %}">
+                    {{ entry.word }}
                     <span class="link-expander"></span>
                 </a>
-                <span class="pos">{{ chunk.pos }}</span>
-                <div class="defn">
-                    {{ chunk.defn }}
+                <div class="defns">
+                {% for sense in entry.senses %}
+                    <span class="sense">
+                        <span class="pos">{{ sense.pos }}</span>
+                        {{ sense.defns|join:"; " }}
+                    </span>
+                {% endfor %}
                 </div>
             </div>
+            <!--
             <div class="buttons">
-                <a class="button" href="{% url 'build' %}?q={% if query %}{{ query }}{% endif %}&w={% if build_chunks %}{{ build_chunks }}_{{ chunk.entry }}{% else %}{{ chunk.entry }}{% endif %}">build</a>
+                <a class="button" href="{% url 'build' %}?q={% if query %}{{ query }}{% endif %}&w={% if build_entries %}{{ build_entries }}_{{ entry.word }}{% else %}{{ entry.word }}{% endif %}">build</a>
             </div>
+            -->
         </div>
     {% endfor %}
     </ul>

@@ -58,7 +58,7 @@ p {
     margin: 5px 0px;
 }
 
-.entry {
+.word {
     font-size: 120%;
 }
 
@@ -127,15 +127,15 @@ p {
     height: 100%;
 }
 
-.chunk {
+.entry {
     display: table;
     width: 100%;
     padding: 0px 0px 5px 0px;
+    position: relative;
 }
 
 .details {
     display: table-cell;
-    position: relative;
     width: 100%;
 }
 
