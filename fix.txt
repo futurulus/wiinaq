@@ -1,7 +1,7 @@
 ENHANCEMENT
 combine identical entries
-ordering: discount terms in parentheses
-ordering: prefer full-word match
+fuzzy matching
+separate Alutiiq and English search
 
 BROKEN
 kuik erg: kuigem ("kuim") /entry/647/ [CG p. 125]
