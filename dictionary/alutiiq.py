@@ -198,6 +198,7 @@ HIERARCHY = {
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
+                     ('INTERR', 'question'),
                      ('COND', 'if'),
                      ('CSEQ', 'when')]),
         Widget(id='subject', title='Subject',
@@ -216,6 +217,7 @@ HIERARCHY = {
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
+                     ('INTERR', 'question'),
                      ('COND', 'if'),
                      ('CSEQ', 'when')]),
         Widget(id='subject', title='Subject',
@@ -519,6 +521,12 @@ ENDINGS = {
             ['-'] * 3,
         ],
         [
+            ['+<+s>[+ci]a', "+t'snuk", "+t'sta"],
+            ["~[+c]it", "+t'stek", "+t'si"],
+            ["~[+t]a", "~[+t]ak", "~[+t]at"],
+            ['-'] * 3,
+        ],
+        [
             ['~kuma', '~kumnuk', '~kumta'],
             ['~kut', '~kumtek', '~kumci'],
             ['~kan', '~kagta', '~kata'],
@@ -663,6 +671,69 @@ ENDINGS = {
             ['~luten', '~lutek', '~luci', '-'],
             ['~luku', '~lukek', '~luki', '-'],
             ['-'] * 4,
+        ],
+        [
+            [
+                [
+                    ['-'] * 3,
+                    ['+<+y>[+c]imken', '+<+y>[+c]imtek', '+<+y>[+c]imci'],
+                    ['~[+t]aqa', '~[+t]agka', '~[+t]anka'],
+                    ['-'] * 3,
+                ],
+                [
+                    ['-'] * 3,
+                    ['+<+y>[+c]imken', '+<+y>[+c]imtek', '+<+y>[+c]imci'],
+                    ["+t'snuk"] * 3,
+                    ['-'] * 3,
+                ],
+                [
+                    ['-'] * 3,
+                    ['+<+y>[+c]imken', '+<+y>[+c]imtek', '+<+y>[+c]imci'],
+                    ["+t'sta"] * 3,
+                    ['-'] * 3,
+                ],
+            ],
+            [
+                [
+                    ["+<+y>[+ci]a", "+<+y>[+c]ikuk", "+<+y>[+c]ikut"],
+                    ['-'] * 3,
+                    ["+<+y>[+ci]u", "+<+y>[+c]ikek", "+<+y>[+c]iki"],
+                    ['-'] * 3,
+                ],
+                [
+                    ["+t'stegennga", "+t'stegenkuk", "+t'stegenkut"],
+                    ['-'] * 3,
+                    ["+tegnegu", "+t'stegenkek", "+t'stegenki"],
+                    ['-'] * 3,
+                ],
+                [
+                    ["+t'sia", "+t'sikuk", "+t'sikut"],
+                    ['-'] * 3,
+                    ["+t'siu", "+t'sikek", "+t'siki"],
+                    ['-'] * 3,
+                ],
+            ],
+            [
+                [
+                    ['~[+t]anga', '~[+t]akuk', '~[+t]akut'],
+                    ['~[+t]aten', '~[+t]atek', '~[+t]aci'],
+                    ['~[+t]agu', '~[+t]akek', '~[+t]aki'],
+                    ['-'] * 3,
+                ],
+                [
+                    ['~[+t]agnenga', '~[+t]agnekuk', "~[+t]agnekut"],
+                    ['~[+t]agten', '~[+t]agtek', "~[+t]agci"],
+                    ['~[+t]agnegu', '~[+t]agnekek', '~[+t]agneki'],
+                    ['-'] * 3,
+                ],
+                [
+                    ['~[+t]atnga', '~[+t]atkuk', '~[+t]atkut'],
+                    ['~[+t]aten', "~[+t]at'ek", "~[+t]at'si"],
+                    ['~[+t]atgu', '~[+t]atkek', '~[+t]atki'],
+                    ['-'] * 3,
+                ],
+            ],
+            [[['-'] * 3] * 4] * 3,
         ],
         [
             [
