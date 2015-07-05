@@ -74,6 +74,11 @@ ENDING_TEST_CASES = [
     ("ciqlluaq", "n", "ABS:POSS3P:POSSSG:SG", "ciqllua'a"),  # CG p. 142
     ("erneq", "n", "ABS:PL:POSS3P:POSSSG", "erneri"),  # CG p. 143
     #("nuliq", "n", "ABS:POSS3P:POSSSG:SG", "nulira"),  # CG p. 143
+
+    # Consequential -te- + -ngama = -cama
+    ("sun'arauluni", "vi", "1P:CSEQ:SG", "sun'araungama"),
+    ("aiwilluni", "vi", "1P:CSEQ:SG", "aiwicama"),
+    ("aiwilluku", "vt", "CSEQ:O3P:OSG:S1P:SSG", "aiwicamgu"),
 ]
 
 

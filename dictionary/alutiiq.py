@@ -87,7 +87,7 @@ def apply_transformations(before, center, after):
             elif after.startswith('~g'):
                 if center[-1] not in 'aeiou':
                     center = center[:-1]
-            elif after.startswith('~l'):
+            elif after.startswith('~l') or after.startswith('~ng'):
                 if center[-1] in "t'":
                     center = center[:-1]
             elif after[:2] in ('~a', '~i', '~u'):
@@ -138,6 +138,11 @@ def apply_transformations(before, center, after):
                 before.endswith('rr') or
                 (len(before) >= 2 and before[-2] in 'aeiou' and before.endswith('t'))):
                 center = 'l' + center[1:]
+            else:
+                center = center[1:]
+        elif center.startswith('~ng'):
+            if before.endswith('t'):
+                center = 'c' + center[3:]
             else:
                 center = center[1:]
         elif center[0] in '+-~':
@@ -193,7 +198,8 @@ HIERARCHY = {
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
-                     ('DEP', 'dependent')]),
+                     ('COND', 'if'),
+                     ('CSEQ', 'when')]),
         Widget(id='subject', title='Subject',
                default='1P:SG',
                rows=[('1P', 'gui'),
@@ -210,7 +216,8 @@ HIERARCHY = {
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
-                     ('DEP', 'dependent')]),
+                     ('COND', 'if'),
+                     ('CSEQ', 'when')]),
         Widget(id='subject', title='Subject',
                default='S1P:SSG',
                rows=[('S1P', 'gui'),
@@ -517,6 +524,12 @@ ENDINGS = {
             ['~kan', '~kagta', '~kata'],
             ['~kuni', '~kunek', '~kuneng'],
         ],
+        [
+            ['~ngama', '~ngamnuk', '~ngamta'],
+            ['~ngaut', "~ngaugtek", "~ngaugci"],
+            ['~ngan', '~ngagta', '~ngata'],
+            ['~ngami', '~ngamek', '~ngameng'],
+        ],
     ],
     'vt': [
         [
@@ -729,6 +742,88 @@ ENDINGS = {
                     ["~kunegt'nga", "~kunegt'kuk", "~kunegt'kut"],
                     ["~kunegt'sten", "~kunegt'stek", "~kunegt'si"],
                     ["~kunegt'gu", "~kunegt'kek", "~kunegt'ki"],
+                    ['-'] * 3,
+                ],
+            ],
+        ],
+        [
+            [
+                [
+                    ['-'] * 3,
+                    ['~ngamken', '~ngamtek', '~ngamci'],
+                    ["~ngamgu", "~ngamkek", '~ngamki'],
+                    ["~ngamni", "~ngamtek", '~ngamteng'],
+                ],
+                [
+                    ['-'] * 3,
+                    ['~ngamken', '~ngamtek', '~ngamci'],
+                    ["~ngamt'gen'gu", "~ngamt'gen'kek", "~ngamt'gen'ki"],
+                    ["~ngamt'gni", "~ngamt'gtek", "~ngamt'gteng"],
+                ],
+                [
+                    ['-'] * 3,
+                    ['~ngamken', '~ngamtek', '~ngamci'],
+                    ["~ngamt'gu", "~ngamt'kek", "~ngamt'ki"],
+                    ["~ngamt'ni", "~ngamt'stek", "~ngamt'steng"],
+                ],
+            ],
+            [
+                [
+                    ["~ngaugnga", "~ngaugkuk", "~ngaugkut"],
+                    ['-'] * 3,
+                    ['~ngagu', '~ngaugkek', "~ngaugki"],
+                    ['~ngaugni', '~ngaugtek', "~ngaugteng"],
+                ],
+                [
+                    ["~ngaugt'gennga", "~ngaugt'kuk", "~ngaugt'kut"],
+                    ['-'] * 3,
+                    ["~ngaugt'gengu", "~ngaugt'genkek", "~ngaugt'genki"],
+                    ["~ngaugt'gni", "~ngaugt'gtek", "~ngaugt'gteng"],
+                ],
+                [
+                    ["~ngaugcia", "~ngaugcikuk", "~ngaugcikut"],
+                    ['-'] * 3,
+                    ["~ngaugciu", "~ngaugcikek", "~ngaugciki"],
+                    ["~ngaugt'sni", "~ngaugt'stek", "~ngaugt'steng"],
+                ],
+            ],
+            [
+                [
+                    ['~nganga', '~ngakuk', '~ngakut'],
+                    ['~ngaten', '~ngatek', '~ngaci'],
+                    ['~ngagu', "~ngakek", '~ngaki'],
+                    ['~ngani', '~ngatek', "~ngateng"],
+                ],
+                [
+                    ['~ngagnenga', '~ngagnekuk', '~ngagnekut'],
+                    ['~ngagten', '~ngagtek', "~ngagci"],
+                    ['~ngagnegu', "~ngagnekek", '~ngagneki'],
+                    ['~ngagni', '~ngagtek', '~ngagteng'],
+                ],
+                [
+                    ['~ngatnga', '~ngatkuk', '~ngatkut'],
+                    ['~ngaten', "~ngat'ek", "~ngat'si"],
+                    ['~ngatgu', '~ngatkek', '~ngatki'],
+                    ['~ngatni', "~ngat'stek", "~ngat'steng"],
+                ],
+            ],
+            [
+                [
+                    ['~ngamia', '~ngamikuk', '~ngamikut'],
+                    ['~ngamiten', '~ngamitek', '~ngamici'],
+                    ['~ngamiu', "~ngamikek", '~ngamikegki'],
+                    ['-'] * 3,
+                ],
+                [
+                    ["~ngamegt'gennga", "~ngamegt'genkuk", "~ngamegt'genkut"],
+                    ["~ngamegt'gten", "~ngamegt'gtek", "~ngamegt'gci"],
+                    ["~ngamegt'gengu", "~ngamegt'genkek", "~ngamegt'genki"],
+                    ['-'] * 3,
+                ],
+                [
+                    ["~ngamegt'nga", "~ngamegt'kuk", "~ngamegt'kut"],
+                    ["~ngamegt'sten", "~ngamegt'stek", "~ngamegt'si"],
+                    ["~ngamegt'gu", "~ngamegt'kek", "~ngamegt'ki"],
                     ['-'] * 3,
                 ],
             ],
