@@ -34,6 +34,9 @@ ENDING_TEST_CASES = [
     ("aplluku", "vt", "O3P:OSG:PAST:S1P:SSG", "ap'sk'gka"),
     ("eglluku", "vt", "O3P:OSG:PAST:S1P:SSG", "eg'sk'gka"),
 
+    # q-stem transitive verb
+    ("quliyanguaqlluku", "vt", "O3P:OSG:PRES:S1P:SSG", "quliyanguaqaqa"),
+
     # Irregular nouns
     #("kuik", "n", "ERG:SG:UNPOSS", "kuigem"),  # CG p. 125
     #("suk", "n", "ERG:SG:UNPOSS", "suugem"),  # CG p. 139

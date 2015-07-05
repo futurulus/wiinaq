@@ -88,11 +88,9 @@ def apply_transformations(before, center, after):
                 if center[-1] not in 'aeiou':
                     center = center[:-1]
             elif after.startswith('~l'):
-                center = get_root(center)
                 if center[-1] in "t'":
                     center = center[:-1]
             elif after[:2] in ('~a', '~i', '~u'):
-                center = get_root(center)
                 if center[-1:] == after[1]:
                     center += "'"
                 elif center.endswith('e'):
