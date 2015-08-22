@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+git push && rhc app stop && rhc app start
