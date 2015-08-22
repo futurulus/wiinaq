@@ -1,0 +1,45 @@
+{% extends "dictionary/base.html" %}
+
+{% block content %}
+{% if partial_word %}
+    <div class="assembled">
+        <h1>{{ partial_word }}</h1>
+    </div>
+{% endif %}
+
+<div class="searchbar">
+    <form class="searchform" action="{% url 'search' %}" method="get">
+        <input type="hidden" name="w" value="{{ build_chunks }}" />
+        <div class="expand"><input type="text" class="searchbox" name="q" value="{{ query }}" /></div>
+        <input class="submit" type="submit" value="Search" />
+    </form>
+</div>
+
+{% if entry_list %}
+    <ul class="results">
+    {% for entry in entry_list %}
+        <div class="entry">
+            <div class="details">
+                <a class="word" href="{% url 'entry' entry.word %}">
+                    {{ entry.word }}
+                    <span class="link-expander"></span>
+                </a>
+                <div class="defns">
+                {% for sense in entry.senses %}
+                    <span class="sense">
+                        <span class="pos">{{ sense.pos }}</span>
+                        {{ sense.defns|join:"; " }}
+                    </span>
+                {% endfor %}
+                </div>
+            </div>
+            <!--
+            <div class="buttons">
+                <a class="button" href="{% url 'build' %}?q={% if query %}{{ query }}{% endif %}&w={% if build_entries %}{{ build_entries }}_{{ entry.word }}{% else %}{{ entry.word }}{% endif %}">build</a>
+            </div>
+            -->
+        </div>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

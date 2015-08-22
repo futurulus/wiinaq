@@ -5,3 +5,6 @@
 *~
 .project
 .pydevproject
+db.sqlite3
+coverage_report/
+dict_sources/

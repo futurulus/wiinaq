@@ -1,0 +1,48 @@
+ENHANCEMENT
+combine identical entries
+fuzzy matching
+separate Alutiiq and English search
+
+BROKEN
+kuik erg: kuigem ("kuim") /entry/647/ [CG p. 125]
+ell'uni (no endings) /entry/291/ [CG p. 128]
+mill'uni (no endings) /entry/1465/ [CG p. 128]
+qitengluni 3p pres: qitenguq ("qitengtuq") [CG p. 131]
+acigpeni (no endings) /entry/2848/ [CG p. 133]
+akuliit 3p/pl poss: akuliit ("akuliiat") /entry/189/ [CG p. 133]
+suk erg: suugem/t/k ("sum/k/t") /entry/1901/ [CG p. 139]
+wiinga singular: wi? wik? (no endings) /entry/1346/ [CG p. 141]
+nuna 3p poss: nunii (no endings) /entry/3465/ [CG p. 141]
+neqet singular: neqa ("neqesk") /entry/1013/ [CG p. 141]
+piugta 3p poss: piugtii (no endings) /entry/3431/ [CG p. 141]
+saqul'aq 3p poss: saqulgaa ("saqulaa'a") /entry/799/ [CG p. 142]
+nuliq 3p poss: nulira ("nulia") /entry/2989/ [CG p. 143]
+niilluku 4p->3p dep: niskuniu ("niiskuniu") /entry/1256/ [Stories: Ar'ursulek]
+tuumiaqlluku dep/past: tuumiaqk'gkumgu ("tuumiakumgu") /entry/3653/[Stories: Ar'ursulek p. 24]
+miknani pres: miktuq ("miknaniuq") /entry/1554/
+
+TO CHECK
+peklluni 1p past: pek'llrianga ("pellrianga") /entry/65/
+eklluni 1p past: ek'llrianga ("ellrianga") /entry/1081/
+[CG p. 292]
+agtualuni 1p->3p and 2p->3p question: agtua'aqa or agtuagtaqa? agtuayu??
+[CG p. 123]
+arya'aq erg: aryagaam/k/t ("arya'am/k/t") /entry/1093/
+cuawak erg: cuawiim/k/t ("cuawam/k/t") /entry/1339/
+kenirwik erg: kenirwiim/k/t ("kenirwim/k/t") /entry/1440/
+amiik erg: amiigem/k/t or amii'im/k/t ("amiim/k/t") /entry/760/
+nutek erg: nutgem/k/t ("nutem/k/t") /entry/3615/
+nateq erg: natrem/k/t ("natem/k/t") /entry/995/
+kina(q) erg: kitum/kinkuk/kinkut (no endings) /entry/2979/
+una erg: um/ukuk/ukut (no endings) /entry/1272/
+[CG p. 124]
+imaq erg: imaam ("imam") /entry/1777/
+[CG p. 125]
+kangiyaq erg: kangiraam ("kangiyam") /entry/289/
+[CG p. 142]
+isuwik 3p poss: isuria ("isuwia") /entry/2241/
+suk 3p poss: suu'a/suuga ("sua") /entry/1901/
+kaiwik 3p poss: kayugia ("kaiwia") /entry/1783/
+[CG p. 143]
+puyulek 3p poss: puyulga ("puyulega") /entry/2888/
+nutek 3p poss: nutga ("nutega") /entry/3615/

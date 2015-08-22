@@ -1,0 +1,24 @@
+[
+    {
+        "pk": 1,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": "",
+            "entry": "#!/usr/bin/env bash",
+            "pos": "",
+            "search_text": "#!/usr/bin/env bash ",
+            "defn": ""
+        }
+    },
+    {
+        "pk": 2,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": "",
+            "entry": "./manage.py test",
+            "pos": "n",
+            "search_text": "./manage.py test ",
+            "defn": ""
+        }
+    }
+]
