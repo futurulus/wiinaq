@@ -1,5 +1,6 @@
 # Database
 db.sqlite3
+dev.db
 
 # Temporary files
 *.pyc
@@ -7,9 +8,13 @@ db.sqlite3
 .coverage
 coverage_report
 
-# Secret key for admin
+# Secret key for admin, database
 secret.py
+creds
 
 # Dictionary data
 dictionary/fixtures
 dict_sources
+
+# Pre-packaged python modules (install with ./dependencies)
+django_nose/

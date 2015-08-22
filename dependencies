@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+piptemp='pip_temp~'
+
+mkdir -p "$piptemp"
+pip install -t "$piptemp"/ django_nose
+mv "$piptemp"/django_nose ./
+rm -rf "$piptemp"
