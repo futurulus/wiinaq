@@ -2,6 +2,29 @@ import re
 from collections import namedtuple
 
 
+def normalize(word):
+    '''
+    Perform fuzzy search normalization (collapse commonly confused sounds
+    so search is resilient to misspellings of Alutiiq words).
+    
+    >>> normalize('tuumiaqlluku')
+    'tumiaklluku'
+    >>> normalize("wiiwaq")
+    'uiuak'
+    >>> normalize("estui'isuun")
+    'stuisun'
+    '''
+    word = re.sub(r'(?<!n)g', 'r', word)
+    word = (word.replace('q', 'k')
+                .replace('y', 'i')
+                .replace('w', 'u')
+                .replace('e', '')
+                .replace("'", ''))
+    for vowel in 'aiu':
+        word = re.sub(vowel + '+', vowel, word)
+    return word
+
+
 def get_root(word):
     endings = ['luni', 'lutek', 'luteng', 'kunani', 'kunatek', 'kunateng',
                'luku', 'lukek', 'luki', 'kunaku', 'kunakek', 'kunaki']
