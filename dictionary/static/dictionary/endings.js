@@ -124,6 +124,32 @@ $(document).ready(function() {
         endings.activate_cell(id);
     });
 
+    $(".popout-header").text(function () {
+        return "Show " + $(this).text();
+    });
+
+    $(".popout-header").click(function () {
+        // Make ending tables collapse and expand
+        // http://jsfiddle.net/hungerpain/eK8X5/7/
+        $header = $(this);
+        //getting the next element
+        $content = $header.next();
+        //change text and appearance of header based on visibility of content div
+        $header.toggleClass("expanded");
+        var text = $header.text();
+        if ($header.hasClass("expanded")) {
+            $header.text(function () {
+                return text.substring(5);
+            });
+        } else {
+            $header.text(function () {
+                return "Show " + text;
+            });
+        }
+        //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+        $content.slideToggle(200);
+    });
+
     endings.refresh_visible();
 
 });

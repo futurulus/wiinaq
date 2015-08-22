@@ -40,7 +40,13 @@ h2 {
 }
 
 .popout-header {
+    color: #0044aa;
     margin: 0px;
+    cursor: pointer;
+}
+
+.popout-content {
+    display: none;
 }
 
 .disclaimer {

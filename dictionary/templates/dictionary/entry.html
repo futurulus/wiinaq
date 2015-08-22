@@ -13,54 +13,56 @@
     <div class="popout">
         <h2 class="popout-header">Endings</h2>
 
-        {% for table in chunk.inflections %}
-        <h3>{{ table.title }}</h3>
-        <table class="inflection" id="{{ table.id }}">
-            <tr>
-                <th />
-                {% for h in table.column_headers %}
-                <th>{{ h }}</th>
-                {% endfor %}
-            </tr>
-            {% for r in table.rows %}
-            <tr>
-                <th>{{ r.header }}</th>
-                {% for c in r.cells %}
-                <td class="inflection-entry" id="{{ c.id }}">
-                    {% for id, entry in c.map.items %}
-                    <span class="inflection-option hide" id="{{ id }}">{{ entry }}</span>
+        <div class="popout-content">
+            {% for table in chunk.inflections %}
+            <h3>{{ table.title }}</h3>
+            <table class="inflection" id="{{ table.id }}">
+                <tr>
+                    <th />
+                    {% for h in table.column_headers %}
+                    <th>{{ h }}</th>
                     {% endfor %}
-                </td>
+                </tr>
+                {% for r in table.rows %}
+                <tr>
+                    <th>{{ r.header }}</th>
+                    {% for c in r.cells %}
+                    <td class="inflection-entry" id="{{ c.id }}">
+                        {% for id, entry in c.map.items %}
+                        <span class="inflection-option hide" id="{{ id }}">{{ entry }}</span>
+                        {% endfor %}
+                    </td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </tr>
+            </table>
+
+            <script>
+            endings.row_span["{{ table.id }}"] = {
+            {% for cell_id, conditions in table.row_span.items %}
+                "{{ cell_id }}": "{{ conditions }}",
             {% endfor %}
-        </table>
+            };
 
-        <script>
-        endings.row_span["{{ table.id }}"] = {
-        {% for cell_id, conditions in table.row_span.items %}
-            "{{ cell_id }}": "{{ conditions }}",
-        {% endfor %}
-        };
+            endings.col_span["{{ table.id }}"] = {
+            {% for cell_id, conditions in table.col_span.items %}
+                "{{ cell_id }}": "{{ conditions }}",
+            {% endfor %}
+            };
 
-        endings.col_span["{{ table.id }}"] = {
-        {% for cell_id, conditions in table.col_span.items %}
-            "{{ cell_id }}": "{{ conditions }}",
-        {% endfor %}
-        };
+            endings.collapse["{{ table.id }}"] = {
+            {% for cell_id, conditions in table.collapse.items %}
+                "{{ cell_id }}": "{{ conditions }}",
+            {% endfor %}
+            };
 
-        endings.collapse["{{ table.id }}"] = {
-        {% for cell_id, conditions in table.collapse.items %}
-            "{{ cell_id }}": "{{ conditions }}",
-        {% endfor %}
-        };
+            endings.activate_cell("{{ table.default }}");
+            </script>
+            {% endfor %}
 
-        endings.activate_cell("{{ table.default }}");
-        </script>
-        {% endfor %}
-
-        <p class="disclaimer">(Endings are automatically generated. Help us out by reporting
-        errors!)</p>
+            <p class="disclaimer">(Endings are automatically generated. Help us out by reporting
+            errors!)</p>
+        </div>
     </div>
     {% endif %}
     {% endfor %}
