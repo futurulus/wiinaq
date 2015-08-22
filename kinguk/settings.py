@@ -20,10 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
-# secret.py should contain
-#   SECRET_KEY = '<bunch of symbols>'
 # SECURITY WARNING: keep the secret key used in production secret!
-from secret import SECRET_KEY
+SECRET_KEY = '0123456789abcdef0123456789abcdef0123456789abcdef01'
+# should be obsolete after move to OpenShift
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

@@ -1,7 +1,10 @@
 #!/bin/bash
-# This is a simple build script and will be executed on your CI system if 
+# This is a simple build script and will be executed on your CI system if
 # available.  Otherwise it will execute while your application is stopped
 # before the deploy step.  This script gets executed directly, so it
 # could be python, php, ruby, etc.
 
 # Activate VirtualEnv in order to use the correct libraries
+source ~/python-2.6/virtenv/bin/activate
+
+pip install --log $OPENSHIFT_DATA_DIR/inst.log -E $VIRTUAL_ENV  django_nose
