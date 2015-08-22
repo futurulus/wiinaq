@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'dictionary',
 )
 
@@ -54,6 +55,10 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'kinguk.urls'
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = ['--with-doctest']
 
 TEMPLATES = [
     {
