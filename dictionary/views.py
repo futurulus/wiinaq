@@ -121,6 +121,7 @@ def build_sense(defn, chunks):
 
 
 def root_to_id(pos, root):
+    if root is None: return pos
     root = root.encode('utf-8')
     return '%s-%s%s' % (pos, re.sub('[\W_]+', '', root),
                         binascii.hexlify(root))
