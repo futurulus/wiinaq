@@ -4,6 +4,8 @@ fuzzy matching
 separate Alutiiq and English search
 
 BROKEN
+takuka'aq: id is bad because of apostrophe, endings don't show up
+
 kuik erg: kuigem ("kuim") /entry/647/ [CG p. 125]
 ell'uni (no endings) /entry/291/ [CG p. 128]
 mill'uni (no endings) /entry/1465/ [CG p. 128]

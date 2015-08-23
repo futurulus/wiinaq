@@ -5,13 +5,16 @@
 <head>
     <title>Kinguk Alutiiq Dictionary</title>
     <link rel="stylesheet" href="{% static "dictionary/styles.css" %}">
+    <meta name="viewport" content="width=device-width">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="{% static "dictionary/endings.js" %}"></script>
 </head>
 
 <body>
-    <div id="content">
-    {% block content %}{% endblock %}
+    <div id="centering">
+        <div id="content">
+        {% block content %}{% endblock %}
+        </div>
     </div>
 </body>
 </html>
