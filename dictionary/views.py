@@ -1,4 +1,5 @@
 import re
+import binascii
 import itertools
 from collections import namedtuple
 
@@ -19,6 +20,7 @@ def entry(request, word):
     context = {'word': word,
                'roots': [{'root': root.root,
                           'pos': root.pos,
+                          'id': root.id,
                           'inflections': inflection_data(root),
                           'senses': root.senses}
                          for root in entries[0].roots]}
@@ -34,7 +36,7 @@ def remove_parens(s):
 
 
 Entry = namedtuple('Entry', ['word', 'roots'])
-Root = namedtuple('Root', ['word', 'pos', 'root', 'defns', 'senses'])
+Root = namedtuple('Root', ['word', 'pos', 'root', 'id', 'defns', 'senses'])
 Sense = namedtuple('Sense', ['chunks', 'defn', 'sources'])
 
 def chunk_relevance(chunk, query):
@@ -118,6 +120,12 @@ def build_sense(defn, chunks):
     return Sense(defn=defn, chunks=chunks, sources=[c.source for c in chunks])
 
 
+def root_to_id(pos, root):
+    root = root.encode('utf-8')
+    return '%s-%s%s' % (pos, re.sub('[\W_]+', '', root),
+                        binascii.hexlify(root))
+
+
 def build_root(word, pos, root, chunks):
     chunks = sorted(chunks, key=lambda c: (len(c.defn), c.defn))
     senses = [
@@ -125,7 +133,9 @@ def build_root(word, pos, root, chunks):
         for defn, group in itertools.groupby(chunks, lambda c: c.defn)
     ]
     defns = [s.defn for s in senses]
-    return Root(word=word, pos=pos, root=root, defns=defns, senses=senses)
+    id = root_to_id(pos, root)
+    return Root(word=word, pos=pos, root=root, id=id,
+                defns=defns, senses=senses)
 
 
 def pos_root(chunk, separate_roots=False):

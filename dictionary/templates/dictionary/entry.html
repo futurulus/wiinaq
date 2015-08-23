@@ -18,7 +18,7 @@
 
 
     {% if root.inflections %}
-    <div class="popout" id="endings-{{ root.pos }}-{{ root.root }}">
+    <div class="popout" id="endings-{{ root.id }}">
 
         <h2 class="popout-header">Endings</h2>
 
@@ -55,7 +55,7 @@
         </div>
     </div>
     <script>
-        var state = new PopoutState($(endings.escape_id("endings-{{ root.pos }}-{{ root.root }}")));
+        var state = new PopoutState($(endings.escape_id("endings-{{ root.id }}")));
 
         {% for table in root.inflections %}
         // {
@@ -79,7 +79,7 @@
         // }
         {% endfor %}
 
-        endings.state["endings-{{ root.pos }}-{{ root.root }}"] = state;
+        endings.state["endings-{{ root.id }}"] = state;
 
         {% for table in root.inflections %}
         state.activate_cell("{{ table.default }}");
