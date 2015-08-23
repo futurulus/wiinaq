@@ -4,18 +4,26 @@
 <div class="listing">
     <h1>{{ word }}</h1>
 
-    {% for chunk in chunks %}
-    <p class="listing-defn"><span class="pos">{{ chunk.chunk.pos }}</span> {{ chunk.chunk.defn }}</p>
+    {% for root in roots %}
+    <p class="root-header"><span class="pos">{{ root.pos }}</span>
+    <span class="root-label">root:</span> <span class="root">{{ root.root }}-</span></p>
 
-    <p class="sources">Source: <span class="source">{{ chunk.chunk.source }}</span></p>
+    <ol>
+    {% for sense in root.senses %}
+        <li class="listing-defn"><span class="defn">{{ sense.defn }}</span>
+            <span class="sources">{{ sense.sources|join:"; " }}</span>
+            </li>
+    {% endfor %}
+    </ol>
 
-    {% if chunk.inflections %}
-    <div class="popout" id="endings-{{ chunk.chunk.id }}">
+
+    {% if root.inflections %}
+    <div class="popout" id="endings-{{ root.pos }}-{{ root.root }}">
 
         <h2 class="popout-header">Endings</h2>
 
         <div class="popout-content">
-            {% for table in chunk.inflections %}
+            {% for table in root.inflections %}
             <h3>{{ table.title }}</h3>
             <table class="inflection" id="{{ table.id }}">
                 <tr>
@@ -47,9 +55,9 @@
         </div>
     </div>
     <script>
-        var state = new PopoutState($(endings.escape_id("endings-{{ chunk.chunk.id }}")));
+        var state = new PopoutState($(endings.escape_id("endings-{{ root.pos }}-{{ root.root }}")));
 
-        {% for table in chunk.inflections %}
+        {% for table in root.inflections %}
         // {
             state.row_span["{{ table.id }}"] = {
             {% for cell_id, conditions in table.row_span.items %}
@@ -71,9 +79,9 @@
         // }
         {% endfor %}
 
-        endings.state["endings-{{ chunk.chunk.id }}"] = state;
+        endings.state["endings-{{ root.pos }}-{{ root.root }}"] = state;
 
-        {% for table in chunk.inflections %}
+        {% for table in root.inflections %}
         state.activate_cell("{{ table.default }}");
         {% endfor %}
     </script>

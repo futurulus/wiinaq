@@ -69,6 +69,15 @@ p {
 }
 
 .pos {
+    font-style: bold;
+    color: #777777;
+}
+
+.defn {
+    font-size: 1.5em;
+}
+
+.root-label {
     font-style: italic;
     color: #777777;
 }
@@ -161,11 +170,8 @@ p {
 }
 
 .sources {
-    color: #777777;
-}
-
-.source {
     color: #777733;
+    padding: 0 5px;
 }
 
 .inflection-entry {

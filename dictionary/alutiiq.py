@@ -304,10 +304,10 @@ TableRow = namedtuple('TableRow', ['header', 'cells'])
 TableCell = namedtuple('TableCell', ['id', 'map'])
 
 
-def build_tables(chunk):
-    endings_map = get_endings_map(chunk.entry, chunk.pos)
+def build_tables(root):
+    endings_map = get_endings_map(root.word, root.pos)
 
-    for w in HIERARCHY[chunk.pos]:
+    for w in HIERARCHY[root.pos]:
         column_headers = [header for id_, header in w.cols]
         table = Table(w.id, w.title, w.default, column_headers,
                       list(build_rows(w, endings_map)),
@@ -925,19 +925,19 @@ ENDINGS = {
     ],
 }
 
-def inflection_data(chunk):
-    if chunk.pos in ENDINGS:
-        return inflect(chunk)
+def inflection_data(root):
+    if root.pos in ENDINGS:
+        return inflect(root)
     else:
         return None
 
 
-def inflect(chunk):
+def inflect(root):
     '''
     return [build_table(s, column_headers,
             [TableRow(rh, ['-' if c == '-' else morpho_join([entry, c])
                            for c in row])
              for rh, row in zip(row_headers, cells[i])])
-            for i, s in enumerate(HIERARCHY[chunk.pos])]
+            for i, s in enumerate(HIERARCHY[root.pos])]
     '''
-    return list(build_tables(chunk))
+    return list(build_tables(root))

@@ -5,7 +5,7 @@ from collections import namedtuple
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 
 from .models import Chunk
-from .alutiiq import morpho_join, inflection_data
+from .alutiiq import morpho_join, inflection_data, get_root
 
 
 def index(request):
@@ -14,10 +14,14 @@ def index(request):
 
 def entry(request, word):
     chunks = get_list_or_404(Chunk, entry=word)
+    entries = group_entries(chunks, separate_roots=True)
+    assert len(entries) == 1
     context = {'word': word,
-               'chunks': [{'chunk': chunk,
-                           'inflections': inflection_data(chunk)}
-                          for chunk in chunks]}
+               'roots': [{'root': root.root,
+                          'pos': root.pos,
+                          'inflections': inflection_data(root),
+                          'senses': root.senses}
+                         for root in entries[0].roots]}
     return render(request, 'dictionary/entry.html', context)
 
 
@@ -29,8 +33,9 @@ def remove_parens(s):
     return re.sub(r'\([^)]+\)', '', s)
 
 
-Entry = namedtuple('Entry', ['word', 'senses'])
-Sense = namedtuple('Sense', ['pos', 'chunks', 'defns'])
+Entry = namedtuple('Entry', ['word', 'roots'])
+Root = namedtuple('Root', ['word', 'pos', 'root', 'defns', 'senses'])
+Sense = namedtuple('Sense', ['chunks', 'defn', 'sources'])
 
 def chunk_relevance(chunk, query):
     query_l = query.lower()
@@ -98,7 +103,8 @@ def chunk_relevance(chunk, query):
 def relevance(query):
     def sort_key(entry):
         return (max(chunk_relevance(chunk, query)
-                    for sense in entry.senses
+                    for root in entry.roots
+                    for sense in root.senses
                     for chunk in sense.chunks),
                 entry.word.lower(),
                 entry.word)
@@ -107,18 +113,35 @@ def relevance(query):
     return sort_key
 
 
-def build_sense(pos, chunks):
+def build_sense(defn, chunks):
     chunks = list(chunks)
-    return Sense(pos=pos, chunks=chunks,
-                 defns=sorted(set(c.defn for c in chunks)))
+    return Sense(defn=defn, chunks=chunks, sources=[c.source for c in chunks])
 
 
-def group_entries(chunk_list):
+def build_root(word, pos, root, chunks):
+    chunks = sorted(chunks, key=lambda c: (len(c.defn), c.defn))
+    senses = [
+        build_sense(defn=defn, chunks=group)
+        for defn, group in itertools.groupby(chunks, lambda c: c.defn)
+    ]
+    defns = [s.defn for s in senses]
+    return Root(word=word, pos=pos, root=root, defns=defns, senses=senses)
+
+
+def pos_root(chunk, separate_roots=False):
+    if separate_roots:
+        return (chunk.pos, get_root(chunk.entry))
+    else:
+        return (chunk.pos, None)
+
+
+def group_entries(chunk_list, separate_roots=False):
     entries = itertools.groupby(chunk_list, lambda c: c.entry)
     return [
-        Entry(word=word, senses=[
-            build_sense(pos=pos, chunks=list(chunks))
-            for pos, chunks in itertools.groupby(group, lambda c: c.pos)
+        Entry(word=word, roots=[
+            build_root(word=word, pos=pos, root=root, chunks=list(chunks))
+            for (pos, root), chunks in
+                itertools.groupby(group, lambda c: pos_root(c, separate_roots))
         ])
         for word, group in entries
     ]

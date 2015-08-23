@@ -25,10 +25,10 @@
                     <span class="link-expander"></span>
                 </a>
                 <div class="defns">
-                {% for sense in entry.senses %}
-                    <span class="sense">
-                        <span class="pos">{{ sense.pos }}</span>
-                        {{ sense.defns|join:"; " }}
+                {% for root in entry.roots %}
+                    <span class="root">
+                        <span class="pos">{{ root.pos }}</span>
+                        {{ root.defns|join:"; " }}
                     </span>
                 {% endfor %}
                 </div>
