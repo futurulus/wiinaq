@@ -1,16 +1,19 @@
 endings = {};
-endings.active = {};
-endings.row_span = {};
-endings.col_span = {};
-endings.collapse = {};
+endings.state = {};
 
-(function () {
+var escape_id = function(id) {
+    return "#" + id.replace(/(:|\.|\[|\]|,)/g, "\\$1");
+}
+endings.escape_id = escape_id;
 
-    function escape_id(id) {
-        return "#" + id.replace(/(:|\.|\[|\]|,)/g, "\\$1");
-    }
+var PopoutState = function($popout) {
+    this.popout_id = $popout.attr("id");
+    this.active = {};
+    this.row_span = {};
+    this.col_span = {};
+    this.collapse = {};
 
-    function remove_ids(id) {
+    this.remove_ids = function(id) {
         var pieces = id.split(":");
         for (var i = 0; i < pieces.length; i++) {
             var id_part = pieces[i];
@@ -18,11 +21,11 @@ endings.collapse = {};
                 id_part = id_part.split("-")[0];
             }
 
-            delete endings.active[id_part];
+            delete this.active[id_part];
         }
     }
 
-    function add_ids(id) {
+    this.add_ids = function(id) {
         var pieces = id.split(":");
         for (var i = 0; i < pieces.length; i++) {
             var id_part = pieces[i];
@@ -30,27 +33,11 @@ endings.collapse = {};
                 id_part = id_part.split("-")[0];
             }
 
-            endings.active[id_part] = true;
+            this.active[id_part] = true;
         }
     }
 
-    endings.activate_cell = function(id) {
-        console.debug("escape_id(id): " + escape_id(id));
-        var table_id = $(escape_id(id) + ".inflection-entry").closest('table').attr("id");
-        console.debug("table_id: " + table_id);
-
-        $(escape_id(table_id) + " .inflection-entry").map(function() {
-            remove_ids($(this).attr("id"));
-        });
-
-        add_ids(id);
-
-        endings.refresh_visible();
-
-        return "Active: " + JSON.stringify(endings.active);
-    }
-
-    function is_active(id) {
+    this.is_active = function(id) {
         var pieces = id.split(":");
         for (var i = 0; i < pieces.length; i++) {
             var id_part = pieces[i];
@@ -58,70 +45,91 @@ endings.collapse = {};
                 id_part = id_part.split("-")[0];
             }
 
-            if (!(id_part in endings.active)) {
+            if (!(id_part in this.active)) {
                 return false;
             }
         }
         return true;
     }
 
-    endings.refresh_visible = function() {
-        $(".inflection-option").map(function() {
+    this.activate_cell = function(id) {
+        var state = this;
+
+        console.debug("activating " + escape_id(this.popout_id) + " " + escape_id(id));
+        var table_id = $(escape_id(this.popout_id) + " " +
+                         escape_id(id) + ".inflection-entry").closest('table').attr("id");
+        console.debug("table_id: " + table_id);
+
+        $(escape_id(table_id) + " .inflection-entry").map(function() {
+            state.remove_ids($(this).attr("id"));
+        });
+
+        state.add_ids(id);
+
+        state.refresh_visible();
+
+        return "Active: " + JSON.stringify(this.active);
+    }
+
+    this.refresh_visible = function() {
+        var state = this;
+
+        $popout.find(".inflection-option").map(function() {
             var id = $(this).attr("id");
-            if (is_active(id)) {
+            if (state.is_active(id)) {
                 $(this).removeClass("hide");
             } else {
                 $(this).addClass("hide");
             }
         });
 
-        $(".inflection-entry").map(function() {
+        $popout.find(".inflection-entry").map(function() {
             var id = $(this).attr("id");
             var table = $(escape_id(id) + ".inflection-entry").closest('table');
             var table_id = table.attr("id");
 
-            if (id in endings.collapse[table_id] &&
-                    (endings.collapse[table_id][id] === "*" ||
-                     is_active(endings.collapse[table_id][id]))) {
+            if (id in state.collapse[table_id] &&
+                    (state.collapse[table_id][id] === "*" ||
+                     state.is_active(state.collapse[table_id][id]))) {
                 $(this).addClass("hide");
                 $(this).removeClass("active");
             } else {
                 $(this).removeClass("hide");
 
-                if (is_active(id)) {
+                if (state.is_active(id)) {
                     $(this).addClass("active");
                 } else {
                     $(this).removeClass("active");
                 }
             }
 
-            if (id in endings.row_span[table_id] &&
-                    (endings.row_span[table_id][id] === "*" ||
-                     is_active(endings.row_span[table_id][id]))) {
+            if (id in state.row_span[table_id] &&
+                    (state.row_span[table_id][id] === "*" ||
+                     state.is_active(state.row_span[table_id][id]))) {
                 var num_rows = table.find("tr").length - 1;
                 $(this).attr("rowspan", num_rows);
             } else {
                 $(this).removeAttr("rowspan");
             }
 
-            if (id in endings.col_span[table_id] &&
-                    (endings.col_span[table_id][id] === "*" ||
-                     is_active(endings.col_span[table_id][id]))) {
+            if (id in state.col_span[table_id] &&
+                    (state.col_span[table_id][id] === "*" ||
+                     state.is_active(state.col_span[table_id][id]))) {
                 var num_cols = table.find("tr:first th").length - 1;
                 $(this).attr("colspan", num_cols);
             } else {
                 $(this).removeAttr("colspan");
             }
         });
-    }
+    };
 
-})();
+};
 
 $(document).ready(function() {
-
     $(".inflection-entry").click(function(event) {
+        var popout_id = $(this).closest(".popout").attr("id");
         var id = $(this).attr("id");
-        endings.activate_cell(id);
+        endings.state[popout_id].activate_cell(id);
     });
 
     $(".popout-header").text(function () {
@@ -150,6 +158,10 @@ $(document).ready(function() {
         $content.slideToggle(200);
     });
 
-    endings.refresh_visible();
+    for (var id in endings.state) {
+        if (endings.state.hasOwnProperty(id)) {
+            endings.state[id].refresh_visible();
+        }
+    }
 
 });

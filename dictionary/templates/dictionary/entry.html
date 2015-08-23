@@ -10,7 +10,8 @@
     <p class="sources">Source: <span class="source">{{ chunk.chunk.source }}</span></p>
 
     {% if chunk.inflections %}
-    <div class="popout">
+    <div class="popout" id="endings-{{ chunk.chunk.id }}">
+
         <h2 class="popout-header">Endings</h2>
 
         <div class="popout-content">
@@ -38,25 +39,6 @@
             </table>
 
             <script>
-            endings.row_span["{{ table.id }}"] = {
-            {% for cell_id, conditions in table.row_span.items %}
-                "{{ cell_id }}": "{{ conditions }}",
-            {% endfor %}
-            };
-
-            endings.col_span["{{ table.id }}"] = {
-            {% for cell_id, conditions in table.col_span.items %}
-                "{{ cell_id }}": "{{ conditions }}",
-            {% endfor %}
-            };
-
-            endings.collapse["{{ table.id }}"] = {
-            {% for cell_id, conditions in table.collapse.items %}
-                "{{ cell_id }}": "{{ conditions }}",
-            {% endfor %}
-            };
-
-            endings.activate_cell("{{ table.default }}");
             </script>
             {% endfor %}
 
@@ -64,6 +46,37 @@
             errors!)</p>
         </div>
     </div>
+    <script>
+        var state = new PopoutState($(endings.escape_id("endings-{{ chunk.chunk.id }}")));
+
+        {% for table in chunk.inflections %}
+        // {
+            state.row_span["{{ table.id }}"] = {
+            {% for cell_id, conditions in table.row_span.items %}
+                "{{ cell_id }}": "{{ conditions }}",
+            {% endfor %}
+            };
+
+            state.col_span["{{ table.id }}"] = {
+            {% for cell_id, conditions in table.col_span.items %}
+                "{{ cell_id }}": "{{ conditions }}",
+            {% endfor %}
+            };
+
+            state.collapse["{{ table.id }}"] = {
+            {% for cell_id, conditions in table.collapse.items %}
+                "{{ cell_id }}": "{{ conditions }}",
+            {% endfor %}
+            };
+        // }
+        {% endfor %}
+
+        endings.state["endings-{{ chunk.chunk.id }}"] = state;
+
+        {% for table in chunk.inflections %}
+        state.activate_cell("{{ table.default }}");
+        {% endfor %}
+    </script>
     {% endif %}
     {% endfor %}
 </div>
