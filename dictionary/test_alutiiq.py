@@ -87,10 +87,11 @@ class TestEndings(unittest.TestCase):
 
 
 def add_method(args):
-    root, pos, features, expected = args
+    word, pos, features, expected = args
 
     def check_ending(self):
-        from alutiiq import get_endings_map
+        from alutiiq import get_endings_map, get_root
+        root = get_root(word)
         self.assertEqual(get_endings_map(root, pos)[features], expected)
 
     check_ending.__name__ = re.sub('[^a-zA-Z0-9_]', '_',

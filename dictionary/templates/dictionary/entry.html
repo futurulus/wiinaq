@@ -5,8 +5,10 @@
     <h1>{{ word }}</h1>
 
     {% for root in roots %}
+    {% if root.pos %}
     <p class="root-header"><span class="pos">{{ root.pos }}</span>
     <span class="root-label">root:</span> <span class="root">{{ root.root }}-</span></p>
+    {% endif %}
 
     <ol>
     {% for sense in root.senses %}
@@ -51,7 +53,7 @@
             {% endfor %}
 
             <p class="disclaimer">(Endings are automatically generated. Help us out by
-            <a href="https://docs.google.com/forms/d/1mxloJwG76jL7Y8ACQaAI-w25fe09vn_CBShexOXr-wQ/viewform?entry.252901238=Incorrect+word+or+ending&entry.599026928={{ url|urlencode }}&entry.1210689804={{ request.META.HTTP_USER_AGENT|urlencode }}">reporting errors!)</a></p>
+            <a href="https://docs.google.com/forms/d/1mxloJwG76jL7Y8ACQaAI-w25fe09vn_CBShexOXr-wQ/viewform?entry.252901238=Incorrect+word+or+ending&entry.599026928={{ url|urlencode }}&entry.1210689804={{ request.META.HTTP_USER_AGENT|urlencode }}">reporting errors!</a>)</p>
             <!--<a href="https://docs.google.com/forms/d/1mxloJwG76jL7Y8ACQaAI-w25fe09vn_CBShexOXr-wQ/viewform?entry.252901238=Incorrect+word+or+ending&entry.1210689804=BROWSER&entry.923122775=OPERATING_SYSTEM&entry.599026928=URL&entry.1930047016=PROBLEM&entry.2005487674=CONTACT">-->
         </div>
     </div>

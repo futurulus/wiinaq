@@ -6,7 +6,7 @@ from collections import namedtuple
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 
 from .models import Chunk
-from .alutiiq import morpho_join, inflection_data, get_root
+from .alutiiq import morpho_join, inflection_data
 
 
 def index(request):
@@ -141,11 +141,15 @@ def build_root(word, pos, root, chunks):
                 defns=defns, senses=senses)
 
 
+def convert_none(field):
+    return '' if field == 'None' else field
+
+
 def pos_root(chunk, separate_roots=False):
     if separate_roots:
-        return (chunk.pos, get_root(chunk.entry))
+        return (convert_none(chunk.pos_final), convert_none(chunk.root_final))
     else:
-        return (chunk.pos, None)
+        return (convert_none(chunk.pos_final), None)
 
 
 def group_entries(chunk_list, separate_roots=False):
@@ -175,7 +179,7 @@ def search(request):
         query = request.GET['q']
         chunk_list = (Chunk.objects
                            .filter(search_text__contains=query)
-                           .order_by('entry', 'pos'))
+                           .order_by('entry', 'pos_final'))
         entry_list = sorted(group_entries(chunk_list), key=relevance(query))
         context['entry_list'] = entry_list
         context['query'] = query

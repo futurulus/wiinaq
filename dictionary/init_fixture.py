@@ -1,5 +1,8 @@
+#!/usr/bin/env python
 import sys
 import json
+
+from alutiiq import get_pos, get_root
 
 words_file = 'dict_sources/words.csv'
 output_fixture = 'dictionary/fixtures/words.json'
@@ -18,19 +21,6 @@ if len(sys.argv) >= 2:
     words_file = sys.argv[1]
 
 
-def get_pos(entry):
-    if entry and entry[-1:] in 'qkt':
-        return 'n'
-    elif any(entry.endswith(ending) for ending in ['luni', 'lutek', 'luteng',
-                                                   'nani', 'natek', 'nateng']):
-        return 'vi'
-    elif any(entry.endswith(ending) for ending in ['luku', 'lukek', 'luki',
-                                                   'naku', 'nakek', 'naki']):
-        return 'vt'
-    else:
-        return ''
-
-
 fixture = []
 with open(words_file, 'r') as infile:
     for line in infile:
@@ -43,12 +33,17 @@ with open(words_file, 'r') as infile:
         elif tabs < 4:
             line += '\t' * (4 - tabs)
         entry, notes, defn, source, alts = line.split('\t')
+        pos = get_pos(entry, defn)
+        root = get_root(entry, defn)
         fixture.append({
             'model': 'dictionary.Chunk',
             'pk': len(fixture) + 1,
             'fields': {
                 'entry': entry,
-                'pos': get_pos(entry),
+                'pos_auto': pos,
+                'pos_final': pos,
+                'root_auto': root,
+                'root_final': root,
                 'defn': defn,
                 'source': source,
                 'search_text': '%s %s' % (entry, defn),

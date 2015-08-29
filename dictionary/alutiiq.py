@@ -25,7 +25,20 @@ def normalize(word):
     return word
 
 
-def get_root(word):
+def get_pos(entry, defn=''):
+    if entry and entry[-1:] in 'qkt':
+        return 'n'
+    elif any(entry.endswith(ending) for ending in ['luni', 'lutek', 'luteng',
+                                                   'nani', 'natek', 'nateng']):
+        return 'vi'
+    elif any(entry.endswith(ending) for ending in ['luku', 'lukek', 'luki',
+                                                   'naku', 'nakek', 'naki']):
+        return 'vt'
+    else:
+        return 'None'
+
+
+def get_root(word, defn=''):
     endings = ['luni', 'lutek', 'luteng', 'kunani', 'kunatek', 'kunateng',
                'luku', 'lukek', 'luki', 'kunaku', 'kunakek', 'kunaki']
     for ending in endings:
@@ -90,7 +103,6 @@ def apply_transformations(before, center, after):
 
     if after is not None:
         if after.startswith('-'):
-            center = get_root(center)
             if center.endswith('rr') or center.endswith('gg'):
                 center = center[:-2]
             elif center[-1] not in 'aeiou':
@@ -98,7 +110,6 @@ def apply_transformations(before, center, after):
             elif center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
                 center = center[:-1] + "'"
         elif after.startswith('~'):
-            center = get_root(center)
             if after.startswith('~k'):
                 if center.endswith('t'):
                     if len(center) >= 2 and center[-2] not in 'aeiou':
@@ -123,7 +134,6 @@ def apply_transformations(before, center, after):
                 elif center.endswith('u'):
                     center += 'w'
         elif after.startswith('+'):
-            center = get_root(center)
             if center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
                 center = center[:-1]
             elif center.endswith("'") and len(after) >= 2 and after[1] not in 'aeiou':
@@ -144,7 +154,6 @@ def apply_transformations(before, center, after):
         center = center[:-1]
 
     if before is not None:
-        before = get_root(before)
         if center.startswith('~k'):
             if before.endswith('r'):
                 center = 'q' + center[2:]
@@ -305,7 +314,7 @@ TableCell = namedtuple('TableCell', ['id', 'map'])
 
 
 def build_tables(root):
-    endings_map = get_endings_map(root.word, root.pos)
+    endings_map = get_endings_map(root.root, root.pos)
 
     for w in HIERARCHY[root.pos]:
         column_headers = [header for id_, header in w.cols]
@@ -392,17 +401,17 @@ def build_cells(row_id, widget, endings_map):
         yield cell
 
 
-def get_endings_map(entry, pos):
+def get_endings_map(root, pos):
     '''
-    >>> get_endings_map('yaamaq', 'n')['ABS:DU:POSS1P:POSSSG']
+    >>> get_endings_map('yaamar', 'n')['ABS:DU:POSS1P:POSSSG']
     'yaamagka'
-    >>> get_endings_map('silugluni', 'vi')['1P:PL:PRES']
+    >>> get_endings_map('silug', 'vi')['1P:PL:PRES']
     'silugtukut'
-    >>> get_endings_map('nalluluku', 'vt')['O3P:OSG:PRES:S1P:SSG']
+    >>> get_endings_map('nallu', 'vt')['O3P:OSG:PRES:S1P:SSG']
     'nalluwaqa'
     '''
     endings_map = {}
-    build_endings(endings_map, ID_LISTS[pos], entry, ENDINGS[pos])
+    build_endings(endings_map, ID_LISTS[pos], root, ENDINGS[pos])
     return endings_map
 
 
@@ -433,7 +442,7 @@ def spanned(id_list, id_curr):
     return any(c.issubset(id_curr) for c in conds)
 
 
-def build_endings(endings_map, id_lists, entry, endings, id_curr=None):
+def build_endings(endings_map, id_lists, root, endings, id_curr=None):
     '''
     >>> TEST_ENDINGS = [['+a', '+b'], ['+A', '+B']]
     >>> TEST_ID_LISTS = [['LOWER', 'UPPER'], ['A', 'B']]
@@ -448,17 +457,17 @@ def build_endings(endings_map, id_lists, entry, endings, id_curr=None):
     if id_lists:
         curr_list = id_lists[0]
         if spanned(curr_list, id_curr):
-            build_endings(endings_map, id_lists[1:], entry,
+            build_endings(endings_map, id_lists[1:], root,
                           endings, id_curr=id_curr)
         else:
             for id, sub_endings in zip(curr_list, endings):
                 if '-' in id:
                     id = id.split('-')[0]
-                build_endings(endings_map, id_lists[1:], entry,
+                build_endings(endings_map, id_lists[1:], root,
                               sub_endings, id_curr=id_curr + [id])
     else:
         full_id = ':'.join(sorted(id_curr))
-        cell = '-' if endings == '-' else morpho_join([entry, endings])
+        cell = '-' if endings == '-' else morpho_join([root, endings])
         endings_map[full_id] = cell
 
 
