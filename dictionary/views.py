@@ -23,7 +23,9 @@ def entry(request, word):
                           'id': root.id,
                           'inflections': inflection_data(root),
                           'senses': root.senses}
-                         for root in entries[0].roots]}
+                         for root in entries[0].roots],
+               'url': request.build_absolute_uri(request.get_full_path()),
+               'request': request}
     return render(request, 'dictionary/entry.html', context)
 
 
