@@ -2,7 +2,7 @@
 import sys
 import json
 
-from alutiiq import get_pos, get_root
+from alutiiq import get_pos, get_root, normalize
 
 words_file = 'dict_sources/words.csv'
 output_fixture = 'dictionary/fixtures/words.json'
@@ -69,7 +69,7 @@ with open(words_file, 'r') as infile:
                 'defn': defn,
                 'source': source_pk,
                 'source_info': source_info,
-                'search_text': '%s %s' % (entry, defn),
+                'search_text': '%s %s' % (normalize(entry), defn),
             },
         })
 

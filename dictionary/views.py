@@ -9,7 +9,7 @@ from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
 from .models import Chunk
-from .alutiiq import morpho_join, inflection_data
+from .alutiiq import morpho_join, inflection_data, normalize
 
 
 def index(request):
@@ -46,6 +46,7 @@ Sense = namedtuple('Sense', ['chunks', 'defn', 'sources'])
 
 def chunk_relevance(chunk, query):
     query_l = query.lower()
+    query_fuzzy = normalize(query)
 
     score = 0
 
@@ -67,6 +68,11 @@ def chunk_relevance(chunk, query):
     if re.search(r'\b%s\b' % re.escape(query_l), inside_parens):
         score = 30
 
+    # Beginning or end of Alutiiq word with spelling correction
+    if re.search(r'\b%s' % re.escape(query_fuzzy), normalize(chunk.entry)) or \
+            re.search(r'%s\b' % re.escape(query_fuzzy), normalize(chunk.entry)):
+        score = 33
+
     # Beginning or end of Alutiiq word
     if re.search(r'\b%s' % re.escape(query), chunk.entry) or \
             re.search(r'%s\b' % re.escape(query), chunk.entry):
@@ -75,6 +81,10 @@ def chunk_relevance(chunk, query):
     # Whole-word outside of parens
     if re.search(r'\b%s\b' % re.escape(query_l), without_parens):
         score = 40
+
+    # Full Alutiiq word match with spelling correction
+    if query_fuzzy in normalize(chunk.entry).split():
+        score = 45
 
     # Whole definition (ignoring parenthesized expressions), with optional object
     full_entries = re.split("[,;] ?", chunk.defn)
@@ -180,9 +190,11 @@ def search(request):
 
     if 'q' in request.GET:
         query = request.GET['q']
-        chunk_list = (Chunk.objects
-                           .filter(search_text__contains=query)
-                           .order_by('entry', 'pos_final'))
+        chunk_list = ((Chunk.objects
+                            .filter(search_text__contains=query) |
+                       Chunk.objects
+                            .filter(search_text__contains=normalize(query)))
+                            .order_by('entry', 'pos_final'))
         entry_list = sorted(group_entries(chunk_list), key=relevance(query))
         context['entry_list'] = entry_list
         context['query'] = query

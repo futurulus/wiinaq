@@ -1,6 +1,6 @@
 from django.db import models
 
-from .alutiiq import get_pos, get_root
+from .alutiiq import normalize, get_pos, get_root
 
 
 class Source(models.Model):
@@ -57,7 +57,7 @@ class Chunk(models.Model):
         return self.root or self.root_auto
 
     def save(self):
-        self.search_text = '%s %s' % (self.entry, self.defn)
+        self.search_text = '%s %s' % (normalize(self.entry), self.defn)
         self.pos_auto = get_pos(self.entry, self.defn)
         self.pos_final = self.pos or self.pos_auto
         self.root_auto = get_root(self.entry, self.defn)
