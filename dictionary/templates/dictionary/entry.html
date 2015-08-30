@@ -13,8 +13,19 @@
     <ol>
     {% for sense in root.senses %}
         <li class="listing-defn"><span class="defn">{{ sense.defn }}</span>
-            <span class="sources">{{ sense.sources|join:"; " }}</span>
-            </li>
+            <span class="sources">
+            {% for chunk in sense.chunks %}
+                {% if chunk.source %}
+                    {{ chunk.source.annotated|safe }}
+                {% endif %}
+                {% if chunk.source_link %}
+                    <a href="{{ chunk.source_link }}">{{ chunk.source_info }}</a>{% include "dictionary/semicolon.html" %}
+                {% else %}
+                    {{ chunk.source_info }}{% include "dictionary/semicolon.html" %}
+                {% endif %}
+            {% endfor %}
+            </span>
+        </li>
     {% endfor %}
     </ol>
 

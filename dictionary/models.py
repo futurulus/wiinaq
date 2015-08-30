@@ -3,6 +3,17 @@ from django.db import models
 from .alutiiq import get_pos, get_root
 
 
+class Source(models.Model):
+    abbrev = models.CharField('abbreviation', unique=True, max_length=100)
+    description = models.CharField('description', max_length=1000)
+
+    def annotated(self):
+        return '<span class="source" title="%s">%s</span>' % (self.description, self.abbrev)
+
+    def __unicode__(self):
+        return self.description
+
+
 class Chunk(models.Model):
     entry = models.CharField('word', max_length=100)
     pos = models.CharField('part of speech',
@@ -35,7 +46,9 @@ class Chunk(models.Model):
                                   max_length=100)
     defn = models.TextField('definition')
     search_text = models.TextField(editable=False, default='')
-    source = models.CharField(max_length=200)
+    source = models.ForeignKey(Source, null=True)
+    source_info = models.CharField(max_length=200, default='')
+    source_link = models.URLField(max_length=200, default='')
 
     def pos_or_auto(self):
         return self.pos or self.pos_auto

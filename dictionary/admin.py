@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Chunk
+from .models import Chunk, Source
 
 
 class ChunkAdmin(admin.ModelAdmin):
@@ -10,3 +10,9 @@ class ChunkAdmin(admin.ModelAdmin):
     search_fields = ['entry', 'defn']
 
 admin.site.register(Chunk, ChunkAdmin)
+
+
+class SourceAdmin(admin.ModelAdmin):
+    list_display = ['abbrev', 'description']
+
+admin.site.register(Source, SourceAdmin)
