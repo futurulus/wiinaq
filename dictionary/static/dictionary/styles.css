@@ -85,6 +85,10 @@ p {
     font-size: 120%;
 }
 
+.russian {
+    font-size: 0.8em;
+}
+
 .pos {
     font-style: bold;
     color: #777777;

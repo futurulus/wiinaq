@@ -3,10 +3,7 @@ import binascii
 import itertools
 from collections import namedtuple
 
-from django import template
 from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.utils.html import conditional_escape
-from django.utils.safestring import mark_safe
 
 from .models import Chunk
 from .alutiiq import morpho_join, inflection_data, normalize

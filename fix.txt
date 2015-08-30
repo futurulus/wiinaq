@@ -1,11 +1,12 @@
 ENHANCEMENT
-combine identical entries
-fuzzy matching
 separate Alutiiq and English search
+set up backup (to Google Drive? Dropbox?)
+fix "broken" entries below
+implement phonotactics and search for bad entries
+enter the rest of QANK
+add links to recordings on Dropbox
 
 BROKEN
-takuka'aq: id is bad because of apostrophe, endings don't show up
-
 kuik erg: kuigem ("kuim") /entry/647/ [CG p. 125]
 ell'uni (no endings) /entry/291/ [CG p. 128]
 mill'uni (no endings) /entry/1465/ [CG p. 128]
@@ -22,6 +23,7 @@ nuliq 3p poss: nulira ("nulia") /entry/2989/ [CG p. 143]
 niilluku 4p->3p dep: niskuniu ("niiskuniu") /entry/1256/ [Stories: Ar'ursulek]
 tuumiaqlluku dep/past: tuumiaqk'gkumgu ("tuumiakumgu") /entry/3653/[Stories: Ar'ursulek p. 24]
 miknani pres: miktuq ("miknaniuq") /entry/1554/
+extra r in mina[ra]qa
 
 TO CHECK
 peklluni 1p past: pek'llrianga ("pellrianga") /entry/65/

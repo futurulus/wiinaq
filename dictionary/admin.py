@@ -8,6 +8,7 @@ class ChunkAdmin(admin.ModelAdmin):
     list_display = ['entry', 'pos_final', 'defn']
     list_filter = ['pos']
     search_fields = ['entry', 'defn']
+    save_as = True
 
 admin.site.register(Chunk, ChunkAdmin)
 

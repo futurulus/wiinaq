@@ -1,13 +1,14 @@
 {% extends "dictionary/base.html" %}
+{% load russian %}
 
 {% block content %}
 <div class="listing">
-    <h1>{{ word }}</h1>
+    <h1>{{ word|russian_r }}</h1>
 
     {% for root in roots %}
     {% if root.pos %}
     <p class="root-header"><span class="pos">{{ root.pos }}</span>
-    <span class="root-label">root:</span> <span class="root">{{ root.root }}-</span></p>
+    <span class="root-label">root:</span> <span class="root">{{ root.root|russian_r }}-</span></p>
     {% endif %}
 
     <ol>
@@ -51,7 +52,7 @@
                     {% for c in r.cells %}
                     <td class="inflection-entry" id="{{ c.id }}">
                         {% for id, entry in c.map.items %}
-                        <span class="inflection-option hide" id="{{ id }}">{{ entry }}</span>
+                        <span class="inflection-option hide" id="{{ id }}">{{ entry|russian_r }}</span>
                         {% endfor %}
                     </td>
                     {% endfor %}

@@ -20,6 +20,7 @@ class Chunk(models.Model):
                            help_text='''To remove the part of speech entirely
                            (show no ending tables for this word), enter "None".''',
                            default='',
+                           blank=True,
                            max_length=10)
     pos_auto = models.CharField('part of speech (guess)',
                                 editable=False,
@@ -32,7 +33,7 @@ class Chunk(models.Model):
                                  editable=False,
                                  default='None',
                                  max_length=10)
-    root = models.CharField(max_length=100, default='')
+    root = models.CharField(max_length=100, default='', blank=True)
     root_auto = models.CharField('root (guess)',
                                  editable=False,
                                  help_text='''Automatically detected based on the
@@ -47,8 +48,8 @@ class Chunk(models.Model):
     defn = models.TextField('definition')
     search_text = models.TextField(editable=False, default='')
     source = models.ForeignKey(Source, null=True)
-    source_info = models.CharField(max_length=200, default='')
-    source_link = models.URLField(max_length=200, default='')
+    source_info = models.CharField(max_length=200, default='', blank=True)
+    source_link = models.URLField(max_length=200, default='', blank=True)
 
     def pos_or_auto(self):
         return self.pos or self.pos_auto

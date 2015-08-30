@@ -1,4 +1,5 @@
 {% extends "dictionary/base.html" %}
+{% load russian %}
 
 {% block content %}
 {% if partial_word %}
@@ -21,7 +22,7 @@
         <div class="entry">
             <div class="details">
                 <a class="word" href="{% url 'entry' entry.word %}">
-                    {{ entry.word }}
+                    {{ entry.word|russian_r }}
                     <span class="link-expander"></span>
                 </a>
                 <div class="defns">
