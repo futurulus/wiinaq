@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+# The name of the file as it appears in the Dropbox directory.
+backupfile=backup.json
+
+
+repodir=`dirname "$0"`
+
+fixtures="$repodir"/dictionary/fixtures
+mkdir -p "$fixtures"
+
+tempdir="$OPENSHIFT_DATA_DIR"
+if [ "$tempdir" == "" ]; then
+    tempdir="$fixtures"
+fi
+
+config="$HOME"/.dropbox_uploader
+if [ "$DROPBOX_APPKEY" != "" ]; then
+    config="$tempdir"/.dropbox_uploader
+    echo "APPKEY=${DROPBOX_APPKEY}
+APPSECRET=${DROPBOX_APPSECRET}
+ACCESS_LEVEL=${DROPBOX_ACCESS_LEVEL}
+OAUTH_ACCESS_TOKEN=${DROPBOX_OAUTH_ACCESS_TOKEN}
+OAUTH_ACCESS_TOKEN_SECRET=${DROPBOX_OAUTH_ACCESS_TOKEN_SECRET}" > "$config"
+fi
+
+fixture="$fixtures"/backup.json
+"$repodir"/Dropbox-Uploader/dropbox_uploader.sh -f "$config" download "$backupfile" "$fixture"
+
+"$repodir"/manage.py loaddata backup
