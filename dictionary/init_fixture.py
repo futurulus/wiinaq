@@ -1,8 +1,14 @@
-#!/usr/bin/env python
+# Run with: python -m dictionary.init_fixture
+
 import sys
 import json
 
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kinguk.settings")
+from django.conf import settings
+
 from alutiiq import get_pos, get_root, normalize
+from models import Chunk
 
 words_file = 'dict_sources/words.csv'
 output_fixture = 'dictionary/fixtures/words.json'
@@ -55,21 +61,21 @@ with open(words_file, 'r') as infile:
             line += '\t' * (4 - tabs)
         entry, notes, defn, source, alts = line.split('\t')
         source_pk, source_info = parse_source(source)
-        pos = get_pos(entry, defn)
-        root = get_root(entry, defn)
+        c = Chunk(entry=entry, defn=defn)
+        c.fill()
         fixture.append({
             'model': 'dictionary.Chunk',
             'pk': len(fixture) + 1,
             'fields': {
-                'entry': entry,
-                'pos_auto': pos,
-                'pos_final': pos,
-                'root_auto': root,
-                'root_final': root,
-                'defn': defn,
+                'entry': c.entry,
+                'pos_auto': c.pos_auto,
+                'pos_final': c.pos_final,
+                'root_auto': c.root_auto,
+                'root_final': c.root_final,
+                'defn': c.defn,
                 'source': source_pk,
                 'source_info': source_info,
-                'search_text': '%s %s' % (normalize(entry), defn),
+                'search_text': c.search_text,
             },
         })
 
