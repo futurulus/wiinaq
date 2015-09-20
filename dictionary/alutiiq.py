@@ -9,12 +9,13 @@ def normalize(word):
 
     >>> normalize('tuumiaqlluku')
     'tumiaklluku'
-    >>> normalize("wiiwaq")
+    >>> normalize("Wiiwaq")
     'uiuak'
     >>> normalize("estui'isuun")
     'stuisun'
     '''
-    word = re.sub(r'(?<!n)g', 'r', word)
+    word = re.subn(r'(?<!n)g', 'r', word)[0]
+    word = re.subn(r'[A-QS-Z]', lambda m: m.group().lower(), word)[0]
     word = (word.replace('q', 'k')
                 .replace('y', 'i')
                 .replace('w', 'u')
@@ -34,7 +35,8 @@ GEMINATE = '(' + CONSONANT + "')"
 VALID_REGEX = re.compile('^' + CONSONANT + '?' +
                          '(' + RHYME + ONSET + '|' +
                                CORE + GEMINATE + ')*' +
-                         RHYME)
+                         RHYME +
+                         '$')
 def is_valid(entry):
     '''
     >>> is_valid('pingayun')
@@ -43,7 +45,9 @@ def is_valid(entry):
     False
     >>> is_valid('Pingayiin')
     True
-    >>> is_valid('Eingayiin')
+    >>> is_valid('Eengayiin')
+    False
+    >>> is_valid('alIa')
     False
     '''
     words = entry.split()
