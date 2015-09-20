@@ -57,12 +57,15 @@ class Chunk(models.Model):
     def root_or_auto(self):
         return self.root or self.root_auto
 
-    def save(self):
-        self.search_text = '%s %s' % (normalize(self.entry), self.defn)
+    def fill(self):
+        self.search_text = '%s %s' % (normalize(self.entry), self.defn.lower())
         self.pos_auto = get_pos(self.entry, self.defn)
         self.pos_final = self.pos or self.pos_auto
         self.root_auto = get_root(self.entry, self.defn)
         self.root_final = self.root or self.root_auto
+
+    def save(self):
+        self.fill()
         super(Chunk, self).save()
 
     def __unicode__(self):

@@ -174,6 +174,20 @@ def group_entries(chunk_list, separate_roots=False):
     ]
 
 
+def matches_query(chunk, query):
+    '''
+    >>> from .models import Chunk
+    >>> c = Chunk(); c.entry = "gwa'i"; c.defn = 'here (restricted)'; c.fill()
+    >>> matches_query(c, 'try')
+    False
+    >>> c = Chunk(); c.entry = "Kasaakaq"; c.defn = 'Russian'; c.fill()
+    >>> matches_query(c, 'kasaak')
+    True
+    '''
+    return (query.lower() in chunk.defn.lower() or
+            normalize(query) in normalize(chunk.entry))
+
+
 def search(request):
     context = {}
 
@@ -188,10 +202,11 @@ def search(request):
     if 'q' in request.GET:
         query = request.GET['q']
         chunk_list = ((Chunk.objects
-                            .filter(search_text__contains=query) |
+                            .filter(search_text__contains=query.lower()) |
                        Chunk.objects
                             .filter(search_text__contains=normalize(query)))
                             .order_by('entry', 'pos_final'))
+        chunk_list = [c for c in chunk_list if matches_query(c, query)]
         entry_list = sorted(group_entries(chunk_list), key=relevance(query))
         context['entry_list'] = entry_list
         context['query'] = query
