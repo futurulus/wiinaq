@@ -5,6 +5,10 @@ fix "broken" entries below
 implement phonotactics and search for bad entries
 enter the rest of QANK
 add links to recordings on Dropbox
+locatives, demonstratives
+correct handling of negatives
+add ellmenek endings to nouns
+make sure searching "try" doesn't give a bunch of English "tri" words
 
 BROKEN
 kuik erg: kuigem ("kuim") /entry/647/ [CG p. 125]

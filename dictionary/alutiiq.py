@@ -6,7 +6,7 @@ def normalize(word):
     '''
     Perform fuzzy search normalization (collapse commonly confused sounds
     so search is resilient to misspellings of Alutiiq words).
-    
+
     >>> normalize('tuumiaqlluku')
     'tumiaklluku'
     >>> normalize("wiiwaq")
@@ -23,6 +23,32 @@ def normalize(word):
     for vowel in 'aiu':
         word = re.sub(vowel + '+', vowel, word)
     return word
+
+
+CONSONANT = '([ptckqwlysgrmnR]|gw|ng|ll|hm|hn|hng)'
+ONSET = '(' + CONSONANT + "|')"
+PRIME = '[aiu]'
+CORE = "([e']|" + PRIME + '{1,2})'
+RHYME = '(' + CORE + '([ptkqlsgrmn]|ng|ll)?)'
+GEMINATE = '(' + CONSONANT + "')"
+VALID_REGEX = re.compile('^' + CONSONANT + '?' +
+                         '(' + RHYME + ONSET + '|' +
+                               CORE + GEMINATE + ')*' +
+                         RHYME)
+def is_valid(entry):
+    '''
+    >>> is_valid('pingayun')
+    True
+    >>> is_valid('piyngayun')
+    False
+    >>> is_valid('Pingayiin')
+    True
+    >>> is_valid('Eingayiin')
+    False
+    '''
+    words = entry.split()
+    return all(VALID_REGEX.match(w[0].lower() + w[1:])
+               for w in words)
 
 
 def get_pos(entry, defn=''):
