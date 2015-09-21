@@ -103,10 +103,16 @@ def get_root(word, defn=''):
 
     if re.search('(^|[^aeiou])[aeiou]teq$', word):
         return word[:-1] + 'r'
+    elif re.search('^[^aeiou]?[aeiou][qk]$', word):
+        return word[:-1] + '\\' + word[-2] + ('r' if word[-1] == 'q' else 'g')
+    elif word.endswith('ta'):
+        return word[:-1] + 'e'
     elif word.endswith('teq'):
         return word[:-1]
     elif word.endswith('q'):
         return word[:-1] + 'r'
+    elif word.endswith('k'):
+        return word[:-1] + 'g'
 
     return word
 
@@ -116,7 +122,7 @@ def apply_vowel_alternation(center, before):
 
     if before is not None:
         before = get_root(before)
-        for left, right in ['<>', '[]']:
+        for left, right in ['<>', '[]', '{}']:
             if left in center:
                 start_pos = center.index(left)
                 end_pos = center.index(right)
@@ -125,7 +131,10 @@ def apply_vowel_alternation(center, before):
                                 (combine_cons == '-' and
                                  before[-2:].startswith('e')))
                 cons_ending = before[-1:] in 'rg'
-                if left == '<' and vowel_ending or left =='[' and cons_ending:
+                g_ending = (before[-1:] == 'g')
+                if (left == '<' and vowel_ending or
+                    left == '[' and cons_ending or
+                    left == '{' and g_ending):
                     center = center[start_pos + 1:end_pos] + center[end_pos + 1:]
                 else:
                     center = center[:start_pos] + center[end_pos + 1:]
@@ -217,6 +226,14 @@ def apply_transformations(before, center, after):
             center = center[1:]
         else:
             center = ' ' + center
+
+    if after and (re.search(r'\\[aiu]$', center) and
+                  re.search(r'^.[^aeiou][aeiou]', after)) or \
+                 (re.search(r'\\[aiu][^aeiou]$', center) and
+                  re.search(r'^.[aeiou]', after)):
+        center = re.sub(r'\\([aiu])', r'\1', center)
+    elif re.search(r'\\[aiu]', center):
+        center = re.sub(r'\\[aiu]', r'', center)
 
     return center
 
@@ -511,25 +528,25 @@ def build_endings(endings_map, id_lists, root, endings, id_curr=None):
 ENDINGS = {
     'n': [
         [
-            ['~k', '-k', '-t'],
+            ['~k', '-k', '-{+e}t'],
             [
-                ['~ka', '-gka', '-nka'],
+                ['~{+}ka', '-gka', '-nka'],
                 ['~gpuk', '-puk', '-puk'],
                 ['~gpet', '-pet', '-pet'],
             ],
             [
-                ['-n', '-gken', '-ten'],
+                ['-{+e}n', '-gken', '-ten'],
                 ['~gtek', '-tek', '-tek'],
                 ['~gci', '-ci', '-ci'],
             ],
             [
-                ['-<~g>a', '-<~g>k', '-<~g>i'],
-                ['-<~g>ak', '-<~g>ik', '-<~g>ik'],
-                ['-<~g>at', '-<~g>it', '-<~g>it'],
+                ['-<~g>{+}a', '-<~g>k', '-<~g>{+}i'],
+                ['-<~g>{+}ak', '-<~g>{+}ik', '-<~g>{+}ik'],
+                ['-<~g>{+}at', '-<~g>{+}it', '-<~g>{+}it'],
             ],
         ],
         [
-            ["-m", "-k", "-t"],
+            ["-{+e}m", "-k", "-{+e}t"],
             [
                 ["-ma", "-ma", "-ma"],
                 ["-mnuk", "-mnuk", "-mnuk"],
@@ -541,17 +558,17 @@ ENDINGS = {
                 ["~gp'ci", "~gp'ci", "~gp'ci"],
             ],
             [
-                ["-n", "-<~g>ini", "-<~g>ini"],
+                ["-{+e}n", "-<~g>ini", "-<~g>ini"],
                 ["-gta", "-<~g>igta", "-<~g>igta"],
                 ["-ta", "-<~g>ita", "-<~g>ita"],
             ],
         ],
         ] + [
         [
-            ['-men', '-nun', '-nun'] if ending == 'nun' else
-            ['-gun', '-gun',  '-tgun'] if ending == 'kun' else
-            ["-t'stun"] * 3 if ending == "t'stun" else
-            ['-m' + ending[1:], '-' + ending, '-' + ending],
+            ['-{+}men', '-{+}nun', '-{+}nun'] if ending == 'nun' else
+            ['-g{+k}un', '-g{+k}un',  '-tgun'] if ending == 'kun' else
+            ["-{+}t'stun"] * 3 if ending == "t'stun" else
+            ['-{+}m' + ending[1:], '-{+}' + ending, '-{+}' + ending],
             [
                 ['-m' + ending] * 3,
                 ['-mteg' + ending] * 3,

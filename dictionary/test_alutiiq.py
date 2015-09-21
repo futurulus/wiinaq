@@ -38,8 +38,16 @@ ENDING_TEST_CASES = [
     ("quliyanguaqlluku", "vt", "O3P:OSG:PRES:S1P:SSG", "quliyanguaqaqa"),
 
     # Irregular nouns
-    #("kuik", "n", "ERG:SG:UNPOSS", "kuigem"),  # CG p. 125
-    #("suk", "n", "ERG:SG:UNPOSS", "suugem"),  # CG p. 139
+    ("kuik", "n", "ERG:SG:UNPOSS", "kuigem"),  # CG p. 125
+    ("suk", "n", "ABS:SG:UNPOSS", "suk"),  # CG p. 139
+    ("suk", "n", "ERG:SG:UNPOSS", "suugem"),  # CG p. 139
+    ("suk", "n", "ABS:PL:UNPOSS", "suuget"),
+    ("suk", "n", "DAT:SG:UNPOSS", "sugmen"),
+    ("suk", "n", "PER:SG:UNPOSS", "sugkun"),
+    ("suk", "n", "PER:PL:UNPOSS", "sutgun"),
+    ("piugta", "n", "PER:SG:UNPOSS", "piugtegun"),
+    ("yaamaq", "n", "PER:SG:UNPOSS", "yaamagun"),
+    ("suk", "n", "SG:SIM:UNPOSS", "sugt'stun"),
 
     # Irregular intransitive verbs
     ("ell'uni", "vi", "3P:PRES:SG", "et'uq"),  # CG p. 128
@@ -94,6 +102,9 @@ ROOT_TEST_CASES = [
     ("wiinaq", "", "wiinar"),
     ("silugluni", "", "silug"),
     ("qunuklluku", "", "qunuke"),
+    ("kuik", "", "kuig"),
+    ("suk", "", "su\\ug"),
+    ("piugta", "", "piugte"),
 ]
 
 
