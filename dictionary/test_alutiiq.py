@@ -18,7 +18,11 @@ ENDING_TEST_CASES = [
 
     # t-stem intransitive verbs
     ("tekilluni", "vi", "3P:PRES:SG", "tekituq"),  # CG p. 25
+    ("tekilluni", "vi", "3P:CONJ:SG", "tekilluni"),
     ("tekilluni", "vi", "1P:PRES:SG", "tekitua(nga)"),
+
+    # q-stem transitive verbs
+    ("caqlluni", "vi", "3P:CONJ:SG", "caqlluni"),
 
     # Negative intransitive verbs
     ("miknani", "vi", "3P:PRES:SG", "miktuq"),  # CG p. 25
@@ -36,6 +40,7 @@ ENDING_TEST_CASES = [
 
     # q-stem transitive verb
     ("quliyanguaqlluku", "vt", "O3P:OSG:PRES:S1P:SSG", "quliyanguaqaqa"),
+    ("quliyanguaqlluku", "vt", "CONJ:O3P:OSG", "quliyanguaqlluku"),
 
     # Irregular nouns
     ("kuik", "n", "ERG:SG:UNPOSS", "kuigem"),  # CG p. 125
@@ -71,6 +76,7 @@ ENDING_TEST_CASES = [
     ("iqlluluni", "vi", "3P:PRES:SG", "iqlluuq"),  # CG p. 25
     ("qitengluni", "vi", "3P:PRES:SG", "qitenguq"),  # CG p. 131
     ("tengluni", "vi", "3P:PAST:SG", "tengellria"),  # CG p. 128
+    ("ek'arlluni", "vi", "3P:CONJ:SG", "ek'arlluni"),
     ("ek'arlluni", "vi", "1P:PAST:SG", "ek'allrianga"),
     #("ek'arlluni", "vi", "1P:COND:SG", "ek'aquma"),
 

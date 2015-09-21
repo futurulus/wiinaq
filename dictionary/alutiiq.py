@@ -232,10 +232,9 @@ def apply_transformations(before, center, after):
             else:
                 center = center[1:]
         elif center.startswith('~l'):
-            if (before[-1:] in 'qkt' or
-                before.endswith('gg') or
-                before.endswith('rr') or
-                (len(before) >= 2 and before[-2] in 'aeiou' and before.endswith('te'))):
+            if (before[-2:] in ('qe', 'ke', 'te') or  # caqe ~luni => caqlluni
+                    before.endswith('gg') or  # cupugg ~luni => cupuglluni
+                    before.endswith('rr')):  # angq'rr ~luni => angq'rlluni
                 center = 'l' + center[1:]
             elif before.endswith("t'e") or before.endswith("le"):
                 center = center[2:]
