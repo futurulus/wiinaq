@@ -58,11 +58,11 @@ def is_valid(entry):
 def get_pos(entry, defn=''):
     if entry and entry[-1:] in 'qkt':
         return 'n'
-    elif any(entry.endswith(ending) for ending in ['luni', 'lutek', 'luteng',
-                                                   'nani', 'natek', 'nateng']):
+    elif any(entry.endswith(marker + ending) for marker in ["lu", "l'u", "na"]
+                                             for ending in ['ni', 'tek', 'teng']):
         return 'vi'
-    elif any(entry.endswith(ending) for ending in ['luku', 'lukek', 'luki',
-                                                   'naku', 'nakek', 'naki']):
+    elif any(entry.endswith(marker + ending) for marker in ["lu", "l'u", "na"]
+                                             for ending in ['ku', 'kek', 'ki']):
         return 'vt'
     else:
         return 'None'
@@ -77,20 +77,20 @@ def get_root(word, defn=''):
             if ending.startswith('l') and word.endswith('l' + ending):
                 base = word[:-len(ending) - 1]
                 if "'" in ending:
-                    return base + "t'"
+                    return base + "t'e"
                 elif base.endswith('r'):
                     return base + base[-1]
                 elif base[-1:] in 'qk':
                     return base + 'e'
                 else:
-                    return base + 't'
+                    return base + 'te'
             if ending.startswith('k') and word.endswith('g' + ending):
                 return word[:-len(ending) - 1]
             if word.endswith(ending):
                 if "'" in ending:
-                    return word[:-len(ending)] + "l'"
+                    return word[:-len(ending)] + "le"
                 elif re.search('^([^aeiou]?)[aeiou][gr]$', word[:-len(ending)]):
-                    return word[:-len(ending)] + "'"
+                    return word[:-len(ending)] + "e"
                 elif word[:-len(ending)].endswith('ng'):
                     return word[:-len(ending)] + 'e'
                 else:
@@ -99,7 +99,7 @@ def get_root(word, defn=''):
     neg_endings = ['nani', 'natek', 'nateng', 'naku', 'nakek', 'naki']
     for ending in neg_endings:
         if word.endswith(ending):
-            return word[:-len(ending)] + 't'
+            return word[:-len(ending)] + 'te'
 
     if re.search('(^|[^aeiou])[aeiou]teq$', word):
         return word[:-1] + 'r'
@@ -152,22 +152,39 @@ def apply_transformations(before, center, after):
                 center = center[:-2]
             elif center[-1] not in 'aeiou':
                 center = center[:-1]
+            elif center.endswith("t'e"):
+                center = center[:-1]
             elif center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
                 center = center[:-1] + "'"
         elif after.startswith('~'):
             if after.startswith('~k'):
-                if center.endswith('t'):
+                if center.endswith("t'e"):
+                    center = center[:-3] + 'll'
+                elif center.endswith('te'):
                     if len(center) >= 2 and center[-2] not in 'aeiou':
-                        center = center[:-1] + "'s"
+                        center = center[:-2] + "'s"
                     else:
-                        center = center[:-1] + 's'
+                        center = center[:-2] + 's'
                 elif center[-1] not in 'aiou':
                     center = center[:-1]
             elif after.startswith('~g'):
                 if center[-1] not in 'aeiou':
                     center = center[:-1]
             elif after.startswith('~l') or after.startswith('~ng'):
-                if center[-1] in "t'":
+                if center.endswith("t'e"):
+                    # et'e ~ngama => ellngama
+                    center = center[:-3] + "ll"
+                    if after.startswith('~l'):
+                        # et'e ~luni => ell'uni
+                        center += "'"
+                elif center.endswith('te'):
+                    # aiwite ~ngama => aiwicama
+                    center = center[:-2]
+                elif after.startswith('~l') and center.endswith('le'):
+                    # ule ~luni => ul'uni
+                    center = center[:-1] + "'"
+                elif center.endswith('e'):
+                    # age ~luni => agluni
                     center = center[:-1]
             elif after[:2] in ('~a', '~i', '~u'):
                 if center[-1:] == after[1]:
@@ -180,7 +197,12 @@ def apply_transformations(before, center, after):
                     center += 'w'
         elif after.startswith('+'):
             if center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
+                # qitenge +uq => qitenguq
                 center = center[:-1]
+                if (center.endswith('g') and not center.endswith('ng')) or \
+                        center.endswith('r'):
+                    # nere +uq => ner'uq
+                    center += "'"
             elif center.endswith("'") and len(after) >= 2 and after[1] not in 'aeiou':
                 center = center[:-1]
 
@@ -213,12 +235,14 @@ def apply_transformations(before, center, after):
             if (before[-1:] in 'qkt' or
                 before.endswith('gg') or
                 before.endswith('rr') or
-                (len(before) >= 2 and before[-2] in 'aeiou' and before.endswith('t'))):
+                (len(before) >= 2 and before[-2] in 'aeiou' and before.endswith('te'))):
                 center = 'l' + center[1:]
+            elif before.endswith("t'e") or before.endswith("le"):
+                center = center[2:]
             else:
                 center = center[1:]
         elif center.startswith('~ng'):
-            if before.endswith('t'):
+            if before.endswith('te'):
                 center = 'c' + center[3:]
             else:
                 center = center[1:]

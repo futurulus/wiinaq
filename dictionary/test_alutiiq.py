@@ -51,9 +51,17 @@ ENDING_TEST_CASES = [
 
     # Irregular intransitive verbs
     ("ell'uni", "vi", "3P:PRES:SG", "et'uq"),  # CG p. 128
+    ("ell'uni", "vi", "3P:CONJ:SG", "ell'uni"),
+    ("ell'uni", "vi", "3P:PAST:SG", "et'llria"),
+    ("ell'uni", "vi", "1P:COND:SG", "ellkuma"),
+    ("ell'uni", "vi", "1P:CSEQ:SG", "ellngama"),
     ("mill'uni", "vi", "3P:PRES:SG", "mit'uq"),  # CG p. 128
     #("all'uni", "vi", "3P:PRES:SG", "alltuq"),  # QANK p. 22
-    ("ul'uni", "vi", "3P:PRES:SG", "ul'uq"),  # QANK p.23
+    ("ul'uni", "vi", "3P:CONJ:SG", "ul'uni"),  # QANK p.23
+    ("ul'uni", "vi", "3P:PRES:SG", "uluq"),
+    ("ul'uni", "vi", "3P:PAST:SG", "ulellria"),
+    ("ul'uni", "vi", "1P:COND:SG", "ulkuma"),
+    ("ul'uni", "vi", "1P:CSEQ:SG", "ulngama"),
 
     # Tricky edge cases for intransitive verbs: apostrophe and linking y/w,
     # -ng, voiceless r
@@ -96,6 +104,8 @@ POS_TEST_CASES = [
     ("wiinaq", "", "n"),
     ("silugluni", "", "vi"),
     ("qunuklluku", "", "vt"),
+    ("ell'uni", "", "vi"),
+    ("ul'uku", "", "vt"),
 ]
 
 ROOT_TEST_CASES = [
