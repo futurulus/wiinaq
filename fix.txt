@@ -1,15 +1,15 @@
 ENHANCEMENT
-separate Alutiiq and English search
 show backslash roots as superscript
+separate Alutiiq and English search
 fix "broken" entries below
-implement phonotactics and search for bad entries
-split entries with multiple sources
-enter the rest of QANK
+make sure we can maintain entry changes across re-filling auto fields
+    implement phonotactics and search for bad entries
+    split entries with multiple sources
+    enter the rest of QANK
 add links to recordings on Dropbox
 locatives, demonstratives
 correct handling of negatives
 add ellmenek endings to nouns
-add search hint to search bar
 
 BROKEN
 acigpeni (no endings) /entry/2848/ [CG p. 133]
