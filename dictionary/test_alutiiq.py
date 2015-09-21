@@ -42,8 +42,10 @@ ENDING_TEST_CASES = [
     #("suk", "n", "ERG:SG:UNPOSS", "suugem"),  # CG p. 139
 
     # Irregular intransitive verbs
-    #("ell'uni", "vi", "3P:PRES:SG", "et'uq"),  # CG p. 128
-    #("mill'uni", "vi", "3P:PRES:SG", "mit'uq"),  # CG p. 128
+    ("ell'uni", "vi", "3P:PRES:SG", "et'uq"),  # CG p. 128
+    ("mill'uni", "vi", "3P:PRES:SG", "mit'uq"),  # CG p. 128
+    #("all'uni", "vi", "3P:PRES:SG", "alltuq"),  # QANK p. 22
+    ("ul'uni", "vi", "3P:PRES:SG", "ul'uq"),  # QANK p.23
 
     # Tricky edge cases for intransitive verbs: apostrophe and linking y/w,
     # -ng, voiceless r
@@ -54,6 +56,7 @@ ENDING_TEST_CASES = [
     ("qitengluni", "vi", "3P:PRES:SG", "qitenguq"),  # CG p. 131
     ("tengluni", "vi", "3P:PAST:SG", "tengellria"),  # CG p. 128
     ("ek'arlluni", "vi", "1P:PAST:SG", "ek'allrianga"),
+    #("ek'arlluni", "vi", "1P:COND:SG", "ek'aquma"),
 
     # Locatives (not yet implemented)
     ##("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigpeni"),  # CG p. 133

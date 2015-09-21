@@ -1,6 +1,5 @@
 ENHANCEMENT
 separate Alutiiq and English search
-set up backup (to Google Drive? Dropbox?)
 fix "broken" entries below
 implement phonotactics and search for bad entries
 enter the rest of QANK
@@ -12,8 +11,6 @@ add search hint to search bar
 
 BROKEN
 kuik erg: kuigem ("kuim") /entry/647/ [CG p. 125]
-ell'uni (no endings) /entry/291/ [CG p. 128]
-mill'uni (no endings) /entry/1465/ [CG p. 128]
 qitengluni 3p pres: qitenguq ("qitengtuq") [CG p. 131]
 acigpeni (no endings) /entry/2848/ [CG p. 133]
 akuliit 3p/pl poss: akuliit ("akuliiat") /entry/189/ [CG p. 133]
@@ -26,7 +23,6 @@ saqul'aq 3p poss: saqulgaa ("saqulaa'a") /entry/799/ [CG p. 142]
 nuliq 3p poss: nulira ("nulia") /entry/2989/ [CG p. 143]
 niilluku 4p->3p dep: niskuniu ("niiskuniu") /entry/1256/ [Stories: Ar'ursulek]
 tuumiaqlluku dep/past: tuumiaqk'gkumgu ("tuumiakumgu") /entry/3653/[Stories: Ar'ursulek p. 24]
-miknani pres: miktuq ("miknaniuq") /entry/1554/
 extra r in mina[ra]qa
 
 TO CHECK

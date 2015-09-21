@@ -69,26 +69,32 @@ def get_pos(entry, defn=''):
 
 
 def get_root(word, defn=''):
-    endings = ['luni', 'lutek', 'luteng', 'kunani', 'kunatek', 'kunateng',
-               'luku', 'lukek', 'luki', 'kunaku', 'kunakek', 'kunaki']
-    for ending in endings:
-        if ending.startswith('l') and word.endswith('l' + ending):
-            base = word[:-len(ending) - 1]
-            if base.endswith('r'):
-                return base + base[-1]
-            elif base[-1:] in 'qk':
-                return base
-            else:
-                return base + 't'
-        if ending.startswith('k') and word.endswith('g' + ending):
-            return word[:-len(ending) - 1]
-        if word.endswith(ending):
-            if re.search('^([^aeiou]?)[aeiou][gr]$', word[:-len(ending)]):
-                return word[:-len(ending)] + "'"
-            elif word[:-len(ending)].endswith('ng'):
-                return word[:-len(ending)] + 'e'
-            else:
-                return word[:-len(ending)]
+    markers = ["lu", "l'u", "kuna"]
+    finals = ['ni', 'tek', 'teng', 'ku', 'kek', 'ki']
+    for marker in markers:
+        for final in finals:
+            ending = marker + final
+            if ending.startswith('l') and word.endswith('l' + ending):
+                base = word[:-len(ending) - 1]
+                if "'" in ending:
+                    return base + "t'"
+                elif base.endswith('r'):
+                    return base + base[-1]
+                elif base[-1:] in 'qk':
+                    return base
+                else:
+                    return base + 't'
+            if ending.startswith('k') and word.endswith('g' + ending):
+                return word[:-len(ending) - 1]
+            if word.endswith(ending):
+                if "'" in ending:
+                    return word[:-len(ending)] + "l'"
+                elif re.search('^([^aeiou]?)[aeiou][gr]$', word[:-len(ending)]):
+                    return word[:-len(ending)] + "'"
+                elif word[:-len(ending)].endswith('ng'):
+                    return word[:-len(ending)] + 'e'
+                else:
+                    return word[:-len(ending)]
 
     neg_endings = ['nani', 'natek', 'nateng', 'naku', 'nakek', 'naki']
     for ending in neg_endings:
