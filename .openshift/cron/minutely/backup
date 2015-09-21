@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+${OPENSHIFT_REPO_DIR}/backup
