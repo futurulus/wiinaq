@@ -78,7 +78,7 @@ ENDING_TEST_CASES = [
     ("tengluni", "vi", "3P:PAST:SG", "tengellria"),  # CG p. 128
     ("ek'arlluni", "vi", "3P:CONJ:SG", "ek'arlluni"),
     ("ek'arlluni", "vi", "1P:PAST:SG", "ek'allrianga"),
-    #("ek'arlluni", "vi", "1P:COND:SG", "ek'aquma"),
+    ("ek'arlluni", "vi", "1P:COND:SG", "ek'aquma"),
 
     # Locatives (not yet implemented)
     ##("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigpeni"),  # CG p. 133
