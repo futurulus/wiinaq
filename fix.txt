@@ -1,7 +1,9 @@
 ENHANCEMENT
 separate Alutiiq and English search
+show backslash roots as superscript
 fix "broken" entries below
 implement phonotactics and search for bad entries
+split entries with multiple sources
 enter the rest of QANK
 add links to recordings on Dropbox
 locatives, demonstratives

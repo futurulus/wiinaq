@@ -82,6 +82,8 @@ def get_root(word, defn=''):
                     return base + base[-1]
                 elif base[-1:] in 'qk':
                     return base + 'e'
+                elif len(base) >= 2 and base[-2] == base[-1]:
+                    return base[:-1] + '\\' + base[-1] + 'te'
                 else:
                     return base + 'te'
             if ending.startswith('k') and word.endswith('g' + ending):
@@ -161,7 +163,7 @@ def apply_transformations(before, center, after):
                 if center.endswith("t'e"):
                     center = center[:-3] + 'll'
                 elif center.endswith('te'):
-                    if len(center) >= 2 and center[-2] not in 'aeiou':
+                    if len(center) >= 3 and center[-3] not in 'aeiou':
                         center = center[:-2] + "'s"
                     else:
                         center = center[:-2] + 's'
@@ -255,7 +257,7 @@ def apply_transformations(before, center, after):
             center = ' ' + center
 
     if after and (re.search(r'\\[aiu]$', center) and
-                  re.search(r'^.[^aeiou][aeiou]', after)) or \
+                  re.search(r'^.([^aeiou]|ng)[aeiou]', after)) or \
                  (re.search(r'\\[aiu][^aeiou]$', center) and
                   re.search(r'^.[aeiou]', after)):
         center = re.sub(r'\\([aiu])', r'\1', center)

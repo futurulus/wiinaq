@@ -105,6 +105,13 @@ ENDING_TEST_CASES = [
     ("aiwilluni", "vi", "1P:CSEQ:SG", "aiwicama"),
     ("aiwilluku", "vt", "CSEQ:O3P:OSG:S1P:SSG", "aiwicamgu"),
 
+    # Conditional -te- + -kuma = -skuma
+    ("tekilluni", "vi", "1P:COND:SG", "tekiskuma"),
+    # double vowel shortening in closed syllable
+    ("liilluni", "vi", "3P:PRES:SG", "liituq"),
+    ("liilluni", "vi", "1P:COND:SG", "liskuma"),
+    ("liilluni", "vi", "1P:CSEQ:SG", "liicama"),
+
     # Conditional -qe- + -kumgu = -q'gkumgu
     ("tuumiaqlluku", "vt", "COND:O3P:OSG:S1P:SSG", "tuumiaq'gkumgu"),
     # but not past tense?
