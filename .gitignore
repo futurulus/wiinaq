@@ -16,5 +16,8 @@ creds
 dictionary/fixtures
 dict_sources
 
+# Old logos
+dictionary/static/dictionary/sources
+
 # Pre-packaged python modules (install with ./dependencies)
 django_nose/

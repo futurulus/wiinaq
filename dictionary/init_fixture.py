@@ -4,7 +4,7 @@ import sys
 import json
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kinguk.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 from django.conf import settings
 
 from alutiiq import get_pos, get_root, normalize
