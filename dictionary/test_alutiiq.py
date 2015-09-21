@@ -84,12 +84,24 @@ ENDING_TEST_CASES = [
     ("aiwilluku", "vt", "CSEQ:O3P:OSG:S1P:SSG", "aiwicamgu"),
 ]
 
+POS_TEST_CASES = [
+    ("wiinaq", "", "n"),
+    ("silugluni", "", "vi"),
+    ("qunuklluku", "", "vt"),
+]
+
+ROOT_TEST_CASES = [
+    ("wiinaq", "", "wiinar"),
+    ("silugluni", "", "silug"),
+    ("qunuklluku", "", "qunuke"),
+]
+
 
 class TestEndings(unittest.TestCase):
     pass
 
 
-def add_method(args):
+def add_ending_method(args):
     word, pos, features, expected = args
 
     def check_ending(self):
@@ -98,12 +110,42 @@ def add_method(args):
         self.assertEqual(get_endings_map(root, pos)[features], expected)
 
     check_ending.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
-                                   'test_%s_%s_%s__%s' % args)
+                                   'test_ending_%s_%s_%s__%s' % args)
     setattr(TestEndings, check_ending.__name__, check_ending)
 
 
+def add_root_method(args):
+    word, defn, expected = args
+
+    def check_root(self):
+        from alutiiq import get_root
+        self.assertEqual(get_root(word, defn), expected)
+
+    check_root.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
+                                   'test_root_%s_%s__%s' % args)
+    setattr(TestEndings, check_root.__name__, check_root)
+
+
+def add_pos_method(args):
+    word, defn, expected = args
+
+    def check_pos(self):
+        from alutiiq import get_pos
+        self.assertEqual(get_pos(word, defn), expected)
+
+    check_pos.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
+                                   'test_pos_%s_%s__%s' % args)
+    setattr(TestEndings, check_pos.__name__, check_pos)
+
+
 for args in ENDING_TEST_CASES:
-    add_method(args)
+    add_ending_method(args)
+
+for args in POS_TEST_CASES:
+    add_pos_method(args)
+
+for args in ROOT_TEST_CASES:
+    add_root_method(args)
 
 
 if __name__ == '__main__':

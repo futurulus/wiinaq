@@ -81,7 +81,7 @@ def get_root(word, defn=''):
                 elif base.endswith('r'):
                     return base + base[-1]
                 elif base[-1:] in 'qk':
-                    return base
+                    return base + 'e'
                 else:
                     return base + 't'
             if ending.startswith('k') and word.endswith('g' + ending):
