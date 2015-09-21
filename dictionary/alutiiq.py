@@ -165,6 +165,8 @@ def apply_transformations(before, center, after):
                         center = center[:-2] + "'s"
                     else:
                         center = center[:-2] + 's'
+                elif center.endswith('qe') or center.endswith('ke'):
+                    center = center[:-1] + "'g"
                 elif center[-1] not in 'aiou':
                     center = center[:-1]
             elif after.startswith('~g'):

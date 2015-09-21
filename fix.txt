@@ -19,10 +19,11 @@ piugta 3p poss: piugtii (no endings) /entry/3431/ [CG p. 141]
 saqul'aq 3p poss: saqulgaa ("saqulaa'a") /entry/799/ [CG p. 142]
 nuliq 3p poss: nulira ("nulia") /entry/2989/ [CG p. 143]
 niilluku 4p->3p dep: niskuniu ("niiskuniu") /entry/1256/ [Stories: Ar'ursulek]
-tuumiaqlluku dep/past: tuumiaqk'gkumgu ("tuumiakumgu") /entry/3653/[Stories: Ar'ursulek p. 24]
 extra r in mina[ra]qa
 
 TO CHECK
+tuumiaqlluku past: tuumiaq'gka/tuumiaq'gk'gka?
+[Ar'ursulek]
 peklluni 1p past: pek'llrianga ("pellrianga") /entry/65/
 eklluni 1p past: ek'llrianga ("ellrianga") /entry/1081/
 [CG p. 292]

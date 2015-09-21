@@ -95,7 +95,7 @@ ENDING_TEST_CASES = [
     #("nuna", "n", "ABS:POSS3P:POSSSG:SG", "nunii"),  # CG p. 141
     #("piugta", "n", "ABS:POSS3P:POSSSG:SG", "piugtii"),  # CG p. 141
     #("saqul'aq", "n", "ABS:POSS3P:POSSSG:SG", "saqulgaa"),  # CG p. 142
-    #("kuik", "n", "ABS:POSS3P:POSSSG:SG", "kui'a"),  # CG p. 142 -- kuiya? also kuiga
+    ("kuik", "n", "ABS:POSS3P:POSSSG:SG", "kuiga"),  # CG p. 142 -- kuiya? also kui'a
     ("ciqlluaq", "n", "ABS:POSS3P:POSSSG:SG", "ciqllua'a"),  # CG p. 142
     ("erneq", "n", "ABS:PL:POSS3P:POSSSG", "erneri"),  # CG p. 143
     #("nuliq", "n", "ABS:POSS3P:POSSSG:SG", "nulira"),  # CG p. 143
@@ -104,6 +104,11 @@ ENDING_TEST_CASES = [
     ("sun'arauluni", "vi", "1P:CSEQ:SG", "sun'araungama"),
     ("aiwilluni", "vi", "1P:CSEQ:SG", "aiwicama"),
     ("aiwilluku", "vt", "CSEQ:O3P:OSG:S1P:SSG", "aiwicamgu"),
+
+    # Conditional -qe- + -kumgu = -q'gkumgu
+    ("tuumiaqlluku", "vt", "COND:O3P:OSG:S1P:SSG", "tuumiaq'gkumgu"),
+    # but not past tense?
+    #("tuumiaqlluku", "vt", "O3P:OSG:PAST:S1P:SSG", "tuumiaq'gka"),
 ]
 
 POS_TEST_CASES = [
