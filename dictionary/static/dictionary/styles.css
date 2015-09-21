@@ -14,10 +14,14 @@ div, span, input, form {
     width: 100%;
 }
 
-#content {
+#header, #content {
     display: table;
     margin: 0em auto;
     width: 100%;
+}
+
+#header {
+    text-align: right;
 }
 
 a {
@@ -29,15 +33,17 @@ a:visited { text-decoration: none; }
 a:active { text-decoration: none; }
 a:hover { text-decoration: none; color: #0088cc; }
 
-#header {
-    text-align: right;
-    display: table;
-}
-
 @media screen and (min-width: 50em) {
     #header, #content {
         width: 50em;
     }
+}
+
+.logo {
+    height: 6em;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 ul {

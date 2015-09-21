@@ -3,7 +3,7 @@
 {% load staticfiles %}
 <html>
 <head>
-    <title>Kinguk Alutiiq Dictionary</title>
+    <title>Word Wiinaq</title>
     <link rel="stylesheet" href="{% static "dictionary/styles.css" %}">
     <meta name="viewport" content="width=device-width">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -13,6 +13,9 @@
 
 <body>
     <div id="centering">
+        <div id="header">
+            <img src="{% static "dictionary/sea_lion_title.svg" %}" class="logo" />
+        </div>
         <div id="content">
         {% block content %}{% endblock %}
         </div>
