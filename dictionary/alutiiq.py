@@ -318,7 +318,8 @@ HIERARCHY = {
                rows=[('UNPOSS', '-'),
                      ('POSS1P', 'gui'),
                      ('POSS2P', 'ellpet'),
-                     ('POSS3P', 'taugna')],
+                     ('POSS3P', 'taugna'),
+                     ('POSS4P', 'ellmenek')],
                cols=[('POSSSG', '1'),
                      ('POSSDU', '2'),
                      ('POSSPL', '3+')],
@@ -591,11 +592,16 @@ ENDINGS = {
                 ['-<~g>{+}ak', '-<~g>{+}ik', '-<~g>{+}ik'],
                 ['-<~g>{+}at', '-<~g>{+}it', '-<~g>{+}it'],
             ],
+            [
+                ['-{+}ni', '-{+e}gni', '-{+}ni'],
+                ['~gtek', '-{+}tek', '-{+}tek'],
+                ['~gteng', '-{+}teng', '-{+}teng'],
+            ],
         ],
         [
             ["-{+e}m", "-{+e}k", "-{+e}t"],
             [
-                ["-{+}ma", "-{+}ma", "-{+}ma"],
+                ["-{+}ma", "-{+e}gma", "-{+}ma"],
                 ["-{+e}mnuk", "-{+e}mnuk", "-{+e}mnuk"],
                 ["-{+e}mta", "-{+e}mta", "-{+e}mta"],
             ],
@@ -608,6 +614,11 @@ ENDINGS = {
                 ["-{+e}n", "-<~g>ini", "-<~g>ini"],
                 ["-{+e}gta", "-<~g>igta", "-<~g>igta"],
                 ["-{+}ta", "-<~g>ita", "-<~g>ita"],
+            ],
+            [
+                ['-{+}mi', '-{+e}gni', '-{+}mi'],
+                ['-{+}megtek', '-{+}megtek', '-{+}megtek'],
+                ['-{+}megta', '-{+}megta', '-{+}megta'],
             ],
         ],
         ] + [
@@ -624,12 +635,17 @@ ENDINGS = {
             [
                 ["~gp'" + ending] * 3,
                 ["~gp'teg" + ending] * 3,
-                ["~gp't's" + ending] * 3,
+                ["~gp't's" + ('gun' if ending == 'kun' else ending)] * 3,
             ],
             [
                 ['-<~g>a' + ending, '-<~g>i' + ending, '-<~g>i' + ending],
                 ['-<~g>ag' + ending, '-<~g>ig' + ending, '-<~g>ig' + ending],
                 ['-<~g>at' + ending, '-<~g>it' + ending, '-<~g>it' + ending],
+            ],
+            [
+                ['-{+}mi' + ending] * 3,
+                ['-{+}megteg' + ending] * 3,
+                ["-{+}megt" + ("e" if ending == "t'stun" else "'") + ending] * 3,
             ],
         ] for ending in ['ni', 'nun', 'nek', 'kun', "t'stun"]
     ],

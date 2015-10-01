@@ -1,5 +1,4 @@
 ENHANCEMENT
-add ellmenek endings to nouns
 correct handling of negatives
 separate Alutiiq and English search
 change search button to div
