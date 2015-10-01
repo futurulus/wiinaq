@@ -1,8 +1,6 @@
 ENHANCEMENT
-tooltips extend too far on mobile, can't scroll to read them
-show backslash roots as superscript
 separate Alutiiq and English search
-fix "broken" entries below
+change search button to div
 make sure we can maintain entry changes across re-filling auto fields
     implement phonotactics and search for bad entries
     split entries with multiple sources
@@ -11,8 +9,10 @@ add links to recordings on Dropbox
 locatives, demonstratives
 correct handling of negatives
 add ellmenek endings to nouns
+add "about" page (legal?)
 
 BROKEN
+tooltips extend too far on mobile, can't scroll to read them
 acigpeni (no endings) /entry/2848/ [CG p. 133]
 akuliit 3p/pl poss: akuliit ("akuliiat") /entry/189/ [CG p. 133]
 wiinga singular: wi? wik? (no endings) /entry/1346/ [CG p. 141]

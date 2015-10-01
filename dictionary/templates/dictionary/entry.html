@@ -1,5 +1,5 @@
 {% extends "dictionary/base.html" %}
-{% load russian %}
+{% load formatting %}
 
 {% block content %}
 <div class="listing">
@@ -8,7 +8,7 @@
     {% for root in roots %}
     {% if root.pos %}
     <p class="root-header"><span class="pos">{{ root.pos }}</span>
-    <span class="root-label">root:</span> <span class="root">{{ root.root|russian_r }}-</span></p>
+    <span class="root-label">root:</span> <span class="root">{{ root.root|root }}-</span></p>
     {% endif %}
 
     <ol>
