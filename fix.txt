@@ -1,6 +1,5 @@
 ENHANCEMENT
 tooltips extend too far on mobile, can't scroll to read them
-show "no results" when there are no results
 show backslash roots as superscript
 separate Alutiiq and English search
 fix "broken" entries below
@@ -22,7 +21,6 @@ neqet singular: neqa ("neqesk") /entry/1013/ [CG p. 141]
 piugta 3p poss: piugtii (no endings) /entry/3431/ [CG p. 141]
 saqul'aq 3p poss: saqulgaa ("saqulaa'a") /entry/799/ [CG p. 142]
 nuliq 3p poss: nulira ("nulia") /entry/2989/ [CG p. 143]
-niilluku 4p->3p dep: niskuniu ("niiskuniu") /entry/1256/ [Stories: Ar'ursulek]
 extra r in mina[ra]qa
 peklluni 3p pres: pektuq ("pekuq")
 

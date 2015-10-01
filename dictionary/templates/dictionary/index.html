@@ -19,7 +19,7 @@
 </div>
 
 {% if entry_list %}
-    <ul class="results">
+    <div class="results">
     {% for entry in entry_list %}
         <div class="entry">
             <div class="details">
@@ -43,6 +43,12 @@
             -->
         </div>
     {% endfor %}
-    </ul>
+    </div>
+{% elif query %}
+    <div class="results">
+        <div class="entry">
+            <p class="notfound">Sorry, no results for &quot;{{ query }}&quot;.</p>
+        </div>
+    </div>
 {% endif %}
 {% endblock %}

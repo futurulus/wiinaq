@@ -199,7 +199,7 @@ def search(request):
         context['partial_word'] = context['build_chunks'] = ''
     '''
 
-    if 'q' in request.GET:
+    if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
         chunk_list = ((Chunk.objects
                             .filter(search_text__contains=query.lower()) |
