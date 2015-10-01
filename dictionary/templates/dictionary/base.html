@@ -14,7 +14,9 @@
 <body>
     <div id="centering">
         <div id="header">
-            <img src="{% static "dictionary/sea_lion_title.svg" %}" class="logo" />
+            <a href="{% url 'search' %}">
+                <img src="{% static "dictionary/sea_lion_title.svg" %}" class="logo" />
+            </a>
         </div>
         <div id="content">
         {% block content %}{% endblock %}
