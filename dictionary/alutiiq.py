@@ -133,10 +133,11 @@ def apply_vowel_alternation(center, before):
                                 (combine_cons == '-' and
                                  before[-2:].startswith('e')))
                 cons_ending = before[-1:] in 'rg'
-                g_ending = (before[-1:] == 'g')
+                strong_fric_ending = (before[-1:] == 'g' or
+                                      before.endswith('er'))
                 if (left == '<' and vowel_ending or
                     left == '[' and cons_ending or
-                    left == '{' and g_ending):
+                    left == '{' and strong_fric_ending):
                     center = center[start_pos + 1:end_pos] + center[end_pos + 1:]
                 else:
                     center = center[:start_pos] + center[end_pos + 1:]
@@ -169,12 +170,21 @@ def apply_transformations(before, center, after):
                         center = center[:-2] + 's'
                 elif center.endswith('qe') or center.endswith('ke'):
                     center = center[:-1] + "'g"
+                elif center.endswith('g') and len(after) >= 3 and after[2] in 'aeiou':
+                    if center.endswith('gg'):
+                        center = center[:-1]
+                    # leave one g in place
                 elif center.endswith('gg') or center.endswith('rr'):
                     center = center[:-2]
                 elif center[-1] not in 'aiou':
                     center = center[:-1]
             elif after.startswith('~g'):
-                if center[-1] not in 'aeiou':
+                if re.search('[aeiou]' + CONSONANT + 'e[gr]$', center) and \
+                     len(after) >= 3 and after[2] in 'aeiou':
+                    # nater ~ga => natra
+                    center = center[:-2]
+                elif center[-1] not in 'aeiou':
+                    # yaamar ~gci => yaamarci
                     center = center[:-1]
             elif after.startswith('~l') or after.startswith('~ng'):
                 if center.endswith("t'e"):
@@ -211,6 +221,9 @@ def apply_transformations(before, center, after):
                     center += "'"
             elif center.endswith("'") and len(after) >= 2 and after[1] not in 'aeiou':
                 center = center[:-1]
+            elif re.search('[aeiou]' + CONSONANT + 'e[gr]$', center) and \
+                 len(after) >= 2 and after[1] in 'aeiou':
+                center = center[:-2] + center[-1]
 
         if re.search("[aeiou][aeiou]$", center) and \
                 len(after) >= 2 and after[1] in 'aeiou':
@@ -229,8 +242,13 @@ def apply_transformations(before, center, after):
     if before is not None:
         if center.startswith('~k'):
             if before.endswith('r'):
+                # kayar ~k => kayaq
+                # kayar ~ka => kayaqa
+                # minar ~kii => minaqii
                 center = 'q' + center[2:]
             else:
+                # nuteg ~k => nutek
+                # nuteg ~ka => nutegka
                 center = center[1:]
         elif center.startswith('~g'):
             if before.endswith('r'):
@@ -557,29 +575,29 @@ def build_endings(endings_map, id_lists, root, endings, id_curr=None):
 ENDINGS = {
     'n': [
         [
-            ['~k', '-k', '-{+e}t'],
+            ['~k', '-{+e}k', '-{+e}t'],
             [
-                ['~{+}ka', '-gka', '-nka'],
-                ['~gpuk', '-puk', '-puk'],
-                ['~gpet', '-pet', '-pet'],
+                ['~{~}ka', '-{+e}gka', '-{+e}nka'],
+                ['~gpuk', '-{+}puk', '-{+}puk'],
+                ['~gpet', '-{+}pet', '-{+}pet'],
             ],
             [
-                ['-{+e}n', '-gken', '-ten'],
-                ['~gtek', '-tek', '-tek'],
-                ['~gci', '-ci', '-ci'],
+                ['-{+e}n', '-{+e}gken', '-{+e}ten'],
+                ['~gtek', '-{+}tek', '-{+}tek'],
+                ['~gci', '-{+}ci', '-{+}ci'],
             ],
             [
-                ['-<~g>{+}a', '-<~g>k', '-<~g>{+}i'],
+                ['-<~g>{+}a', '-<~g>{+e}k', '-<~g>{+}i'],
                 ['-<~g>{+}ak', '-<~g>{+}ik', '-<~g>{+}ik'],
                 ['-<~g>{+}at', '-<~g>{+}it', '-<~g>{+}it'],
             ],
         ],
         [
-            ["-{+e}m", "-k", "-{+e}t"],
+            ["-{+e}m", "-{+e}k", "-{+e}t"],
             [
-                ["-ma", "-ma", "-ma"],
-                ["-mnuk", "-mnuk", "-mnuk"],
-                ["-mta", "-mta", "-mta"],
+                ["-{+}ma", "-{+}ma", "-{+}ma"],
+                ["-{+e}mnuk", "-{+e}mnuk", "-{+e}mnuk"],
+                ["-{+e}mta", "-{+e}mta", "-{+e}mta"],
             ],
             [
                 ["~gpet", "~gpet", "~gpet"],
@@ -588,8 +606,8 @@ ENDINGS = {
             ],
             [
                 ["-{+e}n", "-<~g>ini", "-<~g>ini"],
-                ["-gta", "-<~g>igta", "-<~g>igta"],
-                ["-ta", "-<~g>ita", "-<~g>ita"],
+                ["-{+e}gta", "-<~g>igta", "-<~g>igta"],
+                ["-{+}ta", "-<~g>ita", "-<~g>ita"],
             ],
         ],
         ] + [
@@ -599,9 +617,9 @@ ENDINGS = {
             ["-{+}t'stun"] * 3 if ending == "t'stun" else
             ['-{+}m' + ending[1:], '-{+}' + ending, '-{+}' + ending],
             [
-                ['-m' + ending] * 3,
-                ['-mteg' + ending] * 3,
-                ['-mte' + ending] * 3,
+                ['-{+e}m' + ending] * 3,
+                ['-{+e}mteg' + ending] * 3,
+                ['-{+e}mt' + ("e" if ending == "t'stun" else "'") + ending] * 3,
             ],
             [
                 ["~gp'" + ending] * 3,

@@ -42,6 +42,12 @@ ENDING_TEST_CASES = [
     ("quliyanguaqlluku", "vt", "O3P:OSG:PRES:S1P:SSG", "quliyanguaqaqa"),
     ("quliyanguaqlluku", "vt", "CONJ:O3P:OSG", "quliyanguaqlluku"),
 
+    # -eq nouns
+    ("nateq", "n", "LOC:SG:UNPOSS", "natermi"),
+    ("nateq", "n", "ABS:POSS2P:POSSSG:SG", "natren"),
+    ("nutek", "n", "LOC:SG:UNPOSS", "nutegmi"),
+    ("nutek", "n", "ABS:POSS3P:POSSSG:SG", "nutga"),  # CG p. 143
+
     # Irregular nouns
     ("kuik", "n", "ERG:SG:UNPOSS", "kuigem"),  # CG p. 125
     ("suk", "n", "ABS:SG:UNPOSS", "suk"),  # CG p. 139
