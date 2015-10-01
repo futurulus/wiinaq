@@ -56,14 +56,14 @@ def is_valid(entry):
 
 
 def get_pos(entry, defn=''):
-    if entry and entry[-1:] in 'qkt':
-        return 'n'
-    elif any(entry.endswith(marker + ending) for marker in ["lu", "l'u", "na"]
+    if any(entry.endswith(marker + ending) for marker in ["lu", "l'u", "na"]
                                              for ending in ['ni', 'tek', 'teng']):
         return 'vi'
     elif any(entry.endswith(marker + ending) for marker in ["lu", "l'u", "na"]
                                              for ending in ['ku', 'kek', 'ki']):
         return 'vt'
+    elif entry and entry[-1:] in 'qkt':
+        return 'n'
     else:
         return 'None'
 

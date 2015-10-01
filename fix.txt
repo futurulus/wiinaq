@@ -1,4 +1,6 @@
 ENHANCEMENT
+add ellmenek endings to nouns
+correct handling of negatives
 separate Alutiiq and English search
 change search button to div
 make sure we can maintain entry changes across re-filling auto fields
@@ -7,8 +9,6 @@ make sure we can maintain entry changes across re-filling auto fields
     enter the rest of QANK
 add links to recordings on Dropbox
 locatives, demonstratives
-correct handling of negatives
-add ellmenek endings to nouns
 add "about" page (legal?)
 
 BROKEN
