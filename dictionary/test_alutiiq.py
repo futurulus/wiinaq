@@ -7,40 +7,40 @@ ENDING_TEST_CASES = [
     ("yaamaq", "n", "ABS:DU:POSS1P:POSSSG", "yaamagka"),
 
     # Basic intransitive verbs
-    ("silugluni", "vi", "1P:PL:PRES", "silugtukut"),
-    ("tang'rlluni", "vi", "3P:CONJ:SG", "tang'rlluni"),
-    ("nerluni", "vi", "3P:PRES:SG", "ner'uq"),
-    ("nerluni", "vi", "3P:CONJ:SG", "nerluni"),
-    ("agluni", "vi", "3P:PRES:SG", "ag'uq"),
-    ("agluni", "vi", "3P:CONJ:SG", "agluni"),
-    ("aqum'aluni", "vi", "1P:PRES:SG", "aqum'agua(nga)"),
-    ("aqumluni", "vi", "3P:PRES:SG", "aqumuq"),  # CG p. 25
+    ("silugluni", "vi", "1P:PL:POS:PRES", "silugtukut"),
+    ("tang'rlluni", "vi", "3P:CONJ:POS:SG", "tang'rlluni"),
+    ("nerluni", "vi", "3P:POS:PRES:SG", "ner'uq"),
+    ("nerluni", "vi", "3P:CONJ:POS:SG", "nerluni"),
+    ("agluni", "vi", "3P:POS:PRES:SG", "ag'uq"),
+    ("agluni", "vi", "3P:CONJ:POS:SG", "agluni"),
+    ("aqum'aluni", "vi", "1P:POS:PRES:SG", "aqum'agua(nga)"),
+    ("aqumluni", "vi", "3P:POS:PRES:SG", "aqumuq"),  # CG p. 25
 
     # t-stem intransitive verbs
-    ("tekilluni", "vi", "3P:PRES:SG", "tekituq"),  # CG p. 25
-    ("tekilluni", "vi", "3P:CONJ:SG", "tekilluni"),
-    ("tekilluni", "vi", "1P:PRES:SG", "tekitua(nga)"),
+    ("tekilluni", "vi", "3P:POS:PRES:SG", "tekituq"),  # CG p. 25
+    ("tekilluni", "vi", "3P:CONJ:POS:SG", "tekilluni"),
+    ("tekilluni", "vi", "1P:POS:PRES:SG", "tekitua(nga)"),
 
     # q-stem transitive verbs
-    ("caqlluni", "vi", "3P:CONJ:SG", "caqlluni"),
+    ("caqlluni", "vi", "3P:CONJ:POS:SG", "caqlluni"),
 
     # Negative intransitive verbs
-    ("miknani", "vi", "3P:PRES:SG", "miktuq"),  # CG p. 25
+    ("miknani", "vi", "3P:POS:PRES:SG", "miktuq"),  # CG p. 25
 
     # Basic transitive verbs
-    ("nalluluku", "vt", "O3P:OSG:PRES:S1P:SSG", "nalluwaqa"),
-    ("nalluluku", "vt", "O3P:OSG:PAST:S1P:SSG", "nalluk'gka"),
-    ("qunuklluku", "vt", "O3P:OSG:PRES:S1P:SSG", "qunukaqa"),
+    ("nalluluku", "vt", "O3P:OSG:POS:PRES:S1P:SSG", "nalluwaqa"),
+    ("nalluluku", "vt", "O3P:OSG:PAST:POS:S1P:SSG", "nalluk'gka"),
+    ("qunuklluku", "vt", "O3P:OSG:POS:PRES:S1P:SSG", "qunukaqa"),
 
     # t-stem transitive verbs
-    ("aplluku", "vt", "O3P:OSG:PRES:S1P:SSG", "aptaqa"),
-    ("eglluku", "vt", "O3P:OSG:PRES:S1P:SSG", "egtaqa"),
-    ("aplluku", "vt", "O3P:OSG:PAST:S1P:SSG", "ap'sk'gka"),
-    ("eglluku", "vt", "O3P:OSG:PAST:S1P:SSG", "eg'sk'gka"),
+    ("aplluku", "vt", "O3P:OSG:POS:PRES:S1P:SSG", "aptaqa"),
+    ("eglluku", "vt", "O3P:OSG:POS:PRES:S1P:SSG", "egtaqa"),
+    ("aplluku", "vt", "O3P:OSG:PAST:POS:S1P:SSG", "ap'sk'gka"),
+    ("eglluku", "vt", "O3P:OSG:PAST:POS:S1P:SSG", "eg'sk'gka"),
 
     # q-stem transitive verb
-    ("quliyanguaqlluku", "vt", "O3P:OSG:PRES:S1P:SSG", "quliyanguaqaqa"),
-    ("quliyanguaqlluku", "vt", "CONJ:O3P:OSG", "quliyanguaqlluku"),
+    ("quliyanguaqlluku", "vt", "O3P:OSG:POS:PRES:S1P:SSG", "quliyanguaqaqa"),
+    ("quliyanguaqlluku", "vt", "CONJ:O3P:OSG:POS", "quliyanguaqlluku"),
 
     # -eq nouns
     ("nateq", "n", "LOC:SG:UNPOSS", "natermi"),
@@ -61,30 +61,30 @@ ENDING_TEST_CASES = [
     ("suk", "n", "SG:SIM:UNPOSS", "sugt'stun"),
 
     # Irregular intransitive verbs
-    ("ell'uni", "vi", "3P:PRES:SG", "et'uq"),  # CG p. 128
-    ("ell'uni", "vi", "3P:CONJ:SG", "ell'uni"),
-    ("ell'uni", "vi", "3P:PAST:SG", "et'llria"),
-    ("ell'uni", "vi", "1P:COND:SG", "ellkuma"),
-    ("ell'uni", "vi", "1P:CSEQ:SG", "ellngama"),
-    ("mill'uni", "vi", "3P:PRES:SG", "mit'uq"),  # CG p. 128
-    #("all'uni", "vi", "3P:PRES:SG", "alltuq"),  # QANK p. 22
-    ("ul'uni", "vi", "3P:CONJ:SG", "ul'uni"),  # QANK p.23
-    ("ul'uni", "vi", "3P:PRES:SG", "uluq"),
-    ("ul'uni", "vi", "3P:PAST:SG", "ulellria"),
-    ("ul'uni", "vi", "1P:COND:SG", "ulkuma"),
-    ("ul'uni", "vi", "1P:CSEQ:SG", "ulngama"),
+    ("ell'uni", "vi", "3P:POS:PRES:SG", "et'uq"),  # CG p. 128
+    ("ell'uni", "vi", "3P:CONJ:POS:SG", "ell'uni"),
+    ("ell'uni", "vi", "3P:PAST:POS:SG", "et'llria"),
+    ("ell'uni", "vi", "1P:COND:POS:SG", "ellkuma"),
+    ("ell'uni", "vi", "1P:CSEQ:POS:SG", "ellngama"),
+    ("mill'uni", "vi", "3P:POS:PRES:SG", "mit'uq"),  # CG p. 128
+    #("all'uni", "vi", "3P:POS:PRES:SG", "alltuq"),  # QANK p. 22
+    ("ul'uni", "vi", "3P:CONJ:POS:SG", "ul'uni"),  # QANK p.23
+    ("ul'uni", "vi", "3P:POS:PRES:SG", "uluq"),
+    ("ul'uni", "vi", "3P:PAST:POS:SG", "ulellria"),
+    ("ul'uni", "vi", "1P:COND:POS:SG", "ulkuma"),
+    ("ul'uni", "vi", "1P:CSEQ:POS:SG", "ulngama"),
 
     # Tricky edge cases for intransitive verbs: apostrophe and linking y/w,
     # -ng, voiceless r
-    ("nauluni", "vi", "3P:PL:PRES", "nau'ut"),  # CG p.129
-    ("tailuni", "vi", "3P:PL:PRES", "taiyut"),  # Song: Tuntut Taiyut
-    ("qawarniluni", "vi", "3P:PRES:SG", "qawarniuq"),  # CG p. 25
-    ("iqlluluni", "vi", "3P:PRES:SG", "iqlluuq"),  # CG p. 25
-    ("qitengluni", "vi", "3P:PRES:SG", "qitenguq"),  # CG p. 131
-    ("tengluni", "vi", "3P:PAST:SG", "tengellria"),  # CG p. 128
-    ("ek'arlluni", "vi", "3P:CONJ:SG", "ek'arlluni"),
-    ("ek'arlluni", "vi", "1P:PAST:SG", "ek'allrianga"),
-    ("ek'arlluni", "vi", "1P:COND:SG", "ek'aquma"),
+    ("nauluni", "vi", "3P:PL:POS:PRES", "nau'ut"),  # CG p.129
+    ("tailuni", "vi", "3P:PL:POS:PRES", "taiyut"),  # Song: Tuntut Taiyut
+    ("qawarniluni", "vi", "3P:POS:PRES:SG", "qawarniuq"),  # CG p. 25
+    ("iqlluluni", "vi", "3P:POS:PRES:SG", "iqlluuq"),  # CG p. 25
+    ("qitengluni", "vi", "3P:POS:PRES:SG", "qitenguq"),  # CG p. 131
+    ("tengluni", "vi", "3P:PAST:POS:SG", "tengellria"),  # CG p. 128
+    ("ek'arlluni", "vi", "3P:CONJ:POS:SG", "ek'arlluni"),
+    ("ek'arlluni", "vi", "1P:PAST:POS:SG", "ek'allrianga"),
+    ("ek'arlluni", "vi", "1P:COND:POS:SG", "ek'aquma"),
 
     # Locatives (not yet implemented)
     ##("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigpeni"),  # CG p. 133
@@ -107,21 +107,31 @@ ENDING_TEST_CASES = [
     #("nuliq", "n", "ABS:POSS3P:POSSSG:SG", "nulira"),  # CG p. 143
 
     # Consequential -te- + -ngama = -cama
-    ("sun'arauluni", "vi", "1P:CSEQ:SG", "sun'araungama"),
-    ("aiwilluni", "vi", "1P:CSEQ:SG", "aiwicama"),
-    ("aiwilluku", "vt", "CSEQ:O3P:OSG:S1P:SSG", "aiwicamgu"),
+    ("sun'arauluni", "vi", "1P:CSEQ:POS:SG", "sun'araungama"),
+    ("aiwilluni", "vi", "1P:CSEQ:POS:SG", "aiwicama"),
+    ("aiwilluku", "vt", "CSEQ:O3P:OSG:POS:S1P:SSG", "aiwicamgu"),
 
     # Conditional -te- + -kuma = -skuma
-    ("tekilluni", "vi", "1P:COND:SG", "tekiskuma"),
+    ("tekilluni", "vi", "1P:COND:POS:SG", "tekiskuma"),
     # double vowel shortening in closed syllable
-    ("liilluni", "vi", "3P:PRES:SG", "liituq"),
-    ("liilluni", "vi", "1P:COND:SG", "liskuma"),
-    ("liilluni", "vi", "1P:CSEQ:SG", "liicama"),
+    ("liilluni", "vi", "3P:POS:PRES:SG", "liituq"),
+    ("liilluni", "vi", "1P:COND:POS:SG", "liskuma"),
+    ("liilluni", "vi", "1P:CSEQ:POS:SG", "liicama"),
 
     # Conditional -qe- + -kumgu = -q'gkumgu
-    ("tuumiaqlluku", "vt", "COND:O3P:OSG:S1P:SSG", "tuumiaq'gkumgu"),
+    ("tuumiaqlluku", "vt", "COND:O3P:OSG:POS:S1P:SSG", "tuumiaq'gkumgu"),
     # but not past tense?
-    #("tuumiaqlluku", "vt", "O3P:OSG:PAST:S1P:SSG", "tuumiaq'gka"),
+    #("tuumiaqlluku", "vt", "O3P:OSG:PAST:POS:S1P:SSG", "tuumiaq'gka"),
+
+    # Negatives
+    ("nalluluni", "vi", "3P:NEG:PRES:SG", "nallun'ituq"),
+    ("nalluluni", "vi", "3P:CONJ:NEG:SG", "nallugkunani"),
+    ("nalluluni", "vi", "2P:CONJ:NEG:SG", "nallugkunak"),
+    ("nalluluni", "vi", "3P:CONJ:NEG:PL", "nallugkunateng"),
+    ("agnguarluni", "vi", "3P:CONJ:NEG:SG", "agnguaqunani"),
+    ("agluni", "vi", "3P:CONJ:NEG:SG", "agegkunani"),
+    ("nalluluku", "vt", "NEG:O3P:OSG:PRES:S1P:SSG", "nallun'itaqa"),
+    ("nalluluku", "vt", "CONJ:NEG:O3P:OSG", "nallugkunaku"),
 ]
 
 POS_TEST_CASES = [
@@ -191,6 +201,12 @@ for args in POS_TEST_CASES:
 
 for args in ROOT_TEST_CASES:
     add_root_method(args)
+
+
+class TestPastMap(unittest.TestCase):
+    def test_3p_sg(self):
+        from alutiiq import PAST_MAP
+        self.assertEqual(PAST_MAP['-llria'], '+[+t]uq')
 
 
 if __name__ == '__main__':

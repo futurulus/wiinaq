@@ -132,7 +132,7 @@ def apply_vowel_alternation(center, before):
                 vowel_ending = (before[-1:] in 'aiou' or
                                 (combine_cons == '-' and
                                  before[-2:].startswith('e')))
-                cons_ending = before[-1:] in 'rg'
+                cons_ending = before[-1:] in 'rg' or before.endswith('ll')
                 strong_fric_ending = (before[-1:] == 'g' or
                                       before.endswith('er'))
                 if (left == '<' and vowel_ending or
@@ -144,8 +144,44 @@ def apply_vowel_alternation(center, before):
 
     return center
 
+def apply_negative(before, center):
+    if before is not None and center is not None and center.startswith('!'):
+        center = center[1:]
+        if before.endswith('N'):
+            # nalluN !~aqa => nallu ~aqa => nalluwaqa
+            before = before[:-1]
+        elif before.endswith('I'):
+            # asiI !+[+t]uq => asir +[+t]uq => asirtuq
+            before = before[:-1] + 'r'
+        elif before.endswith('X'):
+            # piX !+[+t]uq => pinq'rr !+[+t]uq => pingq'rtuq
+            before = before[:-1] + "ngq'rr"
+        elif center.startswith('~a') or center.startswith('+<~g>a') or \
+             '[+t]u' in center:
+            center = morpho_join(["-n'ite", center])
+        elif center.startswith('~lu'):
+            # nallu !~luku => nallu +g[~]kunaku => nallugkunaku
+            center = "+g[~]kuna" + center[3:]
+            if center.endswith('naten'):
+                # nallu !~luten => nallu +g[~]kunak => nallugkunak
+                center = center[:-5] + 'nak'
+            else:
+                # nallu !~lua(nga) => nallu +g[~]kunii(nga) => nallugkunii(nga)
+                center = center.replace('naa', 'nii')
+        elif center.startswith('-llr'):
+            # nallu !-llria => nallu -nilnge +[+t]uq => nallunilnguq
+            center = morpho_join(["-n'ilnge", PAST_MAP[center]])
+        else:
+            # nallu !~k'gka => nallu -n'llk'gka => nallun'llk'gka
+            # also -kuma, -ngama, question endings (need to check those)
+            center = morpho_join(["-n'll", center])
+
+
+    return before, center
 
 def apply_transformations(before, center, after):
+    before, center = apply_negative(before, center)
+    center, after = apply_negative(center, after)
     center = apply_vowel_alternation(center, before)
     after = apply_vowel_alternation(after, center)
 
@@ -176,7 +212,7 @@ def apply_transformations(before, center, after):
                     # leave one g in place
                 elif center.endswith('gg') or center.endswith('rr'):
                     center = center[:-2]
-                elif center[-1] not in 'aiou':
+                elif center[-1] not in 'aioul':
                     center = center[:-1]
             elif after.startswith('~g'):
                 if re.search('[aeiou]' + CONSONANT + 'e[gr]$', center) and \
@@ -286,6 +322,9 @@ def apply_transformations(before, center, after):
 
 
 def morpho_join(chunks):
+    if '-' in chunks:
+        return '-'
+
     chunks = [None] + chunks + [None]
     transformed = []
     for i in range(1, len(chunks) - 1):
@@ -327,13 +366,15 @@ HIERARCHY = {
     ],
     'vi': [
         Widget(id='tense', title='Tense',
-               default='PRES',
+               default='PRES:POS',
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
                      ('INTERR', 'question'),
                      ('COND', 'if'),
-                     ('CSEQ', 'when')]),
+                     ('CSEQ', 'when')],
+               cols=[('POS', 'positive'),
+                     ('NEG', 'negative')]),
         Widget(id='subject', title='Subject',
                default='1P:SG',
                rows=[('1P', 'gui'),
@@ -346,13 +387,15 @@ HIERARCHY = {
     ],
     'vt': [
         Widget(id='tense', title='Tense',
-               default='PRES',
+               default='PRES:POS',
                rows=[('PRES', 'present'),
                      ('PAST', 'past'),
                      ('CONJ', 'conjunctive'),
                      ('INTERR', 'question'),
                      ('COND', 'if'),
-                     ('CSEQ', 'when')]),
+                     ('CSEQ', 'when')],
+               cols=[('POS', 'positive'),
+                     ('NEG', 'negative')]),
         Widget(id='subject', title='Subject',
                default='S1P:SSG',
                rows=[('S1P', 'gui'),
@@ -394,11 +437,13 @@ ID_LISTS = {
         id_list(HIERARCHY['n'][0], 'c'),
     ],
     'vi': [
+        id_list(HIERARCHY['vi'][0], 'c'),
         id_list(HIERARCHY['vi'][0], 'r'),
         id_list(HIERARCHY['vi'][1], 'r'),
         id_list(HIERARCHY['vi'][1], 'c'),
     ],
     'vt': [
+        id_list(HIERARCHY['vt'][0], 'c'),
         id_list(HIERARCHY['vt'][0], 'r'),
         id_list(HIERARCHY['vt'][1], 'r'),
         id_list(HIERARCHY['vt'][1], 'c'),
@@ -506,9 +551,9 @@ def get_endings_map(root, pos):
     '''
     >>> get_endings_map('yaamar', 'n')['ABS:DU:POSS1P:POSSSG']
     'yaamagka'
-    >>> get_endings_map('silug', 'vi')['1P:PL:PRES']
+    >>> get_endings_map('silug', 'vi')['1P:PL:POS:PRES']
     'silugtukut'
-    >>> get_endings_map('nallu', 'vt')['O3P:OSG:PRES:S1P:SSG']
+    >>> get_endings_map('nallu', 'vt')['O3P:OSG:POS:PRES:S1P:SSG']
     'nalluwaqa'
     '''
     endings_map = {}
@@ -568,9 +613,50 @@ def build_endings(endings_map, id_lists, root, endings, id_curr=None):
                               sub_endings, id_curr=id_curr + [id])
     else:
         full_id = ':'.join(sorted(id_curr))
-        cell = '-' if endings == '-' else morpho_join([root, endings])
+        cell = morpho_join([root, endings])
         endings_map[full_id] = cell
 
+
+def negatives(table):
+    if isinstance(table, list):
+        return [negatives(r) for r in table]
+    elif table == '-':
+        return '-'
+    else:
+        return '!' + table
+
+
+def add_negatives(table):
+    return [table, negatives(table)]
+
+
+def correspondences_map(table1, table2, result=None):
+    if result is None: result = {}
+
+    if isinstance(table1, list) and isinstance(table2, list):
+        for sub1, sub2 in zip(table1, table2):
+            correspondences_map(sub1, sub2, result)
+    else:
+        result[table1] = table2
+
+    return result
+
+
+VI_PRES = [
+    ['+<+g>[+t]ua(nga)', '+[+t]ukuk', '+[+t]ukut'],
+    ['+[+t]uten', '+[+t]utek', '+[+t]uci'],
+    ['+[+t]uq', '+[+t]uk', '+[+t]ut'],
+    ['-'] * 3,
+]
+
+VI_PAST = [
+    ['-llrianga', '-llriakuk', '-llriakut'],
+    ['-llriaten', '-llriatek', '-llriaci'],
+    ['-llria', '-llriik', '-llriit'],
+    ['-'] * 3,
+]
+
+PAST_MAP = correspondences_map(VI_PAST, VI_PRES)
 
 
 ENDINGS = {
@@ -649,19 +735,9 @@ ENDINGS = {
             ],
         ] for ending in ['ni', 'nun', 'nek', 'kun', "t'stun"]
     ],
-    'vi': [
-        [
-            ['+<+g>[+t]ua(nga)', '+[+t]ukuk', '+[+t]ukut'],
-            ['+[+t]uten', '+[+t]utek', '+[+t]uci'],
-            ['+[+t]uq', '+[+t]uk', '+[+t]ut'],
-            ['-'] * 3,
-        ],
-        [
-            ['-llrianga', '-llriakuk', '-llriakut'],
-            ['-llriaten', '-llriatek', '-llriaci'],
-            ['-llria', '-llriik', '-llriit'],
-            ['-'] * 3,
-        ],
+    'vi': add_negatives([
+        VI_PRES,
+        VI_PAST,
         [
             ['~lua(nga)', '~lunuk', '~luta'],
             ['~luten', '~lutek', '~luci'],
@@ -686,8 +762,8 @@ ENDINGS = {
             ['~ngan', '~ngagta', '~ngata'],
             ['~ngami', '~ngamek', '~ngameng'],
         ],
-    ],
-    'vt': [
+    ]),
+    'vt': add_negatives([
         [
             [
                 [
@@ -1047,7 +1123,7 @@ ENDINGS = {
                 ],
             ],
         ],
-    ],
+    ]),
 }
 
 def inflection_data(root):
