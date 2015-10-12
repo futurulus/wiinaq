@@ -24,9 +24,6 @@ ENDING_TEST_CASES = [
     # q-stem transitive verbs
     ("caqlluni", "vi", "3P:CONJ:POS:SG", "caqlluni"),
 
-    # Negative intransitive verbs
-    ("miknani", "vi", "3P:POS:PRES:SG", "miktuq"),  # CG p. 25
-
     # Basic transitive verbs
     ("nalluluku", "vt", "O3P:OSG:POS:PRES:S1P:SSG", "nalluwaqa"),
     ("nalluluku", "vt", "O3P:OSG:PAST:POS:S1P:SSG", "nalluk'gka"),
@@ -128,10 +125,27 @@ ENDING_TEST_CASES = [
     ("nalluluni", "vi", "3P:CONJ:NEG:SG", "nallugkunani"),
     ("nalluluni", "vi", "2P:CONJ:NEG:SG", "nallugkunak"),
     ("nalluluni", "vi", "3P:CONJ:NEG:PL", "nallugkunateng"),
+
     ("agnguarluni", "vi", "3P:CONJ:NEG:SG", "agnguaqunani"),
     ("agluni", "vi", "3P:CONJ:NEG:SG", "agegkunani"),
+    ("agatuluni", "vi", "3P:CONJ:NEG:SG", "agakinani"),
+
+    ("nalluluku", "vt", "NEG:O3P:OSG:PAST:S1P:SSG", "nallun'llk'gka"),
     ("nalluluku", "vt", "NEG:O3P:OSG:PRES:S1P:SSG", "nallun'itaqa"),
     ("nalluluku", "vt", "CONJ:NEG:O3P:OSG", "nallugkunaku"),
+
+    ("miknani", "vi", "3P:POS:PRES:SG", "miktuq"),  # CG p. 25
+    ("miknani", "vi", "3P:PAST:POS:SG", "mik'llnguq"),  # mikelnguq?
+    ("cainani", "vi", "3P:POS:PRES:SG", "caituq"),
+    ("cainani", "vi", "3P:PAST:POS:SG", "cailnguq"),
+    ("cainani", "vi", "3P:INTERR:POS:SG", "caillta"),
+    ("cainani", "vi", "3P:COND:POS:SG", "caillkan"),
+    ("asiinani", "vi", "3P:POS:PRES:SG", "asiituq"),
+    ("asiinani", "vi", "3P:PAST:POS:SG", "asilnguq"),
+    ("asiinani", "vi", "3P:INTERR:POS:SG", "asillta"),
+    ("asiinani", "vi", "3P:CONJ:POS:SG", "asiinani"),
+
+    ("piturniinani", "vi", "3P:NEG:PRES:SG", "piturnirtuq"),
 ]
 
 POS_TEST_CASES = [

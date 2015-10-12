@@ -86,11 +86,13 @@ def get_root(word, defn=''):
                     return base[:-1] + '\\' + base[-1] + 'te'
                 else:
                     return base + 'te'
-            if ending.startswith('k') and word.endswith('g' + ending):
-                return word[:-len(ending) - 1]
+            if marker == 'kuna' and word.endswith('g' + ending):
+                return word[:-len(ending) - 1] + 'N'
             if word.endswith(ending):
-                if "'" in ending:
+                if "'" in marker:
                     return word[:-len(ending)] + "le"
+                elif marker == 'kuna':
+                    return word[:-len(ending)] + 'N'
                 elif re.search('^([^aeiou]?)[aeiou][gr]$', word[:-len(ending)]):
                     return word[:-len(ending)] + "e"
                 elif word[:-len(ending)].endswith('ng'):
@@ -100,8 +102,10 @@ def get_root(word, defn=''):
 
     neg_endings = ['nani', 'natek', 'nateng', 'naku', 'nakek', 'naki']
     for ending in neg_endings:
-        if word.endswith(ending):
-            return word[:-len(ending)] + 'te'
+        if word.endswith('ii' + ending):
+            return word[:-len(ending) - 1] + '\iT'
+        elif word.endswith(ending):
+            return word[:-len(ending)] + 'T'
 
     if re.search('(^|[^aeiou])[aeiou]teq$', word):
         return word[:-1] + 'r'
@@ -145,37 +149,93 @@ def apply_vowel_alternation(center, before):
     return center
 
 def apply_negative(before, center):
-    if before is not None and center is not None and center.startswith('!'):
-        center = center[1:]
-        if before.endswith('N'):
-            # nalluN !~aqa => nallu ~aqa => nalluwaqa
-            before = before[:-1]
-        elif before.endswith('I'):
-            # asiI !+[+t]uq => asir +[+t]uq => asirtuq
-            before = before[:-1] + 'r'
-        elif before.endswith('X'):
-            # piX !+[+t]uq => pinq'rr !+[+t]uq => pingq'rtuq
-            before = before[:-1] + "ngq'rr"
-        elif center.startswith('~a') or center.startswith('+<~g>a') or \
-             '[+t]u' in center:
-            center = morpho_join(["-n'ite", center])
-        elif center.startswith('~lu'):
-            # nallu !~luku => nallu +g[~]kunaku => nallugkunaku
-            center = "+g[~]kuna" + center[3:]
-            if center.endswith('naten'):
-                # nallu !~luten => nallu +g[~]kunak => nallugkunak
-                center = center[:-5] + 'nak'
-            else:
-                # nallu !~lua(nga) => nallu +g[~]kunii(nga) => nallugkunii(nga)
-                center = center.replace('naa', 'nii')
-        elif center.startswith('-llr'):
-            # nallu !-llria => nallu -nilnge +[+t]uq => nallunilnguq
-            center = morpho_join(["-n'ilnge", PAST_MAP[center]])
-        else:
-            # nallu !~k'gka => nallu -n'llk'gka => nallun'llk'gka
-            # also -kuma, -ngama, question endings (need to check those)
-            center = morpho_join(["-n'll", center])
+    if before is not None and center is not None:
+        negative = False
 
+        if center.startswith('!'):
+            # negative root + negative postbase = positive
+            center = center[1:]
+            if before.endswith('N'):
+                # nalluN !~aqa => nallu ~aqa => nalluwaqa
+                before = before[:-1]
+            elif before.endswith('T'):
+                # asiI !+[+t]uq => asir +[+t]uq => asirtuq
+                if before.endswith(r'\iT'):
+                    before = before[:-3] + 'r'
+                elif re.search(r'[au]iT$', before):
+                    before = before[:-2] + 'r'
+                elif before.endswith('kiT'):
+                    before = before[:-3] + "tu"
+                else:
+                    before = before[:-1] + 'e'
+                    negative = True
+            elif before.endswith('iX'):
+                # piiX !+[+t]uq => pinq'rr !+[+t]uq => pingq'rtuq
+                before = before[:-2] + "ngq'rr"
+            else:
+                negative = True
+        elif before[-1:] in 'NTX':
+            negative = True
+
+        if negative:
+            if center.startswith('~a') or center.startswith('+<~g>a') or \
+                 '[+t]u' in center:
+                # present tense:
+                #   transitive (not third person): ~a
+                #   transitive third person: +<~g>a
+                #   intransitive: ...[+t]u
+                # nalluN ~aqa => nallun'ite ~aqa => nallun'itaqa
+                pass
+            elif center.startswith('~lu'):
+                # nallu !~luku => nallu +g[~]kunaku => nallugkunaku
+                center = "+na" + center[3:]
+                if center.endswith('naten'):
+                    # nallu !~luten => nallu +g[~]kunak => nallugkunak
+                    center = center[:-5] + 'nak'
+                else:
+                    # nallu !~lua(nga) => nallu +g[~]kunii(nga) => nallugkunii(nga)
+                    center = center.replace('naa', 'nii')
+            elif center.startswith('-llr'):
+                # nallu !-llria => nallune -lnge +[+t]uq => nallunilnguq
+                center = morpho_join(["~lnge", PAST_MAP[center]])
+            elif center.startswith('~ng'):
+                # nallu !~ngama => nallun'te ~lngama => nallun'llngama
+                # asiI ~ngama => asi\i ~lngama => asiilngama
+                center = '~' + morpho_join(["l", center])
+            else:
+                # nallu !~k'gka => nallun'te ~llk'gka => nallun'llk'gka
+                # also -kuma, question endings (need to check those)
+                center = '~' + morpho_join(["ll", center])
+
+        # negative root + positive postbase = negative
+        if before.endswith('iT') or before.endswith('iX'):
+            # asi\iT +[+t]uq => asi\i +tuq => asiituq
+            # pi\iX +[+t]uq => pi\i +tuq => piituq
+            before = before[:-1]
+            if not center.startswith('~l') and not center.startswith('+n'):
+                before += 'te'
+        elif before.endswith('T'):
+            # mikT +[+t]uq => mikt +uq => miktuq
+            before = before[:-1] + 'te'
+        elif negative:
+            if before.endswith('N'):
+                before = before[:-1]
+
+            if before.endswith('tu'):
+                # agatuN ~luni => agaki +nani => agakinani
+                before = before[:-2] + 'ki'
+            elif center.startswith('+n'):
+                # nalluN ~luku => nallu +g[~]kunaku => nallugkunaku
+                center = '+g[~]kun' + center[len('+n'):]
+            elif center.startswith('~lngu'):
+                # nalluN ~llria => nalluni ~lnguq => nallunilnguq
+                before += "ni"
+            elif center.startswith('~l'):
+                # nalluN ~kuma => nallun'te ~lkuma => nallun'llkuma
+                before += "n'te"
+            else:
+                # nalluN ~aqa => nallune -itaqa => nallun'itaqa
+                before += "n'ite"
 
     return before, center
 
@@ -226,12 +286,17 @@ def apply_transformations(before, center, after):
                 if center.endswith("t'e"):
                     # et'e ~ngama => ellngama
                     center = center[:-3] + "ll"
+
                     if after.startswith('~l'):
                         # et'e ~luni => ell'uni
                         center += "'"
                 elif center.endswith('te'):
                     # aiwite ~ngama => aiwicama
                     center = center[:-2]
+
+                    if center and center[-1] not in "aeiou'":
+                        # mikte ~lnguq => mik'llnguq
+                        center += "'"
                 elif after.startswith('~l') and center.endswith('le'):
                     # ule ~luni => ul'uni
                     center = center[:-1] + "'"
@@ -295,7 +360,9 @@ def apply_transformations(before, center, after):
             if (before[-2:] in ('qe', 'ke', 'te') or  # caqe ~luni => caqlluni
                     before.endswith('gg') or  # cupugg ~luni => cupuglluni
                     before.endswith('rr')):  # angq'rr ~luni => angq'rlluni
-                center = 'l' + center[1:]
+                center = center[1:]
+                if not center.startswith('ll'):
+                    center = 'l' + center
             elif before.endswith("t'e") or before.endswith("le"):
                 center = center[2:]
             else:
@@ -310,13 +377,19 @@ def apply_transformations(before, center, after):
         else:
             center = ' ' + center
 
-    if after and (re.search(r'\\[aiu]$', center) and
-                  re.search(r'^.([^aeiou]|ng)[aeiou]', after)) or \
-                 (re.search(r'\\[aiu][^aeiou]$', center) and
-                  re.search(r'^.[aeiou]', after)):
-        center = re.sub(r'\\([aiu])', r'\1', center)
-    elif re.search(r'\\[aiu]', center):
-        center = re.sub(r'\\[aiu]', r'', center)
+    if after and re.search(r'^.' + CONSONANT + "[aeiou']", after):
+        # su\ug ~ka => sugka
+        center = re.sub(r'([aiu])\\\1' + CONSONANT + '$', r'\1\2', center)
+        # asi\i +tuq => asiituq
+        center = re.sub(r'([aiu])\\([aiu])$', r'\1\2', center)
+    elif after and re.search(r'^.' + CONSONANT + '(' + CONSONANT + '|$)', after):
+        # su\ug ~k => suk
+        # su\ug ~gci => sugci
+        # pi\i +lnguq = pilnguq
+        center = re.sub(r'([aiu])\\\1$', r'\1', center)
+    elif after:
+        # su\ug +a => suuga
+        center = re.sub(r'(?<=[a-zR])\\(?=[aiu])', '', center)
 
     return center
 
