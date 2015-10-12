@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
 python -m dictionary.init_fixture
+./manage.py loaddata words
