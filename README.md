@@ -1,78 +1,112 @@
-Django on OpenShift
-===================
+Overview
+========
 
-This git repository helps you get up and running quickly w/ a Django
-installation on OpenShift.  The Django project name used in this repo
-is 'myproject' but you can feel free to change it.  Right now the
-backend is sqlite3 and the database runtime is found in
-`$OPENSHIFT_DATA_DIR/db.sqlite3`.
+Word Wiinaq is an [Kodiak Alutiiq](http://www.alutiiqlanguage.org/) dictionary
+web application with automatically generated ending tables and souped-up search
+capabilities.
 
-Before you push this app for the first time, you will need to change
-the [Django admin password](#admin-user-name-and-password).
-Then, when you first push this
-application to the cloud instance, the sqlite database is copied from
-`wsgi/myproject/db.sqlite3` with your newly changed login
-credentials. Other than the password change, this is the stock
-database that is created when `python manage.py syncdb` is run with
-only the admin app installed.
+It is written in Python using Django.
 
-On subsequent pushes, a `python manage.py syncdb` is executed to make
-sure that any models you added are created in the DB.  If you do
-anything that requires an alter table, you could add the alter
-statements in `GIT_ROOT/.openshift/action_hooks/alter.sql` and then use
-`GIT_ROOT/.openshift/action_hooks/deploy` to execute that script (make
-sure to back up your database w/ `rhc app snapshot save` first :) )
+Installation
+============
 
-You can also turn on the DEBUG mode for Django application using the
-`rhc env set DEBUG=True --app APP_NAME`. If you do this, you'll get
-nicely formatted error pages in browser for HTTP 500 errors.
+Downloading and running locally
+-------------------------------
 
-Do not forget to turn this environment variable off and fully restart
-the application when you finish:
+If you haven't already, you'll want to start by installing [Python
+2.7](https://www.python.org/downloads/) and
+[pip](https://pypi.python.org/pypi/pip).  Then install Django:
 
-```
-$ rhc env unset DEBUG
-$ rhc app stop && rhc app start
-```
+    pip install django django-nose
+
+Find a nice spot for the repo and clone it:
+
+    git clone https://github.com/futurulus/wiinaq.git
+    cd wiinaq
+
+Set up the database:
+
+    ./manage.py migrate
+    ./manage.py loaddata words_free
+
+Finally, start the server:
+
+    ./server
+
+Once you do this, your browser should be able to load the site locally at
+http://localhost:8000/.
+
+If you'd like to take a look at how the admin interface works, make yourself a
+superuser account (you may be prompted to do this by some of the previous
+commands):
+
+    ./manage.py createsuperuser
+
+Then make sure the server is running and point your browser to
+http://localhost:8000/admin/.
 
 Running on OpenShift
 --------------------
 
-Create an account at https://www.openshift.com
+Word Wiinaq is configured to run out of the box on RedHat OpenShift. You'll
+need to create an account at http://openshift.com/ and initialize an app with
+the Django, MySQL, and cron cartridges.
 
-Install the RHC client tools if you have not already done so:
-    
-    sudo gem install rhc
-    rhc setup
+(TODO: add relevant instructions from `README_OPENSHIFT.md`)
 
-Create a python application
+Setting up Dropbox backup
+-------------------------
 
-    rhc app create django python-2.7
+If you only want to back up the database from your local installation, you can
+periodically run
 
-Add this upstream repo
+    ./backup
 
-    cd django
-    git remote add upstream -m master git://github.com/openshift/django-example.git
-    git pull -s recursive -X theirs upstream master
+The first time you run the script, you'll be prompted to set up your
+information on the Dropbox Apps website.
 
-Then push the repo upstream
+To configure this as a daily job in OpenShift, run the setup script (from your
+local installation):
 
-    git push
+    ./openshift_setup_dropbox
 
-Here, the [admin user name and password will be displayed](#admin-user-name-and-password), so pay
-special attention.
-	
-That's it. You can now checkout your application at:
+Bulk editing/adding
+===================
 
-    http://django-$yournamespace.rhcloud.com
+The admin interface allows you to easily edit individual entries, but for
+adding or changing large numbers of entries in bulk, it can be inconvenient.
+You can look through and edit a CSV dump of the database by running
 
-Admin user name and password
-----------------------------
-As the `git push` output scrolls by, keep an eye out for a
-line of output that starts with `Django application credentials: `. This line
-contains the generated admin password that you will need to begin
-administering your Django app. This is the only time the password
-will be displayed, so be sure to save it somewhere. You might want 
-to pipe the output of the git push to a text file so you can grep for
-the password later.
+    ./export_csv > data_dump.csv
 
+`data_dump.csv` can be called anything you'd like, and placed anywhere. The
+columns correpond to fields shown in the `Chunk` admin interface (the exact
+order is listed in `dictionary/json_to_csv.py`).
+
+Once you've made your edits, replace the contents of the database with the new
+version:
+
+    ./import_csv data_dump.csv
+
+You'll be prompted to confirm this potentially destructive operation. The
+script will automatically back up the database to a file in
+`dictionary/fixtures` first in case something goes wrong.
+
+License
+=======
+
+See the file `LICENSE` for the full text of the GNU General Public License.
+
+Copyright (C) 2015 William Monroe
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program.  If not, see <http://www.gnu.org/licenses/>.
