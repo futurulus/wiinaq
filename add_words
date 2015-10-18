@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if [ "$#" != 1 ]; then
+    echo "Usage: `basename $0` <words_file.csv>"
+fi
+
+fixture_name="`basename $1`"
+fixture=dictionary/fixtures/"$fixture_name".json
+
+python -m dictionary.init_fixture "$1" dictionary/fixtures/sources.json "$fixture"
+echo "Created fixture at $fixture"
+
+./manage.py loaddata "$fixture_name".json

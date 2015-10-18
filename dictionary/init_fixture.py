@@ -15,8 +15,9 @@ output_fixture = 'dictionary/fixtures/words.json'
 # Note that output_fixture will be created, but sources_fixture
 # should already exist.
 sources_fixture = 'dictionary/fixtures/sources.json'
+pk_null = False
 
-if len(sys.argv) >= 4:
+if len(sys.argv) >= 5:
     print 'Usage: init_fixture.py [words_file [sources_fixture [output_fixture]]]'
     print 'Default values:'
     print '    words_file = %s' % (words_file,)
@@ -24,7 +25,8 @@ if len(sys.argv) >= 4:
     sys.exit(2)
 
 if len(sys.argv) >= 4:
-    output_fixture = sys.argv[2]
+    output_fixture = sys.argv[3]
+    pk_null = True
 
 if len(sys.argv) >= 3:
     sources_fixture = sys.argv[2]
@@ -55,7 +57,7 @@ with open(words_file, 'r') as infile:
         tabs = line.count('\t')
         if tabs > 4:
             print 'Malformed line:'
-            print line
+            print repr(line)
             continue
         elif tabs < 4:
             line += '\t' * (4 - tabs)
@@ -65,7 +67,7 @@ with open(words_file, 'r') as infile:
         c.fill()
         fixture.append({
             'model': 'dictionary.Chunk',
-            'pk': len(fixture) + 1,
+            'pk': (None if pk_null else (len(fixture) + 1)),
             'fields': {
                 'entry': c.entry,
                 'pos_auto': c.pos_auto,

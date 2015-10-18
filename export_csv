@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+if [ "$#" != 0 ]; then
+    echo "Usage: `basename $0` > <words_file.csv>"
+    exit 2;
+fi
+
+./manage.py dumpdata | python dictionary/json_to_csv.py

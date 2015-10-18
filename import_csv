@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+if [ "$#" != 1 ]; then
+    echo "Usage: `basename $0` <words_file.csv>"
+fi
+
+fixture_name="`basename $1`"
+fixture=dictionary/fixtures/"$fixture_name".json
+backup_name=import_backup
+backup_loc=dictionary/fixtures/"$backup_name".json
+
+while true; do
+    echo 'This will *delete* all current words and replace them with'
+    echo "the contents of the database-fields csv file ${1}."
+    read -p "Continue? (y/n) " yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+output="$(python dictionary/csv_to_json.py < "$1" > "$fixture")"
+
+if [[ "$output" ]]; then
+    while true; do
+        echo 'Some entries may not have been parsed correctly.'
+        echo 'The database has not yet been updated.'
+        read -p "Continue? (y/n) " yn
+        case $yn in
+            [Yy]* ) break;;
+            [Nn]* ) exit;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+else
+    echo "Fixture created cleanly at $fixture"
+fi
+
+
+echo "Backing up database to ${backup_loc}"
+./manage.py dumpdata > "$backup_loc"
+
+echo 'DELETE FROM "dictionary_chunk";' | ./manage.py dbshell
+./manage.py loaddata "$fixture_name".json
+
+if [[ $? != 0 ]]; then
+    echo 'Errors occurred in loading CSV file. You can restore the old'
+    echo 'state of the database by running'
+    echo
+    echo "  ./manage.py loaddata ${backup_name}"
+fi
