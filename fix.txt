@@ -1,14 +1,10 @@
 ENHANCEMENT
-correct handling of negatives
+locatives, demonstratives
+implement phonotactics and search for bad entries
+add links to recordings on Dropbox
+add "about" page (legal?)
 separate Alutiiq and English search
 change search button to div
-make sure we can maintain entry changes across re-filling auto fields
-    implement phonotactics and search for bad entries
-    split entries with multiple sources
-    enter the rest of QANK
-add links to recordings on Dropbox
-locatives, demonstratives
-add "about" page (legal?)
 
 BROKEN
 tooltips extend too far on mobile, can't scroll to read them
@@ -32,6 +28,8 @@ peklluni 1p past: pek'llrianga ("pekellrianga") /entry/65/
 eklluni 1p past: ek'llrianga ("ekellrianga") /entry/1081/
 [CG p. 292]
 agtualuni 1p->3p and 2p->3p question: agtua'aqa or agtuagtaqa? agtuayu??
+[CG p. 100]
+ell'uni past: elnguanga ("et'llrianga")
 [CG p. 123]
 arya'aq erg: aryagaam/k/t ("arya'am/k/t") /entry/1093/
 cuawak erg: cuawiim/k/t ("cuawagem/k/t") /entry/1339/

@@ -166,6 +166,9 @@ def apply_negative(before, center):
                     before = before[:-2] + 'r'
                 elif before.endswith('kiT'):
                     before = before[:-3] + "tu"
+                elif re.search(r'[aeiou]T$', before):
+                    before = before[:-1]
+                    negative = True
                 else:
                     before = before[:-1] + 'e'
                     negative = True
@@ -229,13 +232,13 @@ def apply_negative(before, center):
                 center = '+g[~]kun' + center[len('+n'):]
             elif center.startswith('~lngu'):
                 # nalluN ~llria => nalluni ~lnguq => nallunilnguq
-                before += "ni"
+                before = morpho_join([before, "-ni"])
             elif center.startswith('~l'):
                 # nalluN ~kuma => nallun'te ~lkuma => nallun'llkuma
-                before += "n'te"
+                before = morpho_join([before, "-n'te"])
             else:
                 # nalluN ~aqa => nallune -itaqa => nallun'itaqa
-                before += "n'ite"
+                before = morpho_join([before, "-n'ite"])
 
     return before, center
 

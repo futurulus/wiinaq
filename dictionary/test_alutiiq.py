@@ -134,6 +134,8 @@ ENDING_TEST_CASES = [
     ("nalluluku", "vt", "NEG:O3P:OSG:PRES:S1P:SSG", "nallun'itaqa"),
     ("nalluluku", "vt", "CONJ:NEG:O3P:OSG", "nallugkunaku"),
 
+    ("tangerlluku", "vt", "NEG:O3P:OSG:PRES:S1P:SSG", "tangen'itaqa"),
+
     ("miknani", "vi", "3P:POS:PRES:SG", "miktuq"),  # CG p. 25
     ("miknani", "vi", "3P:PAST:POS:SG", "mik'llnguq"),  # mikelnguq?
     ("cainani", "vi", "3P:POS:PRES:SG", "caituq"),
@@ -144,6 +146,9 @@ ENDING_TEST_CASES = [
     ("asiinani", "vi", "3P:PAST:POS:SG", "asilnguq"),
     ("asiinani", "vi", "3P:INTERR:POS:SG", "asillta"),
     ("asiinani", "vi", "3P:CONJ:POS:SG", "asiinani"),
+
+    ("naninani", "vi", "3P:NEG:PRES:SG", "nanin'ituq"),
+    ("akianani", "vi", "3P:NEG:PRES:SG", "akian'ituq"),
 
     ("piturniinani", "vi", "3P:NEG:PRES:SG", "piturnirtuq"),
 ]
