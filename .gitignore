@@ -5,6 +5,7 @@ dev.db
 # Temporary files
 *.pyc
 *~
+*#
 .coverage
 coverage_report
 
@@ -13,8 +14,12 @@ secret.py
 creds
 
 # Dictionary data
-dictionary/fixtures
-dict_sources
+dictionary/fixtures/*
+dict_sources/*
+# but keep free words and sources
+!dictionary/fixtures/sources.json
+!dictionary/fixtures/*free*.json
+!dict_sources/*free*.csv
 
 # Old logos
 dictionary/static/dictionary/sources

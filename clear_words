@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+while true; do
+    echo 'This will *delete* all current words in the database.'
+    read -p "Continue? (y/n) " yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+backup_name=import_backup
+backup_loc=dictionary/fixtures/"$backup_name".json
+
+echo "Backing up database to ${backup_loc}"
+./manage.py dumpdata > "$backup_loc"
+
+echo 'DELETE FROM "dictionary_chunk";' | ./manage.py dbshell
+
+echo 'Words deleted. You can restore the old'
+echo 'state of the database by running'
+echo
+echo "  ./manage.py loaddata ${backup_name}"

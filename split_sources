@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+awk 'BEGIN{
+    FS = "\t";
+    OFS = "\t";
+}
+{
+    nSources = split($4, sources, /[,;]\s+/);
+    remnant = "";
+    for(i = 1; i <= nSources; i++) {
+        piece = remnant sources[i];
+        if (index(piece, "(") && !index(piece, ")")) {
+            # comma inside parentheses, merge this piece with the next one
+            remnant = piece ", ";
+            continue;
+        }
+
+        $4 = piece;
+        remnant = "";
+
+        $0 = $0;
+        print $0;
+    }
+}' $@

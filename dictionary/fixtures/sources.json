@@ -1,0 +1,34 @@
+[
+    {
+        "pk": 1,
+        "model": "dictionary.Source",
+        "fields": {
+            "abbrev": "FP",
+            "description": "Florence Pestrikoff, personal interview"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "dictionary.Source",
+        "fields": {
+            "abbrev": "CDKA",
+            "description": "Jeff Leer, A Conversational Dictionary of Kodiak Alutiiq, 1978"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "dictionary.Source",
+        "fields": {
+            "abbrev": "QANK",
+            "description": "Alisha Drabek, Qik'rtarmiut Alutiit'stun Niugneret KRaasiirkii: An Alutiiq Picture Dictionary, 2012"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "dictionary.Source",
+        "fields": {
+            "abbrev": "SS",
+            "description": "Sophie Shepherd, personal interview"
+        }
+    }
+]

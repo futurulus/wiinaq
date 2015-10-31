@@ -10,11 +10,12 @@ from django.conf import settings
 from alutiiq import get_pos, get_root, normalize
 from models import Chunk
 
-words_file = 'dict_sources/words.csv'
-output_fixture = 'dictionary/fixtures/words.json'
-# Note that output_fixture will be created, but sources_fixture
-# should already exist.
+words_file = 'dictionary/fixtures/words.csv'
 sources_fixture = 'dictionary/fixtures/sources.json'
+# Note that output_fixture will be created, but sources_fixture
+# and words_file should already exist.
+output_fixture = 'dictionary/fixtures/words.json'
+
 pk_null = False
 
 if len(sys.argv) >= 5:

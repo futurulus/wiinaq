@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
+cat dict_sources/*.csv > dictionary/fixtures/words.csv
 python -m dictionary.init_fixture
 ./manage.py loaddata words

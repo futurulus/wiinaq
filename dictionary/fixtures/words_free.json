@@ -1,0 +1,1967 @@
+[
+    {
+        "pk": 1,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 0:20)",
+            "root_final": "ukuar",
+            "entry": "ukuaq",
+            "root_auto": "ukuar",
+            "pos_auto": "n",
+            "defn": "daughter-in-law",
+            "pos_final": "n",
+            "search_text": "ukuak daughter-in-law"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 0:30)",
+            "root_final": "angayur",
+            "entry": "angayuq",
+            "root_auto": "angayur",
+            "pos_auto": "n",
+            "defn": "friend",
+            "pos_final": "n",
+            "search_text": "angaiuk friend"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 0:40)",
+            "root_final": "allrilur",
+            "entry": "allriluq",
+            "root_auto": "allrilur",
+            "pos_auto": "n",
+            "defn": "one",
+            "pos_final": "n",
+            "search_text": "allriluk one"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 0:40)",
+            "root_final": "Nuniar",
+            "entry": "Nuniaq",
+            "root_auto": "Nuniar",
+            "pos_auto": "n",
+            "defn": "Old Harbor",
+            "pos_final": "n",
+            "search_text": "nuniak old harbor"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 0:40)",
+            "root_final": "age",
+            "entry": "agluni",
+            "root_auto": "age",
+            "pos_auto": "vi",
+            "defn": "go",
+            "pos_final": "vi",
+            "search_text": "arluni go"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 0:50)",
+            "root_final": "tenge",
+            "entry": "tengluni",
+            "root_auto": "tenge",
+            "pos_auto": "vi",
+            "defn": "fly",
+            "pos_final": "vi",
+            "search_text": "tngluni fly"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 1:00)",
+            "root_final": "akgua'ag",
+            "entry": "akgua'ak",
+            "root_auto": "akgua'ag",
+            "pos_auto": "n",
+            "defn": "yesterday",
+            "pos_final": "n",
+            "search_text": "akruak yesterday"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724 8:40)",
+            "root_final": "akgua'ag",
+            "entry": "akgua'ak",
+            "root_auto": "akgua'ag",
+            "pos_auto": "n",
+            "defn": "yesterday",
+            "pos_final": "n",
+            "search_text": "akruak yesterday"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 9:20)",
+            "root_final": "nallu",
+            "entry": "nalluluku",
+            "root_auto": "nallu",
+            "pos_auto": "vt",
+            "defn": "not know, be unaware of, be ignorant of",
+            "pos_final": "vt",
+            "search_text": "nalluluku not know, be unaware of, be ignorant of"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 1:00)",
+            "root_final": "ernerpag",
+            "entry": "ernerpak",
+            "root_auto": "ernerpag",
+            "pos_auto": "n",
+            "defn": "today",
+            "pos_final": "n",
+            "search_text": "rnrpak today"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 1:30)",
+            "root_final": "nuta'an",
+            "entry": "nuta'an",
+            "root_auto": "nuta'an",
+            "pos_auto": "None",
+            "defn": "now",
+            "pos_final": "None",
+            "search_text": "nutan now"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 1:40)",
+            "root_final": "sak'arr",
+            "entry": "sak'arlluni",
+            "root_auto": "sak'arr",
+            "pos_auto": "vi",
+            "defn": "be tired, be exhausted",
+            "pos_final": "vi",
+            "search_text": "sakarlluni be tired, be exhausted"
+        }
+    },
+    {
+        "pk": 13,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 2:50)",
+            "root_final": "niu'ute",
+            "entry": "niu'ulluku",
+            "root_auto": "niu'ute",
+            "pos_auto": "vt",
+            "defn": "say to [q]",
+            "pos_final": "vt",
+            "search_text": "niulluku say to [q]"
+        }
+    },
+    {
+        "pk": 14,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 8:20)",
+            "root_final": "niu'ute",
+            "entry": "niu'ulluku",
+            "root_auto": "niu'ute",
+            "pos_auto": "vt",
+            "defn": "say to [q]",
+            "pos_final": "vt",
+            "search_text": "niulluku say to [q]"
+        }
+    },
+    {
+        "pk": 15,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 3:10)",
+            "root_final": "angq'rr",
+            "entry": "angq'rlluni",
+            "root_auto": "angq'rr",
+            "pos_auto": "vi",
+            "defn": "hurt, painful, be in pain",
+            "pos_final": "vi",
+            "search_text": "angkrlluni hurt, painful, be in pain"
+        }
+    },
+    {
+        "pk": 16,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 3:30)",
+            "root_final": "nasqur",
+            "entry": "nasquq",
+            "root_auto": "nasqur",
+            "pos_auto": "n",
+            "defn": "head",
+            "pos_final": "n",
+            "search_text": "naskuk head"
+        }
+    },
+    {
+        "pk": 17,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 5:00)",
+            "root_final": "tuyur",
+            "entry": "tuyurluku",
+            "root_auto": "tuyur",
+            "pos_auto": "vt",
+            "defn": "send to [q]",
+            "pos_final": "vt",
+            "search_text": "tuiurluku send to [q]"
+        }
+    },
+    {
+        "pk": 18,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 5:10)",
+            "root_final": "paniyar",
+            "entry": "paniyaq",
+            "root_auto": "paniyar",
+            "pos_auto": "n",
+            "defn": "daughter",
+            "pos_final": "n",
+            "search_text": "paniak daughter"
+        }
+    },
+    {
+        "pk": 19,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 15:20)",
+            "root_final": "paniyar",
+            "entry": "paniyaq",
+            "root_auto": "paniyar",
+            "pos_auto": "n",
+            "defn": "daughter",
+            "pos_final": "n",
+            "search_text": "paniak daughter"
+        }
+    },
+    {
+        "pk": 20,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 5:50)",
+            "root_final": "kalikar",
+            "entry": "kalikaq",
+            "root_auto": "kalikar",
+            "pos_auto": "n",
+            "defn": "page, sheet of paper, piece of paper",
+            "pos_final": "n",
+            "search_text": "kalikak page, sheet of paper, piece of paper"
+        }
+    },
+    {
+        "pk": 21,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 4:00)",
+            "root_final": "kalikar",
+            "entry": "kalikaq",
+            "root_auto": "kalikar",
+            "pos_auto": "n",
+            "defn": "page, sheet of paper, piece of paper",
+            "pos_final": "n",
+            "search_text": "kalikak page, sheet of paper, piece of paper"
+        }
+    },
+    {
+        "pk": 22,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 6:20)",
+            "root_final": "tawaten",
+            "entry": "tawaten",
+            "root_auto": "tawaten",
+            "pos_auto": "None",
+            "defn": "so, like that, that way",
+            "pos_final": "None",
+            "search_text": "tauatn so, like that, that way"
+        }
+    },
+    {
+        "pk": 23,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 6:40)",
+            "root_final": "iqallur",
+            "entry": "iqalluq",
+            "root_auto": "iqallur",
+            "pos_auto": "n",
+            "defn": "fish",
+            "pos_final": "n",
+            "search_text": "ikalluk fish"
+        }
+    },
+    {
+        "pk": 24,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 6:40)",
+            "root_final": "picunii",
+            "entry": "picuniiluni",
+            "root_auto": "picunii",
+            "pos_auto": "vi",
+            "defn": "smell like [pi]",
+            "pos_final": "vi",
+            "search_text": "picuniluni smell like [pi]"
+        }
+    },
+    {
+        "pk": 25,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 7:00)",
+            "root_final": "nare",
+            "entry": "narluku",
+            "root_auto": "nare",
+            "pos_auto": "vt",
+            "defn": "smell [q]",
+            "pos_final": "vt",
+            "search_text": "narluku smell [q]"
+        }
+    },
+    {
+        "pk": 26,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 7:50)",
+            "root_final": "niugner",
+            "entry": "niugneq",
+            "root_auto": "niugner",
+            "pos_auto": "n",
+            "defn": "word",
+            "pos_final": "n",
+            "search_text": "niurnk word"
+        }
+    },
+    {
+        "pk": 27,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 7:50)",
+            "root_final": "igauma",
+            "entry": "igaumaluni",
+            "root_auto": "igauma",
+            "pos_auto": "vi",
+            "defn": "be written",
+            "pos_final": "vi",
+            "search_text": "iraumaluni be written"
+        }
+    },
+    {
+        "pk": 28,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 8:00)",
+            "root_final": "gwani",
+            "entry": "gwani",
+            "root_auto": "gwani",
+            "pos_auto": "None",
+            "defn": "here",
+            "pos_final": "None",
+            "search_text": "ruani here"
+        }
+    },
+    {
+        "pk": 29,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 8:10)",
+            "root_final": "igar",
+            "entry": "igarluni",
+            "root_auto": "igar",
+            "pos_auto": "vi",
+            "defn": "write",
+            "pos_final": "vi",
+            "search_text": "irarluni write"
+        }
+    },
+    {
+        "pk": 30,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 8:20)",
+            "root_final": "ukut",
+            "entry": "ukut",
+            "root_auto": "ukut",
+            "pos_auto": "n",
+            "defn": "these",
+            "pos_final": "n",
+            "search_text": "ukut these"
+        }
+    },
+    {
+        "pk": 31,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 9:50)",
+            "root_final": "cana",
+            "entry": "canaluku",
+            "root_auto": "cana",
+            "pos_auto": "vt",
+            "defn": "create",
+            "pos_final": "vt",
+            "search_text": "canaluku create"
+        }
+    },
+    {
+        "pk": 32,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 9:50)",
+            "root_final": "kRaas'kaar",
+            "entry": "kRaas'kaaq",
+            "root_auto": "kRaas'kaar",
+            "pos_auto": "n",
+            "defn": "color, marker",
+            "pos_final": "n",
+            "search_text": "kRaskak color, marker"
+        }
+    },
+    {
+        "pk": 33,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 9:50)",
+            "root_final": "patRiitar",
+            "entry": "patRiitaq",
+            "root_auto": "patRiitar",
+            "pos_auto": "n",
+            "defn": "picture",
+            "pos_final": "n",
+            "search_text": "patRitak picture"
+        }
+    },
+    {
+        "pk": 34,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 9:50)",
+            "root_final": "kaRantaasar",
+            "entry": "kaRantaasaq",
+            "root_auto": "kaRantaasar",
+            "pos_auto": "n",
+            "defn": "pen",
+            "pos_final": "n",
+            "search_text": "kaRantasak pen"
+        }
+    },
+    {
+        "pk": 35,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 9:50)",
+            "root_final": "taugna",
+            "entry": "taugna",
+            "root_auto": "taugna",
+            "pos_auto": "None",
+            "defn": "that",
+            "pos_final": "None",
+            "search_text": "taurna that"
+        }
+    },
+    {
+        "pk": 36,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 10:20)",
+            "root_final": "pingia'ar",
+            "entry": "pingia'aq",
+            "root_auto": "pingia'ar",
+            "pos_auto": "n",
+            "defn": "fine [pi], perfect [pi]",
+            "pos_final": "n",
+            "search_text": "pingiak fine [pi], perfect [pi]"
+        }
+    },
+    {
+        "pk": 37,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 11:10)",
+            "root_final": "cukaiT",
+            "entry": "cukainani",
+            "root_auto": "cukaiT",
+            "pos_auto": "vi",
+            "defn": "be slow",
+            "pos_final": "vi",
+            "search_text": "cukainani be slow"
+        }
+    },
+    {
+        "pk": 38,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 12:00)",
+            "root_final": "niuwasuute",
+            "entry": "niuwasuuteq",
+            "root_auto": "niuwasuute",
+            "pos_auto": "n",
+            "defn": "phone, telephone",
+            "pos_final": "n",
+            "search_text": "niuasutk phone, telephone"
+        }
+    },
+    {
+        "pk": 39,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 12:10)",
+            "root_final": "pinayar",
+            "entry": "pinayarluni",
+            "root_auto": "pinayar",
+            "pos_auto": "vi",
+            "defn": "would [pi]",
+            "pos_final": "vi",
+            "search_text": "pinaiarluni would [pi]"
+        }
+    },
+    {
+        "pk": 40,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 0:40)",
+            "root_final": "ilar",
+            "entry": "ilaq",
+            "root_auto": "ilar",
+            "pos_auto": "n",
+            "defn": "family, family member",
+            "pos_final": "n",
+            "search_text": "ilak family, family member"
+        }
+    },
+    {
+        "pk": 41,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 1:00)",
+            "root_final": "aqum'a",
+            "entry": "aqum'aluni",
+            "root_auto": "aqum'a",
+            "pos_auto": "vi",
+            "defn": "sit, be sitting",
+            "pos_final": "vi",
+            "search_text": "akumaluni sit, be sitting"
+        }
+    },
+    {
+        "pk": 42,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 2:50)",
+            "root_final": "tai",
+            "entry": "tailuni",
+            "root_auto": "tai",
+            "pos_auto": "vi",
+            "defn": "come",
+            "pos_final": "vi",
+            "search_text": "tailuni come"
+        }
+    },
+    {
+        "pk": 43,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 2:50)",
+            "root_final": "litnauwi",
+            "entry": "litnauwiluni",
+            "root_auto": "litnauwi",
+            "pos_auto": "vi",
+            "defn": "teach",
+            "pos_final": "vi",
+            "search_text": "litnauiluni teach"
+        }
+    },
+    {
+        "pk": 44,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 2:50)",
+            "root_final": "englar",
+            "entry": "englarluni",
+            "root_auto": "englar",
+            "pos_auto": "vi",
+            "defn": "laugh",
+            "pos_final": "vi",
+            "search_text": "nglarluni laugh"
+        }
+    },
+    {
+        "pk": 45,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:00)",
+            "root_final": "englarnar",
+            "entry": "englarnarluni",
+            "root_auto": "englarnar",
+            "pos_auto": "vi",
+            "defn": "be funny, be laughable",
+            "pos_final": "vi",
+            "search_text": "nglarnarluni be funny, be laughable"
+        }
+    },
+    {
+        "pk": 46,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:10)",
+            "root_final": "staaman",
+            "entry": "staaman",
+            "root_auto": "staaman",
+            "pos_auto": "None",
+            "defn": "four",
+            "pos_final": "None",
+            "search_text": "staman four"
+        }
+    },
+    {
+        "pk": 47,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:10)",
+            "root_final": "nukallpiar",
+            "entry": "nukallpiaq",
+            "root_auto": "nukallpiar",
+            "pos_auto": "n",
+            "defn": "man",
+            "pos_final": "n",
+            "search_text": "nukallpiak man"
+        }
+    },
+    {
+        "pk": 48,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:10)",
+            "root_final": "arnar",
+            "entry": "arnaq",
+            "root_auto": "arnar",
+            "pos_auto": "n",
+            "defn": "woman",
+            "pos_final": "n",
+            "search_text": "arnak woman"
+        }
+    },
+    {
+        "pk": 49,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:10)",
+            "root_final": "allringur",
+            "entry": "allringuq",
+            "root_auto": "allringur",
+            "pos_auto": "n",
+            "defn": "one",
+            "pos_final": "n",
+            "search_text": "allringuk one"
+        }
+    },
+    {
+        "pk": 50,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:10)",
+            "root_final": "kiimi",
+            "entry": "kiimi",
+            "root_auto": "kiimi",
+            "pos_auto": "None",
+            "defn": "alone, only",
+            "pos_final": "None",
+            "search_text": "kimi alone, only"
+        }
+    },
+    {
+        "pk": 51,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:20)",
+            "root_final": "peke",
+            "entry": "peklluni",
+            "root_auto": "peke",
+            "pos_auto": "vi",
+            "defn": "work",
+            "pos_final": "vi",
+            "search_text": "pklluni work"
+        }
+    },
+    {
+        "pk": 52,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:30)",
+            "root_final": "maqar",
+            "entry": "maqarluni",
+            "root_auto": "maqar",
+            "pos_auto": "vi",
+            "defn": "be hot (weather), be warm (weather)",
+            "pos_final": "vi",
+            "search_text": "makarluni be hot (weather), be warm (weather)"
+        }
+    },
+    {
+        "pk": 53,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:30)",
+            "root_final": "ai",
+            "entry": "ai",
+            "root_auto": "ai",
+            "pos_auto": "None",
+            "defn": "eh? (tag question), isn't it? (tag question)",
+            "pos_final": "None",
+            "search_text": "ai eh? (tag question), isn't it? (tag question)"
+        }
+    },
+    {
+        "pk": 54,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 4:20)",
+            "root_final": "naama",
+            "entry": "naama",
+            "root_auto": "naama",
+            "pos_auto": "None",
+            "defn": "where",
+            "pos_final": "None",
+            "search_text": "nama where"
+        }
+    },
+    {
+        "pk": 55,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 5:20)",
+            "root_final": "tang'rtur",
+            "entry": "tang'rturluku",
+            "root_auto": "tang'rtur",
+            "pos_auto": "vt",
+            "defn": "look at, examine",
+            "pos_final": "vt",
+            "search_text": "tangrturluku look at, examine"
+        }
+    },
+    {
+        "pk": 56,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 5:20)",
+            "root_final": "uluteg",
+            "entry": "ulutegluku",
+            "root_auto": "uluteg",
+            "pos_auto": "vt",
+            "defn": "look at [q]",
+            "pos_final": "vt",
+            "search_text": "ulutrluku look at [q]"
+        }
+    },
+    {
+        "pk": 57,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 6:20)",
+            "root_final": "patam",
+            "entry": "patam",
+            "root_auto": "patam",
+            "pos_auto": "None",
+            "defn": "so, because of that",
+            "pos_final": "None",
+            "search_text": "patam so, because of that"
+        }
+    },
+    {
+        "pk": 58,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 5:30)",
+            "root_final": "agya'ar",
+            "entry": "agya'aq",
+            "root_auto": "agya'ar",
+            "pos_auto": "n",
+            "defn": "star",
+            "pos_final": "n",
+            "search_text": "ariak star"
+        }
+    },
+    {
+        "pk": 59,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 6:10)",
+            "root_final": "taku",
+            "entry": "takuluku",
+            "root_auto": "taku",
+            "pos_auto": "vt",
+            "defn": "try [q] out, take a look at [q]",
+            "pos_final": "vt",
+            "search_text": "takuluku try [q] out, take a look at [q]"
+        }
+    },
+    {
+        "pk": 60,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 6:10)",
+            "root_final": "uksuar",
+            "entry": "uksuaq",
+            "root_auto": "uksuar",
+            "pos_auto": "n",
+            "defn": "fall, autumn",
+            "pos_final": "n",
+            "search_text": "uksuak fall, autumn"
+        }
+    },
+    {
+        "pk": 61,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 6:40)",
+            "root_final": "asir",
+            "entry": "asirluni",
+            "root_auto": "asir",
+            "pos_auto": "vi",
+            "defn": "be good, be fine, be nice",
+            "pos_final": "vi",
+            "search_text": "asirluni be good, be fine, be nice"
+        }
+    },
+    {
+        "pk": 62,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 7:20)",
+            "root_final": "agayun",
+            "entry": "agayun",
+            "root_auto": "agayun",
+            "pos_auto": "None",
+            "defn": "God",
+            "pos_final": "None",
+            "search_text": "araiun god"
+        }
+    },
+    {
+        "pk": 63,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 8:20)",
+            "root_final": "taten",
+            "entry": "taten",
+            "root_auto": "taten",
+            "pos_auto": "None",
+            "defn": "so, like that, that way",
+            "pos_final": "None",
+            "search_text": "tatn so, like that, that way"
+        }
+    },
+    {
+        "pk": 64,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 8:30)",
+            "root_final": "cisqur",
+            "entry": "cisquq",
+            "root_auto": "cisqur",
+            "pos_auto": "n",
+            "defn": "knee",
+            "pos_final": "n",
+            "search_text": "ciskuk knee"
+        }
+    },
+    {
+        "pk": 65,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 9:00)",
+            "root_final": "qai-cali",
+            "entry": "qai-cali",
+            "root_auto": "qai-cali",
+            "pos_auto": "None",
+            "defn": "why",
+            "pos_final": "None",
+            "search_text": "kai-cali why"
+        }
+    },
+    {
+        "pk": 66,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 9:50)",
+            "root_final": "kangisinar",
+            "entry": "kangisinaq",
+            "root_auto": "kangisinar",
+            "pos_auto": "n",
+            "defn": "old times, a long time ago",
+            "pos_final": "n",
+            "search_text": "kangisinak old times, a long time ago"
+        }
+    },
+    {
+        "pk": 67,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 10:40)",
+            "root_final": "englag",
+            "entry": "englagluku",
+            "root_auto": "englag",
+            "pos_auto": "vt",
+            "defn": "laugh at [q]",
+            "pos_final": "vt",
+            "search_text": "nglarluku laugh at [q]"
+        }
+    },
+    {
+        "pk": 68,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 11:10)",
+            "root_final": "eprirtuwi",
+            "entry": "eprirtuwiluni",
+            "root_auto": "eprirtuwi",
+            "pos_auto": "vi",
+            "defn": "clean",
+            "pos_final": "vi",
+            "search_text": "prirtuiluni clean"
+        }
+    },
+    {
+        "pk": 69,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 12:20)",
+            "root_final": "asi\\iT",
+            "entry": "asiinani",
+            "root_auto": "asi\\iT",
+            "pos_auto": "vi",
+            "defn": "be bad",
+            "pos_final": "vi",
+            "search_text": "asinani be bad"
+        }
+    },
+    {
+        "pk": 70,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 13:40)",
+            "root_final": "alinge",
+            "entry": "alingluni",
+            "root_auto": "alinge",
+            "pos_auto": "vi",
+            "defn": "be afraid",
+            "pos_final": "vi",
+            "search_text": "alingluni be afraid"
+        }
+    },
+    {
+        "pk": 71,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 16:00)",
+            "root_final": "qia",
+            "entry": "qialuni",
+            "root_auto": "qia",
+            "pos_auto": "vi",
+            "defn": "cry",
+            "pos_final": "vi",
+            "search_text": "kialuni cry"
+        }
+    },
+    {
+        "pk": 72,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 16:20)",
+            "root_final": "pingq'rr",
+            "entry": "pingq'rlluni",
+            "root_auto": "pingq'rr",
+            "pos_auto": "vi",
+            "defn": "have, exist",
+            "pos_final": "vi",
+            "search_text": "pingkrlluni have, exist"
+        }
+    },
+    {
+        "pk": 73,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 18:50)",
+            "root_final": "pingq'rr",
+            "entry": "pingq'rlluni",
+            "root_auto": "pingq'rr",
+            "pos_auto": "vi",
+            "defn": "have, exist",
+            "pos_final": "vi",
+            "search_text": "pingkrlluni have, exist"
+        }
+    },
+    {
+        "pk": 74,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 16:50)",
+            "root_final": "ilangart'sta",
+            "entry": "ilangart'staluku",
+            "root_auto": "ilangart'sta",
+            "pos_auto": "vt",
+            "defn": "improve [q], make [q] better, fix [q]",
+            "pos_final": "vt",
+            "search_text": "ilangartstaluku improve [q], make [q] better, fix [q]"
+        }
+    },
+    {
+        "pk": 75,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 17:10)",
+            "root_final": "nalluyaute",
+            "entry": "nalluyaulluku",
+            "root_auto": "nalluyaute",
+            "pos_auto": "vt",
+            "defn": "forget",
+            "pos_final": "vt",
+            "search_text": "nalluiaulluku forget"
+        }
+    },
+    {
+        "pk": 76,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 0:10)",
+            "root_final": "ilangarr",
+            "entry": "ilangarlluni",
+            "root_auto": "ilangarr",
+            "pos_auto": "vi",
+            "defn": "recover, get well",
+            "pos_final": "vi",
+            "search_text": "ilangarlluni recover, get well"
+        }
+    },
+    {
+        "pk": 77,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 3:20)",
+            "root_final": "kuarr",
+            "entry": "kuarlluku",
+            "root_auto": "kuarr",
+            "pos_auto": "vt",
+            "defn": "light, turn on",
+            "pos_final": "vt",
+            "search_text": "kuarlluku light, turn on"
+        }
+    },
+    {
+        "pk": 78,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 3:50)",
+            "root_final": "pilulir",
+            "entry": "piluliq",
+            "root_auto": "pilulir",
+            "pos_auto": "n",
+            "defn": "pill",
+            "pos_final": "n",
+            "search_text": "pilulik pill"
+        }
+    },
+    {
+        "pk": 79,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 4:08)",
+            "root_final": "llii",
+            "entry": "lliiluku",
+            "root_auto": "llii",
+            "pos_auto": "vt",
+            "defn": "put [q] on [men], put [q] down",
+            "pos_final": "vt",
+            "search_text": "lliluku put [q] on [men], put [q] down"
+        }
+    },
+    {
+        "pk": 80,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 5:42)",
+            "root_final": "stuul'ciig",
+            "entry": "stuul'ciik",
+            "root_auto": "stuul'ciig",
+            "pos_auto": "n",
+            "defn": "chair",
+            "pos_final": "n",
+            "search_text": "stulcik chair"
+        }
+    },
+    {
+        "pk": 81,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 5:40)",
+            "root_final": "atur",
+            "entry": "aturluku",
+            "root_auto": "atur",
+            "pos_auto": "vt",
+            "defn": "use [q]",
+            "pos_final": "vt",
+            "search_text": "aturluku use [q]"
+        }
+    },
+    {
+        "pk": 82,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 5:48)",
+            "root_final": "cestun",
+            "entry": "cestun",
+            "root_auto": "cestun",
+            "pos_auto": "None",
+            "defn": "how",
+            "pos_final": "None",
+            "search_text": "cstun how"
+        }
+    },
+    {
+        "pk": 83,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 6:14)",
+            "root_final": "kanagtu",
+            "entry": "kanagtuluni",
+            "root_auto": "kanagtu",
+            "pos_auto": "vi",
+            "defn": "be tall",
+            "pos_final": "vi",
+            "search_text": "kanartuluni be tall"
+        }
+    },
+    {
+        "pk": 84,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 6:30)",
+            "root_final": "pequr",
+            "entry": "pequq",
+            "root_auto": "pequr",
+            "pos_auto": "n",
+            "defn": "back (body part)",
+            "pos_final": "n",
+            "search_text": "pkuk back (body part)"
+        }
+    },
+    {
+        "pk": 85,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 7:30)",
+            "root_final": "cuka",
+            "entry": "cukaluni",
+            "root_auto": "cuka",
+            "pos_auto": "vi",
+            "defn": "be fast, be quick",
+            "pos_final": "vi",
+            "search_text": "cukaluni be fast, be quick"
+        }
+    },
+    {
+        "pk": 86,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 7:50)",
+            "root_final": "aular",
+            "entry": "aularluni",
+            "root_auto": "aular",
+            "pos_auto": "vi",
+            "defn": "start, begin",
+            "pos_final": "vi",
+            "search_text": "aularluni start, begin"
+        }
+    },
+    {
+        "pk": 87,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 8:19)",
+            "root_final": "uksungq'rr",
+            "entry": "uksungq'rlluni",
+            "root_auto": "uksungq'rr",
+            "pos_auto": "vi",
+            "defn": "be [mek] years old",
+            "pos_final": "vi",
+            "search_text": "uksungkrlluni be [mek] years old"
+        }
+    },
+    {
+        "pk": 88,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 17:20)",
+            "root_final": "uksungq'rr",
+            "entry": "uksungq'rlluni",
+            "root_auto": "uksungq'rr",
+            "pos_auto": "vi",
+            "defn": "be [mek] years old",
+            "pos_final": "vi",
+            "search_text": "uksungkrlluni be [mek] years old"
+        }
+    },
+    {
+        "pk": 89,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 8:50)",
+            "root_final": "qumig",
+            "entry": "qumigluni",
+            "root_auto": "qumig",
+            "pos_auto": "vi",
+            "defn": "be pregnant",
+            "pos_final": "vi",
+            "search_text": "kumirluni be pregnant"
+        }
+    },
+    {
+        "pk": 90,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 13:00)",
+            "root_final": "kenir",
+            "entry": "kenirluni",
+            "root_auto": "kenir",
+            "pos_auto": "vi",
+            "defn": "cook",
+            "pos_final": "vi",
+            "search_text": "knirluni cook"
+        }
+    },
+    {
+        "pk": 91,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 13:00)",
+            "root_final": "allrag",
+            "entry": "allrak",
+            "root_auto": "allrag",
+            "pos_auto": "n",
+            "defn": "maybe",
+            "pos_final": "n",
+            "search_text": "allrak maybe"
+        }
+    },
+    {
+        "pk": 92,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 21:50)",
+            "root_final": "maa'ut",
+            "entry": "maa'ut",
+            "root_auto": "maa'ut",
+            "pos_auto": "n",
+            "defn": "to around here",
+            "pos_final": "n",
+            "search_text": "maut to around here"
+        }
+    },
+    {
+        "pk": 93,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 29:00)",
+            "root_final": "kiarqar",
+            "entry": "kiarqarluni",
+            "root_auto": "kiarqar",
+            "pos_auto": "vi",
+            "defn": "look around",
+            "pos_final": "vi",
+            "search_text": "kiarkarluni look around"
+        }
+    },
+    {
+        "pk": 94,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130731 29:50)",
+            "root_final": "tamaani",
+            "entry": "tamaani",
+            "root_auto": "tamaani",
+            "pos_auto": "None",
+            "defn": "around there",
+            "pos_final": "None",
+            "search_text": "tamani around there"
+        }
+    },
+    {
+        "pk": 95,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 29:00)",
+            "root_final": "alingnar",
+            "entry": "alingnarluni",
+            "root_auto": "alingnar",
+            "pos_auto": "vi",
+            "defn": "be frightening",
+            "pos_final": "vi",
+            "search_text": "alingnarluni be frightening"
+        }
+    },
+    {
+        "pk": 96,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 20:00)",
+            "root_final": "una",
+            "entry": "una",
+            "root_auto": "una",
+            "pos_auto": "None",
+            "defn": "this",
+            "pos_final": "None",
+            "search_text": "una this"
+        }
+    },
+    {
+        "pk": 97,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 17:20)",
+            "root_final": "qaugcin?",
+            "entry": "qaugcin?",
+            "root_auto": "qaugcin?",
+            "pos_auto": "None",
+            "defn": "how many?",
+            "pos_final": "None",
+            "search_text": "kaurcin? how many?"
+        }
+    },
+    {
+        "pk": 98,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 21:40)",
+            "root_final": "gui",
+            "entry": "gui",
+            "root_auto": "gui",
+            "pos_auto": "None",
+            "defn": "I, me, mine",
+            "pos_final": "None",
+            "search_text": "rui i, me, mine"
+        }
+    },
+    {
+        "pk": 99,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 15:00)",
+            "root_final": "li\\ite",
+            "entry": "liilluni",
+            "root_auto": "li\\ite",
+            "pos_auto": "vi",
+            "defn": "learn",
+            "pos_final": "vi",
+            "search_text": "lilluni learn"
+        }
+    },
+    {
+        "pk": 100,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 7:20)",
+            "root_final": "pingake",
+            "entry": "pingaklluku",
+            "root_auto": "pingake",
+            "pos_auto": "vt",
+            "defn": "like [q], be fond of [q]",
+            "pos_final": "vt",
+            "search_text": "pingaklluku like [q], be fond of [q]"
+        }
+    },
+    {
+        "pk": 101,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 19:30)",
+            "root_final": "nuta'ar",
+            "entry": "nuta'aq",
+            "root_auto": "nuta'ar",
+            "pos_auto": "n",
+            "defn": "new thing",
+            "pos_final": "n",
+            "search_text": "nutak new thing"
+        }
+    },
+    {
+        "pk": 102,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:30)",
+            "root_final": "lla",
+            "entry": "lla",
+            "root_auto": "lla",
+            "pos_auto": "None",
+            "defn": "outside",
+            "pos_final": "None",
+            "search_text": "lla outside"
+        }
+    },
+    {
+        "pk": 103,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 20:40)",
+            "root_final": "iwa",
+            "entry": "iwaluku",
+            "root_auto": "iwa",
+            "pos_auto": "vt",
+            "defn": "search for [q]",
+            "pos_final": "vt",
+            "search_text": "iualuku search for [q]"
+        }
+    },
+    {
+        "pk": 104,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 20:40)",
+            "root_final": "mike",
+            "entry": "miklluni",
+            "root_auto": "mike",
+            "pos_auto": "vi",
+            "defn": "be small",
+            "pos_final": "vi",
+            "search_text": "miklluni be small"
+        }
+    },
+    {
+        "pk": 105,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 12:10)",
+            "root_final": "niugte",
+            "entry": "niuglluni",
+            "root_auto": "niugte",
+            "pos_auto": "vi",
+            "defn": "talk",
+            "pos_final": "vi",
+            "search_text": "niurlluni talk"
+        }
+    },
+    {
+        "pk": 106,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 30:50)",
+            "root_final": "kium'a",
+            "entry": "kium'aluni",
+            "root_auto": "kium'a",
+            "pos_auto": "vi",
+            "defn": "talk back",
+            "pos_final": "vi",
+            "search_text": "kiumaluni talk back"
+        }
+    },
+    {
+        "pk": 107,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 15:00)",
+            "root_final": "litnauwiste",
+            "entry": "litnauwista",
+            "root_auto": "litnauwiste",
+            "pos_auto": "None",
+            "defn": "teacher",
+            "pos_final": "None",
+            "search_text": "litnauista teacher"
+        }
+    },
+    {
+        "pk": 108,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 1:00)",
+            "root_final": "taumi",
+            "entry": "taumi",
+            "root_auto": "taumi",
+            "pos_auto": "None",
+            "defn": "then, next, at that time",
+            "pos_final": "None",
+            "search_text": "taumi then, next, at that time"
+        }
+    },
+    {
+        "pk": 109,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 5:50)",
+            "root_final": "makucir",
+            "entry": "makuciq",
+            "root_auto": "makucir",
+            "pos_auto": "n",
+            "defn": "this kind",
+            "pos_final": "n",
+            "search_text": "makucik this kind"
+        }
+    },
+    {
+        "pk": 110,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:10)",
+            "root_final": "pingayun",
+            "entry": "pingayun",
+            "root_auto": "pingayun",
+            "pos_auto": "None",
+            "defn": "three",
+            "pos_final": "None",
+            "search_text": "pingaiun three"
+        }
+    },
+    {
+        "pk": 111,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 20:40)",
+            "root_final": "cali",
+            "entry": "cali",
+            "root_auto": "cali",
+            "pos_auto": "None",
+            "defn": "too, also",
+            "pos_final": "None",
+            "search_text": "cali too, also"
+        }
+    },
+    {
+        "pk": 112,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:10)",
+            "root_final": "mal'ug",
+            "entry": "mal'uk",
+            "root_auto": "mal'ug",
+            "pos_auto": "n",
+            "defn": "two",
+            "pos_final": "n",
+            "search_text": "maluk two"
+        }
+    },
+    {
+        "pk": 113,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 20:20)",
+            "root_final": "piicag",
+            "entry": "piicagluku",
+            "root_auto": "piicag",
+            "pos_auto": "vt",
+            "defn": "want [q], ask for [q]",
+            "pos_final": "vt",
+            "search_text": "picarluku want [q], ask for [q]"
+        }
+    },
+    {
+        "pk": 114,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 12:00)",
+            "root_final": "guangkute",
+            "entry": "guangkuta",
+            "root_auto": "guangkute",
+            "pos_auto": "None",
+            "defn": "we, us, ours",
+            "pos_final": "None",
+            "search_text": "ruangkuta we, us, ours"
+        }
+    },
+    {
+        "pk": 115,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 1:50)",
+            "root_final": "cali",
+            "entry": "caliluni",
+            "root_auto": "cali",
+            "pos_auto": "vi",
+            "defn": "do what",
+            "pos_final": "vi",
+            "search_text": "caliluni do what"
+        }
+    },
+    {
+        "pk": 116,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:30)",
+            "root_final": "uksur",
+            "entry": "uksuq",
+            "root_auto": "uksur",
+            "pos_auto": "n",
+            "defn": "winter",
+            "pos_final": "n",
+            "search_text": "uksuk winter"
+        }
+    },
+    {
+        "pk": 117,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 15:20)",
+            "root_final": "allakat",
+            "entry": "allakat",
+            "root_auto": "allakat",
+            "pos_auto": "n",
+            "defn": "others",
+            "pos_final": "n",
+            "search_text": "allakat others"
+        }
+    },
+    {
+        "pk": 118,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 15:30)",
+            "root_final": "litnaur",
+            "entry": "litnaurluku",
+            "root_auto": "litnaur",
+            "pos_auto": "vt",
+            "defn": "teach [mek] to [q]",
+            "pos_final": "vt",
+            "search_text": "litnaurluku teach [mek] to [q]"
+        }
+    },
+    {
+        "pk": 119,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 17:20)",
+            "root_final": "qaugcinek uksungq'rcit?",
+            "entry": "qaugcinek uksungq'rcit?",
+            "root_auto": "qaugcinek uksungq'rcit?",
+            "pos_auto": "None",
+            "defn": "how old are you?",
+            "pos_final": "None",
+            "search_text": "kaurcink uksungkrcit? how old are you?"
+        }
+    },
+    {
+        "pk": 120,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 4,
+            "source_info": "(130724-a 3:40)",
+            "root_final": "kiag",
+            "entry": "kiak",
+            "root_auto": "kiag",
+            "pos_auto": "n",
+            "defn": "summer",
+            "pos_final": "n",
+            "search_text": "kiak summer"
+        }
+    },
+    {
+        "pk": 121,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 17:30)",
+            "root_final": "sun'arau",
+            "entry": "sun'arauluni",
+            "root_auto": "sun'arau",
+            "pos_auto": "vi",
+            "defn": "be young",
+            "pos_final": "vi",
+            "search_text": "sunarauluni be young"
+        }
+    },
+    {
+        "pk": 122,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 19:20)",
+            "root_final": "kangillar",
+            "entry": "kangillaq",
+            "root_auto": "kangillar",
+            "pos_auto": "n",
+            "defn": "old thing",
+            "pos_final": "n",
+            "search_text": "kangillak old thing"
+        }
+    },
+    {
+        "pk": 123,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 19:40)",
+            "root_final": "pikau",
+            "entry": "pikauluni",
+            "root_auto": "pikau",
+            "pos_auto": "vi",
+            "defn": "can [pi], be able to [pi]",
+            "pos_final": "vi",
+            "search_text": "pikauluni can [pi], be able to [pi]"
+        }
+    },
+    {
+        "pk": 124,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 20:00)",
+            "root_final": "kesiin",
+            "entry": "kesiin",
+            "root_auto": "kesiin",
+            "pos_auto": "None",
+            "defn": "only",
+            "pos_final": "None",
+            "search_text": "ksin only"
+        }
+    },
+    {
+        "pk": 125,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 20:20)",
+            "root_final": "tangriu'utar",
+            "entry": "tangriu'utaq",
+            "root_auto": "tangriu'utar",
+            "pos_auto": "n",
+            "defn": "mirror",
+            "pos_final": "n",
+            "search_text": "tangriutak mirror"
+        }
+    },
+    {
+        "pk": 126,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 21:50)",
+            "root_final": "tang'rr",
+            "entry": "tang'rlluni",
+            "root_auto": "tang'rr",
+            "pos_auto": "vi",
+            "defn": "see oneself",
+            "pos_final": "vi",
+            "search_text": "tangrlluni see oneself"
+        }
+    },
+    {
+        "pk": 127,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 22:10)",
+            "root_final": "ellmeneg",
+            "entry": "ellmenek",
+            "root_auto": "ellmeneg",
+            "pos_auto": "n",
+            "defn": "himself, herself",
+            "pos_final": "n",
+            "search_text": "llmnk himself, herself"
+        }
+    },
+    {
+        "pk": 128,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 23:10)",
+            "root_final": "guangkunug",
+            "entry": "guangkunuk",
+            "root_auto": "guangkunug",
+            "pos_auto": "n",
+            "defn": "we two, us two, the two of us",
+            "pos_final": "n",
+            "search_text": "ruangkunuk we two, us two, the two of us"
+        }
+    },
+    {
+        "pk": 129,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 24:30)",
+            "root_final": "tang'rr",
+            "entry": "tang'rlluni",
+            "root_auto": "tang'rr",
+            "pos_auto": "vi",
+            "defn": "see each other",
+            "pos_final": "vi",
+            "search_text": "tangrlluni see each other"
+        }
+    },
+    {
+        "pk": 130,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 25:00)",
+            "root_final": "guangkumt'sneg",
+            "entry": "guangkumt'snek",
+            "root_auto": "guangkumt'sneg",
+            "pos_auto": "n",
+            "defn": "ourselves",
+            "pos_final": "n",
+            "search_text": "ruangkumtsnk ourselves"
+        }
+    },
+    {
+        "pk": 131,
+        "model": "dictionary.Chunk",
+        "fields": {
+            "source": 1,
+            "source_info": "(130708 25:50)",
+            "root_final": "tamamte",
+            "entry": "tamamta",
+            "root_auto": "tamamte",
+            "pos_auto": "None",
+            "defn": "all of us",
+            "pos_final": "None",
+            "search_text": "tamamta all of us"
+        }
+    }
+]

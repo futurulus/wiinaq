@@ -27,6 +27,7 @@ Find a nice spot for the repo and clone it:
 Set up the database:
 
     ./manage.py migrate
+    ./manage.py loaddata sources
     ./manage.py loaddata words_free
 
 Finally, start the server:
