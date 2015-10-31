@@ -1,7 +1,7 @@
 Overview
 ========
 
-Word Wiinaq is an [Kodiak Alutiiq](http://www.alutiiqlanguage.org/) dictionary
+Word Wiinaq is a [Kodiak Alutiiq](http://www.alutiiqlanguage.org/) dictionary
 web application with automatically generated ending tables and souped-up search
 capabilities.
 
@@ -27,8 +27,7 @@ Find a nice spot for the repo and clone it:
 Set up the database:
 
     ./manage.py migrate
-    ./manage.py loaddata sources
-    ./manage.py loaddata words_free
+    ./manage.py loaddata sources words_free
 
 Finally, start the server:
 
@@ -38,13 +37,13 @@ Once you do this, your browser should be able to load the site locally at
 http://localhost:8000/.
 
 If you'd like to take a look at how the admin interface works, make yourself a
-superuser account (you may be prompted to do this by some of the previous
-commands):
+superuser account:
 
     ./manage.py createsuperuser
 
-Then make sure the server is running and point your browser to
-http://localhost:8000/admin/.
+Then make sure the server is running, point your browser to
+http://localhost:8000/admin/, and enter the username and password you created
+in the previous command.
 
 Running on OpenShift
 --------------------
