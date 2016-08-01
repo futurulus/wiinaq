@@ -91,7 +91,8 @@ ENDING_TEST_CASES = [
     ("ek'arlluni", "vi", "1P:COND:POS:SG", "ek'aquma"),
 
     # Locatives
-    ("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigpeni"),
+    ("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigp'ni"),
+    ("acigp'ni", "loc", "LOC:POSS2P:POSSSG:SG", "acigp'ni"),
     ("akuliit", "loc", "ABS:POSS3P:POSSPL:SG", "akuliit"),  # CG p. 133
     ("akuliit", "loc", "LOC:POSS3P:POSSPL:SG", "akuliitni"),  # CG p. 128
     # not sure about these; they probably aren't used, but other forms

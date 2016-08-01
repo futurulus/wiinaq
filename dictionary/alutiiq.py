@@ -129,7 +129,7 @@ def get_root(word, defn=''):
         return word[:-4] + 'A'
     elif word.endswith('iitni'):
         return word[:-5] + 'A'
-    elif word.endswith('gpeni'):
+    elif word.endswith('gpeni') or word.endswith("gp'ni"):
         return word[:-5]
     elif word.endswith('a'):
         return word[:-1] + 'r'
