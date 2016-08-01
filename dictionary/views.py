@@ -3,10 +3,10 @@ import binascii
 import itertools
 from collections import namedtuple
 
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_list_or_404
 
 from .models import Chunk
-from .alutiiq import morpho_join, inflection_data, normalize
+from .alutiiq import inflection_data, normalize
 
 
 def index(request):
@@ -40,6 +40,7 @@ def remove_parens(s):
 Entry = namedtuple('Entry', ['word', 'roots'])
 Root = namedtuple('Root', ['word', 'pos', 'root', 'id', 'defns', 'senses'])
 Sense = namedtuple('Sense', ['chunks', 'defn', 'sources'])
+
 
 def chunk_relevance(chunk, query):
     query_l = query.lower()
@@ -123,7 +124,6 @@ def relevance(query):
                 entry.word.lower(),
                 entry.word)
 
-
     return sort_key
 
 
@@ -133,7 +133,8 @@ def build_sense(defn, chunks):
 
 
 def root_to_id(pos, root):
-    if root is None: return pos
+    if root is None:
+        return pos
     root = root.encode('utf-8')
     return '%s-%s%s' % (pos, re.sub('[\W_]+', '', root),
                         binascii.hexlify(root))
@@ -168,7 +169,7 @@ def group_entries(chunk_list, separate_roots=False):
         Entry(word=word, roots=[
             build_root(word=word, pos=pos, root=root, chunks=list(chunks))
             for (pos, root), chunks in
-                itertools.groupby(group, lambda c: pos_root(c, separate_roots))
+            itertools.groupby(group, lambda c: pos_root(c, separate_roots))
         ])
         for word, group in entries
     ]
@@ -205,7 +206,7 @@ def search(request):
                             .filter(search_text__contains=query.lower()) |
                        Chunk.objects
                             .filter(search_text__contains=normalize(query)))
-                            .order_by('entry', 'pos_final'))
+                      .order_by('entry', 'pos_final'))
         chunk_list = [c for c in chunk_list if matches_query(c, query)]
         entry_list = sorted(group_entries(chunk_list), key=relevance(query))
         context['entry_list'] = entry_list

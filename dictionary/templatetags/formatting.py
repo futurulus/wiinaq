@@ -6,14 +6,18 @@ from django.utils.safestring import mark_safe
 
 register = template.Library()
 
+
 def replace_russian_r(escaped):
     return escaped.replace('R', '<span class="russian">R</span>')
+
 
 def replace_superscript(escaped):
     return re.sub(r'\\([a-z])', r'<sup>\1</sup>', escaped)
 
+
 def replace_double(escaped):
     return re.sub(r'(r|g)\1', r'<u>\1</u>', escaped)
+
 
 @register.filter(needs_autoescape=True)
 def russian_r(text, autoescape=True):
