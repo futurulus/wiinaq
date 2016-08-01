@@ -38,6 +38,8 @@ var PopoutState = function($popout) {
     }
 
     this.is_active = function(id) {
+        if (id == "")
+            return true;
         var pieces = id.split(":");
         for (var i = 0; i < pieces.length; i++) {
             var id_part = pieces[i];

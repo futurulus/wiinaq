@@ -61,7 +61,7 @@ class Chunk(models.Model):
         self.search_text = '%s %s' % (normalize(self.entry), self.defn.lower())
         self.pos_auto = get_pos(self.entry, self.defn)
         self.pos_final = self.pos or self.pos_auto
-        self.root_auto = get_root(self.entry, self.defn)
+        self.root_auto = get_root(self.entry, self.pos_final, self.defn)
         self.root_final = self.root or self.root_auto
 
     def save(self):

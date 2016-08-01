@@ -68,11 +68,13 @@ def get_pos(entry, defn=''):
         return 'vt'
     elif entry and entry[-1:] in 'qkt':
         return 'n'
+    elif entry.endswith('na'):
+        return 'dem'
     else:
         return 'None'
 
 
-def get_root(word, defn=''):
+def get_root(word, pos='', defn=''):
     markers = ["lu", "l'u", "kuna"]
     finals = ['ni', 'tek', 'teng', 'ku', 'kek', 'ki']
     for marker in markers:
@@ -115,8 +117,13 @@ def get_root(word, defn=''):
         return word[:-1] + 'r'
     elif re.search('^[^aeiou]?[aeiou][qk]$', word):
         return word[:-1] + '\\' + word[-2] + ('r' if word[-1] == 'q' else 'g')
-    elif word.endswith('ta') or word.endswith('na'):
+    elif word.endswith('ta'):
         return word[:-1] + 'A'
+    elif word.endswith('na'):
+        if pos == 'dem':
+            return word[:-2] + ('' if word[-3:-2] in list('aeiougr') else 'e')
+        else:
+            return word[:-1] + 'A'
     elif word.endswith('teq'):
         return word[:-1]
     elif word.endswith('q'):
@@ -374,9 +381,17 @@ def apply_transformations(before, center, after):
                     center += 'y'
                 elif center.endswith('u'):
                     center += 'w'
+            elif after.startswith('~n') and not after.startswith('~ng'):
+                if center.endswith('te'):
+                    # kate ~na => kan'a
+                    center = center[:-2] + "n'"
+                elif center.endswith('e'):
+                    # ike ~na => ikna
+                    center = center[:-1]
         elif after.startswith('+'):
-            if center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
+            if center.endswith('e') and len(after) >= 2 and after[1] in "aeiou'":
                 # qitenge +uq => qitenguq
+                # ike '\um => ik'\um => ik'um
                 center = center[:-1]
                 if (center.endswith('g') and not center.endswith('ng')) or \
                         center.endswith('r'):
@@ -437,6 +452,12 @@ def apply_transformations(before, center, after):
                 center = 'c' + center[3:]
             else:
                 center = center[1:]
+        elif center.startswith('~n'):
+            if before.endswith('te'):
+                # kate ~na => kan'a
+                center = center[2:]
+            else:
+                center = center[1:]
         elif center[0] in '+-~':
             center = center[1:]
             if center.startswith('a') and before.endswith('A'):
@@ -457,6 +478,12 @@ def apply_transformations(before, center, after):
     elif after:
         # su\ug +a => suuga
         center = re.sub(r'(?<=[a-zR])\\(?=[aiu])', '', center)
+
+    if before and '\\' in center:
+        if center.startswith('\\') and before.endswith(center[1:2]):
+            center = center[2:]
+        else:
+            center = center.replace('\\', '')
 
     return center
 
@@ -581,6 +608,20 @@ HIERARCHY = {
                      ('POSSPL', '3+')],
                spancols=['UNPOSS']),
     ],
+    'dem': [
+        Widget(id='case-number', title='Case/Number',
+               default='ABS:SG',
+               rows=[('ABS', 'normal'),
+                     ('ERG', 'poss'),
+                     ('LOC', 'at'),
+                     ('DAT', 'to'),
+                     ('ABL', 'from'),
+                     ('PER', 'through'),
+                     ('SIM', 'like')],
+               cols=[('SG', '1'),
+                     ('DU', '2'),
+                     ('PL', '3+')]),
+    ],
 }
 
 
@@ -620,6 +661,10 @@ ID_LISTS = {
         id_list(HIERARCHY['loc'][1], 'r'),
         id_list(HIERARCHY['loc'][1], 'c'),
         id_list(HIERARCHY['loc'][0], 'c'),
+    ],
+    'dem': [
+        id_list(HIERARCHY['dem'][0], 'r'),
+        id_list(HIERARCHY['dem'][0], 'c'),
     ],
 }
 
@@ -980,6 +1025,17 @@ ENDINGS = {
                 ["-{+}megt" + ("e" if ending == "t'stun" else "'") + ending] * 3,
             ],
         ] for ending in ['ni', 'nun', 'nek', 'kun', "t'stun"]
+    ],
+    'dem': [
+        ['~na', '~kuk', '~kut'],
+        ["+'<+>\\um", '~kuk', '~kut'],
+    ] + [
+        (
+            ["+'<+>umen", '~kugnun', '~kunun'] if ending == 'nun' else
+            ["+'<+>ugun", '~kugkun',  '~kutgun'] if ending == 'kun' else
+            ["+'<+>u" + ('m' if ending.startswith('n') else 't') + ending[1:],
+             '~kug' + ending, '~ku' + ending]
+        ) for ending in ['ni', 'nun', 'nek', 'kun', "t'stun"]
     ],
     'vi': add_negatives([
         VI_PRES,

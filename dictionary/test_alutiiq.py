@@ -166,6 +166,17 @@ ENDING_TEST_CASES = [
     ("akianani", "vi", "3P:NEG:PRES:SG", "akian'ituq"),
 
     ("piturniinani", "vi", "3P:NEG:PRES:SG", "piturnirtuq"),
+
+    # Demonstratives
+    ("una", "dem", "ABS:SG", "una"),
+    ("una", "dem", "ERG:SG", "um"),
+    ("una", "dem", "LOC:SG", "uumi"),
+    ("una", "dem", "ABS:PL", "ukut"),
+    ("taugna", "dem", "ERG:SG", "taug'um"),
+    ("ikna", "dem", "ABS:SG", "ikna"),
+    ("ikna", "dem", "ERG:SG", "ik'um"),
+    ("ikna", "dem", "ABS:PL", "ik'gkut"),
+    ("kan'a", "kate", "dem", "ABS:SG", "kan'a"),  # CG p. 62
 ]
 
 POS_TEST_CASES = [
@@ -199,11 +210,12 @@ def add_ending_method(args):
 
     def check_ending(self):
         from alutiiq import get_endings_map, get_root
-        computed_root = root if root else get_root(word)
+        computed_root = root if root else get_root(word, pos=pos)
         self.assertEqual(get_endings_map(computed_root, pos)[features], expected)
 
     check_ending.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
-                                   'test_ending_%s_%s_%s__%s' % args)
+                                   'test_ending_%s_%s_%s__%s' %
+                                   (word, pos, features, expected))
     setattr(TestEndings, check_ending.__name__, check_ending)
 
 
