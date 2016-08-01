@@ -53,6 +53,7 @@ ENDING_TEST_CASES = [
     ("suk", "n", "DAT:SG:UNPOSS", "sugmen"),
     ("suk", "n", "PER:SG:UNPOSS", "sugkun"),
     ("suk", "n", "PER:PL:UNPOSS", "sutgun"),
+    ("piugta", "n", "ABS:SG:UNPOSS", "piugta"),
     ("piugta", "n", "PER:SG:UNPOSS", "piugtegun"),
     ("yaamaq", "n", "PER:SG:UNPOSS", "yaamagun"),
     ("suk", "n", "SG:SIM:UNPOSS", "sugt'stun"),
@@ -84,8 +85,9 @@ ENDING_TEST_CASES = [
     ("ek'arlluni", "vi", "1P:COND:POS:SG", "ek'aquma"),
 
     # Locatives (not yet implemented)
-    ##("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigpeni"),  # CG p. 133
-    ##("akuliit", "loc", "LOC:POSS3P:POSSPL:PL", "akuliit"),  # CG p. 133
+    ("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigpeni"),  # CG p. 133
+    ("akuliit", "loc", "ABS:PL:POSS3P:POSSPL", "akuliit"),  # CG p. 133
+    ("akuliit", "loc", "LOC:PL:POSS3P:POSSPL", "akuliitni"),  # CG p. 133
 
     # Singulars of preinflected nouns
     ##("wiinga", "n", "ABS:SG:UNPOSS", "wi?"),  # CG p. 141
@@ -95,8 +97,8 @@ ENDING_TEST_CASES = [
     ("qayaq", "n", "ABS:DU:POSS3P:POSSSG", "qayak"),  # CG p. 139
 
     # Irregular possessed forms
-    #("nuna", "n", "ABS:POSS3P:POSSSG:SG", "nunii"),  # CG p. 141
-    #("piugta", "n", "ABS:POSS3P:POSSSG:SG", "piugtii"),  # CG p. 141
+    ("nuna", "n", "ABS:POSS3P:POSSSG:SG", "nunii"),  # CG p. 141
+    ("piugta", "n", "ABS:POSS3P:POSSSG:SG", "piugtii"),  # CG p. 141
     #("saqul'aq", "n", "ABS:POSS3P:POSSSG:SG", "saqulgaa"),  # CG p. 142
     ("kuik", "n", "ABS:POSS3P:POSSSG:SG", "kuiga"),  # CG p. 142 -- kuiya? also kui'a
     ("ciqlluaq", "n", "ABS:POSS3P:POSSSG:SG", "ciqllua'a"),  # CG p. 142
@@ -167,7 +169,7 @@ ROOT_TEST_CASES = [
     ("qunuklluku", "", "qunuke"),
     ("kuik", "", "kuig"),
     ("suk", "", "su\\ug"),
-    ("piugta", "", "piugte"),
+    ("piugta", "", "piugtA"),
 ]
 
 
@@ -176,12 +178,16 @@ class TestEndings(unittest.TestCase):
 
 
 def add_ending_method(args):
-    word, pos, features, expected = args
+    if len(args) == 5:
+        word, root, pos, features, expected = args
+    else:
+        word, pos, features, expected = args
+        root = None
 
     def check_ending(self):
         from alutiiq import get_endings_map, get_root
-        root = get_root(word)
-        self.assertEqual(get_endings_map(root, pos)[features], expected)
+        computed_root = root if root else get_root(word)
+        self.assertEqual(get_endings_map(computed_root, pos)[features], expected)
 
     check_ending.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
                                    'test_ending_%s_%s_%s__%s' % args)

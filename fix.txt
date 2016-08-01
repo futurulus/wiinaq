@@ -1,8 +1,9 @@
 ENHANCEMENT
-locatives, demonstratives
+demonstratives
 implement phonotactics and search for bad entries
 add links to recordings on Dropbox
 add "about" page (legal?)
+add help page for site admins
 separate Alutiiq and English search
 change search button to div
 

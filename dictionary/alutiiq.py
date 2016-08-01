@@ -111,14 +111,28 @@ def get_root(word, defn=''):
         return word[:-1] + 'r'
     elif re.search('^[^aeiou]?[aeiou][qk]$', word):
         return word[:-1] + '\\' + word[-2] + ('r' if word[-1] == 'q' else 'g')
-    elif word.endswith('ta'):
-        return word[:-1] + 'e'
+    elif word.endswith('ta') or word.endswith('na'):
+        return word[:-1] + 'A'
     elif word.endswith('teq'):
         return word[:-1]
     elif word.endswith('q'):
         return word[:-1] + 'r'
     elif word.endswith('k'):
         return word[:-1] + 'g'
+    elif word.endswith('ani'):
+        return word[:-3] + 'r'
+    elif word.endswith('iini'):
+        return word[:-4] + 'A'
+    elif word.endswith('iitni'):
+        return word[:-5] + 'A'
+    elif word.endswith('gpeni'):
+        return word[:-5]
+    elif word.endswith('a'):
+        return word[:-1] + 'r'
+    elif word.endswith('ii'):
+        return word[:-2] + 'A'
+    elif word.endswith('iit'):
+        return word[:-3] + 'A'
 
     return word
 
@@ -135,7 +149,7 @@ def apply_vowel_alternation(center, before):
                 combine_cons = center[:start_pos]
                 vowel_ending = (before[-1:] in 'aiou' or
                                 (combine_cons == '-' and
-                                 before[-2:].startswith('e')))
+                                 before[-2:-1] in list('Ae')))
                 cons_ending = before[-1:] in 'rg' or before.endswith('ll')
                 strong_fric_ending = (before[-1:] == 'g' or
                                       before.endswith('er'))
@@ -250,6 +264,14 @@ def apply_transformations(before, center, after):
 
     if after is not None:
         if after.startswith('-'):
+            if center.endswith('A'):
+                if after[:2] in ('-a', '-i'):
+                    print('adding i to prefix: %s %s' % (center, after))
+                    center = center[:-1] + 'i'
+                else:
+                    # akulA +a => akulii
+                    print('adding e to prefix: %s %s' % (center, after))
+                    center = center[:-1] + 'e'
             if center.endswith('rr') or center.endswith('gg'):
                 center = center[:-2]
             elif center[-1] not in 'aeiou':
@@ -260,6 +282,13 @@ def apply_transformations(before, center, after):
                 center = center[:-1] + "'"
         elif after.startswith('~'):
             if after.startswith('~k'):
+                if center.endswith('A') and after == '~k':
+                    # piugtA ~k => piugta
+                    center = center[:-1] + 'a'
+                elif center.endswith('A'):
+                    # piugtA ~ka => piugteka
+                    center = center[:-1] + 'e'
+
                 if center.endswith("t'e"):
                     center = center[:-3] + 'll'
                 elif center.endswith('te'):
@@ -350,6 +379,8 @@ def apply_transformations(before, center, after):
                 # kayar ~ka => kayaqa
                 # minar ~kii => minaqii
                 center = 'q' + center[2:]
+            elif before.endswith('A'):
+                center = ''
             else:
                 # nuteg ~k => nutek
                 # nuteg ~ka => nutegka
@@ -377,6 +408,8 @@ def apply_transformations(before, center, after):
                 center = center[1:]
         elif center[0] in '+-~':
             center = center[1:]
+            if center.startswith('a') and before.endswith('A'):
+                center = 'i' + center[1:]
         else:
             center = ' ' + center
 
@@ -493,6 +526,30 @@ HIERARCHY = {
                      ('ODU', '2'),
                      ('OPL', '3+')]),
     ],
+    'loc': [
+        Widget(id='case-number', title='Case/Number',
+               default='ABS:SG',
+               rows=[('ABS', 'normal'),
+                     ('ERG', 'poss'),
+                     ('LOC', 'at'),
+                     ('DAT', 'to'),
+                     ('ABL', 'from'),
+                     ('PER', 'through')],
+               cols=[('SG', '1'),
+                     ('DU', '2'),
+                     ('PL', '3+')]),
+        Widget(id='possessor', title='Possessor',
+               default='UNPOSS:POSSSG',
+               rows=[('UNPOSS', '-'),
+                     ('POSS1P', 'gui'),
+                     ('POSS2P', 'ellpet'),
+                     ('POSS3P', 'taugna'),
+                     ('POSS4P', 'ellmenek')],
+               cols=[('POSSSG', '1'),
+                     ('POSSDU', '2'),
+                     ('POSSPL', '3+')],
+               spancols=['UNPOSS']),
+    ],
 }
 
 
@@ -525,6 +582,12 @@ ID_LISTS = {
         id_list(HIERARCHY['vt'][1], 'c'),
         id_list(HIERARCHY['vt'][2], 'r'),
         id_list(HIERARCHY['vt'][2], 'c'),
+    ],
+    'loc': [
+        id_list(HIERARCHY['loc'][0], 'r'),
+        id_list(HIERARCHY['loc'][1], 'r'),
+        id_list(HIERARCHY['loc'][1], 'c'),
+        id_list(HIERARCHY['loc'][0], 'c'),
     ],
 }
 
@@ -788,6 +851,80 @@ ENDINGS = {
             ['-{+}men', '-{+}nun', '-{+}nun'] if ending == 'nun' else
             ['-g{+k}un', '-g{+k}un',  '-tgun'] if ending == 'kun' else
             ["-{+}t'stun"] * 3 if ending == "t'stun" else
+            ['-{+}m' + ending[1:], '-{+}' + ending, '-{+}' + ending],
+            [
+                ['-{+e}m' + ending] * 3,
+                ['-{+e}mteg' + ending] * 3,
+                ['-{+e}mt' + ("e" if ending == "t'stun" else "'") + ending] * 3,
+            ],
+            [
+                ["~gp'" + ending] * 3,
+                ["~gp'teg" + ending] * 3,
+                ["~gp't's" + ('gun' if ending == 'kun' else ending)] * 3,
+            ],
+            [
+                ['-<~g>a' + ending, '-<~g>i' + ending, '-<~g>i' + ending],
+                ['-<~g>ag' + ending, '-<~g>ig' + ending, '-<~g>ig' + ending],
+                ['-<~g>at' + ending, '-<~g>it' + ending, '-<~g>it' + ending],
+            ],
+            [
+                ['-{+}mi' + ending] * 3,
+                ['-{+}megteg' + ending] * 3,
+                ["-{+}megt" + ("e" if ending == "t'stun" else "'") + ending] * 3,
+            ],
+        ] for ending in ['ni', 'nun', 'nek', 'kun', "t'stun"]
+    ],
+    'loc': [
+        [
+            ['~k', '-{+e}k', '-{+e}t'],
+            [
+                ['~{~}ka', '-{+e}gka', '-{+e}nka'],
+                ['~gpuk', '-{+}puk', '-{+}puk'],
+                ['~gpet', '-{+}pet', '-{+}pet'],
+            ],
+            [
+                ['-{+e}n', '-{+e}gken', '-{+e}ten'],
+                ['~gtek', '-{+}tek', '-{+}tek'],
+                ['~gci', '-{+}ci', '-{+}ci'],
+            ],
+            [
+                ['-<~g>{+}a', '-<~g>{+e}k', '-<~g>{+}i'],
+                ['-<~g>{+}ak', '-<~g>{+}ik', '-<~g>{+}ik'],
+                ['-<~g>{+}at', '-<~g>{+}it', '-<~g>{+}it'],
+            ],
+            [
+                ['-{+}ni', '-{+e}gni', '-{+}ni'],
+                ['~gtek', '-{+}tek', '-{+}tek'],
+                ['~gteng', '-{+}teng', '-{+}teng'],
+            ],
+        ],
+        [
+            ["-{+e}m", "-{+e}k", "-{+e}t"],
+            [
+                ["-{+}ma", "-{+e}gma", "-{+}ma"],
+                ["-{+e}mnuk", "-{+e}mnuk", "-{+e}mnuk"],
+                ["-{+e}mta", "-{+e}mta", "-{+e}mta"],
+            ],
+            [
+                ["~gpet", "~gpet", "~gpet"],
+                ["~gp'tek", "~gp'tek", "~gp'tek"],
+                ["~gp'ci", "~gp'ci", "~gp'ci"],
+            ],
+            [
+                ["-{+e}n", "-<~g>ini", "-<~g>ini"],
+                ["-{+e}gta", "-<~g>igta", "-<~g>igta"],
+                ["-{+}ta", "-<~g>ita", "-<~g>ita"],
+            ],
+            [
+                ['-{+}mi', '-{+e}gni', '-{+}mi'],
+                ['-{+}megtek', '-{+}megtek', '-{+}megtek'],
+                ['-{+}megta', '-{+}megta', '-{+}megta'],
+            ],
+        ],
+        ] + [
+        [
+            ['-{+}men', '-{+}nun', '-{+}nun'] if ending == 'nun' else
+            ['-g{+k}un', '-g{+k}un',  '-tgun'] if ending == 'kun' else
             ['-{+}m' + ending[1:], '-{+}' + ending, '-{+}' + ending],
             [
                 ['-{+e}m' + ending] * 3,
