@@ -269,6 +269,10 @@ def apply_transformations(before, center, after):
     center = apply_vowel_alternation(center, before)
     after = apply_vowel_alternation(after, center)
 
+    # from nose.tools import set_trace
+    # if 'qut' in center and 'stun' in after:
+    #     set_trace()
+
     if after is not None:
         if after.startswith('-'):
             if center.endswith('A'):
@@ -279,6 +283,7 @@ def apply_transformations(before, center, after):
                 else:
                     # akulA +a => akulii
                     center = center[:-1] + 'e'
+
             if center.endswith('rr') or center.endswith('gg'):
                 center = center[:-2]
             elif center[-1] not in 'aeiou':
@@ -287,19 +292,36 @@ def apply_transformations(before, center, after):
                 center = center[:-1]
             elif center.endswith('e') and len(after) >= 2 and after[1] in 'aeiou':
                 center = center[:-1] + "'"
+            elif center.endswith('e') and re.search(r'^.' + CONSONANT + "[aeiou]", after):
+                center = center[:-1]
+                if re.search(CONSONANT + CONSONANT + '$', center) or \
+                        re.search(r'^.' + CONSONANT + CONSONANT, after):
+                    if not center.endswith(after[:1]) and \
+                            (after[1:2] in list('ptckqsgrh') or after[1:3] == 'll') and \
+                            (center[-1:] in list('ptckqsgrh') or center.endswith('ll')):
+                        # piugtA -gun => piugte -gun => piugt'gun
+                        center += "'"
+                    else:
+                        # piugtA -mi => piugte -mi => piugtemi
+                        # qutA -mnek => qute -mnek => qutemnek
+                        center += "e"
         elif after.startswith('~'):
-            if after.startswith('~k'):
-                if center.endswith('A') and after == '~k':
-                    # piugtA ~k => piugta
-                    center = center[:-1] + 'a'
-                elif center.endswith('A'):
-                    # piugtA ~ka => piugteka
-                    center = center[:-1] + 'e'
+            noun_stem = False
+            if center.endswith('A') and after == '~k':
+                # piugtA ~k => piugta
+                center = center[:-1] + 'a'
+            elif center.endswith('A'):
+                # piugtA ~ka => piugteka
+                center = center[:-1] + 'e'
+                noun_stem = True
 
+            if after.startswith('~k'):
                 if center.endswith("t'e"):
                     center = center[:-3] + 'll'
                 elif center.endswith('te'):
-                    if len(center) >= 3 and center[-3] not in 'aeiou':
+                    if noun_stem:
+                        center = center[:-1]
+                    elif len(center) >= 3 and center[-3] not in 'aeiou':
                         center = center[:-2] + "'s"
                     else:
                         center = center[:-2] + 's'
@@ -318,6 +340,8 @@ def apply_transformations(before, center, after):
                         len(after) >= 3 and after[2] in 'aeiou':
                     # nater ~ga => natra
                     center = center[:-2]
+                elif center.endswith('e') and re.search(r'~g' + CONSONANT, after):
+                    center = center[:-1] + "'"
                 elif center[-1] not in 'aeiou':
                     # yaamar ~gci => yaamarci
                     center = center[:-1]
@@ -386,7 +410,8 @@ def apply_transformations(before, center, after):
                 # kayar ~ka => kayaqa
                 # minar ~kii => minaqii
                 center = 'q' + center[2:]
-            elif before.endswith('A'):
+            elif before.endswith('A') and center == '~k':
+                # piugtA ~k => piugta
                 center = ''
             else:
                 # nuteg ~k => nutek

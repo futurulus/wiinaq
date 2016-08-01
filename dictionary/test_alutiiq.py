@@ -54,7 +54,13 @@ ENDING_TEST_CASES = [
     ("suk", "n", "PER:SG:UNPOSS", "sugkun"),
     ("suk", "n", "PER:PL:UNPOSS", "sutgun"),
     ("piugta", "n", "ABS:SG:UNPOSS", "piugta"),
-    ("piugta", "n", "PER:SG:UNPOSS", "piugtegun"),
+    ("piugta", "n", "LOC:SG:UNPOSS", "piugtemi"),
+    ("piugta", "n", "PER:SG:UNPOSS", "piugt'gun"),
+    ("piugta", "n", "SG:SIM:UNPOSS", "piugtet'stun"),
+    ("quta", "n", "ABS:POSS1P:POSSSG:SG", "qutka"),
+    ("quta", "n", "LOC:SG:UNPOSS", "qutmi"),
+    ("quta", "n", "ABS:POSS2P:POSSPL:SG", "qut'gci"),
+    ("quta", "n", "SG:SIM:UNPOSS", "qutet'stun"),
     ("yaamaq", "n", "PER:SG:UNPOSS", "yaamagun"),
     ("suk", "n", "SG:SIM:UNPOSS", "sugt'stun"),
 
@@ -88,6 +94,10 @@ ENDING_TEST_CASES = [
     ("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigpeni"),
     ("akuliit", "loc", "ABS:POSS3P:POSSPL:SG", "akuliit"),  # CG p. 133
     ("akuliit", "loc", "LOC:POSS3P:POSSPL:SG", "akuliitni"),  # CG p. 128
+    # not sure about these; they probably aren't used, but other forms
+    # were obviously wrong before correction
+    ("akuliit", "loc", "ABS:POSS1P:POSSSG:SG", "akulka"),
+    ("akuliit", "loc", "LOC:SG:UNPOSS", "akulmi"),
 
     # Singulars of preinflected nouns
     # #("wiinga", "n", "ABS:SG:UNPOSS", "wi?"),  # CG p. 141
