@@ -272,12 +272,12 @@ def apply_transformations(before, center, after):
     if after is not None:
         if after.startswith('-'):
             if center.endswith('A'):
-                if after[:2] in ('-a', '-i'):
-                    print('adding i to prefix: %s %s' % (center, after))
+                if after[:2] == '-a':
                     center = center[:-1] + 'i'
+                elif after[:2] == '-i':
+                    center = center[:-1] + 'a'
                 else:
                     # akulA +a => akulii
-                    print('adding e to prefix: %s %s' % (center, after))
                     center = center[:-1] + 'e'
             if center.endswith('rr') or center.endswith('gg'):
                 center = center[:-2]

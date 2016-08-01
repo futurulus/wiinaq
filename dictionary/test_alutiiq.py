@@ -84,10 +84,10 @@ ENDING_TEST_CASES = [
     ("ek'arlluni", "vi", "1P:PAST:POS:SG", "ek'allrianga"),
     ("ek'arlluni", "vi", "1P:COND:POS:SG", "ek'aquma"),
 
-    # Locatives (not yet implemented)
-    ("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigpeni"),  # CG p. 133
-    ("akuliit", "loc", "ABS:PL:POSS3P:POSSPL", "akuliit"),  # CG p. 133
-    ("akuliit", "loc", "LOC:PL:POSS3P:POSSPL", "akuliitni"),  # CG p. 133
+    # Locatives
+    ("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigpeni"),
+    ("akuliit", "loc", "ABS:POSS3P:POSSPL:SG", "akuliit"),  # CG p. 133
+    ("akuliit", "loc", "LOC:POSS3P:POSSPL:SG", "akuliitni"),  # CG p. 128
 
     # Singulars of preinflected nouns
     # #("wiinga", "n", "ABS:SG:UNPOSS", "wi?"),  # CG p. 141
@@ -98,7 +98,9 @@ ENDING_TEST_CASES = [
 
     # Irregular possessed forms
     ("nuna", "n", "ABS:POSS3P:POSSSG:SG", "nunii"),  # CG p. 141
+    ("nuna", "n", "ABS:PL:POSS3P:POSSSG", "nunai"),  # CG p. 141
     ("piugta", "n", "ABS:POSS3P:POSSSG:SG", "piugtii"),  # CG p. 141
+    ("piugta", "n", "ABS:PL:POSS3P:POSSSG", "piugtai"),  # CG p. 141
     # ("saqul'aq", "n", "ABS:POSS3P:POSSSG:SG", "saqulgaa"),  # CG p. 142
     ("kuik", "n", "ABS:POSS3P:POSSSG:SG", "kuiga"),  # CG p. 142 -- kuiya? also kui'a
     ("ciqlluaq", "n", "ABS:POSS3P:POSSSG:SG", "ciqllua'a"),  # CG p. 142
