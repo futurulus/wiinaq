@@ -146,7 +146,6 @@ def apply_vowel_alternation(center, before):
         return None
 
     if before is not None:
-        before = get_root(before)
         for left, right in ['<>', '[]', '{}']:
             if left in center:
                 start_pos = center.index(left)
@@ -264,14 +263,14 @@ def apply_negative(before, center):
 
 
 def apply_transformations(before, center, after):
+    # from nose.tools import set_trace
+    # if 'aqum' in center and '(nga)' in after:
+    #     set_trace()
+
     before, center = apply_negative(before, center)
     center, after = apply_negative(center, after)
     center = apply_vowel_alternation(center, before)
     after = apply_vowel_alternation(after, center)
-
-    # from nose.tools import set_trace
-    # if 'qut' in center and 'stun' in after:
-    #     set_trace()
 
     if after is not None:
         if after.startswith('-'):
