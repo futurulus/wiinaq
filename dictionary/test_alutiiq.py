@@ -65,7 +65,7 @@ ENDING_TEST_CASES = [
     ("ell'uni", "vi", "1P:COND:POS:SG", "ellkuma"),
     ("ell'uni", "vi", "1P:CSEQ:POS:SG", "ellngama"),
     ("mill'uni", "vi", "3P:POS:PRES:SG", "mit'uq"),  # CG p. 128
-    #("all'uni", "vi", "3P:POS:PRES:SG", "alltuq"),  # QANK p. 22
+    # ("all'uni", "vi", "3P:POS:PRES:SG", "alltuq"),  # QANK p. 22
     ("ul'uni", "vi", "3P:CONJ:POS:SG", "ul'uni"),  # QANK p.23
     ("ul'uni", "vi", "3P:POS:PRES:SG", "uluq"),
     ("ul'uni", "vi", "3P:PAST:POS:SG", "ulellria"),
@@ -90,8 +90,8 @@ ENDING_TEST_CASES = [
     ("akuliit", "loc", "LOC:PL:POSS3P:POSSPL", "akuliitni"),  # CG p. 133
 
     # Singulars of preinflected nouns
-    ##("wiinga", "n", "ABS:SG:UNPOSS", "wi?"),  # CG p. 141
-    #("neqet", "n", "ABS:SG:UNPOSS", "neqa"),  # CG p. 141
+    # #("wiinga", "n", "ABS:SG:UNPOSS", "wi?"),  # CG p. 141
+    # ("neqet", "n", "ABS:SG:UNPOSS", "neqa"),  # CG p. 141
 
     # Dual possessed
     ("qayaq", "n", "ABS:DU:POSS3P:POSSSG", "qayak"),  # CG p. 139
@@ -99,11 +99,11 @@ ENDING_TEST_CASES = [
     # Irregular possessed forms
     ("nuna", "n", "ABS:POSS3P:POSSSG:SG", "nunii"),  # CG p. 141
     ("piugta", "n", "ABS:POSS3P:POSSSG:SG", "piugtii"),  # CG p. 141
-    #("saqul'aq", "n", "ABS:POSS3P:POSSSG:SG", "saqulgaa"),  # CG p. 142
+    # ("saqul'aq", "n", "ABS:POSS3P:POSSSG:SG", "saqulgaa"),  # CG p. 142
     ("kuik", "n", "ABS:POSS3P:POSSSG:SG", "kuiga"),  # CG p. 142 -- kuiya? also kui'a
     ("ciqlluaq", "n", "ABS:POSS3P:POSSSG:SG", "ciqllua'a"),  # CG p. 142
     ("erneq", "n", "ABS:PL:POSS3P:POSSSG", "erneri"),  # CG p. 143
-    #("nuliq", "n", "ABS:POSS3P:POSSSG:SG", "nulira"),  # CG p. 143
+    # ("nuliq", "n", "ABS:POSS3P:POSSSG:SG", "nulira"),  # CG p. 143
 
     # Consequential -te- + -ngama = -cama
     ("sun'arauluni", "vi", "1P:CSEQ:POS:SG", "sun'araungama"),
@@ -120,7 +120,7 @@ ENDING_TEST_CASES = [
     # Conditional -qe- + -kumgu = -q'gkumgu
     ("tuumiaqlluku", "vt", "COND:O3P:OSG:POS:S1P:SSG", "tuumiaq'gkumgu"),
     # but not past tense?
-    #("tuumiaqlluku", "vt", "O3P:OSG:PAST:POS:S1P:SSG", "tuumiaq'gka"),
+    # ("tuumiaqlluku", "vt", "O3P:OSG:PAST:POS:S1P:SSG", "tuumiaq'gka"),
 
     # Negatives
     ("nalluluni", "vi", "3P:NEG:PRES:SG", "nallun'ituq"),
@@ -202,7 +202,7 @@ def add_root_method(args):
         self.assertEqual(get_root(word, defn), expected)
 
     check_root.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
-                                   'test_root_%s_%s__%s' % args)
+                                 'test_root_%s_%s__%s' % args)
     setattr(TestEndings, check_root.__name__, check_root)
 
 
@@ -214,7 +214,7 @@ def add_pos_method(args):
         self.assertEqual(get_pos(word, defn), expected)
 
     check_pos.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
-                                   'test_pos_%s_%s__%s' % args)
+                                'test_pos_%s_%s__%s' % args)
     setattr(TestEndings, check_pos.__name__, check_pos)
 
 

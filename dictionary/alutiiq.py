@@ -34,9 +34,11 @@ RHYME = '(' + CORE + '([ptkqlsgrmn]|ng|ll)?)'
 GEMINATE = '(' + CONSONANT + "')"
 VALID_REGEX = re.compile('^' + CONSONANT + '?' +
                          '(' + RHYME + ONSET + '|' +
-                               CORE + GEMINATE + ')*' +
+                         CORE + GEMINATE + ')*' +
                          RHYME +
                          '$')
+
+
 def is_valid(entry):
     '''
     >>> is_valid('pingayun')
@@ -56,11 +58,13 @@ def is_valid(entry):
 
 
 def get_pos(entry, defn=''):
-    if any(entry.endswith(marker + ending) for marker in ["lu", "l'u", "na"]
-                                             for ending in ['ni', 'tek', 'teng']):
+    if any(entry.endswith(marker + ending)
+           for marker in ["lu", "l'u", "na"]
+           for ending in ['ni', 'tek', 'teng']):
         return 'vi'
-    elif any(entry.endswith(marker + ending) for marker in ["lu", "l'u", "na"]
-                                             for ending in ['ku', 'kek', 'ki']):
+    elif any(entry.endswith(marker + ending)
+             for marker in ["lu", "l'u", "na"]
+             for ending in ['ku', 'kek', 'ki']):
         return 'vt'
     elif entry and entry[-1:] in 'qkt':
         return 'n'
@@ -138,7 +142,8 @@ def get_root(word, defn=''):
 
 
 def apply_vowel_alternation(center, before):
-    if center is None: return None
+    if center is None:
+        return None
 
     if before is not None:
         before = get_root(before)
@@ -154,13 +159,14 @@ def apply_vowel_alternation(center, before):
                 strong_fric_ending = (before[-1:] == 'g' or
                                       before.endswith('er'))
                 if (left == '<' and vowel_ending or
-                    left == '[' and cons_ending or
-                    left == '{' and strong_fric_ending):
+                        left == '[' and cons_ending or
+                        left == '{' and strong_fric_ending):
                     center = center[start_pos + 1:end_pos] + center[end_pos + 1:]
                 else:
                     center = center[:start_pos] + center[end_pos + 1:]
 
     return center
+
 
 def apply_negative(before, center):
     if before is not None and center is not None:
@@ -196,7 +202,7 @@ def apply_negative(before, center):
 
         if negative:
             if center.startswith('~a') or center.startswith('+<~g>a') or \
-                 '[+t]u' in center:
+                    '[+t]u' in center:
                 # present tense:
                 #   transitive (not third person): ~a
                 #   transitive third person: +<~g>a
@@ -256,6 +262,7 @@ def apply_negative(before, center):
 
     return before, center
 
+
 def apply_transformations(before, center, after):
     before, center = apply_negative(before, center)
     center, after = apply_negative(center, after)
@@ -308,7 +315,7 @@ def apply_transformations(before, center, after):
                     center = center[:-1]
             elif after.startswith('~g'):
                 if re.search('[aeiou]' + CONSONANT + 'e[gr]$', center) and \
-                     len(after) >= 3 and after[2] in 'aeiou':
+                        len(after) >= 3 and after[2] in 'aeiou':
                     # nater ~ga => natra
                     center = center[:-2]
                 elif center[-1] not in 'aeiou':
@@ -355,7 +362,7 @@ def apply_transformations(before, center, after):
             elif center.endswith("'") and len(after) >= 2 and after[1] not in 'aeiou':
                 center = center[:-1]
             elif re.search('[aeiou]' + CONSONANT + 'e[gr]$', center) and \
-                 len(after) >= 2 and after[1] in 'aeiou':
+                    len(after) >= 2 and after[1] in 'aeiou':
                 center = center[:-2] + center[-1]
 
         if re.search("[aeiou][aeiou]$", center) and \
@@ -556,8 +563,9 @@ HIERARCHY = {
 def id_list(widget, direction):
     assert direction in ('r', 'c')
     pairs = widget.rows if direction == 'r' else widget.cols
-    span = (widget.spanrows + widget.row_flatten) if direction == 'r' \
-           else (widget.spancols + widget.col_flatten)
+    span = ((widget.spanrows + widget.row_flatten)
+            if direction == 'r' else
+            (widget.spancols + widget.col_flatten))
     span_suffix = ('-' + '_'.join(span)) if span else ''
     return [id + span_suffix for id, name in pairs]
 
@@ -736,7 +744,7 @@ def build_endings(endings_map, id_lists, root, endings, id_curr=None):
     >>> result['B:LOWER']
     'xb'
     '''
-    if id_curr == None:
+    if id_curr is None:
         id_curr = []
 
     if id_lists:
@@ -770,7 +778,8 @@ def add_negatives(table):
 
 
 def correspondences_map(table1, table2, result=None):
-    if result is None: result = {}
+    if result is None:
+        result = {}
 
     if isinstance(table1, list) and isinstance(table2, list):
         for sub1, sub2 in zip(table1, table2):
@@ -1338,6 +1347,7 @@ ENDINGS = {
         ],
     ]),
 }
+
 
 def inflection_data(root):
     if root.pos in ENDINGS:
