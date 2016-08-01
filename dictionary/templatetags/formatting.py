@@ -19,6 +19,10 @@ def replace_double(escaped):
     return re.sub(r'(r|g)\1', r'<u>\1</u>', escaped)
 
 
+def replace_e_noun_stem(escaped):
+    return re.sub(r'A', r'e', escaped)
+
+
 @register.filter(needs_autoescape=True)
 def russian_r(text, autoescape=True):
     if autoescape:
@@ -40,6 +44,7 @@ def root(text, autoescape=True):
     result = esc(text)
     for transform in [replace_russian_r,
                       replace_superscript,
-                      replace_double]:
+                      replace_double,
+                      replace_e_noun_stem]:
         result = transform(result)
     return mark_safe(result)
