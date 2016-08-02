@@ -26,13 +26,14 @@ def normalize(word):
     return word
 
 
-CONSONANT = '([ptckqwlysgrmnR]|gw|ng|ll|hm|hn|hng)'
+CONSONANT = '([ptckqwlysgrmnR]|ng|ll|hm|hn|hng)'
+INITIAL_CLUSTER = '(' + CONSONANT + "|s[ktp]R?)"
 ONSET = '(' + CONSONANT + "|')"
 PRIME = '[aiu]'
-CORE = "([e']|" + PRIME + '{1,2})'
+CORE = "([e']|" + PRIME + '{1,2}|we|w[ai]' + PRIME + '?)'
 RHYME = '(' + CORE + '([ptkqlsgrmn]|ng|ll)?)'
 GEMINATE = '(' + CONSONANT + "')"
-VALID_REGEX = re.compile('^' + CONSONANT + '?' +
+VALID_REGEX = re.compile('^' + INITIAL_CLUSTER + '?' +
                          '(' + RHYME + ONSET + '|' +
                          CORE + GEMINATE + ')*' +
                          RHYME +
@@ -50,6 +51,16 @@ def is_valid(entry):
     >>> is_valid('Eengayiin')
     False
     >>> is_valid('alIa')
+    False
+    >>> is_valid('skaapaq')
+    True
+    >>> is_valid('stRaapaq')
+    True
+    >>> is_valid('nerkwaraa')
+    True
+    >>> is_valid('nerkwaiya')
+    True
+    >>> is_valid('nerkwuraa')
     False
     '''
     words = entry.split()
