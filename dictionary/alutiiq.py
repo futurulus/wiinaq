@@ -121,12 +121,18 @@ def get_root(word, pos='', defn=''):
     for ending in neg_endings:
         if word.endswith('ii' + ending):
             return word[:-len(ending) - 1] + '\iT'
+        elif word.endswith('h' + ending) and len(word) > len(ending) + 1 and \
+                word[-len(ending) - 2] in ('g', 'r'):
+            # ikeghnateng => ikegg-
+            return word[:-len(ending) - 1] + word[-len(ending) - 2] + 'T'
         elif word.endswith(ending):
             return word[:-len(ending)] + 'T'
 
     if re.search('(^|[^aeiou])[aeiou]teq$', word):
         return word[:-1] + 'r'
-    elif re.search('^[^aeiou]?[aeiou][qk]$', word):
+    elif re.search('^[^aeiou]?[aiu][qk]$', word):
+        # suk => su\ug-
+        # leq => ler-
         return word[:-1] + '\\' + word[-2] + ('r' if word[-1] == 'q' else 'g')
     elif word.endswith('ta'):
         return word[:-1] + 'A'
@@ -254,8 +260,11 @@ def apply_negative(before, center):
             before = before[:-1]
             if not center.startswith('~l') and not center.startswith('+n'):
                 before += 'te'
+        elif before.endswith('ggT') or before.endswith('rrT'):
+            # ikeggT +[+t]uq => ikegte +uq => ikegtuq
+            before = before[:-2] + 'te'
         elif before.endswith('T'):
-            # mikT +[+t]uq => mikt +uq => miktuq
+            # mikT +[+t]uq => mikte +uq => miktuq
             before = before[:-1] + 'te'
         elif negative:
             if before.endswith('N'):
@@ -282,7 +291,7 @@ def apply_negative(before, center):
 
 def apply_transformations(before, center, after):
     # from nose.tools import set_trace
-    # if 'aqum' in center and '(nga)' in after:
+    # if center == 'qi\\ir' and '<~g>' in after:
     #     set_trace()
 
     before, center = apply_negative(before, center)
@@ -414,8 +423,11 @@ def apply_transformations(before, center, after):
                     len(after) >= 2 and after[1] in 'aeiou':
                 center = center[:-2] + center[-1]
 
-        if re.search("[aeiou][aeiou]$", center) and \
+        if re.search(r"[aeiou]\\?[aeiou]$", center) and \
                 len(after) >= 2 and after[1] in 'aeiou':
+            # ki\ir -a => kiiya
+            # ki\ir -it => kii'it
+            # qaur -a => qauwa
             if center[-1:] == after[1]:
                 center += "'"
             elif center.endswith('i'):
@@ -490,8 +502,8 @@ def apply_transformations(before, center, after):
         # su\ug +a => suuga
         center = re.sub(r'(?<=[a-zR])\\(?=[aiu])', '', center)
 
-    if before and '\\' in center:
-        if center.startswith('\\') and before.endswith(center[1:2]):
+    if '\\' in center:
+        if before and center.startswith('\\') and before.endswith(center[1:2]):
             center = center[2:]
         else:
             center = center.replace('\\', '')

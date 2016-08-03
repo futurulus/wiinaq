@@ -26,12 +26,12 @@ def find_bad_entries():
                     form = form.replace('(', '').replace(')', '')
                     if form != '-' and not is_valid(form):
                         bad_forms.append((form, root.word, tags))
-        if len(bad_forms) > 1000:
+        if len(bad_forms) > 200:
             break
 
     sample_size = min(100, len(bad_forms))
     for form, word, tags in random.sample(bad_forms, sample_size):
-        print('{0: <51} {1}'.format('{0: <25} {1}'.format(form, word), tags))
+        print('{0: <51} {1}'.format('{0: <25} {1}'.format(form, word), tags).encode('utf-8'))
 
 
 if __name__ == '__main__':

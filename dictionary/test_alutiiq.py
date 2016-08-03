@@ -177,6 +177,13 @@ ENDING_TEST_CASES = [
     ("ikna", "dem", "ERG:SG", "ik'um"),
     ("ikna", "dem", "ABS:PL", "ik'gkut"),
     ("kan'a", "kate", "dem", "ABS:SG", "kan'a"),  # CG p. 62
+
+    # Regression tests from automatically-discovered bugs
+    ("uulluku", "vt", "CSEQ:NEG:O3P:OSG:S3P:SSG", "uuten'llngagu"),
+    ("leq", "n", "ABS:SG:UNPOSS", "leq"),
+    ("qiq", "n", "ABS:POSS3P:POSSSG:SG", "qiiya"),
+    ("qiq", "n", "ABS:PL:POSS3P:POSSPL", "qii'it"),
+    ("ikeghnateng", "vi", "2P:DU:POS:PRES", "ikegtutek"),
 ]
 
 POS_TEST_CASES = [
@@ -194,6 +201,8 @@ ROOT_TEST_CASES = [
     ("kuik", "", "kuig"),
     ("suk", "", "su\\ug"),
     ("piugta", "", "piugtA"),
+    ("ikeghnateng", "", "ikeggT"),
+    ("leq", "", "ler"),
 ]
 
 
