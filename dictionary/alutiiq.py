@@ -27,7 +27,7 @@ def normalize(word):
 
 
 CONSONANT = '([ptckqwlysgrmnR]|ng|ll|hm|hn|hng)'
-INITIAL_CLUSTER = '(' + CONSONANT + "|s[ktp]R?)"
+INITIAL_CLUSTER = '(' + CONSONANT + "|s?[ktp]R?|s?[kp]?l)"
 ONSET = '(' + CONSONANT + "|')"
 PRIME = '[aiu]'
 CORE = "([e']|" + PRIME + '{1,2}|we|w[ai]' + PRIME + '?)'
@@ -53,6 +53,8 @@ def is_valid(entry):
     >>> is_valid('alIa')
     False
     >>> is_valid('skaapaq')
+    True
+    >>> is_valid('slaapaq')
     True
     >>> is_valid('stRaapaq')
     True

@@ -31,7 +31,7 @@ def find_bad_entries():
 
     sample_size = min(100, len(bad_forms))
     for form, word, tags in random.sample(bad_forms, sample_size):
-        print('{0: <51} {1}'.format('{0: <25} {1}'.format(form, word), tags).encode('utf-8'))
+        print(u'{0: <51} {1}'.format(u'{0: <25} {1}'.format(form, word), tags).encode('utf-8'))
 
 
 if __name__ == '__main__':
