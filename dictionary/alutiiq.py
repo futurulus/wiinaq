@@ -114,7 +114,7 @@ def get_root(word, pos='', defn=''):
                     return word[:-len(ending)] + 'N'
                 elif re.search('^([^aeiou]?)[aeiou][gr]$', word[:-len(ending)]):
                     return word[:-len(ending)] + "e"
-                elif word[:-len(ending)].endswith('ng'):
+                elif word[:-len(ending)].endswith('ng') or word[:-len(ending)].endswith('m'):
                     return word[:-len(ending)] + 'e'
                 else:
                     return word[:-len(ending)]
@@ -293,7 +293,7 @@ def apply_negative(before, center):
 
 def apply_transformations(before, center, after):
     # from nose.tools import set_trace
-    # if center == 'qi\\ir' and '<~g>' in after:
+    # if center.startswith('kiw') and '~g' in after and 'nun' in after:
     #     set_trace()
 
     before, center = apply_negative(before, center)
@@ -368,6 +368,9 @@ def apply_transformations(before, center, after):
                         len(after) >= 3 and after[2] in 'aeiou':
                     # nater ~ga => natra
                     center = center[:-2]
+                    if center.endswith('w'):
+                        # kiweg ~ganun => kiw ~ganun => kiuganun
+                        center = center[:-1] + 'u'
                 elif center.endswith('e') and re.search(r'~g' + CONSONANT, after):
                     center = center[:-1] + "'"
                 elif center[-1] not in 'aeiou':
@@ -423,7 +426,11 @@ def apply_transformations(before, center, after):
                 center = center[:-1]
             elif re.search('[aeiou]' + CONSONANT + 'e[gr]$', center) and \
                     len(after) >= 2 and after[1] in 'aeiou':
+                # nuter +a => nutra
                 center = center[:-2] + center[-1]
+                if len(center) >= 2 and center[-2] == 'w':
+                    # kiweg +a => kiwg +a => kiuga
+                    center = center[:-2] + 'u' + center[-1]
 
         if re.search(r"[aeiou]\\?[aeiou]$", center) and \
                 len(after) >= 2 and after[1] in 'aeiou':

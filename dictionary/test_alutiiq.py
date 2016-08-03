@@ -180,10 +180,13 @@ ENDING_TEST_CASES = [
 
     # Regression tests from automatically-discovered bugs
     ("uulluku", "vt", "CSEQ:NEG:O3P:OSG:S3P:SSG", "uuten'llngagu"),
+    ("ikeghnateng", "vi", "2P:DU:POS:PRES", "ikegtutek"),
+    ("mamluni", "vi", "1P:CONJ:NEG:PL", "mamegkunata"),
     ("leq", "n", "ABS:SG:UNPOSS", "leq"),
     ("qiq", "n", "ABS:POSS3P:POSSSG:SG", "qiiya"),
     ("qiq", "n", "ABS:PL:POSS3P:POSSPL", "qii'it"),
-    ("ikeghnateng", "vi", "2P:DU:POS:PRES", "ikegtutek"),
+    ("kiwek", "n", "ABS:POSS3P:POSSSG:SG", "kiuga"),
+    ("kiwek", "n", "DAT:POSS3P:POSSSG:SG", "kiuganun"),
 ]
 
 POS_TEST_CASES = [
