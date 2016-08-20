@@ -1,82 +1,168 @@
--                         ackinani                  -
--                         akluucana'q               -
--                         anacl'uk                  -
--                         atakuu!                   -
--                         aya'ilun!                 -
--                         bring some past           -
--                         cut them off              -
-ellpegk                   ellpet                    ABS:DU:POSS3P:POSSSG
+aanspuuk                 
+ackiik                   
+ackiik                   
+ackinani                 
+ai?                      
+aipaa ..., aipaa ...     
+akiilngum kaaRtaa'a      
+anacruk                  
+anuckiiq                 
+aRastúupkaat             
+aRggiRiyaq               
+asiiyullunl              
+atakuu!                  
+aw'a!                    
+aya'ilun!                
+balalaikaaq              
+caRniik                  
+castun?                  
+Cestun ap'rtaaraat Sugt'stun?
+ciRpuuk                  
+faapRiikaaq              
+fuRaskaq                 
+fuRiyaskaq               
+gleipam legt'suutii      
+haatkik                  
+ii'i!                    
+ima-mi                   
+iRufkuq                  
+iwán'gilaq               
+kaaRstuuk                
+kaaRtaaq                 
+kaRtiitsaaq              
+kita!                    
+kiwgirluku               
+kulickiiq                
+kumátkaaq                
+laafkaaq                 
+maalik OH                
+maluqnarluni OH          
+mas'inístaaq             
+mecgaluni                
+melugya'aqt plural melugyaraat
+miRafkuq                 
+na-aa'i!                 
+naama?                   
+niiculuni obey           
+paaRkaaq                 
+pactaniik                
+palicúuskiiq             
+paRawánskaaq             
+patag'uu-                
+picuunarlunl             
+pristanaq                
+puckaq                   
+puláugkaaq               
+qai-cali                 
+qai-cali                 
+qai-kiq                  
+Qai-mi pit?              
+qaugcin?                 
+qaugcin?                 
+qaugcinek kaugtau'u?     
+qaugcinek uksungq'rcit?  
+qayu?                    
+qayu?                    
+Qayu-mi pit?             
+quien                    
+rnallungqusaagluni       
+ruuckaaq                 
+sakuuq OR                
+saRkuuyarluku            
+saRkuuyarluni            
+smiiyaq                  
+spiickaaq                
+suíckaaq                 
+suítaraq                 
+taackaaq                 
+taptan-qaa?              
+temciklluku,             
+uluryanarluni,           
+yaiyai!                  
+agayutegk                 agayutet                  ABS:DU:POSS3P:POSSSG
+ekqutegk                  ekqutet                   ABS:DU:POSS3P:POSSSG
 gaategk                   gaatet                    ABS:DU:POSS3P:POSSSG
-gaategk                   gaatet                    ABS:DU:POSS3P:POSSSG
--                         ii'i!                     -
--                         iIuqIIiit                 -
--                         ima-mi                    -
--                         iwalrayak Afog.           -
--                         iwán'gilaq                -
+igarsuusk                 igarsuuteq                ABS:SG:UNPOSS
+iluqllka                  iluqlliit                 ABS:POSS1P:POSSSG:SG
+iqai'isuutegk             iqai'isuutet              ABS:DU:POSS3P:POSSSG
 kagitegk                  kagitet                   ABS:DU:POSS3P:POSSSG
--                         kita!                     -
--                         kiturluku carry           -
--                         kraapit                   -
--                         kulickiiq                 -
--                         kumátkaaq                 -
--                         lieqiluku                 -
 llcia                     nani                      1P:INTERR:POS:SG
 llcit                     nani                      2P:INTERR:POS:SG
 llkagta                   nani                      3P:COND:DU:POS
-llkan                     nani                      3P:COND:POS:SG
 llkata                    nani                      3P:COND:PL:POS
-llkumnuk                  nani                      1P:COND:DU:POS
 llkumta                   nani                      1P:COND:PL:POS
 llkumtek                  nani                      2P:COND:DU:POS
-llkunek                   nani                      4P:COND:DU:POS
-llngama                   nani                      1P:CSEQ:POS:SG
-llngami                   nani                      4P:CSEQ:POS:SG
-llngamta                  nani                      1P:CSEQ:PL:POS
+llkuneng                  nani                      4P:COND:PL:POS
+llkuni                    nani                      4P:COND:POS:SG
+llkut                     nani                      2P:COND:POS:SG
 llngan                    nani                      3P:CSEQ:POS:SG
 llngata                   nani                      3P:CSEQ:PL:POS
 llngaugci                 nani                      2P:CSEQ:PL:POS
-llngaut                   nani                      2P:CSEQ:POS:SG
+llngaugtek                nani                      2P:CSEQ:DU:POS
 llnguanga                 nani                      1P:PAST:POS:SG
-llngukuk                  nani                      1P:DU:PAST:POS
+llnguci                   nani                      2P:PAST:PL:POS
+llnguk                    nani                      3P:DU:PAST:POS
 llngukut                  nani                      1P:PAST:PL:POS
-llnguten                  nani                      2P:PAST:POS:SG
-llt'snuk                  nani                      1P:DU:INTERR:POS
-llt'stek                  nani                      2P:DU:INTERR:POS
--                         maalik OH                 -
--                         maluqnarluni OH           -
--                         mecgaluni                 -
--                         muuguaq Afog.             -
--                         nenglirluni Afog.         -
-neqegk                    neqet                     ABS:DU:POSS3P:POSSSG
--                         niiculuni obey            -
--                         patag'uu-                 -
--                         pugrlpaq                  -
--                         qanganaruaq Afog., Kar.   -
--                         qaugcinek kaugtau'u?      -
-qell'sk                   qellteq                   ABS:SG:UNPOSS
+lltak                     nani                      3P:DU:INTERR:POS
+llta                      nani                      3P:INTERR:POS:SG
 qellt'agkun               qellteq                   PER:POSS3P:POSSDU:SG
+qellt'agnek               qellteq                   ABL:POSS3P:POSSDU:SG
+qellt'agnek               qellteq                   ABL:POSS3P:POSSDU:SG
 qellt'agni                qellteq                   LOC:POSS3P:POSSDU:SG
-qellt'ani                 qellteq                   LOC:POSS3P:POSSSG:SG
+qellt'agni                qellteq                   LOC:POSS3P:POSSDU:SG
+qellt'agnun               qellteq                   DAT:POSS3P:POSSDU:SG
+qellt'agt'stun            qellteq                   POSS3P:POSSDU:SG:SIM
+qellt'ak                  qellteq                   ABS:POSS3P:POSSDU:SG
+qellt'anek                qellteq                   ABL:POSS3P:POSSSG:SG
 qellt'anun                qellteq                   DAT:POSS3P:POSSSG:SG
-qellt'att'stun            qellteq                   POSS3P:POSSPL:SG:SIM
+qellt'atkun               qellteq                   PER:POSS3P:POSSPL:SG
+qellt'atkun               qellteq                   PER:POSS3P:POSSPL:SG
+qellt'atnek               qellteq                   ABL:POSS3P:POSSPL:SG
+qellt'atni                qellteq                   LOC:POSS3P:POSSPL:SG
+qellt'atnun               qellteq                   DAT:POSS3P:POSSPL:SG
+qellt'atnun               qellteq                   DAT:POSS3P:POSSPL:SG
+qellt'at                  qellteq                   ABS:POSS3P:POSSPL:SG
+qellt'at                  qellteq                   ABS:POSS3P:POSSPL:SG
+qellt'at'stun             qellteq                   POSS3P:POSSSG:SG:SIM
+qellt'at'stun             qellteq                   POSS3P:POSSSG:SG:SIM
+qellt'igkun               qellteq                   DU:PER:POSS3P:POSSDU
+qellt'igkun               qellteq                   DU:PER:POSS3P:POSSDU
+qellt'igkun               qellteq                   PER:PL:POSS3P:POSSDU
+qellt'igkun               qellteq                   PER:PL:POSS3P:POSSDU
 qellt'ignek               qellteq                   ABL:DU:POSS3P:POSSDU
 qellt'ignek               qellteq                   ABL:PL:POSS3P:POSSDU
 qellt'igni                qellteq                   DU:LOC:POSS3P:POSSDU
 qellt'igni                qellteq                   LOC:PL:POSS3P:POSSDU
+qellt'ignun               qellteq                   DAT:DU:POSS3P:POSSDU
+qellt'ignun               qellteq                   DAT:PL:POSS3P:POSSDU
+qellt'igta                qellteq                   DU:ERG:POSS3P:POSSDU
+qellt'igta                qellteq                   ERG:PL:POSS3P:POSSDU
+qellt'igt'stun            qellteq                   DU:POSS3P:POSSDU:SIM
+qellt'igt'stun            qellteq                   DU:POSS3P:POSSDU:SIM
 qellt'ik                  qellteq                   ABS:DU:POSS3P:POSSDU
 qellt'ik                  qellteq                   ABS:PL:POSS3P:POSSDU
+qellt'ik                  qellteq                   ABS:PL:POSS3P:POSSDU
+qellt'ikun                qellteq                   DU:PER:POSS3P:POSSSG
+qellt'ikun                qellteq                   PER:PL:POSS3P:POSSSG
+qellt'ikun                qellteq                   PER:PL:POSS3P:POSSSG
+qellt'inek                qellteq                   ABL:DU:POSS3P:POSSSG
 qellt'inek                qellteq                   ABL:DU:POSS3P:POSSSG
 qellt'inek                qellteq                   ABL:PL:POSS3P:POSSSG
 qellt'ini                 qellteq                   DU:ERG:POSS3P:POSSSG
 qellt'ini                 qellteq                   DU:LOC:POSS3P:POSSSG
+qellt'ini                 qellteq                   DU:LOC:POSS3P:POSSSG
+qellt'ini                 qellteq                   LOC:PL:POSS3P:POSSSG
 qellt'ini                 qellteq                   LOC:PL:POSS3P:POSSSG
 qellt'inun                qellteq                   DAT:DU:POSS3P:POSSSG
-qellt'ita                 qellteq                   DU:ERG:POSS3P:POSSPL
+qellt'inun                qellteq                   DAT:DU:POSS3P:POSSSG
+qellt'i                   qellteq                   ABS:PL:POSS3P:POSSSG
 qellt'ita                 qellteq                   ERG:PL:POSS3P:POSSPL
 qellt'itkun               qellteq                   DU:PER:POSS3P:POSSPL
+qellt'itkun               qellteq                   DU:PER:POSS3P:POSSPL
+qellt'itnek               qellteq                   ABL:PL:POSS3P:POSSPL
 qellt'itnek               qellteq                   ABL:PL:POSS3P:POSSPL
 qellt'itni                qellteq                   DU:LOC:POSS3P:POSSPL
-qellt'itni                qellteq                   LOC:PL:POSS3P:POSSPL
+qellt'itnun               qellteq                   DAT:DU:POSS3P:POSSPL
 qellt'itnun               qellteq                   DAT:PL:POSS3P:POSSPL
 qellt'it                  qellteq                   ABS:DU:POSS3P:POSSPL
 qellt'it                  qellteq                   ABS:PL:POSS3P:POSSPL
@@ -84,17 +170,12 @@ qellt'it'stun             qellteq                   DU:POSS3P:POSSSG:SIM
 qellt'it'stun             qellteq                   PL:POSS3P:POSSSG:SIM
 qellt'itt'stun            qellteq                   DU:POSS3P:POSSPL:SIM
 qiiregk                   qiiret                    ABS:DU:POSS3P:POSSSG
--                         quIa                      -
--                         rnallungqusaagluni        -
--                         sakuuq OR                 -
--                         sis'uyaq Afog.            -
--                         ster'utaq Afog.           -
--                         sugsuutet Afog.           -
--                         taackaaq                  -
-taaritegk                 taaritet                  ABS:DU:POSS3P:POSSSG
--                         taptan-qaa?               -
--                         tawaten ang'aluni;        -
--                         traapat                   -
--                         trupat                    -
--                         ukilluku born             -
+sugsuutegk                sugsuutet                 ABS:DU:POSS3P:POSSSG
+sugsuutegk                sugsuutet                 ABS:DU:POSS3P:POSSSG
+suusk                     suuteq                    ABS:SG:UNPOSS
+tapgkunaci                tapluni                   2P:CONJ:NEG:PL
+tapgkunani                tapluni                   3P:CONJ:NEG:SG
+tapgkunanuk               tapluni                   1P:CONJ:DU:NEG
+tapgkunata                tapluni                   1P:CONJ:NEG:PL
+tapgkuniinga              tapluni                   1P:CONJ:NEG:SG
 weg'egk                   weg'et                    ABS:DU:POSS3P:POSSSG
