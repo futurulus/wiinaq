@@ -195,6 +195,7 @@ POS_TEST_CASES = [
     ("qunuklluku", "", "vt"),
     ("ell'uni", "", "vi"),
     ("ul'uku", "", "vt"),
+    ("nani", "", "None"),
 ]
 
 ROOT_TEST_CASES = [

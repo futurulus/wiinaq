@@ -34,10 +34,10 @@ CORE = "([e']|" + PRIME + '{1,2}|we|w[ai]' + PRIME + '?)'
 RHYME = '(' + CORE + '([ptkqlsgrmn]|ng|ll)?)'
 GEMINATE = '(' + CONSONANT + "')"
 VALID_REGEX = re.compile('^' + INITIAL_CLUSTER + '?' +
-                         '(' + RHYME + ONSET + '|' +
+                         '(' + RHYME + '-?' + ONSET + '|' +
                          CORE + GEMINATE + ')*' +
                          RHYME +
-                         '$')
+                         '[?!]?$')
 
 
 def is_valid(entry):
@@ -64,6 +64,16 @@ def is_valid(entry):
     True
     >>> is_valid('nerkwuraa')
     False
+    >>> is_valid('wegesk')
+    False
+    >>> is_valid('kita!')
+    True
+    >>> is_valid('k!ta')
+    False
+    >>> is_valid('gui-qaa?')
+    True
+    >>> is_valid('gui-')
+    False
     '''
     words = entry.split()
     return all(VALID_REGEX.match(w[0].lower() + w[1:])
@@ -71,11 +81,11 @@ def is_valid(entry):
 
 
 def get_pos(entry, defn=''):
-    if any(entry.endswith(marker + ending)
+    if any(entry.endswith(marker + ending) and len(entry) > len(marker + ending)
            for marker in ["lu", "l'u", "na"]
            for ending in ['ni', 'tek', 'teng']):
         return 'vi'
-    elif any(entry.endswith(marker + ending)
+    elif any(entry.endswith(marker + ending) and len(entry) > len(marker + ending)
              for marker in ["lu", "l'u", "na"]
              for ending in ['ku', 'kek', 'ki']):
         return 'vt'

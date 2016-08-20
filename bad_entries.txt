@@ -1,84 +1,58 @@
-aanspuuk                 
-ackiik                   
-ackiik                   
-ackinani                 
-ai?                      
-aipaa ..., aipaa ...     
-akiilngum kaaRtaa'a      
-anacruk                  
-anuckiiq                 
-aRastúupkaat             
-aRggiRiyaq               
-asiiyullunl              
-atakuu!                  
-aw'a!                    
-aya'ilun!                
-balalaikaaq              
-caRniik                  
-castun?                  
-Cestun ap'rtaaraat Sugt'stun?
-ciRpuuk                  
-faapRiikaaq              
-fuRaskaq                 
-fuRiyaskaq               
-gleipam legt'suutii      
-haatkik                  
-ii'i!                    
-ima-mi                   
-iRufkuq                  
-iwán'gilaq               
-kaaRstuuk                
-kaaRtaaq                 
-kaRtiitsaaq              
-kita!                    
-kiwgirluku               
-kulickiiq                
-kumátkaaq                
-laafkaaq                 
-maalik OH                
-maluqnarluni OH          
-mas'inístaaq             
-mecgaluni                
+aanspuuk
+ackiik
+ackiik
+ackinani
+aipaa ..., aipaa ...
+akiilngum kaaRtaa'a
+anacruk
+anuckiiq
+aRastúupkaat
+aRggiRiyaq
+asiiyullunl
+balalaikaaq
+caRniik
+ciRpuuk
+faapRiikaaq
+fuRaskaq
+fuRiyaskaq
+gleipam legt'suutii
+haatkik
+iRufkuq
+iwán'gilaq
+kaaRstuuk
+kaaRtaaq
+kaRtiitsaaq
+kiwgirluku
+kulickiiq
+kumátkaaq
+laafkaaq
+maalik OH
+maluqnarluni OH
+mas'inístaaq
+mecgaluni
 melugya'aqt plural melugyaraat
-miRafkuq                 
-na-aa'i!                 
-naama?                   
-niiculuni obey           
-paaRkaaq                 
-pactaniik                
-palicúuskiiq             
-paRawánskaaq             
-patag'uu-                
-picuunarlunl             
-pristanaq                
-puckaq                   
-puláugkaaq               
-qai-cali                 
-qai-cali                 
-qai-kiq                  
-Qai-mi pit?              
-qaugcin?                 
-qaugcin?                 
-qaugcinek kaugtau'u?     
-qaugcinek uksungq'rcit?  
-qayu?                    
-qayu?                    
-Qayu-mi pit?             
-quien                    
-rnallungqusaagluni       
-ruuckaaq                 
-sakuuq OR                
-saRkuuyarluku            
-saRkuuyarluni            
-smiiyaq                  
-spiickaaq                
-suíckaaq                 
-suítaraq                 
-taackaaq                 
-taptan-qaa?              
-temciklluku,             
-uluryanarluni,           
-yaiyai!                  
+miRafkuq
+niiculuni obey
+paaRkaaq
+pactaniik
+palicúuskiiq
+paRawánskaaq
+patag'uu-
+picuunarlunl
+pristanaq
+puckaq
+puláugkaaq
+quien
+rnallungqusaagluni
+ruuckaaq
+sakuuq OR
+saRkuuyarluku
+saRkuuyarluni
+smiiyaq
+spiickaaq
+suíckaaq
+suítaraq
+taackaaq
 agayutegk                 agayutet                  ABS:DU:POSS3P:POSSSG
 ekqutegk                  ekqutet                   ABS:DU:POSS3P:POSSSG
 gaategk                   gaatet                    ABS:DU:POSS3P:POSSSG
