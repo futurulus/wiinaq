@@ -58,7 +58,7 @@ ROOT_URLCONF = 'project.urls'
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
-NOSE_ARGS = ['--with-doctest', '--ignore-files', '^wsgi.py$']
+NOSE_ARGS = ['--with-doctest', '--ignore-files', '^wsgi.py$', 'dictionary']
 
 TEMPLATES = [
     {

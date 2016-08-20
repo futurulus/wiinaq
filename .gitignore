@@ -26,3 +26,7 @@ dictionary/static/dictionary/sources
 
 # Pre-packaged python modules (install with ./dependencies)
 django_nose/
+
+# Generated data
+.eggs
+*.egg-info
