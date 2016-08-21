@@ -5,9 +5,9 @@ import json
 
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
-from django.conf import settings
+import django
+django.setup()
 
-from alutiiq import get_pos, get_root, normalize
 from models import Chunk
 
 words_file = 'dictionary/fixtures/words.csv'

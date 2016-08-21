@@ -2,7 +2,8 @@
 
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
-from django.conf import settings  # NOQA: set up Django database
+import django
+django.setup()
 
 import random
 
@@ -31,10 +32,10 @@ def find_bad_entries():
             break
 
     sample_size = min(100, len(bad_headwords))
-    for word in random.sample(bad_headwords, sample_size):
+    for word in sorted(random.sample(bad_headwords, sample_size)):
         print(u'{0: <25}'.format(word).encode('utf-8'))
     sample_size = min(100, len(bad_forms))
-    for form, word, tags in random.sample(bad_forms, sample_size):
+    for form, word, tags in sorted(random.sample(bad_forms, sample_size)):
         print(u'{0: <51} {1}'.format(u'{0: <25} {1}'.format(form, word), tags).encode('utf-8'))
 
 
