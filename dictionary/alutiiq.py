@@ -124,7 +124,8 @@ def get_root(word, pos='', defn=''):
                     return word[:-len(ending)] + 'N'
                 elif re.search('^([^aeiou]?)[aeiou][gr]$', word[:-len(ending)]):
                     return word[:-len(ending)] + "e"
-                elif word[:-len(ending)].endswith('ng') or word[:-len(ending)].endswith('m'):
+                elif word[:-len(ending)].endswith('ng') or \
+                        word[-len(ending) - 1:-len(ending)] in list('mkp'):
                     return word[:-len(ending)] + 'e'
                 else:
                     return word[:-len(ending)]
@@ -157,8 +158,8 @@ def get_root(word, pos='', defn=''):
             return word[:-2] + ('' if word[-3:-2] in list('aeiougr') else 'e')
         else:
             return word[:-1] + 'A'
-    elif word.endswith('teq'):
-        return word[:-1]
+    # elif word.endswith('teq'):
+    #     return word[:-1]  # are there -teq words with stem ending in -te-?
     elif word.endswith('q'):
         return word[:-1] + 'r'
     elif word.endswith('k'):
@@ -451,6 +452,16 @@ def apply_transformations(before, center, after):
                 if len(center) >= 2 and center[-2] == 'w':
                     # kiweg +a => kiwg +a => kiuga
                     center = center[:-2] + 'u' + center[-1]
+            elif re.search('[stpkqc]e$', center) and \
+                    len(after) >= 2 and after[1] in 'gr':
+                # tape +gkunani => tap'gkunani
+                center = center[:-1] + "'"
+            elif re.search(r'[aeiou]{2}$', center) and \
+                    len(after) >= 2 and after[1] == '\\':
+                # tamaa +\um => tamaatum
+                # This is a horrible hack. The good alternative would be to allow having
+                # multiple roots, which demonstratives have (tamaatu-, tamaaku-, tamaa-).
+                center = center + "t"
 
         if re.search(r"[aeiou]\\?[aeiou]$", center) and \
                 len(after) >= 2 and after[1] in 'aeiou':

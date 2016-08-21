@@ -1,155 +1,121 @@
-aanspuuk
-ackiik
-ackiik
-ackinani
-aipaa ..., aipaa ...
-akiilngum kaaRtaa'a
-anacruk
-anuckiiq
-aRastúupkaat
-aRggiRiyaq
-asiiyullunl
-balalaikaaq
-caRniik
-ciRpuuk
-faapRiikaaq
-fuRaskaq
-fuRiyaskaq
-gleipam legt'suutii
-haatkik
-iRufkuq
-iwán'gilaq
-kaaRstuuk
-kaaRtaaq
-kaRtiitsaaq
-kiwgirluku
-kulickiiq
-kumátkaaq
-laafkaaq
-maalik OH
-maluqnarluni OH
-mas'inístaaq
-mecgaluni
-melugya'aqt plural melugyaraat
-miRafkuq
-niiculuni obey
-paaRkaaq
-pactaniik
-palicúuskiiq
-paRawánskaaq
-patag'uu-
-picuunarlunl
-pristanaq
-puckaq
-puláugkaaq
-quien
-rnallungqusaagluni
-ruuckaaq
-sakuuq OR
-saRkuuyarluku
-saRkuuyarluni
-smiiyaq
-spiickaaq
-suíckaaq
-suítaraq
-taackaaq
-agayutegk                 agayutet                  ABS:DU:POSS3P:POSSSG
-ekqutegk                  ekqutet                   ABS:DU:POSS3P:POSSSG
-gaategk                   gaatet                    ABS:DU:POSS3P:POSSSG
-igarsuusk                 igarsuuteq                ABS:SG:UNPOSS
+Pamana'rmiu'aq           
+Perry-q                  
+Snuuwikuutaq             
+aRafkuq                  
+aRastúupkaat             
+aRggiRiyaq               
+aanspuuk                 
+ackiik                   
+ackiik                   
+ackiik                   
+ackinani                 
+aipaa ..., aipaa ...     
+akiilngum kaaRtaa'a      
+alleiqaq                 
+anacruk                  
+anuckiiq                 
+ar'uq tangrhniqa         
+arwaq tangrhniqa         
+asiiyullunl              
+balalaikaaq              
+caRniik                  
+ciRpuuk                  
+cuuf'liik                
+cuuf'liik                
+fRuuk'taat               
+fRuut'kaat               
+faRanaq                  
+faapRiikaaq              
+faapRiikaaq              
+fanaRuq                  
+flak                     
+fuRaskaq                 
+fuRiyaskaq               
+gleipam legt'suutii      
+haatkik                  
+hausaq                   
+hours caskaq             
+iRufkuq                  
+iqallut nasquait suupaq  
+iwán'gilaq               
+kaRmauniaq               
+kaRmuuniaq               
+kaRtiit'saaq             
+kaRtiitsaaq              
+kaRtuugaaq               
+kaaRtaaq                 
+kaufialisuun             
+kaufiaq                  
+kulickiiq                
+kumátkaaq                
+laaf'kaaq                
+laafkaaq                 
+literally: between three pinguat
+maalik OH                
+maluqnarluni OH          
+mecgaluni                
+miRafkuq                 
+mingqluni                
+na-aa'i!                 
+niiculuni obey           
+nunam maRta              
+p'rirca'i'luteng         
+pReirluni                
+pReirsuuteq              
+paaRkaaq                 
+pacaa'skaak              
+pacaa'skiik              
+pactaniik                
+patReita'isngusqaq       
+patReitalisuuteq         
+patReitaq                
+pekt'arwigmi             
+pekt'arwik               
+picuunarlunl             
+pisiRkat                 
+plaa'tuuk                
+pristanaq                
+puRaf'kaaq               
+pulaf'kaaq               
+puláugkaaq               
+rnallungqusaagluni       
+ruuckaaq                 
+saRkuuyarluku            
+saRkuuyarluni            
+sakuuq OR                
+seRkalaq                 
+skaulum N/ skuulum S angnerta
+skiifaq                  
+spiickaaq                
+stauRkaq                 
+sun'aa'rat               
+suíckaaq                 
+suítaraq                 
+taackaaq                 
+tugw'it                  
+unguwallria'i, imam      
+unguwallria'i, nunam     
+unguwallria'i, qilam     
+uyaqum pisiRkait         
+watches                  
 iluqllka                  iluqlliit                 ABS:POSS1P:POSSSG:SG
-iqai'isuutegk             iqai'isuutet              ABS:DU:POSS3P:POSSSG
-kagitegk                  kagitet                   ABS:DU:POSS3P:POSSSG
-llcia                     nani                      1P:INTERR:POS:SG
-llcit                     nani                      2P:INTERR:POS:SG
-llkagta                   nani                      3P:COND:DU:POS
-llkata                    nani                      3P:COND:PL:POS
-llkumta                   nani                      1P:COND:PL:POS
-llkumtek                  nani                      2P:COND:DU:POS
-llkuneng                  nani                      4P:COND:PL:POS
-llkuni                    nani                      4P:COND:POS:SG
-llkut                     nani                      2P:COND:POS:SG
-llngan                    nani                      3P:CSEQ:POS:SG
-llngata                   nani                      3P:CSEQ:PL:POS
-llngaugci                 nani                      2P:CSEQ:PL:POS
-llngaugtek                nani                      2P:CSEQ:DU:POS
-llnguanga                 nani                      1P:PAST:POS:SG
-llnguci                   nani                      2P:PAST:PL:POS
-llnguk                    nani                      3P:DU:PAST:POS
-llngukut                  nani                      1P:PAST:PL:POS
-lltak                     nani                      3P:DU:INTERR:POS
-llta                      nani                      3P:INTERR:POS:SG
-qellt'agkun               qellteq                   PER:POSS3P:POSSDU:SG
-qellt'agnek               qellteq                   ABL:POSS3P:POSSDU:SG
-qellt'agnek               qellteq                   ABL:POSS3P:POSSDU:SG
-qellt'agni                qellteq                   LOC:POSS3P:POSSDU:SG
-qellt'agni                qellteq                   LOC:POSS3P:POSSDU:SG
-qellt'agnun               qellteq                   DAT:POSS3P:POSSDU:SG
-qellt'agt'stun            qellteq                   POSS3P:POSSDU:SG:SIM
-qellt'ak                  qellteq                   ABS:POSS3P:POSSDU:SG
-qellt'anek                qellteq                   ABL:POSS3P:POSSSG:SG
-qellt'anun                qellteq                   DAT:POSS3P:POSSSG:SG
-qellt'atkun               qellteq                   PER:POSS3P:POSSPL:SG
-qellt'atkun               qellteq                   PER:POSS3P:POSSPL:SG
-qellt'atnek               qellteq                   ABL:POSS3P:POSSPL:SG
-qellt'atni                qellteq                   LOC:POSS3P:POSSPL:SG
-qellt'atnun               qellteq                   DAT:POSS3P:POSSPL:SG
-qellt'atnun               qellteq                   DAT:POSS3P:POSSPL:SG
-qellt'at                  qellteq                   ABS:POSS3P:POSSPL:SG
-qellt'at                  qellteq                   ABS:POSS3P:POSSPL:SG
-qellt'at'stun             qellteq                   POSS3P:POSSSG:SG:SIM
-qellt'at'stun             qellteq                   POSS3P:POSSSG:SG:SIM
-qellt'igkun               qellteq                   DU:PER:POSS3P:POSSDU
-qellt'igkun               qellteq                   DU:PER:POSS3P:POSSDU
-qellt'igkun               qellteq                   PER:PL:POSS3P:POSSDU
-qellt'igkun               qellteq                   PER:PL:POSS3P:POSSDU
-qellt'ignek               qellteq                   ABL:DU:POSS3P:POSSDU
-qellt'ignek               qellteq                   ABL:PL:POSS3P:POSSDU
-qellt'igni                qellteq                   DU:LOC:POSS3P:POSSDU
-qellt'igni                qellteq                   LOC:PL:POSS3P:POSSDU
-qellt'ignun               qellteq                   DAT:DU:POSS3P:POSSDU
-qellt'ignun               qellteq                   DAT:PL:POSS3P:POSSDU
-qellt'igta                qellteq                   DU:ERG:POSS3P:POSSDU
-qellt'igta                qellteq                   ERG:PL:POSS3P:POSSDU
-qellt'igt'stun            qellteq                   DU:POSS3P:POSSDU:SIM
-qellt'igt'stun            qellteq                   DU:POSS3P:POSSDU:SIM
-qellt'ik                  qellteq                   ABS:DU:POSS3P:POSSDU
-qellt'ik                  qellteq                   ABS:PL:POSS3P:POSSDU
-qellt'ik                  qellteq                   ABS:PL:POSS3P:POSSDU
-qellt'ikun                qellteq                   DU:PER:POSS3P:POSSSG
-qellt'ikun                qellteq                   PER:PL:POSS3P:POSSSG
-qellt'ikun                qellteq                   PER:PL:POSS3P:POSSSG
-qellt'inek                qellteq                   ABL:DU:POSS3P:POSSSG
-qellt'inek                qellteq                   ABL:DU:POSS3P:POSSSG
-qellt'inek                qellteq                   ABL:PL:POSS3P:POSSSG
-qellt'ini                 qellteq                   DU:ERG:POSS3P:POSSSG
-qellt'ini                 qellteq                   DU:LOC:POSS3P:POSSSG
-qellt'ini                 qellteq                   DU:LOC:POSS3P:POSSSG
-qellt'ini                 qellteq                   LOC:PL:POSS3P:POSSSG
-qellt'ini                 qellteq                   LOC:PL:POSS3P:POSSSG
-qellt'inun                qellteq                   DAT:DU:POSS3P:POSSSG
-qellt'inun                qellteq                   DAT:DU:POSS3P:POSSSG
-qellt'i                   qellteq                   ABS:PL:POSS3P:POSSSG
-qellt'ita                 qellteq                   ERG:PL:POSS3P:POSSPL
-qellt'itkun               qellteq                   DU:PER:POSS3P:POSSPL
-qellt'itkun               qellteq                   DU:PER:POSS3P:POSSPL
-qellt'itnek               qellteq                   ABL:PL:POSS3P:POSSPL
-qellt'itnek               qellteq                   ABL:PL:POSS3P:POSSPL
-qellt'itni                qellteq                   DU:LOC:POSS3P:POSSPL
-qellt'itnun               qellteq                   DAT:DU:POSS3P:POSSPL
-qellt'itnun               qellteq                   DAT:PL:POSS3P:POSSPL
-qellt'it                  qellteq                   ABS:DU:POSS3P:POSSPL
-qellt'it                  qellteq                   ABS:PL:POSS3P:POSSPL
-qellt'it'stun             qellteq                   DU:POSS3P:POSSSG:SIM
-qellt'it'stun             qellteq                   PL:POSS3P:POSSSG:SIM
-qellt'itt'stun            qellteq                   DU:POSS3P:POSSPL:SIM
-qiiregk                   qiiret                    ABS:DU:POSS3P:POSSSG
-sugsuutegk                sugsuutet                 ABS:DU:POSS3P:POSSSG
-sugsuutegk                sugsuutet                 ABS:DU:POSS3P:POSSSG
-suusk                     suuteq                    ABS:SG:UNPOSS
+takgkunaci                takluni                   2P:CONJ:NEG:PL
+takgkunak                 takluni                   2P:CONJ:NEG:SG
+takgkunani                takluni                   3P:CONJ:NEG:SG
+takgkunanuk               takluni                   1P:CONJ:DU:NEG
+takgkunata                takluni                   1P:CONJ:NEG:PL
+takgkunatek               takluni                   2P:CONJ:DU:NEG
+takgkunatek               takluni                   3P:CONJ:DU:NEG
+takgkunateng              takluni                   3P:CONJ:NEG:PL
+takgkuniinga              takluni                   1P:CONJ:NEG:SG
+tamaaum                   tamaana                   ERG:SG
+tamaaum                   tamaana                   ERG:SG
 tapgkunaci                tapluni                   2P:CONJ:NEG:PL
+tapgkunak                 tapluni                   2P:CONJ:NEG:SG
 tapgkunani                tapluni                   3P:CONJ:NEG:SG
 tapgkunanuk               tapluni                   1P:CONJ:DU:NEG
 tapgkunata                tapluni                   1P:CONJ:NEG:PL
+tapgkunatek               tapluni                   2P:CONJ:DU:NEG
+tapgkunatek               tapluni                   3P:CONJ:DU:NEG
+tapgkunateng              tapluni                   3P:CONJ:NEG:PL
 tapgkuniinga              tapluni                   1P:CONJ:NEG:SG
-weg'egk                   weg'et                    ABS:DU:POSS3P:POSSSG

@@ -182,6 +182,8 @@ ENDING_TEST_CASES = [
     ("uulluku", "vt", "CSEQ:NEG:O3P:OSG:S3P:SSG", "uuten'llngagu"),
     ("ikeghnateng", "vi", "2P:DU:POS:PRES", "ikegtutek"),
     ("mamluni", "vi", "1P:CONJ:NEG:PL", "mamegkunata"),
+    ("tapluni", "vi", "3P:CONJ:NEG:SG", "tap'gkunani"),
+    ("takluni", "vi", "3P:CONJ:NEG:SG", "tak'gkunani"),
     ("leq", "n", "ABS:SG:UNPOSS", "leq"),
     ("qiq", "n", "ABS:POSS3P:POSSSG:SG", "qiiya"),
     ("qiq", "n", "ABS:PL:POSS3P:POSSPL", "qii'it"),
@@ -191,6 +193,8 @@ ENDING_TEST_CASES = [
     ("suuteq", "n", "ABS:SG:UNPOSS", "suuteq"),
     ("kiwek", "n", "ABS:POSS3P:POSSSG:SG", "kiuga"),
     ("kiwek", "n", "DAT:POSS3P:POSSSG:SG", "kiuganun"),
+    ("qellteq", "n", "ABS:POSS3P:POSSPL:SG", "qellterat"),
+    ("tamaana", "dem", "ERG:SG", "tamaatum"),  # CG p. 176
 ]
 
 POS_TEST_CASES = [
