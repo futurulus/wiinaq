@@ -146,6 +146,10 @@ def get_root(word, pos='', defn=''):
         # suk => su\ug-
         # leq => ler-
         return word[:-1] + '\\' + word[-2] + ('r' if word[-1] == 'q' else 'g')
+    elif re.search(r'([aeiou])\1[gr]et$', word):
+        # suuget => su\ug-
+        # qiiret => qi\ir-
+        return word[:-4] + '\\' + word[-4:-2]
     elif word.endswith('ta'):
         return word[:-1] + 'A'
     elif word.endswith('na'):
@@ -173,6 +177,8 @@ def get_root(word, pos='', defn=''):
         return word[:-2] + 'A'
     elif word.endswith('iit'):
         return word[:-3] + 'A'
+    elif word.endswith('t'):
+        return word[:-1] + 'r'
 
     return word
 
@@ -358,7 +364,11 @@ def apply_transformations(before, center, after):
                     center = center[:-3] + 'll'
                 elif center.endswith('te'):
                     if noun_stem:
+                        # qutA ~ka => qutka
                         center = center[:-1]
+                    elif after == '~k':
+                        # suute ~k => suuteq
+                        pass
                     elif len(center) >= 3 and center[-3] not in 'aeiou':
                         center = center[:-2] + "'s"
                     else:
@@ -469,6 +479,9 @@ def apply_transformations(before, center, after):
             elif before.endswith('A') and center == '~k':
                 # piugtA ~k => piugta
                 center = ''
+            elif before.endswith('te') and center == '~k':
+                # suute ~k => suuteq
+                center = 'q'
             else:
                 # nuteg ~k => nutek
                 # nuteg ~ka => nutegka
