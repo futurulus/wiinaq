@@ -27,11 +27,11 @@ def normalize(word):
 
 
 CONSONANT = '([ptckqwlysgrmnR]|ng|ll|hm|hn|hng)'
-INITIAL_CLUSTER = '(' + CONSONANT + "|s?[ktp]R?|s?[kp]?l)"
+INITIAL_CLUSTER = '(' + CONSONANT + "|s?[ktp]R?|s?[kp]?l|s[mn])"
 ONSET = '(' + CONSONANT + "|')"
 PRIME = '[aiu]'
-CORE = "([e']|" + PRIME + '{1,2}|we|w[ai]' + PRIME + '?)'
-RHYME = '(' + CORE + '([ptkqlsgrmn]|ng|ll)?)'
+CORE = "([e']|ei|" + PRIME + '{1,2}|we|w[ai]' + PRIME + '?)'
+RHYME = '(' + CORE + '([ptkcqlsgrRmn]|ng|ll)?)'
 GEMINATE = '(' + CONSONANT + "')"
 VALID_REGEX = re.compile('^' + INITIAL_CLUSTER + '?' +
                          '(' + RHYME + '-?' + ONSET + '|' +
@@ -56,6 +56,10 @@ def is_valid(entry):
     True
     >>> is_valid('slaapaq')
     True
+    >>> is_valid('smiiyaq')
+    True
+    >>> is_valid('sniiyaq')
+    True
     >>> is_valid('stRaapaq')
     True
     >>> is_valid('nerkwaraa')
@@ -74,6 +78,10 @@ def is_valid(entry):
     True
     >>> is_valid('gui-')
     False
+    >>> is_valid('kaaRtaaq')
+    True
+    >>> is_valid('ackinani')
+    True
     '''
     words = entry.split()
     return all(VALID_REGEX.match(w[0].lower() + w[1:])
@@ -109,6 +117,8 @@ def get_root(word, pos='', defn=''):
                     return base + "t'e"
                 elif base.endswith('r'):
                     return base + base[-1]
+                elif base.endswith("'"):
+                    return base[:-1] + 'e'
                 elif base[-1:] in 'qk':
                     return base + 'e'
                 elif len(base) >= 2 and base[-2] == base[-1]:

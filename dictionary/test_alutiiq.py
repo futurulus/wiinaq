@@ -217,6 +217,7 @@ ROOT_TEST_CASES = [
     ("piugta", "", "piugtA"),
     ("ikeghnateng", "", "ikeggT"),
     ("leq", "", "ler"),
+    ("mingq'lluni", "", "mingqe"),
 ]
 
 

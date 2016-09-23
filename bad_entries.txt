@@ -1,121 +1,33 @@
-Pamana'rmiu'aq           
-Perry-q                  
-Snuuwikuutaq             
-aRafkuq                  
-aRastúupkaat             
-aRggiRiyaq               
-aanspuuk                 
-ackiik                   
-ackiik                   
-ackiik                   
-ackinani                 
-aipaa ..., aipaa ...     
-akiilngum kaaRtaa'a      
-alleiqaq                 
-anacruk                  
-anuckiiq                 
-ar'uq tangrhniqa         
-arwaq tangrhniqa         
-asiiyullunl              
-balalaikaaq              
-caRniik                  
-ciRpuuk                  
-cuuf'liik                
-cuuf'liik                
-fRuuk'taat               
-fRuut'kaat               
-faRanaq                  
-faapRiikaaq              
-faapRiikaaq              
-fanaRuq                  
-flak                     
-fuRaskaq                 
-fuRiyaskaq               
-gleipam legt'suutii      
-haatkik                  
-hausaq                   
-hours caskaq             
-iRufkuq                  
-iqallut nasquait suupaq  
-iwán'gilaq               
-kaRmauniaq               
-kaRmuuniaq               
-kaRtiit'saaq             
-kaRtiitsaaq              
-kaRtuugaaq               
-kaaRtaaq                 
-kaufialisuun             
-kaufiaq                  
-kulickiiq                
-kumátkaaq                
-laaf'kaaq                
-laafkaaq                 
-literally: between three pinguat
-maalik OH                
-maluqnarluni OH          
-mecgaluni                
-miRafkuq                 
-mingqluni                
-na-aa'i!                 
-niiculuni obey           
-nunam maRta              
-p'rirca'i'luteng         
-pReirluni                
-pReirsuuteq              
-paaRkaaq                 
-pacaa'skaak              
-pacaa'skiik              
-pactaniik                
-patReita'isngusqaq       
-patReitalisuuteq         
-patReitaq                
-pekt'arwigmi             
-pekt'arwik               
-picuunarlunl             
-pisiRkat                 
-plaa'tuuk                
-pristanaq                
-puRaf'kaaq               
-pulaf'kaaq               
-puláugkaaq               
-rnallungqusaagluni       
-ruuckaaq                 
-saRkuuyarluku            
-saRkuuyarluni            
-sakuuq OR                
-seRkalaq                 
-skaulum N/ skuulum S angnerta
-skiifaq                  
-spiickaaq                
-stauRkaq                 
-sun'aa'rat               
-suíckaaq                 
-suítaraq                 
-taackaaq                 
-tugw'it                  
-unguwallria'i, imam      
-unguwallria'i, nunam     
-unguwallria'i, qilam     
-uyaqum pisiRkait         
-watches                  
+/ aanspuuk                 
+/ aipaa ..., aipaa ...     
+/ aRafkuq                  
+/ aRggiRiyaq               
+/ cuuf'liik                
+/ faapRiikaaq              
+/ fanaRuq                  
+/ faRanaq                  
+/ flaaget                  
+/ flak                     
+/ fRuuk'taat               
+/ fRuut'kaat               
+/ fuRaskaq                 
+/ fuRiyaskaq               
+/ gleipam legt'suutii      
+/ gleipaq                  
+/ haatkik                  
+/ hausaq                   
+/ iRufkuq                  
+/ kaufialista              
+/ kaufialisuun             
+/ kaufiaq                  
+/ kiwgirluku               
+/ laaf'kaaq                
+/ miRafkuq                 
+/ na-aa'i!                 
+/ Perry-q                  
+/ pulaf'kaaq               
+/ puRaf'kaaq               
+/ skiifaq                  
+/ tugw'it                  
 iluqllka                  iluqlliit                 ABS:POSS1P:POSSSG:SG
-takgkunaci                takluni                   2P:CONJ:NEG:PL
-takgkunak                 takluni                   2P:CONJ:NEG:SG
-takgkunani                takluni                   3P:CONJ:NEG:SG
-takgkunanuk               takluni                   1P:CONJ:DU:NEG
-takgkunata                takluni                   1P:CONJ:NEG:PL
-takgkunatek               takluni                   2P:CONJ:DU:NEG
-takgkunatek               takluni                   3P:CONJ:DU:NEG
-takgkunateng              takluni                   3P:CONJ:NEG:PL
-takgkuniinga              takluni                   1P:CONJ:NEG:SG
-tamaaum                   tamaana                   ERG:SG
-tamaaum                   tamaana                   ERG:SG
-tapgkunaci                tapluni                   2P:CONJ:NEG:PL
-tapgkunak                 tapluni                   2P:CONJ:NEG:SG
-tapgkunani                tapluni                   3P:CONJ:NEG:SG
-tapgkunanuk               tapluni                   1P:CONJ:DU:NEG
-tapgkunata                tapluni                   1P:CONJ:NEG:PL
-tapgkunatek               tapluni                   2P:CONJ:DU:NEG
-tapgkunatek               tapluni                   3P:CONJ:DU:NEG
-tapgkunateng              tapluni                   3P:CONJ:NEG:PL
-tapgkuniinga              tapluni                   1P:CONJ:NEG:SG
+tautm                     tauna                     ERG:SG
