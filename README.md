@@ -45,14 +45,40 @@ Then make sure the server is running, point your browser to
 http://localhost:8000/admin/, and enter the username and password you created
 in the previous command.
 
-Running on OpenShift
---------------------
+Running on Heroku
+-----------------
 
-Word Wiinaq is configured to run out of the box on RedHat OpenShift. You'll
-need to create an account at http://openshift.com/ and initialize an app with
-the Django, MySQL, and cron cartridges.
+Word Wiinaq is configured to run out of the box on Heroku. You'll
+need to create an account at http://heroku.com/, initialize a Python app,
+and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line).
+Then issue these commands from your git repository:
 
-(TODO: add relevant instructions from `README_OPENSHIFT.md`)
+    heroku login
+    heroku git:remote -a <app-name>
+    heroku config:set ON_HEROKU=true
+    git push heroku master
+
+The environment variable `ON_HEROKU` changes a few things to make the app play
+well with Heroku.
+A link to connect to the running website will show up near the end of the output
+from `git push`. However, the website won't quite work yet&mdash;first
+you need to run the same commands as above but on the Heroku box:
+
+    heroku run ./manage.py migrate
+    heroku run ./manage.py loaddata sources words_free
+    heroku run ./manage.py createsuperuser
+
+Finally, start up a dyno for hosting the app:
+
+    heroku ps:scale web=1
+
+If you have additional dictionary files to load, you'll need to start a shell on
+Heroku and pull them in from some other Internet-accessible location, since Heroku
+disallows incoming scp connections:
+
+    heroku run bash
+    $ scp some_online_location:new_words.csv dict_sources/
+    $ ./reload_data
 
 Setting up Dropbox backup
 -------------------------
@@ -65,10 +91,13 @@ periodically run
 The first time you run the script, you'll be prompted to set up your
 information on the Dropbox Apps website.
 
-To configure this as a daily job in OpenShift, run the setup script (from your
+To configure this as a recurring job in Heroku, run the setup script (from your
 local installation):
 
-    ./openshift_setup_dropbox
+    ./heroku_setup_dropbox
+
+Then create a (Scheduler task)[https://devcenter.heroku.com/articles/scheduler]
+to run `./backup` every so often.
 
 Bulk editing/adding
 ===================
@@ -97,7 +126,7 @@ License
 
 See the file `LICENSE` for the full text of the GNU General Public License.
 
-Copyright (C) 2015 William Monroe
+Copyright (C) 2015-2016 William Monroe
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
