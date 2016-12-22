@@ -1,0 +1,6 @@
+Django==1.10
+django_nose==1.4.4
+gunicorn==19.6.0
+dj-database-url==0.4.1
+psycopg2==2.6.1
+whitenoise==2.0.6

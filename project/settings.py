@@ -108,6 +108,11 @@ elif 'OPENSHIFT_POSTGRESQL_DB_URL' in os.environ:
         'PORT': url.port,
         }
 
+elif 'ON_HEROKU' in os.environ:
+    import dj_database_url
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'] = db_from_env
+
 else:
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -139,5 +144,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 if 'OPENSHIFT_REPO_DIR' in os.environ:
     STATIC_ROOT = os.path.join(os.environ.get('OPENSHIFT_REPO_DIR'), 'wsgi', 'static')
+elif 'ON_HEROKU' in os.environ:
+    PROJECT_ROOT = BASE_DIR
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_DIRS = ()
+
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL.strip("/"))
