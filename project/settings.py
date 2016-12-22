@@ -21,13 +21,26 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0123456789abcdef0123456789abcdef0123456789abcdef01'
-# should be obsolete after move to OpenShift
+if 'ON_HEROKU' in os.environ:
+    SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', None)
+else:
+    # Change this if you run in production somewhere else!
+    SECRET_KEY = ')ya&=y08p0tf$=!ikh=0%ssb%s+va%xdvvyx7a-7=q1h!#8gzh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if 'ON_HEROKU' in os.environ:
+    DEBUG = os.environ.get('DEBUG', False)
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+if 'ON_HEROKU' in os.environ:
+    hosts_str = os.environ.get('DJANGO_ALLOWED_HOSTS', None)
+    if hosts_str is None:
+        ALLOWED_HOSTS = []
+    else:
+        ALLOWED_HOSTS = hosts_str.split(',')
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition

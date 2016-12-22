@@ -55,11 +55,13 @@ Then issue these commands from your git repository:
 
     heroku login
     heroku git:remote -a <app-name>
-    heroku config:set ON_HEROKU=true
+    heroku config:set ON_HEROKU=true \
+        DJANGO_ALLOWED_HOSTS=<app-name>.herokuapp.com \
+        DJANGO_SECRET_KEY=$(./secret_key)
     git push heroku master
 
 The environment variable `ON_HEROKU` changes a few things to make the app play
-well with Heroku.
+well with Heroku. The other two are security settings.
 A link to connect to the running website will show up near the end of the output
 from `git push`. However, the website won't quite work yet&mdash;first
 you need to run the same commands as above but on the Heroku box:
