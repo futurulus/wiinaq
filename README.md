@@ -96,7 +96,7 @@ local installation):
 
     ./heroku_setup_dropbox
 
-Then create a (Scheduler task)[https://devcenter.heroku.com/articles/scheduler]
+Then create a [Scheduler task](https://devcenter.heroku.com/articles/scheduler)
 to run `./backup` every so often.
 
 Bulk editing/adding
