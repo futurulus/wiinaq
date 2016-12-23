@@ -4,15 +4,32 @@ import itertools
 from collections import namedtuple
 
 from django.shortcuts import render, get_list_or_404
+from django.views.generic.base import RedirectView
 
 from .models import Chunk
 from .alutiiq import inflection_data, normalize
+
+
+ALUTIIQ_SUBDIR = '/ems/'
+
+
+def subdir(view):
+    def redirect_to_subdir(request, *args, **kwargs):
+        if request.path.startswith(ALUTIIQ_SUBDIR):
+            new_view = view
+        else:
+            new_view = RedirectView.as_view(url=ALUTIIQ_SUBDIR[:-1] + request.path,
+                                            query_string=True)
+        return new_view(request, *args, **kwargs)
+
+    return redirect_to_subdir
 
 
 def index(request):
     return search(request)
 
 
+@subdir
 def entry(request, word):
     chunks = get_list_or_404(Chunk, entry=word)
     entries = group_entries(chunks, separate_roots=True)
@@ -189,6 +206,7 @@ def matches_query(chunk, query):
             normalize(query) in normalize(chunk.entry))
 
 
+@subdir
 def search(request):
     context = {}
 
