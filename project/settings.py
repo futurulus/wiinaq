@@ -31,7 +31,7 @@ else:
 if 'ON_HEROKU' in os.environ:
     DEBUG = os.environ.get('DEBUG', False)
 else:
-    DEBUG = True
+    DEBUG = bool(os.environ.get('DEBUG', False))
 
 if 'ON_HEROKU' in os.environ:
     hosts_str = os.environ.get('DJANGO_ALLOWED_HOSTS', None)
@@ -40,7 +40,7 @@ if 'ON_HEROKU' in os.environ:
     else:
         ALLOWED_HOSTS = hosts_str.split(',')
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -165,3 +165,23 @@ elif 'ON_HEROKU' in os.environ:
     STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL.strip("/"))
+
+
+'''
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}
+'''

@@ -1,0 +1,12 @@
+{% extends "dictionary/base.html" %}
+{% load formatting %}
+
+{% block content %}
+<div class="results">
+    <div class="entry">
+        <p class="notfound">Sorry, there was an error loading this page.</p>
+
+        <p class="notfound"><a href="https://docs.google.com/forms/d/1mxloJwG76jL7Y8ACQaAI-w25fe09vn_CBShexOXr-wQ/viewform?entry.252901238=Website+bug/crash&entry.599026928={{ url|urlencode }}&entry.1210689804={{ request.META.HTTP_USER_AGENT|urlencode }}">Report this error</a></p>
+    </div>
+</div>
+{% endblock %}

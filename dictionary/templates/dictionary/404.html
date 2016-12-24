@@ -1,0 +1,14 @@
+{% extends "dictionary/base.html" %}
+{% load formatting %}
+
+{% block content %}
+<div class="results">
+    <div class="entry">
+        <p class="notfound">Sorry, the page you requested could not be found.</p>
+
+        {% if query %}
+        <p class="notfound"><a href="{% url 'search' %}?q={{ query|urlencode }}">Search for &quot;{{ query }}&quot;</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

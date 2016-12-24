@@ -234,3 +234,24 @@ def search(request):
         context['query'] = ''
 
     return render(request, 'dictionary/index.html', context)
+
+
+def get_404_query(path, get):
+    if 'q' in get:
+        return get['q']
+    else:
+        components = path.replace('/', ' ').split()
+        if components:
+            return components[-1]
+        else:
+            return None
+
+
+def show_404_page(request):
+    context = {'query': get_404_query(request.path, request.GET)}
+    return render(request, 'dictionary/404.html', context, status=404)
+
+
+def show_500_page(request):
+    context = {'url': request.build_absolute_uri(request.get_full_path())}
+    return render(request, 'dictionary/500.html', context, status=500)

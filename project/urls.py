@@ -10,3 +10,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('dictionary.urls')),
 ]
+
+handler404 = 'dictionary.views.show_404_page'
+handler500 = 'dictionary.views.show_500_page'
