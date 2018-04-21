@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
+if [ -z ${DEBUG+x} ]; then
+    export DEBUG=True
+elif [ "$DEBUG" == "False" ]; then
+    export DEBUG=''
+fi
 ./manage.py runserver
