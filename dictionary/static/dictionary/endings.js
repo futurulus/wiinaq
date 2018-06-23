@@ -59,10 +59,10 @@ var PopoutState = function($popout) {
 
         console.debug("activating " + escape_id(this.popout_id) + " " + escape_id(id));
         var table_id = $(escape_id(this.popout_id) + " " +
-                         escape_id(id) + ".inflection-entry").closest('table').attr("id");
+                         escape_id(id) + ".ientry").closest('table').attr("id");
         console.debug("table_id: " + table_id);
 
-        $(escape_id(table_id) + " .inflection-entry").map(function() {
+        $(escape_id(table_id) + " .ientry").map(function() {
             state.remove_ids($(this).attr("id"));
         });
 
@@ -76,18 +76,18 @@ var PopoutState = function($popout) {
     this.refresh_visible = function() {
         var state = this;
 
-        $popout.find(".inflection-option").map(function() {
+        $popout.find(".iopt").map(function() {
             var id = $(this).attr("id");
             if (state.is_active(id)) {
-                $(this).removeClass("hide");
+                $(this).addClass("show");
             } else {
-                $(this).addClass("hide");
+                $(this).removeClass("show");
             }
         });
 
-        $popout.find(".inflection-entry").map(function() {
+        $popout.find(".ientry").map(function() {
             var id = $(this).attr("id");
-            var table = $(escape_id(id) + ".inflection-entry").closest('table');
+            var table = $(escape_id(id) + ".ientry").closest('table');
             var table_id = table.attr("id");
 
             if (id in state.collapse[table_id] &&
@@ -128,7 +128,7 @@ var PopoutState = function($popout) {
 };
 
 $(document).ready(function() {
-    $(".inflection-entry").click(function(event) {
+    $(".ientry").click(function(event) {
         var popout_id = $(this).closest(".popout").attr("id");
         var id = $(this).attr("id");
         endings.state[popout_id].activate_cell(id);

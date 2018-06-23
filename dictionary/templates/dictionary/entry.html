@@ -36,38 +36,37 @@
 
         <h2 class="popout-header">Endings</h2>
 
-        <div class="popout-content">
-            {% for table in root.inflections %}
-            <h3>{{ table.title }}</h3>
-            <table class="inflection" id="{{ table.id }}">
-                <tr>
-                    <th />
-                    {% for h in table.column_headers %}
-                    <th>{{ h }}</th>
-                    {% endfor %}
-                </tr>
-                {% for r in table.rows %}
-                <tr>
-                    <th>{{ r.header }}</th>
-                    {% for c in r.cells %}
-                    <td class="inflection-entry" id="{{ c.id }}">
-                        {% for id, entry in c.map.items %}
-                        <span class="inflection-option hide" id="{{ id }}">{{ entry|russian_r }}</span>
-                        {% endfor %}
-                    </td>
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </table>
+<div class="popout-content">
+ {% for table in root.inflections %}
+ <h3>{{ table.title }}</h3>
+ <table class="inflection" id="{{ table.id }}">
+  <tr>
+    <th />
+    {% for h in table.column_headers %}
+    <th>{{ h }}</th>
+    {% endfor %}
+  </tr>
+  {% for r in table.rows %}
+  <tr>
+   <th>{{ r.header }}</th>
+   {% for c in r.cells %}
+   <td class="ientry" id="{{ c.id }}">
+    {% for id, entry in c.map.items %}
+<span class="iopt" id="{{ id }}">{{ entry|russian_r }}</span>{% endfor %}
+   </td>
+   {% endfor %}
+  </tr>
+  {% endfor %}
+ </table>
 
-            <script>
-            </script>
-            {% endfor %}
+ <script>
+ </script>
+ {% endfor %}
+</div>
 
-            <p class="disclaimer">(Endings are automatically generated. Help us out by
-            <a href="https://docs.google.com/forms/d/1mxloJwG76jL7Y8ACQaAI-w25fe09vn_CBShexOXr-wQ/viewform?entry.252901238=Incorrect+word+or+ending&entry.599026928={{ url|urlencode }}&entry.1210689804={{ request.META.HTTP_USER_AGENT|urlencode }}">reporting errors!</a>)</p>
-            <!--<a href="https://docs.google.com/forms/d/1mxloJwG76jL7Y8ACQaAI-w25fe09vn_CBShexOXr-wQ/viewform?entry.252901238=Incorrect+word+or+ending&entry.1210689804=BROWSER&entry.923122775=OPERATING_SYSTEM&entry.599026928=URL&entry.1930047016=PROBLEM&entry.2005487674=CONTACT">-->
-        </div>
+        <p class="disclaimer">(Endings are automatically generated. Help us out by
+        <a href="https://docs.google.com/forms/d/1mxloJwG76jL7Y8ACQaAI-w25fe09vn_CBShexOXr-wQ/viewform?entry.252901238=Incorrect+word+or+ending&entry.599026928={{ url|urlencode }}&entry.1210689804={{ request.META.HTTP_USER_AGENT|urlencode }}">reporting errors!</a>)</p>
+        <!--<a href="https://docs.google.com/forms/d/1mxloJwG76jL7Y8ACQaAI-w25fe09vn_CBShexOXr-wQ/viewform?entry.252901238=Incorrect+word+or+ending&entry.1210689804=BROWSER&entry.923122775=OPERATING_SYSTEM&entry.599026928=URL&entry.1930047016=PROBLEM&entry.2005487674=CONTACT">-->
     </div>
     <script>
         var state = new PopoutState($(endings.escape_id("endings-{{ root.id }}")));

@@ -227,7 +227,7 @@ p {
     font-size: 0.9em;
 }
 
-.inflection-entry {
+.ientry {
     padding: 0.25em;
     cursor: pointer;
     border: 1px solid transparent;
@@ -235,6 +235,14 @@ p {
 
 .hide {
     display: none;
+}
+
+.iopt {
+    display: none;
+}
+
+.iopt.show {
+    display: inline;
 }
 
 .active {
