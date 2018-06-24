@@ -11,6 +11,7 @@ BROKEN
 tooltips extend too far on mobile, can't scroll to read them
 source span covers tooltips
 bug on certain iOS Safari versions prevents endings accordion from opening
+svg logo doesn't use correct font on iOS
 acigpeni (no endings) /entry/2848/ [CG p. 133]
 akuliit 3p/pl poss: akuliit ("akuliiat") /entry/189/ [CG p. 133]
 wiinga singular: wi? wik? (no endings) /entry/1346/ [CG p. 141]
