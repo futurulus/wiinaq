@@ -3,7 +3,7 @@
 set -o errexit
 
 # The name of the file as it will appear in the Dropbox directory.
-outfile=backup.json
+outfile=backup-"`date +%Y-%m-%d`".json
 
 
 repodir=`dirname "$0"`
@@ -14,13 +14,9 @@ if [ "$tempdir" == "" ]; then
 fi
 
 config="$HOME"/.dropbox_uploader
-if [ "$DROPBOX_APPKEY" != "" ]; then
+if [ "$DROPBOX_OAUTH_ACCESS_TOKEN" != "" ]; then
     config="$tempdir"/.dropbox_uploader
-    echo "APPKEY=${DROPBOX_APPKEY}
-APPSECRET=${DROPBOX_APPSECRET}
-ACCESS_LEVEL=${DROPBOX_ACCESS_LEVEL}
-OAUTH_ACCESS_TOKEN=${DROPBOX_OAUTH_ACCESS_TOKEN}
-OAUTH_ACCESS_TOKEN_SECRET=${DROPBOX_OAUTH_ACCESS_TOKEN_SECRET}" > "$config"
+    echo "OAUTH_ACCESS_TOKEN=${DROPBOX_OAUTH_ACCESS_TOKEN}" > "$config"
 fi
 
 fixture="$tempdir"/backup.json

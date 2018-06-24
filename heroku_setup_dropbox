@@ -8,7 +8,4 @@ echo 'Verifying that we can list the contents of the backup directory...'
 
 source "$HOME"/.dropbox_uploader
 
-heroku config:set DROPBOX_APPKEY="${APPKEY}" DROPBOX_APPSECRET="${APPSECRET}" \
-            DROPBOX_ACCESS_LEVEL="${ACCESS_LEVEL}" \
-            DROPBOX_OAUTH_ACCESS_TOKEN="${OAUTH_ACCESS_TOKEN}" \
-            DROPBOX_OAUTH_ACCESS_TOKEN_SECRET="${OAUTH_ACCESS_TOKEN_SECRET}"
+heroku config:set DROPBOX_OAUTH_ACCESS_TOKEN="${OAUTH_ACCESS_TOKEN}"
