@@ -111,6 +111,7 @@ ENDING_TEST_CASES = [
     ("nuna", "n", "ABS:POSS3P:POSSSG:SG", "nunii"),  # CG p. 141
     ("nuna", "n", "ABS:PL:POSS3P:POSSSG", "nunai"),  # CG p. 141
     ("piugta", "n", "ABS:POSS3P:POSSSG:SG", "piugtii"),  # CG p. 141
+    ("piugta", "n", "ABS:POSS1P:POSSSG:SG", "piugt'ka"),  # CG p. 141
     ("piugta", "n", "ABS:PL:POSS3P:POSSSG", "piugtai"),  # CG p. 141
     # ("saqul'aq", "n", "ABS:POSS3P:POSSSG:SG", "saqulgaa"),  # CG p. 142
     ("kuik", "n", "ABS:POSS3P:POSSSG:SG", "kuiga"),  # CG p. 142 -- kuiya? also kui'a
@@ -195,6 +196,8 @@ ENDING_TEST_CASES = [
     ("kiwek", "n", "DAT:POSS3P:POSSSG:SG", "kiuganun"),
     ("qellteq", "n", "ABS:POSS3P:POSSPL:SG", "qellterat"),
     ("tamaana", "dem", "ERG:SG", "tamaatum"),  # CG p. 176
+    ("tauna", "dem", "ERG:SG", "taum"),
+    ("iluqlliit", "n", "ABS:POSS1P:POSSSG:SG", "iluqll'ka"),
 ]
 
 POS_TEST_CASES = [
