@@ -68,10 +68,6 @@ h2 {
     cursor: pointer;
 }
 
-.popout-content {
-    display: none;
-}
-
 .disclaimer {
     text-align: center;
     font-size: 0.8em;
@@ -108,9 +104,17 @@ p {
     font-size: 1.5em;
 }
 
+.root-header {
+    margin: 1ex 0 0 0;
+}
+
 .root-label {
     font-style: italic;
     color: #777777;
+}
+
+.listing ol {
+    margin: 1ex 0 1em 0;
 }
 
 .assembled {

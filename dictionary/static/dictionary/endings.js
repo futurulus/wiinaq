@@ -134,9 +134,12 @@ $(document).ready(function() {
         endings.state[popout_id].activate_cell(id);
     });
 
-    $(".popout-header").text(function () {
-        return "Show " + $(this).text();
-    });
+    if($(".popout-content").length > 1) {
+        $(".popout-content").css({display: "none"});
+        $(".popout-header").addClass("collapsed").text(function () {
+            return "Show " + $(this).text();
+        });
+    }
 
     $(".popout-header").click(function () {
         // Make ending tables collapse and expand
@@ -145,15 +148,15 @@ $(document).ready(function() {
         //getting the next element
         $content = $header.next();
         //change text and appearance of header based on visibility of content div
-        $header.toggleClass("expanded");
+        $header.toggleClass("collapsed");
         var text = $header.text();
-        if ($header.hasClass("expanded")) {
+        if ($header.hasClass("collapsed")) {
             $header.text(function () {
-                return text.substring(5);
+                return "Show " + text;
             });
         } else {
             $header.text(function () {
-                return "Show " + text;
+                return text.substring(5);
             });
         }
         //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.

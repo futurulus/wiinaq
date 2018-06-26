@@ -174,10 +174,11 @@ def convert_none(field):
 
 
 def pos_root(chunk, separate_roots=False):
+    pos = convert_none(chunk.pos_final)
     if separate_roots:
-        return (convert_none(chunk.pos_final), convert_none(chunk.root_final))
+        return (pos, convert_none(chunk.root_final) if pos else None)
     else:
-        return (convert_none(chunk.pos_final), None)
+        return (pos, None)
 
 
 def group_entries(chunk_list, separate_roots=False):
