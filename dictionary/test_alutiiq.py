@@ -42,6 +42,7 @@ ENDING_TEST_CASES = [
     # -eq nouns
     ("nateq", "n", "LOC:SG:UNPOSS", "natermi"),
     ("nateq", "n", "ABS:POSS2P:POSSSG:SG", "natren"),
+    ("nateq", "n", "ABS:POSS1P:POSSSG:SG", "natqa"),
     ("nutek", "n", "LOC:SG:UNPOSS", "nutegmi"),
     ("nutek", "n", "ABS:POSS3P:POSSSG:SG", "nutga"),  # CG p. 143
 
@@ -89,6 +90,9 @@ ENDING_TEST_CASES = [
     ("ek'arlluni", "vi", "3P:CONJ:POS:SG", "ek'arlluni"),
     ("ek'arlluni", "vi", "1P:PAST:POS:SG", "ek'allrianga"),
     ("ek'arlluni", "vi", "1P:COND:POS:SG", "ek'aquma"),
+    ("mingq'lluni", "vi", "3P:CONJ:POS:SG", "mingq'lluni"),
+    # need to check this one--possibly mingq'cama?
+    ("mingq'lluni", "vi", "1P:CSEQ:POS:SG", "mingq'ngama"),
 
     # Locatives
     ("acigpeni", "loc", "LOC:POSS2P:POSSSG:SG", "acigp'ni"),

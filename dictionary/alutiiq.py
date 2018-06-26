@@ -392,6 +392,10 @@ def apply_transformations(before, center, after):
                     # leave one g in place
                 elif center.endswith('gg') or center.endswith('rr'):
                     center = center[:-2]
+                elif re.search('[aeiou]' + CONSONANT + 'er$', center) and \
+                        len(after) >= 3 and after[2] in 'aeiou':
+                    # nater ~ka => natqa
+                    center = center[:-2]
                 elif center[-1] not in 'aioul':
                     center = center[:-1]
 
@@ -399,8 +403,8 @@ def apply_transformations(before, center, after):
                                  not re.search("([aeiou']|^)ll$", center))
                 double_after = (re.search(r'^.' + CONSONANT + CONSONANT, after) and
                                 not re.search("^ll[aeiou']", after))
-                voiceless_center = (after[1:2] in list('ptckqsgrh') or after[1:3] == 'll')
-                voiceless_after = (center[-1:] in list('ptckqsgrh') or center.endswith('ll'))
+                voiceless_center = (center[-1:] in list('ptckqsgrh') or center.endswith('ll'))
+                voiceless_after = (after[1:2] in list('ptckqsgrh') or after[1:3] == 'll')
                 if (double_center or double_after) and (voiceless_center or voiceless_after):
                     # piugte ~ka => piugt'ka
                     # iluqlle ~ka => iluqll'ka
@@ -439,6 +443,14 @@ def apply_transformations(before, center, after):
                 elif center.endswith('e'):
                     # age ~luni => agluni
                     center = center[:-1]
+
+                    double_center = (re.search(CONSONANT + CONSONANT + '$', center) and
+                                     not re.search("([aeiou']|^)ll$", center))
+                    voiceless_center = (center[-1:] in list('ptckqsgrh') or center.endswith('ll'))
+                    if double_center and voiceless_center:
+                        # piugte ~ka => piugt'ka
+                        # iluqlle ~ka => iluqll'ka
+                        center += "'"
             elif after[:2] in ('~a', '~i', '~u'):
                 if center[-1:] == after[1]:
                     center += "'"
