@@ -8,7 +8,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 import django
 django.setup()
 
-from models import Chunk
+from models import Entry
 
 words_file = 'dictionary/fixtures/words.csv'
 sources_fixture = 'dictionary/fixtures/sources.json'
@@ -64,10 +64,10 @@ with open(words_file, 'r') as infile:
             line += '\t' * (4 - tabs)
         entry, notes, defn, source, alts = line.split('\t')
         source_pk, source_info = parse_source(source)
-        c = Chunk(entry=entry, defn=defn)
+        c = Entry(entry=entry, defn=defn)
         c.fill()
         fixture.append({
-            'model': 'dictionary.Chunk',
+            'model': 'dictionary.Entry',
             'pk': (None if pk_null else (len(fixture) + 1)),
             'fields': {
                 'entry': c.entry,

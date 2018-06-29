@@ -14,7 +14,7 @@ class Source(models.Model):
         return self.description
 
 
-class Chunk(models.Model):
+class Entry(models.Model):
     entry = models.CharField('word', max_length=100)
     pos = models.CharField('part of speech',
                            help_text='''To remove the part of speech entirely
@@ -66,7 +66,7 @@ class Chunk(models.Model):
 
     def save(self):
         self.fill()
-        super(Chunk, self).save()
+        super(Entry, self).save()
 
     def __unicode__(self):
         return self.entry

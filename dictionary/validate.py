@@ -9,11 +9,11 @@ import random
 
 
 def find_bad_entries():
-    from .models import Chunk
+    from .models import Entry
     from .views import group_entries
     from .alutiiq import get_endings_map, is_valid
 
-    entries = group_entries(Chunk.objects.all(), separate_roots=True)
+    entries = group_entries(Entry.objects.all(), separate_roots=True)
     bad_headwords = []
     bad_forms = []
     for i, entry in enumerate(entries):

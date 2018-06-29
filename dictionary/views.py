@@ -6,7 +6,7 @@ from collections import namedtuple
 from django.shortcuts import render, get_list_or_404
 from django.views.generic.base import RedirectView
 
-from .models import Chunk
+from .models import Entry as EntryModel
 from .alutiiq import inflection_data, normalize
 
 
@@ -31,7 +31,7 @@ def index(request):
 
 @subdir
 def entry(request, word):
-    chunks = get_list_or_404(Chunk, entry=word)
+    chunks = get_list_or_404(EntryModel, entry=word)
     entries = group_entries(chunks, separate_roots=True)
     assert len(entries) == 1
     context = {'word': word,
@@ -195,11 +195,11 @@ def group_entries(chunk_list, separate_roots=False):
 
 def matches_query(chunk, query):
     '''
-    >>> from .models import Chunk
-    >>> c = Chunk(); c.entry = "gwa'i"; c.defn = 'here (restricted)'; c.fill()
+    >>> from .models import Entry as EntryModel
+    >>> c = EntryModel(); c.entry = "gwa'i"; c.defn = 'here (restricted)'; c.fill()
     >>> matches_query(c, 'try')
     False
-    >>> c = Chunk(); c.entry = "Kasaakaq"; c.defn = 'Russian'; c.fill()
+    >>> c = EntryModel(); c.entry = "Kasaakaq"; c.defn = 'Russian'; c.fill()
     >>> matches_query(c, 'kasaak')
     True
     '''
@@ -221,10 +221,10 @@ def search(request):
 
     if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
-        chunk_list = ((Chunk.objects
-                            .filter(search_text__contains=query.lower()) |
-                       Chunk.objects
-                            .filter(search_text__contains=normalize(query)))
+        chunk_list = ((EntryModel.objects
+                                 .filter(search_text__contains=query.lower()) |
+                       EntryModel.objects
+                                 .filter(search_text__contains=normalize(query)))
                       .order_by('entry', 'pos_final'))
         chunk_list = [c for c in chunk_list if matches_query(c, query)]
         entry_list = sorted(group_entries(chunk_list), key=relevance(query))
