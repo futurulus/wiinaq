@@ -51,6 +51,11 @@ ul {
     margin: 0em;
 }
 
+ul.source-defns {
+    list-style-type: disc;
+    margin: 0em;
+}
+
 h1 {
     font-size: 1.5em;
     color: #0044aa;
@@ -106,6 +111,7 @@ p {
 
 .root-header {
     margin: 1ex 0 0 0;
+    width: 100%;
 }
 
 .root-label {
@@ -210,12 +216,33 @@ p {
     z-index: 1;
 }
 
+.listing-root {
+    display: table;
+    margin: 0 1ex;
+}
+
+.listing-source {
+    display: table-row;
+}
+
+.source-label {
+    display: table-cell;
+    min-width: 6em;
+}
+
+.source-defns {
+    display: table-cell;
+    width: 100%;
+    padding: 0 0 1ex 0;
+}
+
 .sources {
     color: #777733;
     padding: 0 0.25em;
 }
 
 .source {
+    color: #777733;
     border-bottom: 1px dotted;
     position: relative;
 }

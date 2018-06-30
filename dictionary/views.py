@@ -39,7 +39,7 @@ def entry(request, word):
                           'pos': root.pos,
                           'id': root.id,
                           'inflections': inflection_data(root),
-                          'senses': root.senses}
+                          'sources': root.sources}
                          for root in entries[0].roots],
                'url': request.build_absolute_uri(request.get_full_path()),
                'request': request}
@@ -55,7 +55,8 @@ def remove_parens(s):
 
 
 Entry = namedtuple('Entry', ['word', 'roots'])
-Root = namedtuple('Root', ['word', 'pos', 'root', 'id', 'defns', 'senses'])
+Root = namedtuple('Root', ['word', 'pos', 'root', 'id', 'defns', 'sources'])
+Source = namedtuple('Sense', ['source', 'senses'])
 Sense = namedtuple('Sense', ['chunks', 'defn', 'sources'])
 
 
@@ -146,7 +147,7 @@ def relevance(query):
 
 def build_sense(defn, chunks):
     chunks = list(chunks)
-    return Sense(defn=defn, chunks=chunks, sources=[c.source for c in chunks])
+    return Sense(defn=defn, chunks=chunks, sources=[c.source_info for c in chunks])
 
 
 def root_to_id(pos, root):
@@ -157,16 +158,28 @@ def root_to_id(pos, root):
                         binascii.hexlify(root))
 
 
-def build_root(word, pos, root, chunks):
-    chunks = sorted(chunks, key=lambda c: (len(c.defn), c.defn))
-    senses = [
-        build_sense(defn=defn, chunks=group)
-        for defn, group in itertools.groupby(chunks, lambda c: c.defn)
-    ]
-    defns = [s.defn for s in senses]
+def build_root(word, pos, root, chunks, separate_sources=True):
+    if separate_sources:
+        chunks = sorted(chunks, key=lambda c: (c.source.ordering, c.source.abbrev,
+                                               len(c.defn), c.defn))
+        sources = [
+            Source(source, [
+                build_sense(defn=defn, chunks=group)
+                for defn, group in itertools.groupby(sub_chunks, lambda c: c.defn)
+            ])
+            for source, sub_chunks in itertools.groupby(chunks, lambda c: c.source)
+        ]
+    else:
+        chunks = sorted(chunks, key=lambda c: (len(c.defn), c.defn))
+        sources = [Source('', [
+            build_sense(defn=defn, chunks=group)
+            for defn, group in itertools.groupby(chunks, lambda c: c.defn)
+        ])]
+
+    defns = [s.defn for so in sources for s in so.senses]
     id = root_to_id(pos, root)
     return Root(word=word, pos=pos, root=root, id=id,
-                defns=defns, senses=senses)
+                defns=defns, sources=sources)
 
 
 def convert_none(field):
@@ -185,9 +198,11 @@ def group_entries(chunk_list, separate_roots=False):
     entries = itertools.groupby(chunk_list, lambda c: c.entry)
     return [
         Entry(word=word, roots=[
-            build_root(word=word, pos=pos, root=root, chunks=list(chunks))
+            build_root(word=word, pos=pos, root=root, chunks=list(chunks),
+                       separate_sources=separate_roots)
             for (pos, root), chunks in
-            itertools.groupby(group, lambda c: pos_root(c, separate_roots))
+            itertools.groupby(sorted(group, key=lambda c: pos_root(c, separate_roots)),
+                              lambda c: pos_root(c, separate_roots))
         ])
         for word, group in entries
     ]

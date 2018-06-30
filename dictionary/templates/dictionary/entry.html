@@ -11,25 +11,32 @@
     <span class="root-label">root:</span> <span class="root">{{ root.root|root }}-</span></p>
     {% endif %}
 
-    <ol>
-    {% for sense in root.senses %}
-        <li class="listing-defn"><span class="defn">{{ sense.defn }}</span>
-            <span class="sources">
-            {% for chunk in sense.chunks %}
-                {% if chunk.source %}
-                    {{ chunk.source.annotated|safe }}
-                {% endif %}
-                {% if chunk.source_link %}
-                    <a href="{{ chunk.source_link }}">{{ chunk.source_info }}</a>{% include "dictionary/semicolon.html" %}
-                {% else %}
-                    {{ chunk.source_info }}{% include "dictionary/semicolon.html" %}
-                {% endif %}
+    <div class="listing-root">
+        {% for source in root.sources %}
+        <div class="listing-source">
+            <div class="source-label">
+            {% if source.source %}
+                {{ source.source.annotated|safe }}
+            {% endif %}
+            </div>
+            <ul class="source-defns">
+            {% for sense in source.senses %}
+                <li class="listing-defn"><span class="defn">{{ sense.defn }}</span>
+                    <span class="sources">
+                    {% for chunk in sense.chunks %}
+                        {% if chunk.source_link %}
+                            <a href="{{ chunk.source_link }}">{{ chunk.source_info }}</a>{% include "dictionary/semicolon.html" %}
+                        {% else %}
+                            {{ chunk.source_info }}{% include "dictionary/semicolon.html" %}
+                        {% endif %}
+                    {% endfor %}
+                    </span>
+                </li>
             {% endfor %}
-            </span>
-        </li>
-    {% endfor %}
-    </ol>
-
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
 
     {% if root.inflections %}
     <div class="popout" id="endings-{{ root.id }}">
