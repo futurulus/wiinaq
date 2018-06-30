@@ -5,6 +5,7 @@ from collections import namedtuple
 
 from django.shortcuts import render, get_list_or_404
 from django.views.generic.base import RedirectView
+from django.template.defaultfilters import urlencode
 
 from .models import Entry as EntryModel
 from .alutiiq import inflection_data, normalize
@@ -18,7 +19,10 @@ def subdir(view):
         if request.path.startswith(ALUTIIQ_SUBDIR):
             new_view = view
         else:
-            new_view = RedirectView.as_view(url=ALUTIIQ_SUBDIR[:-1] + request.path,
+            print repr(urlencode(request.path))
+            new_view = RedirectView.as_view(url=ALUTIIQ_SUBDIR[:-1] +
+                                            urlencode(request.path).replace('%', '%%'),
+                                            # why is this used as a Python format string???
                                             query_string=True)
         return new_view(request, *args, **kwargs)
 
@@ -57,7 +61,8 @@ def remove_parens(s):
 Entry = namedtuple('Entry', ['word', 'roots'])
 Root = namedtuple('Root', ['word', 'pos', 'root', 'id', 'defns', 'sources'])
 Source = namedtuple('Sense', ['source', 'senses'])
-Sense = namedtuple('Sense', ['chunks', 'defn', 'sources'])
+Sense = namedtuple('Sense', ['chunks', 'defn', 'sources', 'examples',
+                             'main_entries', 'subentries', 'see_also'])
 
 
 def chunk_relevance(chunk, query):
@@ -147,7 +152,11 @@ def relevance(query):
 
 def build_sense(defn, chunks):
     chunks = list(chunks)
-    return Sense(defn=defn, chunks=chunks, sources=[c.source_info for c in chunks])
+    return Sense(defn=defn, chunks=chunks, sources=[c.source_info for c in chunks],
+                 examples=[e for c in chunks for e in c.examples.all()],
+                 main_entries=[c.main_entry for c in chunks if c.main_entry is not None],
+                 subentries=[s for c in chunks for s in c.subentries.all()],
+                 see_also=[s for c in chunks for s in c.see_also.all()])
 
 
 def root_to_id(pos, root):

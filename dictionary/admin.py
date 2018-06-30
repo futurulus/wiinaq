@@ -56,6 +56,7 @@ class EntryAdmin(CustomTitleAdmin):
     custom_title = 'An entry is a single definition of a single word from a single source. ' \
                    'All entries for the same word are shown on that word\'s page.'
     readonly_fields = ('pos_auto', 'root_auto', 'search_text')
+    raw_id_fields = ('main_entry',)
     list_display = ['entry', 'pos_final', 'defn']
     list_filter = ['pos', 'source']
     search_fields = ['entry', 'defn']

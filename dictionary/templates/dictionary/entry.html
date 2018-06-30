@@ -21,16 +21,50 @@
             </div>
             <ul class="source-defns">
             {% for sense in source.senses %}
-                <li class="listing-defn"><span class="defn">{{ sense.defn }}</span>
-                    <span class="sources">
-                    {% for chunk in sense.chunks %}
-                        {% if chunk.source_link %}
-                            <a href="{{ chunk.source_link }}">{{ chunk.source_info }}</a>{% include "dictionary/semicolon.html" %}
-                        {% else %}
-                            {{ chunk.source_info }}{% include "dictionary/semicolon.html" %}
-                        {% endif %}
+                <li class="listing-defn">
+                    <div class="defn-and-sources">
+                        <span class="defn">{{ sense.defn }}</span>
+                        <span class="sources">
+                        {% for chunk in sense.chunks %}
+                            {% if chunk.source_link %}
+                                <a href="{{ chunk.source_link }}">{{ chunk.source_info }}</a>{% include "dictionary/semicolon.html" %}
+                            {% else %}
+                                {{ chunk.source_info }}{% include "dictionary/semicolon.html" %}
+                            {% endif %}
+                        {% endfor %}
+                        </span>
+                    </div>
+                    <div class="examples">
+                    {% for example in sense.examples %}
+                        <div class="example">
+                            <p class="example-native">{{ example.vernacular }}</p>
+                            <p class="example-english">{{ example.english }}</p>
+                        </div>
                     {% endfor %}
-                    </span>
+                    </div>
+                    <div class="related">
+                        {% if sense.main_entries %}
+                        <p class="main-entry">main entry:
+                        {% for chunk in sense.main_entries %}
+                            <a href="{% url 'entry' chunk.entry %}">{{ chunk.entry }}</a>{% include "dictionary/comma.html" %}
+                        {% endfor %}
+                        </p>
+                        {% endif %}
+                        {% if sense.subentries %}
+                        <p class="subentries">subentries:
+                        {% for chunk in sense.subentries %}
+                            <a href="{% url 'entry' chunk.entry %}">{{ chunk.entry }}</a>{% include "dictionary/comma.html" %}
+                        {% endfor %}
+                        </p>
+                        {% endif %}
+                        {% if sense.see_also %}
+                        <p class="see-also">see also:
+                        {% for chunk in sense.see_also %}
+                            <a href="{% url 'entry' chunk.entry %}">{{ chunk.entry }}</a>{% include "dictionary/comma.html" %}
+                        {% endfor %}
+                        </p>
+                        {% endif %}
+                    </div>
                 </li>
             {% endfor %}
             </ul>

@@ -111,7 +111,6 @@ p {
 
 .root-header {
     margin: 1ex 0 0 0;
-    width: 100%;
 }
 
 .root-label {
@@ -232,7 +231,6 @@ p {
 
 .source-defns {
     display: table-cell;
-    width: 100%;
     padding: 0 0 1ex 0;
 }
 
@@ -256,6 +254,23 @@ p {
     padding: 4px;
     white-space: nowrap;
     font-size: 0.9em;
+}
+
+.examples, .related {
+    padding-left: 1em;
+}
+
+.example {
+    border-left: 2px solid #BBBB77;
+    padding-left: 1ex;
+}
+
+.example-native {
+    font-weight: bold;
+}
+
+.related {
+    color: #777777;
 }
 
 .ientry {
