@@ -1,7 +1,7 @@
 [
     {
         "pk": 1,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 0:20)",
@@ -16,7 +16,7 @@
     },
     {
         "pk": 2,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 0:30)",
@@ -31,7 +31,7 @@
     },
     {
         "pk": 3,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 0:40)",
@@ -46,7 +46,7 @@
     },
     {
         "pk": 4,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 0:40)",
@@ -61,7 +61,7 @@
     },
     {
         "pk": 5,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 0:40)",
@@ -76,7 +76,7 @@
     },
     {
         "pk": 6,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 0:50)",
@@ -91,7 +91,7 @@
     },
     {
         "pk": 7,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 1:00)",
@@ -106,7 +106,7 @@
     },
     {
         "pk": 8,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724 8:40)",
@@ -121,7 +121,7 @@
     },
     {
         "pk": 9,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 9:20)",
@@ -136,7 +136,7 @@
     },
     {
         "pk": 10,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 1:00)",
@@ -151,7 +151,7 @@
     },
     {
         "pk": 11,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 1:30)",
@@ -166,7 +166,7 @@
     },
     {
         "pk": 12,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 1:40)",
@@ -181,7 +181,7 @@
     },
     {
         "pk": 13,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 2:50)",
@@ -196,7 +196,7 @@
     },
     {
         "pk": 14,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 8:20)",
@@ -211,7 +211,7 @@
     },
     {
         "pk": 15,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 3:10)",
@@ -226,7 +226,7 @@
     },
     {
         "pk": 16,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 3:30)",
@@ -241,7 +241,7 @@
     },
     {
         "pk": 17,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 5:00)",
@@ -256,7 +256,7 @@
     },
     {
         "pk": 18,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 5:10)",
@@ -271,7 +271,7 @@
     },
     {
         "pk": 19,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 15:20)",
@@ -286,7 +286,7 @@
     },
     {
         "pk": 20,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 5:50)",
@@ -301,7 +301,7 @@
     },
     {
         "pk": 21,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 4:00)",
@@ -316,7 +316,7 @@
     },
     {
         "pk": 22,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 6:20)",
@@ -331,7 +331,7 @@
     },
     {
         "pk": 23,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 6:40)",
@@ -346,7 +346,7 @@
     },
     {
         "pk": 24,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 6:40)",
@@ -361,7 +361,7 @@
     },
     {
         "pk": 25,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 7:00)",
@@ -376,7 +376,7 @@
     },
     {
         "pk": 26,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 7:50)",
@@ -391,7 +391,7 @@
     },
     {
         "pk": 27,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 7:50)",
@@ -406,7 +406,7 @@
     },
     {
         "pk": 28,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 8:00)",
@@ -421,7 +421,7 @@
     },
     {
         "pk": 29,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 8:10)",
@@ -436,7 +436,7 @@
     },
     {
         "pk": 30,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 8:20)",
@@ -451,7 +451,7 @@
     },
     {
         "pk": 31,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 9:50)",
@@ -466,7 +466,7 @@
     },
     {
         "pk": 32,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 9:50)",
@@ -481,7 +481,7 @@
     },
     {
         "pk": 33,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 9:50)",
@@ -496,7 +496,7 @@
     },
     {
         "pk": 34,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 9:50)",
@@ -511,7 +511,7 @@
     },
     {
         "pk": 35,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 9:50)",
@@ -526,7 +526,7 @@
     },
     {
         "pk": 36,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 10:20)",
@@ -541,7 +541,7 @@
     },
     {
         "pk": 37,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 11:10)",
@@ -556,7 +556,7 @@
     },
     {
         "pk": 38,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 12:00)",
@@ -571,7 +571,7 @@
     },
     {
         "pk": 39,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 12:10)",
@@ -586,7 +586,7 @@
     },
     {
         "pk": 40,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 0:40)",
@@ -601,7 +601,7 @@
     },
     {
         "pk": 41,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 1:00)",
@@ -616,7 +616,7 @@
     },
     {
         "pk": 42,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 2:50)",
@@ -631,7 +631,7 @@
     },
     {
         "pk": 43,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 2:50)",
@@ -646,7 +646,7 @@
     },
     {
         "pk": 44,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 2:50)",
@@ -661,7 +661,7 @@
     },
     {
         "pk": 45,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:00)",
@@ -676,7 +676,7 @@
     },
     {
         "pk": 46,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:10)",
@@ -691,7 +691,7 @@
     },
     {
         "pk": 47,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:10)",
@@ -706,7 +706,7 @@
     },
     {
         "pk": 48,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:10)",
@@ -721,7 +721,7 @@
     },
     {
         "pk": 49,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:10)",
@@ -736,7 +736,7 @@
     },
     {
         "pk": 50,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:10)",
@@ -751,7 +751,7 @@
     },
     {
         "pk": 51,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:20)",
@@ -766,7 +766,7 @@
     },
     {
         "pk": 52,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:30)",
@@ -781,7 +781,7 @@
     },
     {
         "pk": 53,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:30)",
@@ -796,7 +796,7 @@
     },
     {
         "pk": 54,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 4:20)",
@@ -811,7 +811,7 @@
     },
     {
         "pk": 55,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 5:20)",
@@ -826,7 +826,7 @@
     },
     {
         "pk": 56,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 5:20)",
@@ -841,7 +841,7 @@
     },
     {
         "pk": 57,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 6:20)",
@@ -856,7 +856,7 @@
     },
     {
         "pk": 58,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 5:30)",
@@ -871,7 +871,7 @@
     },
     {
         "pk": 59,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 6:10)",
@@ -886,7 +886,7 @@
     },
     {
         "pk": 60,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 6:10)",
@@ -901,7 +901,7 @@
     },
     {
         "pk": 61,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 6:40)",
@@ -916,7 +916,7 @@
     },
     {
         "pk": 62,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 7:20)",
@@ -931,7 +931,7 @@
     },
     {
         "pk": 63,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 8:20)",
@@ -946,7 +946,7 @@
     },
     {
         "pk": 64,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 8:30)",
@@ -961,7 +961,7 @@
     },
     {
         "pk": 65,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 9:00)",
@@ -976,7 +976,7 @@
     },
     {
         "pk": 66,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 9:50)",
@@ -991,7 +991,7 @@
     },
     {
         "pk": 67,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 10:40)",
@@ -1006,7 +1006,7 @@
     },
     {
         "pk": 68,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 11:10)",
@@ -1021,7 +1021,7 @@
     },
     {
         "pk": 69,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 12:20)",
@@ -1036,7 +1036,7 @@
     },
     {
         "pk": 70,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 13:40)",
@@ -1051,7 +1051,7 @@
     },
     {
         "pk": 71,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 16:00)",
@@ -1066,7 +1066,7 @@
     },
     {
         "pk": 72,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 16:20)",
@@ -1081,7 +1081,7 @@
     },
     {
         "pk": 73,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 18:50)",
@@ -1096,7 +1096,7 @@
     },
     {
         "pk": 74,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 16:50)",
@@ -1111,7 +1111,7 @@
     },
     {
         "pk": 75,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 17:10)",
@@ -1126,7 +1126,7 @@
     },
     {
         "pk": 76,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 0:10)",
@@ -1141,7 +1141,7 @@
     },
     {
         "pk": 77,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 3:20)",
@@ -1156,7 +1156,7 @@
     },
     {
         "pk": 78,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 3:50)",
@@ -1171,7 +1171,7 @@
     },
     {
         "pk": 79,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 4:08)",
@@ -1186,7 +1186,7 @@
     },
     {
         "pk": 80,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 5:42)",
@@ -1201,7 +1201,7 @@
     },
     {
         "pk": 81,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 5:40)",
@@ -1216,7 +1216,7 @@
     },
     {
         "pk": 82,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 5:48)",
@@ -1231,7 +1231,7 @@
     },
     {
         "pk": 83,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 6:14)",
@@ -1246,7 +1246,7 @@
     },
     {
         "pk": 84,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 6:30)",
@@ -1261,7 +1261,7 @@
     },
     {
         "pk": 85,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 7:30)",
@@ -1276,7 +1276,7 @@
     },
     {
         "pk": 86,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 7:50)",
@@ -1291,7 +1291,7 @@
     },
     {
         "pk": 87,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 8:19)",
@@ -1306,7 +1306,7 @@
     },
     {
         "pk": 88,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 17:20)",
@@ -1321,7 +1321,7 @@
     },
     {
         "pk": 89,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 8:50)",
@@ -1336,7 +1336,7 @@
     },
     {
         "pk": 90,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 13:00)",
@@ -1351,7 +1351,7 @@
     },
     {
         "pk": 91,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 13:00)",
@@ -1366,7 +1366,7 @@
     },
     {
         "pk": 92,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 21:50)",
@@ -1381,7 +1381,7 @@
     },
     {
         "pk": 93,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 29:00)",
@@ -1396,7 +1396,7 @@
     },
     {
         "pk": 94,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130731 29:50)",
@@ -1411,7 +1411,7 @@
     },
     {
         "pk": 95,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 29:00)",
@@ -1426,7 +1426,7 @@
     },
     {
         "pk": 96,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 20:00)",
@@ -1441,7 +1441,7 @@
     },
     {
         "pk": 97,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 17:20)",
@@ -1456,7 +1456,7 @@
     },
     {
         "pk": 98,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 21:40)",
@@ -1471,7 +1471,7 @@
     },
     {
         "pk": 99,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 15:00)",
@@ -1486,7 +1486,7 @@
     },
     {
         "pk": 100,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 7:20)",
@@ -1501,7 +1501,7 @@
     },
     {
         "pk": 101,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 19:30)",
@@ -1516,7 +1516,7 @@
     },
     {
         "pk": 102,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:30)",
@@ -1531,7 +1531,7 @@
     },
     {
         "pk": 103,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 20:40)",
@@ -1546,7 +1546,7 @@
     },
     {
         "pk": 104,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 20:40)",
@@ -1561,7 +1561,7 @@
     },
     {
         "pk": 105,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 12:10)",
@@ -1576,7 +1576,7 @@
     },
     {
         "pk": 106,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 30:50)",
@@ -1591,7 +1591,7 @@
     },
     {
         "pk": 107,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 15:00)",
@@ -1606,7 +1606,7 @@
     },
     {
         "pk": 108,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 1:00)",
@@ -1621,7 +1621,7 @@
     },
     {
         "pk": 109,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 5:50)",
@@ -1636,7 +1636,7 @@
     },
     {
         "pk": 110,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:10)",
@@ -1651,7 +1651,7 @@
     },
     {
         "pk": 111,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 20:40)",
@@ -1666,7 +1666,7 @@
     },
     {
         "pk": 112,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:10)",
@@ -1681,7 +1681,7 @@
     },
     {
         "pk": 113,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 20:20)",
@@ -1696,7 +1696,7 @@
     },
     {
         "pk": 114,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 12:00)",
@@ -1711,7 +1711,7 @@
     },
     {
         "pk": 115,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 1:50)",
@@ -1726,7 +1726,7 @@
     },
     {
         "pk": 116,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:30)",
@@ -1741,7 +1741,7 @@
     },
     {
         "pk": 117,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 15:20)",
@@ -1756,7 +1756,7 @@
     },
     {
         "pk": 118,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 15:30)",
@@ -1771,7 +1771,7 @@
     },
     {
         "pk": 119,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 17:20)",
@@ -1786,7 +1786,7 @@
     },
     {
         "pk": 120,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 4,
             "source_info": "(130724-a 3:40)",
@@ -1801,7 +1801,7 @@
     },
     {
         "pk": 121,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 17:30)",
@@ -1816,7 +1816,7 @@
     },
     {
         "pk": 122,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 19:20)",
@@ -1831,7 +1831,7 @@
     },
     {
         "pk": 123,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 19:40)",
@@ -1846,7 +1846,7 @@
     },
     {
         "pk": 124,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 20:00)",
@@ -1861,7 +1861,7 @@
     },
     {
         "pk": 125,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 20:20)",
@@ -1876,7 +1876,7 @@
     },
     {
         "pk": 126,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 21:50)",
@@ -1891,7 +1891,7 @@
     },
     {
         "pk": 127,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 22:10)",
@@ -1906,7 +1906,7 @@
     },
     {
         "pk": 128,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 23:10)",
@@ -1921,7 +1921,7 @@
     },
     {
         "pk": 129,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 24:30)",
@@ -1936,7 +1936,7 @@
     },
     {
         "pk": 130,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 25:00)",
@@ -1951,7 +1951,7 @@
     },
     {
         "pk": 131,
-        "model": "dictionary.Chunk",
+        "model": "dictionary.Entry",
         "fields": {
             "source": 1,
             "source_info": "(130708 25:50)",

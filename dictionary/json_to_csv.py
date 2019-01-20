@@ -3,7 +3,7 @@
 import sys
 import json
 
-MODEL = 'dictionary.chunk'
+MODEL = 'dictionary.entry'
 FIELDS = [
     'entry',
     'pos_auto',

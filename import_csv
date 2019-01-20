@@ -43,7 +43,7 @@ fi
 echo "Backing up database to ${backup_loc}"
 ./manage.py dumpdata > "$backup_loc"
 
-echo 'DELETE FROM "dictionary_chunk";' | ./manage.py dbshell
+echo 'DELETE FROM "dictionary_entry";' | ./manage.py dbshell
 ./manage.py loaddata "$fixture_name".json
 
 if [[ $? != 0 ]]; then
