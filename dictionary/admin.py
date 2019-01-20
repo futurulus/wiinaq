@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db import models
+from django.forms import Textarea
 
 from .models import Entry, Source, Example, Variety
 from .models import SeeAlso, EntryExampleInfo, EntryVarietyInfo, ExampleVarietyInfo
@@ -62,6 +64,9 @@ class EntryAdmin(CustomTitleAdmin):
     search_fields = ['entry', 'defn']
     filter_horizontal = ['examples']
     inlines = (EntryVarietyInfoInline, EntryExamplesInline, SeeAlsoInline)
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={'rows': 2, 'cols': 70})},
+    }
     save_as = True
 
 admin.site.register(Entry, EntryAdmin)

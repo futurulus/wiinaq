@@ -60,8 +60,9 @@ def remove_parens(s):
 
 Entry = namedtuple('Entry', ['word', 'roots'])
 Root = namedtuple('Root', ['word', 'pos', 'root', 'id', 'defns', 'sources'])
-Source = namedtuple('Sense', ['source', 'senses'])
+Source = namedtuple('Source', ['source', 'senses'])
 Sense = namedtuple('Sense', ['chunks', 'defn', 'sources', 'examples',
+                             'etymologies', 'comments',
                              'main_entries', 'subentries', 'see_also'])
 
 
@@ -142,7 +143,8 @@ def relevance(query):
     def sort_key(entry):
         return (max(chunk_relevance(chunk, query)
                     for root in entry.roots
-                    for sense in root.senses
+                    for source in root.sources
+                    for sense in source.senses
                     for chunk in sense.chunks),
                 entry.word.lower(),
                 entry.word)
@@ -154,6 +156,8 @@ def build_sense(defn, chunks):
     chunks = list(chunks)
     return Sense(defn=defn, chunks=chunks, sources=[c.source_info for c in chunks],
                  examples=[e for c in chunks for e in c.examples.all()],
+                 comments=[c.comments for c in chunks if c.comments is not None],
+                 etymologies=[c.etymology for c in chunks if c.etymology is not None],
                  main_entries=[c.main_entry for c in chunks if c.main_entry is not None],
                  subentries=[s for c in chunks for s in c.subentries.all()],
                  see_also=[s for c in chunks for s in c.see_also.all()])
@@ -169,8 +173,9 @@ def root_to_id(pos, root):
 
 def build_root(word, pos, root, chunks, separate_sources=True):
     if separate_sources:
-        chunks = sorted(chunks, key=lambda c: (c.source.ordering, c.source.abbrev,
-                                               len(c.defn), c.defn))
+        chunks = sorted(chunks, key=lambda c: ((c.source.ordering,
+                                                c.source.abbrev) if c.source else (9999, 'other')) +
+                                               (len(c.defn), c.defn))
         sources = [
             Source(source, [
                 build_sense(defn=defn, chunks=group)

@@ -17,6 +17,8 @@
             <div class="source-label">
             {% if source.source %}
                 {{ source.source.annotated|safe }}
+	    {% else %}
+	        <span class="source" title="unknown source">other</span>
             {% endif %}
             </div>
             <ul class="source-defns">
@@ -43,6 +45,20 @@
                     {% endfor %}
                     </div>
                     <div class="related">
+                        {% if sense.etymologies %}
+                        <p class="etymologies">etymology:
+                        {% for etymology in sense.etymologies %}
+			    {{ etymology }}{% include "dictionary/semicolon.html" %}
+			{% endfor %}
+			</p>
+                        {% endif %}
+                        {% if sense.comments %}
+                        <p class="comments">notes:
+                        {% for comment in sense.comments %}
+			    {{ comment }}
+			{% endfor %}
+			</p>
+                        {% endif %}
                         {% if sense.main_entries %}
                         <p class="main-entry">main entry:
                         {% for chunk in sense.main_entries %}

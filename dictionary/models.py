@@ -92,11 +92,18 @@ class Entry(models.Model):
                                   editable=False,
                                   default='',
                                   max_length=100)
+    etymology = models.TextField(blank=True, default='')
     defn = models.TextField('definition')
     search_text = models.TextField(editable=False, default='')
     source = models.ForeignKey(Source, blank=True, null=True,
                                help_text='Dictionary, book, speaker interview, etc. where this '
                                          'word was found')
+    comments = models.TextField(help_text="Usage notes, miscellaneous points of interest, etc. "
+                                          "These are visible on the word's page.",
+                                blank=True, default='')
+    notes = models.TextField(help_text="Dictionary maintainers' notes. These are private and only "
+                                       "visible to people with access to this admin site.",
+                             blank=True, default='')
     source_info = models.CharField('source details', max_length=200, default='', blank=True,
                                    help_text='Page numbers, file IDs, dates, or other specific '
                                              'information needed to find the word in the source.')
