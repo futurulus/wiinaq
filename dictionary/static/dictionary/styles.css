@@ -236,7 +236,8 @@ p {
 
 .sources {
     color: #777733;
-    padding: 0 0.25em;
+    padding: 0 0 0 0.25em;
+    font-weight: normal;
 }
 
 .source {
@@ -245,7 +246,7 @@ p {
     position: relative;
 }
 
-.source .title {
+.title {
     position: absolute;
     top: 23px;
     left: 0;
@@ -254,6 +255,18 @@ p {
     padding: 4px;
     white-space: nowrap;
     font-size: 0.9em;
+    z-index: 3;
+}
+
+.varieties {
+    color: #777777;
+    font-weight: normal;
+}
+
+.variety {
+    color: #777777;
+    border-bottom: 1px dotted;
+    position: relative;
 }
 
 .examples, .related {

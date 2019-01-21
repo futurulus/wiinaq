@@ -17,8 +17,8 @@
             <div class="source-label">
             {% if source.source %}
                 {{ source.source.annotated|safe }}
-	    {% else %}
-	        <span class="source" title="unknown source">other</span>
+            {% else %}
+                <span class="source" title="unknown source">other</span>
             {% endif %}
             </div>
             <ul class="source-defns">
@@ -28,6 +28,14 @@
                         <span class="defn">{{ sense.defn }}</span>
                         <span class="sources">
                         {% for chunk in sense.chunks %}
+                            {% if chunk.entryvarietyinfo_set.all %}
+                                <span class="varieties">
+                                {% for link in chunk.entryvarietyinfo_set.all %}
+                                    {{ link.variety.annotated|safe }}{% if link.detail %}
+                                    {{ link.detail }}{% endif %}{% include "dictionary/comma.html" %}
+                                {% endfor %}
+                                </span>
+                            {% endif %}
                             {% if chunk.source_link %}
                                 <a href="{{ chunk.source_link }}">{{ chunk.source_info }}</a>{% include "dictionary/semicolon.html" %}
                             {% else %}
@@ -39,7 +47,27 @@
                     <div class="examples">
                     {% for example in sense.examples %}
                         <div class="example">
-                            <p class="example-native">{{ example.vernacular }}</p>
+                            <p class="example-native">{{ example.vernacular }}{% if example.examplevarietyinfo_set.all %}
+                                <span class="sources">
+                                <span class="varieties">
+                                {% for link in example.examplevarietyinfo_set.all %}
+                                    {{ link.variety.annotated|safe }}{% if link.detail %}
+                                    {{ link.detail }}{% endif %}{% include "dictionary/comma.html" %}
+                                {% endfor %}
+                                </span>
+                                {% if example.source %} - {% endif %}
+                            {% elif example.source %}
+                                <span class="sources">
+                            {% endif %}
+                            {% if example.source %}
+                                {{ example.source.annotated|safe }}{% if example.source_link %}
+                                    <a href="{{ example.source_link }}">{{ example.source_info }}</a>
+                                {% else %}
+                                    {{ example.source_info }}
+                                {% endif %}
+                                </span>
+                            {% endif %}
+                            </p>
                             <p class="example-english">{{ example.english }}</p>
                         </div>
                     {% endfor %}
@@ -48,16 +76,16 @@
                         {% if sense.etymologies %}
                         <p class="etymologies">etymology:
                         {% for etymology in sense.etymologies %}
-			    {{ etymology }}{% include "dictionary/semicolon.html" %}
-			{% endfor %}
-			</p>
+                            {{ etymology }}{% include "dictionary/semicolon.html" %}
+                        {% endfor %}
+                        </p>
                         {% endif %}
                         {% if sense.comments %}
-                        <p class="comments">notes:
                         {% for comment in sense.comments %}
-			    {{ comment }}
-			{% endfor %}
-			</p>
+                        <p class="comments">
+                            {{ comment|newlines }}
+                        </p>
+                        {% endfor %}
                         {% endif %}
                         {% if sense.main_entries %}
                         <p class="main-entry">main entry:

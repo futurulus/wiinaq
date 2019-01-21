@@ -7,6 +7,10 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 
+def replace_newlines(escaped):
+    return escaped.replace('\n', '<br>')
+
+
 def replace_russian_r(escaped):
     return escaped.replace('R', '<span class="russian">R</span>')
 
@@ -21,6 +25,17 @@ def replace_double(escaped):
 
 def replace_e_noun_stem(escaped):
     return re.sub(r'A', r'e', escaped)
+
+
+@register.filter(needs_autoescape=True)
+def newlines(text, autoescape=True):
+    if autoescape:
+        esc = conditional_escape
+    else:
+        esc = lambda x: x
+
+    escaped = esc(text)
+    return mark_safe(replace_newlines(escaped))
 
 
 @register.filter(needs_autoescape=True)
