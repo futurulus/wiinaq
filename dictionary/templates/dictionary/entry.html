@@ -25,7 +25,7 @@
             {% for sense in source.senses %}
                 <li class="listing-defn">
                     <div class="defn-and-sources">
-                        <span class="defn">{{ sense.defn }}</span>
+                        <span class="defn">{{ sense.defn | markup }}</span>
                         <span class="sources">
                         {% for chunk in sense.chunks %}
                             {% if chunk.entryvarietyinfo_set.all %}
@@ -47,7 +47,7 @@
                     <div class="examples">
                     {% for example in sense.examples %}
                         <div class="example">
-                            <p class="example-native">{{ example.vernacular }}</p>
+                            <p class="example-native">{{ example.vernacular | markup}}</p>
                             {% if example.english %}
                                 <p class="example-english">{{ example.english }}</p>
                             {% endif %}
@@ -75,7 +75,7 @@
                                 {% endif %}
                                 {% if example.comments %}
                                 <p class="comments">
-                                    {{ example.comments|comment_newlines }}
+                                    {{ example.comments|markup|comment_newlines }}
                                 </p>
                                 {% endif %}
                                 </p>
@@ -87,14 +87,14 @@
                         {% if sense.etymologies.all %}
                         <p class="etymologies">etymology:
                         {% for etymology in sense.etymologies %}
-                            {{ etymology }}{% include "dictionary/semicolon.html" %}
+                            {{ etymology|markup }}{% include "dictionary/semicolon.html" %}
                         {% endfor %}
                         </p>
                         {% endif %}
                         {% if sense.comments %}
                         {% for comment in sense.comments %}
                         <p class="comments">
-                            {{ comment|comment_newlines }}
+                            {{ comment|markup|comment_newlines }}
                         </p>
                         {% endfor %}
                         {% endif %}

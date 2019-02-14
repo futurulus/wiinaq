@@ -31,7 +31,7 @@
                 {% for root in entry.roots %}
                     <span class="root">
                         <span class="pos">{{ root.pos }}</span>
-                        {{ root.defns|join:"; " }}
+                        {{ root.defns|join:"; "|markup }}
                     </span>
                 {% endfor %}
                 </div>

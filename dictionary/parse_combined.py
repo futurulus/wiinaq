@@ -304,7 +304,7 @@ def ortho_fix(word):
 
 
 def parse_example(f, examples, garbage, entry, citation=False):
-    example = Example(vernacular=f.value)
+    example = Example(vernacular=f.value if citation else u'`{}`'.format(f.value))
     examples.append(example)
     entry.examples.append(example)
     f.next()

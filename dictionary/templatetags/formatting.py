@@ -63,3 +63,37 @@ def root(text, autoescape=True):
                       replace_e_noun_stem]:
         result = transform(result)
     return mark_safe(result)
+
+
+def format_tildes(escaped):
+    return re.sub(ur'~([^~]+)~', ur'<span class="tildes">\1</span>', escaped)
+
+
+def format_backticks(escaped):
+    return re.sub(ur'`([^`]+)`', ur'<span class="backticks">\1</span>', escaped)
+
+
+def format_superscripts(escaped):
+    grouped = re.sub(ur'\$\{([^}]+)\}', ur'<sup>\1</sup>', escaped)
+    return re.sub(ur'\$(\d+|.)', ur'<sup>\1</sup>', grouped)
+
+
+def format_subscripts(escaped):
+    grouped = re.sub(ur'(?<!&)#\{([^}]+)\}', ur'<sub>\1</sub>', escaped)
+    return re.sub(ur'(?<!&)#(\d+|.)', ur'<sub>\1</sub>', grouped)
+
+
+@register.filter(needs_autoescape=True)
+def markup(text, autoescape=True):
+    if autoescape:
+        esc = conditional_escape
+    else:
+        esc = lambda x: x
+
+    result = esc(text)
+    for transform in [format_tildes,
+                      format_backticks,
+                      format_superscripts,
+                      format_subscripts]:
+        result = transform(result)
+    return mark_safe(result)

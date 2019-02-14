@@ -278,10 +278,6 @@ p {
     padding-left: 1ex;
 }
 
-.example-native {
-    font-weight: bold;
-}
-
 .ientry {
     padding: 0.25em;
     cursor: pointer;
@@ -304,4 +300,12 @@ p {
     border-radius: 0.25em;
     border: 1px solid #AAAA77;
     background-color: #FFFFAA;
+}
+
+.tildes {
+    font-style: italic;
+}
+
+.backticks {
+    font-weight: bold;
 }
