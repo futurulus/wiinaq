@@ -3,6 +3,7 @@ import binascii
 import itertools
 from collections import namedtuple
 
+from django.db import connection
 from django.shortcuts import render, get_list_or_404
 from django.template.defaultfilters import urlencode
 from django.urls import reverse
@@ -13,6 +14,14 @@ from .alutiiq import inflection_data, normalize
 
 
 ALUTIIQ_SUBDIR = '/ems/'
+
+SEARCH_LIMIT = 1000
+
+if connection.vendor == 'mysql':
+    SOW = u'(^|[[:space:][:punct:]])'
+    EOW = u'($|[[:space:][:punct:]])'
+else:
+    SOW = EOW = ur'\b'
 
 
 def subdir(view):
@@ -116,21 +125,41 @@ def chunk_relevance(chunk, query):
     accessories = [
         ('', ''),
         ('', ' her'),
+        ('', ' ~her~'),
+        ('', ' ~her/~'),
         ('', ' him'),
+        ('', ' ~him~'),
+        ('', ' ~him/~'),
+        ('', ' ~him/her~'),
         ('', ' it'),
+        ('', ' ~it~'),
+        ('', ' ~it/~'),
         ('', ' some'),
         ('', ' something'),
         ('', ' things'),
         ('', ' them'),
         ('be ', ''),
+        ('to be ', ''),
         ('is ', ''),
         ('are ', ''),
+        ('a ', ''),
+        ('the ', ''),
     ]
-    if any(pre + query_l + suff in full_entries_no_parens for pre, suff in accessories):
+    if any(
+        (pre + query_l + suff in full_entries_no_parens) or (
+            pre == '' and 'to ' + query_l + suff in full_entries_no_parens
+        )
+        for pre, suff in accessories
+    ):
         score = 50
 
     # Whole definition, with optional object
-    if any(pre + query_l + suff in full_entries for pre, suff in accessories):
+    if any(
+        (pre + query_l + suff in full_entries) or (
+            pre == '' and 'to ' + query_l + suff in full_entries
+        )
+        for pre, suff in accessories
+    ):
         score = 55
 
     # Full Alutiiq word match
@@ -221,6 +250,47 @@ def pos_root(chunk, separate_roots=False):
         return (pos, None)
 
 
+def run_search_query(query):
+    # g matches g or r
+    # r matches g, r, or R
+    # R matches only R
+    alutiiq_query = (re.escape(normalize(query, g_and_r=False)).replace('r', '[rR]')
+                                                               .replace('g', 'r'))
+    english_query = re.escape(query.lower())
+
+    alutiiq_regexes = [
+        u'^{}-?$'.format(alutiiq_query),
+        u'^{}'.format(alutiiq_query),
+        u'{}-?$'.format(alutiiq_query),
+        alutiiq_query,
+    ]
+
+    english_regexes = [
+        u'{}{}{}'.format(SOW, english_query, EOW),
+        u'{}{}'.format(SOW, english_query),
+        u'{}{}'.format(english_query, EOW),
+    ]
+
+    final_list = []
+    for regex in alutiiq_regexes:
+        search = EntryModel.objects.filter(search_word__regex=regex)[:SEARCH_LIMIT]
+        this_count = len(search)
+        if this_count == SEARCH_LIMIT:
+            break
+
+        final_list.extend(search)
+
+    for regex in english_regexes:
+        search = EntryModel.objects.filter(search_text__regex=regex)[:SEARCH_LIMIT]
+        this_count = len(search)
+        if this_count == SEARCH_LIMIT:
+            break
+
+        final_list.extend(search)
+
+    return sorted(final_list, key=lambda e: (e.entry, e.pos_final))
+
+
 def group_entries(chunk_list, separate_roots=False):
     entries = itertools.groupby(chunk_list, lambda c: c.entry)
     return [
@@ -263,11 +333,7 @@ def search(request):
 
     if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
-        chunk_list = ((EntryModel.objects
-                                 .filter(search_text__contains=query.lower()) |
-                       EntryModel.objects
-                                 .filter(search_text__contains=normalize(query)))
-                      .order_by('entry', 'pos_final'))
+        chunk_list = run_search_query(query)
         chunk_list = [c for c in chunk_list if matches_query(c, query)]
         entry_list = sorted(group_entries(chunk_list), key=relevance(query))
         context['entry_list'] = entry_list

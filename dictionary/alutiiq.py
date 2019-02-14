@@ -2,27 +2,35 @@ import re
 from collections import namedtuple
 
 
-def normalize(word):
+def normalize(word, g_and_r=True):
     '''
     Perform fuzzy search normalization (collapse commonly confused sounds
     so search is resilient to misspellings of Alutiiq words).
 
     >>> normalize('tuumiaqlluku')
-    'tumiaklluku'
+    u'tumiaklluku'
     >>> normalize("Wiiwaq")
-    'uiuak'
+    u'uiuak'
     >>> normalize("estui'isuun")
-    'stuisun'
+    u'stuisun'
+    >>> normalize('giinaq')
+    u'rinak'
+    >>> normalize('fanaRuq')
+    u'fanaRuk'
+    >>> normalize('giinaq', g_and_r=False)
+    u'ginak'
     '''
-    word = re.subn(r'(?<!n)g', 'r', word)[0]
-    word = re.subn(r'[A-QS-Z]', lambda m: m.group().lower(), word)[0]
-    word = (word.replace('q', 'k')
-                .replace('y', 'i')
-                .replace('w', 'u')
-                .replace('e', '')
-                .replace("'", ''))
-    for vowel in 'aiu':
-        word = re.sub(vowel + '+', vowel, word)
+    word = unicode(word)
+    if g_and_r:
+        word = re.subn(ur'(?<!n)g', u'r', word)[0]
+    word = re.subn(ur'[A-QS-Z]', lambda m: m.group().lower(), word)[0]
+    word = (word.replace(u'q', u'k')
+                .replace(u'y', u'i')
+                .replace(u'w', u'u')
+                .replace(u'e', u'')
+                .replace(u"'", u''))
+    for vowel in u'aiu':
+        word = re.sub(vowel + u'+', vowel, word)
     return word
 
 

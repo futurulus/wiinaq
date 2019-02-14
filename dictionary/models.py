@@ -104,6 +104,7 @@ class Entry(models.Model):
                                   max_length=100)
     etymology = models.TextField(blank=True, default='')
     defn = models.TextField('definition')
+    search_word = models.TextField(editable=False, default='')
     search_text = models.TextField(editable=False, default='')
     source = models.ForeignKey(Source, blank=True, null=True,
                                help_text='Dictionary, book, speaker interview, etc. where this '
@@ -146,7 +147,8 @@ class Entry(models.Model):
         return self.root or self.root_auto
 
     def fill(self):
-        self.search_text = '%s %s' % (normalize(self.entry), self.defn.lower())
+        self.search_word = normalize(self.entry)
+        self.search_text = self.defn.lower()
         self.pos_auto = get_pos(self.entry, self.defn)
         self.pos_final = self.pos or self.pos_auto
         self.root_auto = get_root(self.entry, self.pos_final, self.defn)
