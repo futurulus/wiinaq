@@ -4,8 +4,9 @@ import itertools
 from collections import namedtuple
 
 from django.shortcuts import render, get_list_or_404
-from django.views.generic.base import RedirectView
 from django.template.defaultfilters import urlencode
+from django.urls import reverse
+from django.views.generic.base import RedirectView
 
 from .models import Entry as EntryModel
 from .alutiiq import inflection_data, normalize
@@ -35,7 +36,7 @@ def index(request):
 
 @subdir
 def entry(request, word):
-    chunks = get_list_or_404(EntryModel, entry=word)
+    chunks = get_list_or_404(EntryModel, entry=word, hidden=False)
     entries = group_entries(chunks, separate_roots=True)
     assert len(entries) == 1
     context = {'word': word,
@@ -155,12 +156,24 @@ def relevance(query):
 def build_sense(defn, chunks):
     chunks = list(chunks)
     return Sense(defn=defn, chunks=chunks, sources=[c.source_info for c in chunks],
-                 examples=[e for c in chunks for e in c.examples.all()],
+                 examples=[e for c in chunks for e in c.examples.filter(hidden=False)],
                  comments=[c.comments for c in chunks if c.comments is not None],
                  etymologies=[c.etymology for c in chunks if c.etymology is not None],
-                 main_entries=[c.main_entry for c in chunks if c.main_entry is not None],
-                 subentries=[s for c in chunks for s in c.subentries.all()],
-                 see_also=[s for c in chunks for s in c.see_also.all()])
+                 main_entries=dedupe([c.main_entry for c in chunks
+                                      if c.main_entry is not None and not c.main_entry.hidden]),
+                 subentries=dedupe([s for c in chunks for s in c.subentries.filter(hidden=False)]),
+                 see_also=dedupe([s for c in chunks for s in c.see_also.filter(hidden=False)]))
+
+
+def dedupe(entries):
+    seen = set()
+    result = []
+    for entry in entries:
+        url = reverse('entry', kwargs={'word': entry})
+        if url not in seen:
+            seen.add(url)
+            result.append(entry)
+    return result
 
 
 def root_to_id(pos, root):

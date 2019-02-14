@@ -47,33 +47,44 @@
                     <div class="examples">
                     {% for example in sense.examples %}
                         <div class="example">
-                            <p class="example-native">{{ example.vernacular }}{% if example.examplevarietyinfo_set.all %}
-                                <span class="sources">
-                                <span class="varieties">
-                                {% for link in example.examplevarietyinfo_set.all %}
-                                    {{ link.variety.annotated|safe }}{% if link.detail %}
-                                    {{ link.detail }}{% endif %}{% include "dictionary/comma.html" %}
-                                {% endfor %}
-                                </span>
-                                {% if example.source %} - {% endif %}
-                            {% elif example.source %}
-                                <span class="sources">
+                            <p class="example-native">{{ example.vernacular }}</p>
+                            {% if example.english %}
+                                <p class="example-english">{{ example.english }}</p>
                             {% endif %}
-                            {% if example.source %}
-                                {{ example.source.annotated|safe }}{% if example.source_link %}
-                                    <a href="{{ example.source_link }}">{{ example.source_info }}</a>
-                                {% else %}
-                                    {{ example.source_info }}
+                            {% if example.examplevarietyinfo_set.all or example.source %}
+                                <p class="sources">
+                                {% if example.examplevarietyinfo_set.all %}
+                                    <span class="varieties">
+                                    {% for link in example.examplevarietyinfo_set.all %}
+                                        {{ link.variety.annotated|safe }}{% if link.detail %}
+                                        {{ link.detail }}{% endif %}{% include "dictionary/comma.html" %}
+                                    {% endfor %}
+                                    </span>
+                                    {% if example.source %} - {% endif %}
                                 {% endif %}
-                                </span>
+                                {% if example.source %}
+                                    {% if example.source != source.source %}
+                                        {{ example.source.annotated|safe }}
+                                    {% endif %}
+                                    {% if example.source_link %}
+                                        <a href="{{ example.source_link }}">{{ example.source_info }}</a>
+                                    {% else %}
+                                        {{ example.source_info }}
+                                    {% endif %}
+                                    </span>
+                                {% endif %}
+                                {% if example.comments %}
+                                <p class="comments">
+                                    {{ example.comments|comment_newlines }}
+                                </p>
+                                {% endif %}
+                                </p>
                             {% endif %}
-                            </p>
-                            <p class="example-english">{{ example.english }}</p>
                         </div>
                     {% endfor %}
                     </div>
                     <div class="related">
-                        {% if sense.etymologies %}
+                        {% if sense.etymologies.all %}
                         <p class="etymologies">etymology:
                         {% for etymology in sense.etymologies %}
                             {{ etymology }}{% include "dictionary/semicolon.html" %}
@@ -83,7 +94,7 @@
                         {% if sense.comments %}
                         {% for comment in sense.comments %}
                         <p class="comments">
-                            {{ comment|newlines }}
+                            {{ comment|comment_newlines }}
                         </p>
                         {% endfor %}
                         {% endif %}

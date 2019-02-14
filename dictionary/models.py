@@ -55,6 +55,16 @@ class Example(models.Model):
                                                  'region',
                                        through='ExampleVarietyInfo',
                                        blank=True)
+    comments = models.TextField(help_text="Usage notes, miscellaneous points of interest, etc. "
+                                          "These are visible below the example.",
+                                blank=True, default='')
+    notes = models.TextField(help_text="Dictionary maintainers' notes. These are private and only "
+                                       "visible to people with access to this admin site.",
+                             blank=True, default='')
+    hidden = models.BooleanField(default=False,
+                                 help_text='Check this to hide the example from public viewing '
+                                           '(e.g. if it contains things that are sacred, '
+                                           'offensive, etc.)')
 
     def __unicode__(self):
         return '{} | {}'.format(truncatechars(self.vernacular, 20),
@@ -121,6 +131,10 @@ class Entry(models.Model):
     see_also = models.ManyToManyField('Entry', through='SeeAlso', blank=True,
                                       related_name='see_also_linked',
                                       help_text='Other entries that might be useful to look at')
+    hidden = models.BooleanField(default=False,
+                                 help_text='Check this to hide the entry from public viewing '
+                                           '(e.g. if it contains things that are sacred, '
+                                           'offensive, etc.)')
 
     class Meta:
         verbose_name_plural = "entries"

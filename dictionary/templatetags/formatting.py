@@ -7,8 +7,8 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 
-def replace_newlines(escaped):
-    return escaped.replace('\n', '<br>')
+def replace_comment_newlines(escaped):
+    return escaped.replace('\n', '</p><p class="comments">')
 
 
 def replace_russian_r(escaped):
@@ -28,14 +28,14 @@ def replace_e_noun_stem(escaped):
 
 
 @register.filter(needs_autoescape=True)
-def newlines(text, autoescape=True):
+def comment_newlines(text, autoescape=True):
     if autoescape:
         esc = conditional_escape
     else:
         esc = lambda x: x
 
     escaped = esc(text)
-    return mark_safe(replace_newlines(escaped))
+    return mark_safe(replace_comment_newlines(escaped))
 
 
 @register.filter(needs_autoescape=True)
