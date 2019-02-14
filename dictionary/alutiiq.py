@@ -190,6 +190,10 @@ def get_root(word, pos='', defn=''):
         return word[:-3] + 'A'
     elif word.endswith('t'):
         return word[:-1] + 'r'
+    elif word.endswith('n') and pos == 'n':
+        return word[:-1] + 'te'
+    elif word.endswith('-'):
+        return word[:-1]
 
     return word
 
