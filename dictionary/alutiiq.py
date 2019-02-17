@@ -23,7 +23,7 @@ def normalize(word, g_and_r=True):
     word = unicode(word)
     if g_and_r:
         word = re.subn(ur'(?<!n)g', u'r', word)[0]
-    word = re.subn(ur'[A-QS-Z]', lambda m: m.group().lower(), word)[0]
+    word = re.subn(ur'[A-QS-Z]|^R', lambda m: m.group().lower(), word)[0]
     word = (word.replace(u'q', u'k')
                 .replace(u'y', u'i')
                 .replace(u'w', u'u')

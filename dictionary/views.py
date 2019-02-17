@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 import binascii
 import itertools
@@ -219,10 +220,10 @@ def build_root(word, pos, root, chunks, separate_sources=True):
                                                 c.source.abbrev) if c.source else (9999, 'other')) +
                                                (len(c.defn), c.defn))
         sources = [
-            Source(source, [
+            Source(source, sorted([
                 build_sense(defn=defn, chunks=group)
                 for defn, group in itertools.groupby(sub_chunks, lambda c: c.defn)
-            ])
+            ], key=lambda s: s.defn))
             for source, sub_chunks in itertools.groupby(chunks, lambda c: c.source)
         ]
     else:
@@ -254,8 +255,8 @@ def run_search_query(query):
     # g matches g or r
     # r matches g, r, or R
     # R matches only R
-    alutiiq_query = (re.escape(normalize(query, g_and_r=False)).replace('r', '[rR]')
-                                                               .replace('g', 'r'))
+    alutiiq_query = (re.escape(normalize(query, g_and_r=False)).replace(u'r', u'[rRřŘ]')
+                                                               .replace(u'g', u'r'))
     english_query = re.escape(query.lower())
 
     alutiiq_regexes = [
@@ -305,20 +306,6 @@ def group_entries(chunk_list, separate_roots=False):
     ]
 
 
-def matches_query(chunk, query):
-    '''
-    >>> from .models import Entry as EntryModel
-    >>> c = EntryModel(); c.entry = "gwa'i"; c.defn = 'here (restricted)'; c.fill()
-    >>> matches_query(c, 'try')
-    False
-    >>> c = EntryModel(); c.entry = "Kasaakaq"; c.defn = 'Russian'; c.fill()
-    >>> matches_query(c, 'kasaak')
-    True
-    '''
-    return (query.lower() in chunk.defn.lower() or
-            normalize(query) in normalize(chunk.entry))
-
-
 @subdir
 def search(request):
     context = {}
@@ -334,7 +321,7 @@ def search(request):
     if 'q' in request.GET and request.GET['q']:
         query = request.GET['q']
         chunk_list = run_search_query(query)
-        chunk_list = [c for c in chunk_list if matches_query(c, query)]
+        chunk_list = [c for c in chunk_list]
         entry_list = sorted(group_entries(chunk_list), key=relevance(query))
         context['entry_list'] = entry_list
         context['query'] = query

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 from django import template
 from django.utils.html import conditional_escape
@@ -12,7 +13,9 @@ def replace_comment_newlines(escaped):
 
 
 def replace_russian_r(escaped):
-    return escaped.replace('R', '<span class="russian">R</span>')
+    escaped = (escaped.replace(u'ř', u'ʀ')
+                      .replace(u'Ř', u'Ʀ'))
+    return escaped[0:1] + escaped[1:].replace(u'R', u'ʀ')
 
 
 def replace_superscript(escaped):

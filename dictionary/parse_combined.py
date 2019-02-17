@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 r'''
 Run as python -m dictionary.parse_combined <combined_dict_file.mdf>
 
@@ -300,7 +301,7 @@ def extract_superscript(word):
 
 
 def ortho_fix(word):
-    return word.replace(u'ř', u'R')
+    return word[:1] + word[1:].replace(u'ř', u'R')
 
 
 def parse_example(f, examples, garbage, entry, citation=False):
