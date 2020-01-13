@@ -12,9 +12,13 @@ def replace_comment_newlines(escaped):
     return escaped.replace('\n', '</p><p class="comments">')
 
 
+def replace_russian_r_nocaps(escaped):
+    return (escaped.replace(u'ř', u'ʀ')
+                   .replace(u'Ř', u'Ʀ'))
+
+
 def replace_russian_r(escaped):
-    escaped = (escaped.replace(u'ř', u'ʀ')
-                      .replace(u'Ř', u'Ʀ'))
+    escaped = replace_russian_r_nocaps(escaped)
     return escaped[0:1] + escaped[1:].replace(u'R', u'ʀ')
 
 
@@ -50,6 +54,17 @@ def russian_r(text, autoescape=True):
 
     escaped = esc(text)
     return mark_safe(replace_russian_r(escaped))
+
+
+@register.filter(needs_autoescape=True)
+def russian_r_nocaps(text, autoescape=True):
+    if autoescape:
+        esc = conditional_escape
+    else:
+        esc = lambda x: x
+
+    escaped = esc(text)
+    return mark_safe(replace_russian_r_nocaps(escaped))
 
 
 @register.filter(needs_autoescape=True)

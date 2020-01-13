@@ -25,7 +25,7 @@
             {% for sense in source.senses %}
                 <li class="listing-defn">
                     <div class="defn-and-sources">
-                        <span class="defn">{{ sense.defn|russian_r|markup }}</span>
+                        <span class="defn">{{ sense.defn|russian_r_nocaps|markup }}</span>
                         <span class="sources">
                         {% for chunk in sense.chunks %}
                             {% if chunk.entryvarietyinfo_set.all %}
@@ -47,7 +47,7 @@
                     <div class="examples">
                     {% for example in sense.examples %}
                         <div class="example">
-                            <p class="example-native">{{ example.vernacular|russian_r|markup}}</p>
+                            <p class="example-native">{{ example.vernacular|russian_r_nocaps|markup}}</p>
                             {% if example.english %}
                                 <p class="example-english">{{ example.english }}</p>
                             {% endif %}
@@ -94,7 +94,7 @@
                         {% if sense.comments %}
                         {% for comment in sense.comments %}
                         <p class="comments">
-                            {{ comment|russian_r|markup|comment_newlines }}
+                            {{ comment|russian_r_nocaps|markup|comment_newlines }}
                         </p>
                         {% endfor %}
                         {% endif %}
