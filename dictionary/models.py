@@ -39,7 +39,7 @@ class Example(models.Model):
     vernacular = models.TextField('Alutiiq',
                                   help_text='Text in Alutiiq (or perhaps other focus languages '
                                             'in the future?)')
-    english = models.TextField('English',
+    english = models.TextField('English', blank=True,
                                help_text='Natural translation of the text into English')
     source = models.ForeignKey(Source, blank=True, null=True,
                                help_text='Dictionary, book, speaker interview, etc. where this '
@@ -67,8 +67,8 @@ class Example(models.Model):
                                            'offensive, etc.)')
 
     def __unicode__(self):
-        return '{} | {}'.format(truncatechars(self.vernacular, 20),
-                                truncatechars(self.english, 20))
+        return u'{} | {}'.format(truncatechars(self.vernacular, 20),
+                                 truncatechars(self.english, 20))
 
 
 class Entry(models.Model):
@@ -170,7 +170,7 @@ class EntryVarietyInfo(models.Model):
                                         'Northern/Southern for Kodiak, or specific speakers')
 
     def __unicode__(self):
-        return '{} ({})'.format(self.variety.abbrev, self.detail)
+        return u'{} ({})'.format(self.variety.abbrev, self.detail)
 
 
 class ExampleVarietyInfo(models.Model):
@@ -181,7 +181,7 @@ class ExampleVarietyInfo(models.Model):
                                         'Northern/Southern for Kodiak, or specific speakers')
 
     def __unicode__(self):
-        return '{} ({})'.format(self.variety.abbrev, self.detail)
+        return u'{} ({})'.format(self.variety.abbrev, self.detail)
 
 
 class EntryExampleInfo(models.Model):
@@ -192,7 +192,7 @@ class EntryExampleInfo(models.Model):
                                           'appear here.')
 
     def __unicode__(self):
-        return 'Example for "{}": {}'.format(self.entry, truncatechars(self.example.vernacular, 20))
+        return u'Example for "{}": {}'.format(self.entry, truncatechars(self.example.vernacular, 20))
 
 
 class SeeAlso(models.Model):
@@ -206,4 +206,4 @@ class SeeAlso(models.Model):
                                          'an entry and its ID will appear here.')
 
     def __unicode__(self):
-        return '{}: see also "{}"'.format(self.source, self.target)
+        return u'{}: see also "{}"'.format(self.source, self.target)

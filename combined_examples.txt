@@ -1,0 +1,543 @@
+TODO:
+change verbs to be roots instead of -luni
+fix duplicate definitions resulting from different POS (`kita`),
+    duplicate sources in examples (`kaa`, `age-`)
+examine examples and notes appearing under subentries or main entries
+double-check R searching (Riisaq? g? r?)
+fanaRuq and fanařuq aren't shown as one entry
+what do the [*entries] mean? looks like unattested/unreliable, change to note
+variants don't extract $superscripts (`kluk`)
+don't put '-' after dialects if no source on example (`age-`)
+format \xe (`age-`)
+handle |fs{scientific names}
+
+==========
+
+\lx	arwinlek
+ \dl	K C
+ \nqq	is next va PERRY too? and the va before K [-PERRY] C????
+ \so	(A813 Ar img441)- unmarked, “the six (card)”; APd; KODd; (087)- K C
+ \va	arwinllek
+  \dl	KOD
+  \so	(A813 Ar img441)- KOD; LM (A813 Ar img441); (087)- KOD
+  \ck	dl below
+ \va	arwilek
+  \dl	AP [Kanatak] KOD
+  \dl	(A813 Ar img441)- unmarked; NZ (A813 Ar img441); (087)- KOD; DL (087)
+ \ps	number n
+ \de	the six (card), six pool ball, etc.
+ \pdl	with number ending `=n$2`
+  \ro	arwilgen
+  \dl	K
+  \so	(A813 Ar img441)- K “cf. Matt. 20:5”; WS, NZ (A813 Ar img441); APd; KODd; (087)- K; DL (087)
+  \nqq	is dl above K [-PERRY]????
+  \va	arwillen
+   \dl	PERRY
+   \so	(A813 Ar img441)- PERRY; RP, IK (A813 Ar img441); APd- PERRY; (087)- PERRY
+  \va	arwinlleggen
+   \dl	KOD
+   \so	(A813 Ar img441)- “(Ch)”, LM, arwinll{e,_}ggen; (087)- KOD
+  \nqq	va below was left out of the old A/Sd-ck; arrow pointed at it on (A813 Ar img441)
+  \va	arwinellgen
+   \dl	KOD
+   \so	(A813 Ar img441)- KOD; LM (A813 Ar img441); (A813 Ar img441)- “(Ch)”, LM, arwin{e,_}llgen
+  \va	arwinlen
+   \dl	KOD C
+   \so	(A813 Ar img441)- KOD C, “six”; (A813 Ar img441)- C, SM “6 groups”; KODd; KPd; StL (KP); (087)- C
+  \ps	plural number n
+  \de	six; six groups
+  \xv	Arwinlegnek piicagtua.
+   \dl
+   \so	(087)- unmarked
+   \xe	I want six of them.
+  \nqq	note that the ending below is –in rather than –en; misspelling?
+  \xv	arwilgin ac’iqat
+   \dl	AP [Kanatak]
+   \so	DL (087)
+   \xe	6 pairs (i.e. groups) of shoes
+  \cit	KBS PWS {A,<}rw{i,i}ulin${+,+} ‘Six’
+   \cm	{+,+} It is possible that the ‘u’ is a “typo” and could have been a mistranscribed ‘n’.
+   \nqq	added cm above
+  \nqq	the following cit was left out of the old A/Sd
+  \cit	Bukvar’ Ag{v,o,^}{i,’}lg{i,-}n{’1} ‘6’
+   \so	Tyzh. Bukvar’ (p.26)
+  \cit	Bukvar’ At{x,y}a{x,y}t{v,o,’}{k,-}{’1} ag{v,o,^}{i,’}lg{i,-}gn{i,-}k{’1} ‘16’
+   \so	(A814 Ar img441)- “(30)” 16...; Tyzh. Bukvar’ (p.27)
+   \cm	(The construction reflects that all digits in both hands have been used for counting and that six more digits below, the toes, are used to complete the count.)
+  \nqq	the following cit was left out of the old A/Sd
+  \cit	Pinart AP [Katmai] Agv{i,-}l{’2}g{i,-}n{’1} ‘ {S,^}est{’1} [6]’
+   \so	(A814 Ar img441); Pinart 1871b (img006)
+  \nqq	the following cit was left out of the old A/Sd
+  \cit	Rezanov K Axoin{’1}-lign{’1} ‘6’
+   \so	(A814 Ar img441); Rezanov (img059)
+   \nqq	didn’t put in st band, because it is discussed at length in the cm
+  \nqq	since this was moved, I changed se below to pdl and pdv (087)
+ \pdl	ablative
+  \pdv	arwinlegnek
+  \dl	K C
+  \so	(A813 Ar img441)- unmarked [KOD implied by position in slip]; KPd; StL (KP); (087)- unmarked
+  \nqq	is next va PERRY too?
+  \va	arwinllegnek
+   \dl	KOD
+   \so	(087)- unmarked
+  \va	arwilegnek
+   \dl	AP [Kanatak] KOD
+   \ck	dl above
+   \so	(087)- unmarked; DL (087)
+  \ps	adv
+  \pde	six times
+  \xv	Arwinlegnek amlertaqanek pingelraa samat’aananek.
+   \dl	KP
+   \so	KPd
+   \xe	He got six suitcases.
+  \cit	Bukvar’ p. 27 At{x,y}a{x,y}t{v,o,’}{k,-}{’1} ag{v,o,^}{i,’}lg{i,-}gn{i,-}k{’1} [atrartuq arwilgegnek${+,+}] ‘16’
+   \so	Tyzhnov 1848 Bukvar’, p. 27
+   \lit	it goes down six
+   \cm	{+,+} The two `g`’s in the penultimate syllable preceding `-nek` are puzzling. However both `[*arwilgenek]` and `arwilegnek` are possible and exist in neighboring CAY.
+   \nqq	added cm above; ck
+  \ma	ablative singular of above
+  \nqq	changed ro below to pdl and pdv (087)
+ \pdl	absolutive 3p->3s
+  \pdv	arwilgat
+  \dl	K
+  \so	(A813 Ar img441)- unmarked, “also Matt. 27:45”; (087)- K; DL (087)
+  \nqq	is dl above K [-PERRY]
+  \va	arwinllat
+   \dl	PERRY
+   \so	(A813 Ar img441)- PERRY; IK (A813 Ar img441); (087)- PERRY
+  \va	arwinlleggat
+   \dl	KOD
+   \so	(087)- KOD
+  \va	arwinlegat
+   \so	(A813 Ar img441)- unmarked; StL (KP); (087)- KP
+  \va	arwinlat
+   \dl	KP
+   \so	(A813 Ar img441)- KP; KPd; (087)- KP
+  \va	arwinat
+   \dl	PWS
+   \so	(A813 Ar img441)- PWS; JK (twice) (A813 Ar img441); (087)- PWS
+  \de	the sixth one (of ~them~)
+ \nqq	have on (A813 Ar img441): “arwinllit (Kp)  IK” without a gloss; is this ‘the sixth’ or ‘6 groups’????
+ \nqq	ck other dl’s for below
+ \pdl	locative 3p->3s
+  \pdv	arwinlegatni
+  \dl	KP
+  \so	StL (KP)
+  \nqq	ck dl distrib.
+  \pde	the sixth time
+ \cm	The base-internal cluster `nl` is unusual in Alutiiq, and has been variously simplified here by dropping one member or the other. This has led to a complex variety of stem variants. In most K, the stem is `arwinleg- except before a vowel, where it is `arwilg-`, hence `arwinlek`, `arwinlegnek`, `arwilgen`, `arwilgat`. For some KOD speakers, however, the stem is invariably `arwileg-`, hence `arwilek`, `arwilegnek`, `arwilgen`, `arwilgat`; and for others, invariably `arwinlleg-` (with devoicing of `g` before a vowel), hence `arwinllek`, `arwinllegnek`, `arwinlleggen`, `arwinlleggat`. In C, the stem is `arwinleg-` except before a vowel, where it seems to be properly `arwinl-`, but note the variation with `arwinlat`. At any rate, the `n` is not dropped in C. Note also that in C, `arwinlen` was given in place of the expected `[*arwinlin]` ‘six groups’.
+ \nqq	ck ma; added superscript; note semantics,  end C deletion
+ \ma	~From~ arwir- + =neq$1 + lek
+ \so	(087)
+ \et	PE `a{R,<}vin({e,a})l{e,a}{v,o}` ‘six’; CAY `arvinlegen`, `arvinelgen` ‘six’; `arvinlegat`, `arvinelgat` ‘sixth one’
+ \nqj	PERRY arwi(n)llat; ALL DL arwil(g)utaar- (087)
+ \nqq	have on (088) ‘BS “arwiquq” homesick’; I need more info than that to enter it into the dictionary
+ \nqq	is that Inupiaq info????
+
+==========
+
+\lx	cai-$2
+ \va	caay-
+  \dl	K C
+ \ps	loanword root
+ \nqq	ck ps-I could also make an ro with the actual noun, if it is used in the language, as I would suspect (see previous nqq)
+ \de	tea
+ \et	From the Russian cha{i,^} ‘tea’
+ \se	cainiik
+  \dl	K C
+  \so	(C25 Ca img013)- KC; (C26 Ca img013)- KP slang; KODd; KPd; StL (KP); (123)- KC [handwritten in]; DL ok (123)
+  \va	cainik
+   \dl	PERRY
+   \so	(C25 Ca img013)- AP; IK (C25 Ca img013); (123)- PERRY
+  \ps	n
+  \de	tea kettle
+   \dl	K C
+   \so	(C25 Ca img013)- KC
+   \so	KODd; StL (KP); KPd
+  \al	~colloquially:~ penis
+   \dl	KP
+   \so	(C26 Ca img013)- KP slang; StL (KP); (123)- KP
+  \xv	Cainiik imirru mermek.
+   \dl	KP
+   \so	KPd; (123)- unmarked
+   \xe	Fill the tea kettle with water.
+  \xv	Cainiigkun maqarqali.
+   \dl	KP
+   \so	KPd
+   \xe	Make some hot water in the kettle.
+  \et	From the Russian ch{a,’}{i,^}nik ‘teapot; kettle’
+  \nqj	dl K -nik (123)
+  \nqq	new se, but I’m not sure if this goes here or if you even want it in the dict.
+  \nqq	ck if you want to include personal names in dict.
+  \sse	Cainicausaq
+   \dl	KP
+   \so	KP field notes
+   \ps	personal name
+   \de	Wally K’s nickname
+   \lit	??????????????????????one with a little penis (or tea kettle????)
+   \cm	from Piitiakcak
+   \nqq	ck ma below
+   \ma	=cuaq + saq
+   \ck	dl’s
+  \sse	cainiiguaq
+   \dl	K C
+   \so	(C25 Ca img013)- unmarked; IK (C25 Ca img013); APd; KODd; KPd; (123)- unmarked; DL ok (123)
+   \va	cainiguaq
+    \dl	PERRY
+    \so	(123)- PERRY
+   \ps	n
+   \de	tea pot
+   \xv	Cainiiguaq kulacisaaggu ata.
+    \dl	KP
+    \so	KPd; (123)- unmarked
+    \xe	Put some hot water in the teapot, would you?
+   \ma	=uaq
+   \ssse	cainiiguaruaq
+    \dl	KOD
+    \so	(C27 Ca img014)- KOD; MA (C27 Ca img014); (123)- KOD
+    \ps	n
+    \de	large species of snail with extruding spiral shell []
+    \nqq	saltwater or freshwater snail????
+    \nqq	there’s a sketch on (C27 Ca img014)
+    \ma	=uaq
+  \sse	cainiili-
+   \dl	AP [Kanatak]
+   \so	DL (123) [handwritten in]
+   \va	cainili-
+    \dl	PERRY
+    \so	(123)- PERRY [handwritten in]
+   \ps	vi
+   \de	to make tea
+   \xv	cainiililuni
+    \dl	AP [Kanatak]
+    \so	DL (123)
+    \xe	making tea
+   \nqq	ck xe-none given
+   \ma	=li-$1
+   \nqq	made new sse
+  \sse	cainiiliqe-
+   \dl	KP
+   \so	StL (KP)
+   \ps	vi
+   \de	to have venereal disease (of male)
+   \xv	Cainiiliquq.
+    \dl	KP
+    \so	StL (KP)
+    \xe	He has V. D.
+   \ma	=liqe-
+ \se	caayuq
+  \dl	K KP
+  \so	(C253 Ca img127)- unmarked; APd; KODd; KPd; (153)- K KP; DL ok (153)
+  \va	caa’uq
+   \so	(C253 Ca img127)- PWS tea; (C254 Ca img128)- PWS “(Ck?)” labrador tea
+   \st	caa$yuq
+   \so	(153)- PWS
+   \dl	PWS
+  \ps	n
+  \de	tea
+  \so	PK [to labrador tea] (C254 Ca img128); (C254 Ca img128)- PWS labrador tea
+  \nqq	ck dl distribution for glosses 1) tea and 2) labrador tea
+  \syn	sarsaq
+   \dl	K [-PERRY]
+  \xv	Caayumek-qaa piicagtuten?
+   \dl
+   \so	(153)- unmarked
+   \xe	Do you want some tea?
+  \xv	Takuggu caayuq asirtacianek.
+   \dl	KP
+   \so	KPd; (153)- unmarked
+   \xe	Try the tea and see if it’s good.
+  \xv	caayuillqurluku
+   \dl	KP
+   \so	KP field notes
+   \xe	not having any tea for her
+  \pdl	absolutive 3s->3s
+   \pdv	caasua
+   \dl	PERRY
+   \so	(C253 Ca img127)- PERRY; (153)- PERRY
+   \pde	his tea
+  \nd	nunallat caayut
+   \dl	KP
+   \so	(C254 Ca img128)- KP; SM (C254 Ca img128); (153)- KP
+   \ps	np
+   \de	Labrador tea
+   \sc	(Ledum palustre)
+   \nqq	ck dl’s; carried over from se head
+  \pdl	verbalizer (`=r-$1`)
+   \ro	caayur-
+   \dl	K KP
+   \so	(154)- unmarked
+   \va
+    \so	caa$yur-
+    \so	(154)- unmarked
+    \dl	PWS
+   \ps	vi
+   \de	to drink tea
+   \cm	(rare; usually `sarsa-` is used instead)
+  \et	From the Russian ch{a,’}yu, partitive genitive of chay ‘tea’ + `=q$2`
+  \nqq	so the dl using vowel assimilation is KP, not PWS below????
+  \sse	caayullerkaat
+   \dl	KP
+   \so	EB ok (154); DL ? (154)
+   \va	caa’ullerkuat
+    \dl	PWS
+    \so	(C255 Ca img128)- PWS; (154)- PWS
+   \ps	plural n
+   \de	used tea leaves
+   \ma	=llerkuaq
+   \xr	caiglluk
+    \dl	AP
+    \ps	n
+    \de	bushy place []
+    \see	caiglluk under caik
+   \xr	caiggiq
+    \dl	PWS
+    \ps	n
+    \de	yarrow
+    \sc	(Achillea borealis)
+    \see	caisiq under caik
+    zzz	xr caiggiq, caisiq
+
+==========
+
+\lx	ellia'utaq
+ \dl	PWS
+ \so	(E55 E img339)-PWS; TC, JK (E55 E img339)
+ \ps
+ \de	aged roe "cheese"
+ \cm	Salmon roe is soaked till the eggs turn white, packed in a seal stomach, and dried in the smokehouse. It is served by cutting it like a sausage.
+ \ma	Probably from `llii-` (stem variant `elli-`), with suffixes `=aq + taq$1`.
+ \nqq	ck aq in ma; how about =a-$2, since it is set out for a while????
+ \nqj	ck once
+ \nqj	ck tr
+
+==========
+
+\lx	nangteqe-
+ \dl	AP
+ \so	(Na img75b)-AP; IK (Na img75b); JK no (Na img75b); DL ok (66, 410)
+ \ps	vi
+ \de	to suffer
+ \syn	angqerte-
+  \dl	K C
+ \syn	angqerquur-
+  \dl
+  \so	DL = nangteqe- (66)
+ \xv	nangteqlluni
+  \dl	AP [Chignik]
+  \so	Sticker (CH)
+  \xe	suffering
+ \xv	Nangtequq.
+  \dl	AP [Kanatak]
+  \so	DL (66); DL-elicitation list
+  \xe	She is suffering.
+ \xv	Nangtequa.
+  \dl	AP [Kanatak]
+  \so	DL (410)
+  \xe	I’m suffering.
+ \cf	Ilutequa.
+  \dl	AP [Kanatak]
+  \so	DL (410)
+  \xe	I’m crying inside.
+ \ck	pdl below (see =quur- first in the pb list)
+ \pdl	prolonged-continuative (`=quur-`)
+  \ro	nangtequur-
+  \dl
+  \so	(Na img75b)-unmarked
+ \et	PY `na{n,j}t{e,a}{R,<}-` and `na{n,j}t{e,a}q{e,a}-` ‘to suffer’; CAY `nangteqe-` ‘NS, Y, HBC, NI to be sick; K, BB to suffer pain’
+ \nqj	dl
+ \nqj	ck Y nangte- be sick/abuse O; nangyun disease
+ \nqq	moved nangwaq to its proper order
+ \nqj	ck tr (Na img76a)
+ \nqj	ck gl (rope?) (Na img76a)
+
+==========
+
+\lx	paawa-
+ \dl	K
+ \ps	loanword root
+ \de	a type of motorized boat; found in the following derivations.
+ \et	Evidentally from the English ‘power’
+ \ck	et (P213)
+ \ck	de formatting w/ slip
+ \se	paawaq
+  \dl	PERRY AP [Kanatak]
+  \ck	dl
+  \so	RP; DL power dory (P213 Pa/Pe img54)
+  \ps	n
+  \de	a type of skiff, with a stern about foot wide, a big belly, and a sharp prow
+   \dl	PERRY
+   \so	RP (P213 Pa/Pe img54)
+  \de	power dory
+   \so	DL (P213 Pa/Pe img54)
+  \ma	=q$2
+  \ck	et (P213)
+ \se	paawatu{r,”}iq
+  \so	NZ (P214 Pa/Pe img54)
+  \va	paa’utu{r,”}iq
+   \so	MA (P214 Pa/Pe img54)
+   \dl	KOD
+  \ps	n
+  \de	power skiff
+  \et	From the English ‘power dory’ + =q$2
+
+==========
+
+\lx	qalektag-
+ \dl	PWS
+ \so	(Q79 or QaMS img048); JK, IK ok (Q84 or QaMS img050)
+ \ps	vi
+ \de	to get a shock (e.g., when something important is found missing)
+ \nqq no de given; not on slip or BB; no more info!
+ \nqq	made this its own lx-needs more work
+
+==========
+
+\lx	qamangaq
+ \dl	K
+ \so	IK (inner side) (Q148 Qa img072); TC-inner or outer (Q148 Qa img072); DL ok (Qa img072); DL-elicitation list; KODd-anklebone
+ \va	qahmangaq
+  \so	MA, NZ (Q148 Qa img072)
+ \nqq	added va below (have nqj below et)
+ \va	qahmang’aq
+  \so	LM (Q148 Qa img072)
+  \dl	KOD [Old Harbor]
+ \va	qapahngaq$1
+  \dl	C
+  \so	(Q148 Qa img072)
+ \ps	n
+ \de	anklebone
+ \al	ankle
+  \dl	KP
+ \cm	Some speakers such as IK say this refers to the large knob, or malleolus, on the inner side of the ankle (internal malleolus); others such as TC say it refers to the knob on either side of the ankle (internal malleolus on the inside, external malleolus on the outside).
+ \nqq	added al below-ck info-not on CS
+ \al	also inner (radial styloid process) or outer (ulnar styloid process) wrist bone
+  \dl	PWS
+  \so	TC- also inner or outer wrist bone(Q148 Qa img072)
+ \syn	cingik
+  \dl	KP
+  \va	cingiq
+   \dl	PWS
+ \syn	cingilleq
+  \dl	KOD KP
+ \syn	paswik
+  \va	pasgwik
+   \dl	AP
+ \et	PE `qam{e,a}{n,j}a{R,<}` ‘ankle bone’; CAY `qamangaq` ‘ankle bone’; cf. NSY `qamaanguaq` ‘pelvis’
+ \nqq	added technical terms to cm and al above
+ \nqj	ck gl, dl K; LM also qahmang'aq
+ \nqq	does qamangatak refer only to half-dried fish already cooked? or also those that still have to be cooked too? (see my nqq about qamangatagkaq below)
+
+==========
+
+\lx	siinaq
+ \dl	AP [Kanatak] KOD C
+ \so	NZ, DL, TC, StL (KP), KPd, KODd; IK no
+ \ps	n, also plural n for singular
+ \ck	dl distrib. for the use of plural
+ \de	porch, Kelly door
+  \dl
+  \so	DL- Kelly door
+ \de	"shed", storage room
+  \dl	PWS
+  \so	TC
+ \pdl	plural
+  \pdv	siinat
+  \dl	KOD
+  \so	KODd
+  \pde	porch, “calidor”
+ \xv	Siinangut nuta'amek.
+  \dl	KP
+  \so	KPd
+  \xe	They got a new porch.
+ \et	From the Russian sen' 'shelter, canopy'; ~plural:~ s{e,’}ni '(entrance-) hallway, vestibule'
+ \se	siinaruaq
+  \dl	AP [Kanatak]
+  \so	DL
+  \ps	n
+  \de	shed for storage, Kelly door
+  \ma	=uaq
+  \nqq	does lx and se refer to arctic entryway??????
+  \nqj	ck root (S174 Si img91)
+
+==========
+
+\lx	ushmar-
+ \dl	KP
+ \so	SM (U419 Us img0.5); StL (KP)
+ \ps	vi
+ \de	to masturbate
+ \xv	Ushmartuq.
+  \dl	KP
+  \so	StL (KP)
+  \xe	He masturbates.
+ \nqq	applies to both male and female?????
+ \pdl	continuative (`=ur-`; `=aa-$1`)
+  \ro	ushmaur-
+  \dl
+  \so	(U419 Us img0.5)-unmarked
+  \va	usmaraa-
+   \dl
+   \so	(U419 Us img0.5)-unmarked
+ \cf	ucug-
+ \cf	uyug-
+ \ma	Possibly from a deep PE root uC-, ‘pertaining to the sexual organs’ + [] + `mar-`. The consonant ‘C’ is ancestral to today’s y, s, and/or c as in A/S, CAY `ucuk` ‘penis’; `ucuuk` vagina’; A/S `ucug-` ‘to have sexual intercourse’;  NSY, CSY `usuk` ‘penis’ (in modern CSY limited to ‘(animal) penis’); NSY `usuuk` ‘vagina’; and A/S (obsolete?), CAY, NSY, and CSY `uyug-` ‘to have sexual intercourse’
+ \nqq	REALLY ck ma
+ \nqq	new lx
+
+==========
+
+\lx	uma’ar-
+ \st	uma$rar-
+ \dl	K C
+ \so	IK; NZ, JK bundle O up (baby); NZ-NOT bandage (U206 Um img103)
+ \va	uma’ir-
+  \st	uma$rir-
+  \dl	KOD
+  \ck	va below-is it a va of this lx or a detransitive (another ro)???? (ambiguous on slip)
+ \nqj	ck (U206 Um img103)
+ \va	uma’i-
+  \st	uma$ri-
+  \dl	KP
+  \so	CA (U206 Um img103)
+ \ps	vt
+ \de	to bundle, wrap ~it~ up (by winding something around it); to wind something around ~it~; to swaddle, bundle ~him/~ (baby) up
+ \nqq	handwritten in StL (KP): “uma’ar- (V) to rock (a baby)”-add that meaning to de’s above???? (sounds kinda like an outlier) (on same BB binder sheet as umci-)
+ \nqj	ck undo (U206 Um img103)
+ \nqj	ck cons (U206 Um img103)
+ \xv	uma’irluku
+  \dl	KOD
+  \so	KODd
+  \va	uma’arluku
+   \dl	KP
+   \so	KPd
+  \xe	wrapping it by winding something around it
+ \xv	Kukuni uma’araa qalimek.
+  \dl	KP
+  \so	KPd
+  \xe	She wrapped her baby with a blanket.
+ \pdl	nominalizer (`=q$1`)
+  \ro	uma’aq
+  \ck	ro-only st was given
+  \st	uma$rar-
+  \dl
+  \so	(U206 Um img103)-unmarked
+  \ps	n
+  \de	bundled, wrapped up thing
+  \ck	de-none given (U206)
+ \pdl	applicative (`=te-$8`)
+  \ro	umaraute-
+  \dl	KP
+  \so	(U206 Um img103)-KP
+  \ps	vt
+  \de	to wrap ~it~ together (with ~it~); to wrap ~it~ on (something else)
+ \et	Cf. the Russian um{a,’}tyvat’ ‘to bundle up, to wrap up, swaddle, bandage’
+ \se	umaraun
+  \dl	KOD KP
+  \so	NZ, SM (U207 Um img104)
+  \ps	n
+  \de	diaper, baby blanket
+  \ma	=n$1
+  \nqj	ck
+  \nqj	?where? ck dl (U208 Um img104)
+  \nqq	forms below may be continuous; suggesting they were derived from possible uumarte-, uumiarte- respectively; the qaa- suggests continuous, repeated blasts of wind to the face; need xv’s

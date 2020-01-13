@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+Run as: python combined_ortho.py < dict.mdf > dict_ortho.mdf
+"""
 import re
 
 TABLE = None

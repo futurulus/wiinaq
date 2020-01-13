@@ -95,6 +95,7 @@ NOTE_TAGS = {
 EXPLANATIONS = {
     'va': 'variant of',
     'syn': 'synonym of',
+    'ant': 'antonym of',
     'xr': 'referenced in',
 }
 
@@ -274,7 +275,7 @@ def parse_entry(sublevel, f, entries, examples, garbage, main_entry=None):
             parse_example(f, examples, garbage, entry)
         elif f.key == 'cit':
             parse_example(f, examples, garbage, entry, citation=True)
-        elif f.key in ('va', 'syn', 'xr'):
+        elif f.key in ('va', 'syn', 'ant', 'xr'):
             parse_variant(f, entries, examples, garbage, f.key, entry)
         elif f.key in ('pdl', 'nd'):
             parse_derivative(f, entries, examples, garbage, f.key, entry)
@@ -305,7 +306,7 @@ def ortho_fix(word):
 
 
 def parse_example(f, examples, garbage, entry, citation=False):
-    example = Example(vernacular=f.value if citation else u'`{}`'.format(f.value))
+    example = Example(vernacular=f.value)
     examples.append(example)
     entry.examples.append(example)
     f.next()
@@ -319,7 +320,7 @@ def parse_example(f, examples, garbage, entry, citation=False):
             example.varieties.extend(parse_varieties(f.value))
             f.next()
         elif f.key == 'so':
-            example.source_info = extend_source_info(entry.source_info, f.value)
+            example.source_info = extend_source_info(example.source_info, f.value)
             f.next()
         elif f.key in ('cm', 'lit'):
             if f.value.strip():
@@ -333,7 +334,7 @@ def parse_example(f, examples, garbage, entry, citation=False):
         elif f.key in ('nqq', 'nqj', 'nqa', 'nqs', 'zzz', 'ck'):
             if f.value.strip():
                 note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
-                example.notes = u'\n'.join((entry.notes, note)) if entry.notes else note
+                example.notes = u'\n'.join((example.notes, note)) if example.notes else note
             f.next()
         elif f.key == 'va' and not citation:
             parse_example_variant(f, examples, garbage, entry)
@@ -347,7 +348,7 @@ def parse_example(f, examples, garbage, entry, citation=False):
 def parse_variant(f, entries, examples, garbage, band, main_entry):
     variant = Entry(entry=ortho_fix(f.value), main_entry=main_entry)
     variant.defn = u'({}: `{}`)'.format(EXPLANATIONS[band], main_entry.entry)
-    if band in ('syn', 'va'):
+    if band in ('syn', 'ant', 'va'):
         variant.pos = main_entry.pos
     defn_is_explanation = True
     pos_from_main = True
@@ -401,7 +402,7 @@ def parse_variant(f, entries, examples, garbage, band, main_entry):
                 note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
                 variant.comments = u'\n'.join((variant.comments, note)) if variant.comments else note
             f.next()
-        elif f.key == 'xv' and band != 'syn':
+        elif f.key == 'xv' and band not in ('syn', 'ant'):
             parse_example(f, examples, garbage, variant)
         elif f.key == 'va':
             parse_variant(f, entries, examples, garbage, 'va', variant)
@@ -501,7 +502,7 @@ def parse_derivative(f, entries, examples, garbage, band, main_entry):
         #     parse_example(f, examples, garbage, derivative)
         elif f.key == 'cit':
             parse_example(f, examples, garbage, derivative, citation=True)
-        elif f.key in ('va', 'syn', 'xr'):
+        elif f.key in ('va', 'syn', 'ant', 'xr'):
             parse_variant(f, entries, examples, garbage, f.key, derivative)
         else:
             # print('! {} ended by {}: {}'.format(band, f.key, f.line_num))
