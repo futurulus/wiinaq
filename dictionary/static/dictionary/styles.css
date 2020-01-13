@@ -20,6 +20,12 @@ div, span, input, form {
     width: 100%;
 }
 
+#linkbar {
+    text-align: center;
+    font-size: 90%;
+    padding-bottom: 1ex;
+}
+
 #header {
     text-align: right;
 }
@@ -44,11 +50,6 @@ a:hover { text-decoration: none; color: #0088cc; }
     padding: 10px;
     display: inline-block;
     vertical-align: middle;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0em;
 }
 
 ul.source-defns {
@@ -89,7 +90,7 @@ h3 {
 }
 
 p {
-    margin: 0.25em 0em;
+    margin: 0.5em 0em;
 }
 
 .word {

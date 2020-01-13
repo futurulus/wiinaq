@@ -1,0 +1,137 @@
+{% extends "dictionary/base.html" %}
+{% load formatting %}
+
+{% block content %}
+
+<div class="listing">
+
+<h2>Credits and Acknowledgments</h2>
+
+<p>
+Dictionary entries listed in Word Wiinaq come from many sources; you can see which source a word
+comes from by hovering over or tapping the acronyms in
+<span class="source" title="(Author, title, year, etc.)">gold</span> on the word's page. Below is
+the full list of sources currently in the dictionary.
+</p>
+
+<ul>
+{% for source in sources %}
+    <li>{{ source.description }}</li>
+{% endfor %}
+</ul>
+
+<p>
+Unpublished dictionary entries (mainly those whose source is the name of an individual fluent
+speaker) are written by many students and teachers of Alutiiq, including Michael Bach, Candace
+Branson, Dehrich Chya, Alisha Drabek, Julia Fine, and Will Monroe.
+</p>
+
+<p>
+The "wiinaq" logo in the top right is based on clipart by
+<a href="https://openclipart.org/detail/169963/cartoon-walrus">StudioFibonacci</a>. (Could you tell
+without looking up the source that it wasn't a wiinaq, but rather a cuutiilnguq wiinarpak?)
+</p>
+
+<p>
+The website itself is designed, implemented, and maintained by Will Monroe.
+</p>
+
+<h2>Acknowledgments from the Alutiiq/Sugpiaq Dictionary</h2>
+
+<p>
+<em>These draft acknowledgments, by Joe Kwaraceius, are part of the 2018 preprint of Kwaraceius et
+al. (2018). He has requested that they be included in publicly available electronic files.</em>
+</p>
+
+<p>
+This dictionary would have never gone anywhere without the the help of many other people. I haven’t
+had a steady job for over 6 years now, but odd jobs have helped me to continue anyway. The food and
+meals really, really counted when I had to stretch my own rations. Goes to show you all, that it
+takes a community to get things done, especially when circumstances get difficult. The friendship,
+psychological support and kindnesses of all below are heartily appreciated.
+</p>
+
+<p>
+Neighborhood friends:
+</p>
+
+<ul>
+<li>Sarah Belway &mdash; housitting jobs, meals</li>
+<li>Adam Fender &mdash; housesitting jobs, odd jobs, treated to meals, food. mechanical assistance,
+rides for getting stuff in town, including building materials</li>
+<li>Willie Helfrich &mdash; building materials, mechanical assistance, meals</li>
+<li>Jeff Neubauer & Charlotte Miller &mdash; meals, firewood, building materials, ahkio sled for
+hauling things</li>
+<li>Bob Wolf &mdash; wood, mechanical assistance</li>
+<li>Mike Long &mdash; Delta Angus beef and salmon</li>
+<li>Doug Best &mdash; lending an ear, encouraging words</li>
+<li>Casey Ridenauer &mdash; meals, food, military gear, kitchen ware</li>
+</ul>
+
+<p>
+New friends:
+</p>
+
+<ul>
+<li>Wendell & Judy Schiffler &mdash; odd jobs, meals, rides to town</li>
+<li>Peter Boskofsky &mdash;  $500 donation</li>
+</ul>
+
+<p>
+Long-term friends:
+</p>
+
+<ul>
+<li>Steve Jacobson &mdash; meals, professional help</li>
+<li>Sven Haakanson &mdash; $500 donation, encouragement</li>
+<li>Takashi & Katherine Simon-Sukarai &mdash; house sitting jobs, meals</li>
+<li>Roger & Lilly Seavoy &mdash; odds jobs, especially tree clearing, thus building, project, and
+firewood, treated to meals</li>
+<li>Mehrdad Sabri & Lisa &mdash; tree cutting job (building, project materials, fire wood),
+meals</li>
+<li>Rose Speranza	 &mdash; firewood, treated to meals, food, rides to town</li>
+<li>Ben & Eliza Orr &mdash; odd jobs, rides to and from town</li>
+<li>John Toopeelook (Tupilluk) &mdash; tools, 8x6 tent (my first tent over here), building
+materials, meals</li>
+<li>Jim and Marty Baldridge &mdash; food, meals, “jam sessions”</li>
+<li>Karen Toland &mdash; food, meals, “jam sessions”</li>
+</ul>
+
+<p>
+Family:
+</p>
+
+<ul>
+<li>Kenneth Frank and family &mdash; transportation; inclusion in activities; meals; moose, bird,
+and caribou meat, fish</li>
+<li>Catherine and Calvin Moses, Hailey, Alana, Lila, Amy, Nana, Britanny &mdash; transportation,
+meals, just being “family”</li>
+<li>Max & Pearl Todhunter &mdash; have opened their home to me when I needed it, especially when
+travelling in the Anchorage area, treated to meals; thanks for being “family”</li>
+<li>Dad, Mike, Paula Kwaraceius &mdash; my blood family &mdash; financial help, land, despite their
+misgivings of me working on this project</li>
+</ul>
+
+<p>
+Co-editor:
+</p>
+
+<ul>
+<li>Jeff Leer &mdash; For collecting and recording all of the Alutiit/Sugpiat words, bases,
+postbases and other information over many decades, rental housing, wood, odd jobs</li>
+</ul>
+
+<p>
+Other Dictionary contributors:
+</p>
+
+<ul>
+<li>Giulia Oliverio &mdash; Entering slip information A-Pa</li>
+<li>April Laktonen Counceller &mdash; Dictionary entry</li>
+<li>Sperry Ash &mdash; Dictionary entry</li>
+<li>Michael Krauss</li>
+</ul>
+
+</div>
+
+{% endblock %}

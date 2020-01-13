@@ -9,8 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="{% static "dictionary/endings.js" %}"></script>
     <script src="{% static "dictionary/tooltip.js" %}"></script>
-</head>
 
+</head>
 <body>
     <div id="centering">
         <div id="header">
@@ -18,6 +18,10 @@
                 <img src="{% static "dictionary/sea_lion_title.svg" %}" class="logo"
                      alt="Word Wiinaq Alutiiq Dictionary" />
             </a>
+            <div id="linkbar">
+                <a href="{% url 'random' %}">random word</a> ·
+                <a href="{% url 'credits' %}">credits</a>
+            </div>
         </div>
         <div id="content">
         {% block content %}{% endblock %}

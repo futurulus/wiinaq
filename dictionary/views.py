@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
+import random
 import re
 import binascii
 import itertools
 from collections import namedtuple
 
 from django.db import connection
-from django.shortcuts import render, get_list_or_404
+from django.db.models import Max
+from django.http import Http404
+from django.shortcuts import get_list_or_404, redirect, render
 from django.template.defaultfilters import urlencode
 from django.urls import reverse
 from django.views.generic.base import RedirectView
 
-from .models import Entry as EntryModel
+from .models import Entry as EntryModel, Source as SourceModel
 from .alutiiq import inflection_data, normalize
 
 
@@ -45,6 +48,12 @@ def index(request):
 
 
 @subdir
+def credits(request):
+    return render(request, 'dictionary/credits.html',
+                  {'sources': SourceModel.objects.order_by('ordering', 'id')})
+
+
+@subdir
 def entry(request, word):
     chunks = get_list_or_404(EntryModel, entry=word, hidden=False)
     entries = group_entries(chunks, separate_roots=True)
@@ -59,6 +68,27 @@ def entry(request, word):
                'url': request.build_absolute_uri(request.get_full_path()),
                'request': request}
     return render(request, 'dictionary/entry.html', context)
+
+
+MAX_RANDOM_TRIES = 100
+
+
+@subdir
+def random_entry(request):
+    max_id = EntryModel.objects.aggregate(Max('id'))['id__max']
+    random_entry = None
+    for _ in range(MAX_RANDOM_TRIES):
+        random_id = random.randint(0, max_id)
+        try:
+            random_entry = EntryModel.objects.get(id=random_id)
+            break
+        except EntryModel.DoesNotExist:
+            pass
+
+    if random_entry is None:
+        raise Http404
+    else:
+        return redirect('entry', word=random_entry.entry)
 
 
 def build(request):
