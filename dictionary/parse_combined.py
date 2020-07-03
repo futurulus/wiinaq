@@ -203,9 +203,12 @@ def parse_combined(infile):
 def parse_entry(sublevel, f, entries, examples, garbage, main_entry=None):
     r'''\lx, \se, \sse, etc.'''
 
-    word, number = extract_superscript(f.value)
+    word, meta_annotations = extract_meta(f.value)
+    word, number = extract_superscript(word)
     letter = u'a'
     entry = Entry(entry=ortho_fix(word), main_entry=main_entry)
+    if meta_annotations:
+        entry.comments = u'\n'.join(meta_annotations)
     entries.append(entry)
     f.next()
 
@@ -268,7 +271,7 @@ def parse_entry(sublevel, f, entries, examples, garbage, main_entry=None):
                 entry.defn = f.value
             f.next()
         elif f.key == 'sc':
-            note = u'(scientific name: {})'.format(f.value)
+            note = u'(scientific name: {})'.format(parse_scientific_name(f.value))
             entry.defn = u' '.join((entry.defn, note)) if entry.defn else note
             f.next()
         elif f.key == 'xv':
@@ -299,6 +302,20 @@ def extract_superscript(word):
         number = None
 
     return word, number
+
+
+def extract_meta(word):
+    meta = []
+    while True:
+        if word.startswith('[*') and word.endswith(']'):
+            meta.append('note: [*asterisked] entry, may be unattested/unreliable')
+            word = word[2:-1]
+        elif word.endswith('*'):
+            meta.append('note: asterisked* entry, may be unattested/unreliable')
+            word = word[:-1]
+        else:
+            break
+    return word, meta
 
 
 def ortho_fix(word):
@@ -346,10 +363,15 @@ def parse_example(f, examples, garbage, entry, citation=False):
 
 
 def parse_variant(f, entries, examples, garbage, band, main_entry):
-    variant = Entry(entry=ortho_fix(f.value), main_entry=main_entry)
+    word, meta_annotations = extract_meta(f.value)
+    word, number = extract_superscript(word)
+    letter = 'a'
+    variant = Entry(entry=ortho_fix(word), main_entry=main_entry)
     variant.defn = u'({}: `{}`)'.format(EXPLANATIONS[band], main_entry.entry)
     if band in ('syn', 'ant', 'va'):
         variant.pos = main_entry.pos
+    if meta_annotations:
+        variant.comments = u'\n'.join(meta_annotations)
     defn_is_explanation = True
     pos_from_main = True
     entries.append(variant)
@@ -366,12 +388,19 @@ def parse_variant(f, entries, examples, garbage, band, main_entry):
             return
         elif f.key in ('de', 'al'):
             if not defn_is_explanation:
+                if number:
+                    variant.defn = u'.'.join((number + letter, variant.defn.split('.')[1]))
+                    letter = unichr(ord(letter) + 1)
                 new_variant = Entry(variant.entry, main_entry=variant.main_entry)
                 new_variant.pos = variant.pos
                 new_variant.root = variant.root
                 entries.append(new_variant)
                 variant = new_variant
-            variant.defn = f.value
+            if number:
+                add_letter = u'' if letter == u'a' else letter
+                variant.defn = u'. '.join((number + add_letter, f.value))
+            else:
+                variant.defn = f.value
             defn_is_explanation = False
             f.next()
         elif f.key == 'ps':
@@ -458,7 +487,14 @@ def parse_derivative(f, entries, examples, garbage, band, main_entry):
                 new_derivative.root = derivative.root
                 entries.append(new_derivative)
                 derivative = new_derivative
-            derivative.entry = ortho_fix(f.value)
+            word, meta_annotations = extract_meta(f.value)
+            word, number = extract_superscript(word)
+            derivative.entry = ortho_fix(word)
+            if number:
+                derivative.defn = u'sense {} = {}'.format(number, derivative.defn)
+            derivative.comments += (
+                ('\n' if derivative.comments else '') + '\n'.join(meta_annotations)
+            )
             f.next()
         elif f.key == 'ps':
             if derivative.pos:
@@ -479,7 +515,7 @@ def parse_derivative(f, entries, examples, garbage, band, main_entry):
             derivative.defn = f.value
             f.next()
         elif f.key == 'sc':
-            note = u'(scientific name: {})'.format(f.value)
+            note = u'(scientific name: {})'.format(parse_scientific_name(f.value))
             derivative.defn = u' '.join((derivative.defn, note)) if derivative.defn else note
             f.next()
         elif f.key == 'dl':
@@ -535,6 +571,10 @@ def parse_varieties(value):
 
     result.reverse()
     return result
+
+
+def parse_scientific_name(text):
+    return re.sub(ur'\|fs\{([^}]*)\}', ur'_\1_', text, flags=re.UNICODE)
 
 
 def remove_punct(token):
@@ -645,7 +685,6 @@ def get_variety_model(abbrev):
         model = Variety(abbrev=abbrev, description=VARIETIES[abbrev])
         model.save()
         return model
-
 
 
 if __name__ == '__main__':

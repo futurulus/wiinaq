@@ -5,8 +5,8 @@ fix duplicate definitions resulting from different POS (`kita`),
 examine examples and notes appearing under subentries or main entries
 double-check R searching (Riisaq? g? r?)
 fanaRuq and fanařuq aren't shown as one entry
-what do the [*entries] mean? looks like unattested/unreliable, change to note
-variants don't extract $superscripts (`kluk`)
+/ what do the [*entries] mean? looks like unattested/unreliable, change to note
+/ variants don't extract $superscripts (`kluk`)
 don't put '-' after dialects if no source on example (`age-`)
 format \xe (`age-`)
 handle |fs{scientific names}
@@ -459,31 +459,6 @@ handle |fs{scientific names}
   \ma	=uaq
   \nqq	does lx and se refer to arctic entryway??????
   \nqj	ck root (S174 Si img91)
-
-==========
-
-\lx	ushmar-
- \dl	KP
- \so	SM (U419 Us img0.5); StL (KP)
- \ps	vi
- \de	to masturbate
- \xv	Ushmartuq.
-  \dl	KP
-  \so	StL (KP)
-  \xe	He masturbates.
- \nqq	applies to both male and female?????
- \pdl	continuative (`=ur-`; `=aa-$1`)
-  \ro	ushmaur-
-  \dl
-  \so	(U419 Us img0.5)-unmarked
-  \va	usmaraa-
-   \dl
-   \so	(U419 Us img0.5)-unmarked
- \cf	ucug-
- \cf	uyug-
- \ma	Possibly from a deep PE root uC-, ‘pertaining to the sexual organs’ + [] + `mar-`. The consonant ‘C’ is ancestral to today’s y, s, and/or c as in A/S, CAY `ucuk` ‘penis’; `ucuuk` vagina’; A/S `ucug-` ‘to have sexual intercourse’;  NSY, CSY `usuk` ‘penis’ (in modern CSY limited to ‘(animal) penis’); NSY `usuuk` ‘vagina’; and A/S (obsolete?), CAY, NSY, and CSY `uyug-` ‘to have sexual intercourse’
- \nqq	REALLY ck ma
- \nqq	new lx
 
 ==========
 
