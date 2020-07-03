@@ -150,7 +150,7 @@ def chunk_relevance(chunk, query):
         score = 45
 
     # Whole definition (ignoring parenthesized expressions), with optional object
-    full_entries = re.split("[,;] ?", chunk.defn)
+    full_entries = re.split("[,;] ?", chunk.defn.lower())
     full_entries_no_parens = [remove_parens(e).strip() for e in full_entries]
 
     accessories = [

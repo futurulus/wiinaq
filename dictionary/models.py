@@ -104,8 +104,12 @@ class Entry(models.Model):
                                   max_length=100)
     etymology = models.TextField(blank=True, default='')
     defn = models.TextField('definition')
-    search_word = models.TextField(editable=False, default='')
-    search_text = models.TextField(editable=False, default='')
+    search_word = models.TextField(editable=False, default='',
+                                   help_text="Used in the search algorithm. You probably won't "
+                                             'need to worry about this.')
+    search_text = models.TextField(editable=False, default='',
+                                   help_text="Used in the search algorithm. You probably won't "
+                                             'need to worry about this.')
     source = models.ForeignKey(Source, blank=True, null=True,
                                help_text='Dictionary, book, speaker interview, etc. where this '
                                          'word was found')
