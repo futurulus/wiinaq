@@ -12,6 +12,13 @@ import requests
 
 
 def send_weekly_summary():
+    if not os.environ.get('EVERY_DAY') and datetime.datetime.today().weekday() != 5:
+        # Heroku's free scheduler doesn't let you set weekly tasks. So we make
+        # our daily task a weekly one with 3 extra lines of code.
+        print("Skipping because today isn't Saturday. Set environment variable "
+              'EVERY_DAY to something non-empty to force a run.')
+        return
+
     papertrail_token = os.environ['PAPERTRAIL_API_TOKEN']
     summary_recipient_emails = os.environ['SUMMARY_RECIPIENT_EMAILS'].split(',')
     gmail_id = os.environ['SENDER_GMAIL_ID']
