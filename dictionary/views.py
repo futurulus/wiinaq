@@ -24,6 +24,9 @@ SEARCH_LIMIT = 1000
 if connection.vendor == 'mysql':
     SOW = u'(^|[[:space:][:punct:]])'
     EOW = u'($|[[:space:][:punct:]])'
+elif connection.vendor == 'postgresql':
+    SOW = ur'\m'
+    EOW = ur'\M'
 else:
     SOW = EOW = ur'\b'
 
