@@ -53,7 +53,8 @@ def index(request):
 @subdir
 def credits(request):
     return render(request, 'dictionary/credits.html',
-                  {'sources': SourceModel.objects.order_by('ordering', 'id')})
+                  {'sources': SourceModel.objects.order_by('ordering', 'id'),
+                   'url': request.build_absolute_uri(request.get_full_path())})
 
 
 @subdir
@@ -341,7 +342,8 @@ def group_entries(chunk_list, separate_roots=False):
 
 @subdir
 def search(request):
-    context = {}
+    context = {'url': request.build_absolute_uri(request.get_full_path()),
+               'newdomain': False}
 
     '''
     if 'w' in request.GET:
@@ -362,6 +364,9 @@ def search(request):
         context['entry_list'] = []
         context['query'] = ''
 
+        if 'heroku' in context['url'].split('/')[2]:
+            context['newdomain'] = True
+
     return render(request, 'dictionary/index.html', context)
 
 
@@ -377,7 +382,8 @@ def get_404_query(path, get):
 
 
 def show_404_page(request):
-    context = {'query': get_404_query(request.path, request.GET)}
+    context = {'query': get_404_query(request.path, request.GET),
+               'url': request.build_absolute_uri(request.get_full_path())}
     return render(request, 'dictionary/404.html', context, status=404)
 
 

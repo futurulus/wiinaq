@@ -20,7 +20,8 @@
             </a>
             <div id="linkbar">
                 <a href="{% url 'random' %}">random word</a> ·
-                <a href="{% url 'credits' %}">credits</a>
+                <a href="{% url 'credits' %}">credits</a> ·
+                <a href="https://docs.google.com/forms/d/1mxloJwG76jL7Y8ACQaAI-w25fe09vn_CBShexOXr-wQ/viewform?entry.599026928={{ url|urlencode }}&entry.1210689804={{ request.META.HTTP_USER_AGENT|urlencode }}">feedback</a>
             </div>
         </div>
         <div id="content">
