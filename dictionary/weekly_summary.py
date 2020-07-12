@@ -1,7 +1,11 @@
+from __future__ import print_function
+
 import datetime
 import gzip
 import os
+import re
 import smtplib
+import sys
 import time
 import urllib
 from email.mime.text import MIMEText
@@ -48,7 +52,7 @@ def get_log_lines(papertrail_token):
         try:
             response.raise_for_status()
         except Exception as e:
-            yield 'error_downloading_logs {}'.format(e)
+            print('Error downloading logs from {}: {}'.format(url, e), file=sys.stderr)
             continue
 
         gzip_data = StringIO(response.content)
@@ -74,14 +78,22 @@ def summarize_logs(log_lines):
 
     for line in log_lines:
         cols = line.split('\t')
-        if cols[8] != 'heroku/router':
+        if len(cols) < 9 or cols[8] != 'heroku/router':
             continue
 
-        info = {
-            k: v
-            for pair in cols[9].split()
-            for k, v in (pair.split('=', 1),)
-        }
+        try:
+            info = {
+                k: v
+                for k, v in re.findall(r'([^ =]*)=((?:"[^"]*"|[^" ]*)+)', cols[9])
+            }
+        except ValueError:
+            print("Can't parse log line: {}".format(line), file=sys.stderr)
+            continue
+
+        if 'path' not in info or 'status' not in info:
+            print("Can't parse log line: {}".format(line), file=sys.stderr)
+            continue
+
         path = info['path'][1:-1]
 
         if info['status'].startswith('4'):
@@ -91,15 +103,16 @@ def summarize_logs(log_lines):
         elif path.startswith('/ems/search/?q='):
             query = urllib.unquote_plus(path[len('/ems/search/?q='):])
             summary['searches'][query] += 1
+            summary['ips'][info['fwd'][1:-1]] += 1
         elif path.startswith('/ems/w/'):
             word = urllib.unquote(path[len('/ems/w/'):])
             if word.endswith('/'):
                 word = word[:-1]
             summary['words'][word] += 1
+            summary['ips'][info['fwd'][1:-1]] += 1
         elif info['status'].startswith('2') and not path.startswith('/static/'):
             summary['other_2xx'][path] += 1
 
-        summary['ips'][info['fwd'][1:-1]] += 1
         summary['total_requests'] += 1
 
     return summary
@@ -112,52 +125,51 @@ def send_email(summary, summary_recipient_emails, sender_id, sender_password):
     unique_page_views = sum(len(summary[key]) for key in ('searches', 'words', 'other_2xx'))
     location_map = get_location_map(list(summary['ips']))
 
-    lines.append('Total requests: {}'.format(summary['total_requests']))
-    lines.append('Total pages viewed: {}'.format(total_page_views))
-    lines.append('Unique pages viewed: {}'.format(unique_page_views))
-    lines.append('Unique IP visitors: {}'.format(len(summary['ips'])))
+    lines.append(u'Total requests: {}'.format(summary['total_requests']))
+    lines.append(u'Total pages viewed: {}'.format(total_page_views))
+    lines.append(u'Unique pages viewed: {}'.format(unique_page_views))
+    lines.append(u'Unique IP visitors: {}'.format(len(summary['ips'])))
 
     if summary['searches']:
-        lines.append('')
-        lines.append('Searches:')
+        lines.append(u'')
+        lines.append(u'Searches:')
         for query, count in summary['searches'].most_common():
-            lines.append('  ({}) {}'.format(count, query))
+            lines.append(u'  ({}) {}'.format(count, query))
 
     if summary['words']:
-        lines.append('')
-        lines.append('Words viewed:')
+        lines.append(u'')
+        lines.append(u'Words viewed:')
         for query, count in summary['words'].most_common():
-            lines.append('  ({}) {}'.format(count, query))
+            lines.append(u'  ({}) {}'.format(count, query))
 
     if summary['other_2xx']:
-        lines.append('')
-        lines.append('Other pages viewed:')
+        lines.append(u'')
+        lines.append(u'Other pages viewed:')
         for query, count in summary['other_2xx'].most_common():
-            lines.append('  ({}) {}'.format(count, query))
+            lines.append(u'  ({}) {}'.format(count, query))
 
     if summary['paths_4xx']:
-        lines.append('')
-        lines.append('4xx responses (not found and other client errors):')
-        for query, count in summary['paths_4xx'].most_common():
-            lines.append('  ({}) {}'.format(count, query))
+        lines.append(u'')
+        lines.append(u'4xx responses (not found and other client errors):')
+        for query, count in summary['paths_4xx'].most_common(20):
+            lines.append(u'  ({}) {}'.format(count, query))
 
     if summary['paths_5xx']:
-        lines.append('')
-        lines.append('5xx responses (server errors):')
+        lines.append(u'')
+        lines.append(u'5xx responses (server errors):')
         for query, count in summary['paths_5xx'].most_common():
-            lines.append('  ({}) {}'.format(count, query))
+            lines.append(u'  ({}) {}'.format(count, query))
 
     if location_map:
-        lines.append('')
-        lines.append('Request geolocations:')
+        lines.append(u'')
+        lines.append(u'Request geolocations:')
         for loc, ips in location_map.items():
             total_requests = sum(summary['ips'][ip] for ip in ips)
-            lines.append('  ({} IPs, {} requests) {}'.format(len(ips), total_requests, loc))
+            lines.append(u'  ({} IPs, {} requests) {}'.format(len(ips), total_requests, loc))
 
-    body = '\n'.join(lines)
-    print(body)
+    body = u'\n'.join(lines)
 
-    msg = MIMEText(body)
+    msg = MIMEText(body, 'plain', 'utf-8')
     sender_email = '{}@gmail.com'.format(sender_id)
     msg['Subject'] = 'Weekly Wiinaq summary'
     msg['From'] = 'Wiinaq <{}>'.format(sender_email)
@@ -170,6 +182,8 @@ def send_email(summary, summary_recipient_emails, sender_id, sender_password):
     finally:
         s.quit()
 
+    print(body)
+
 
 def get_location_map(ips):
     location_map = {}
@@ -180,13 +194,14 @@ def get_location_map(ips):
                 'http://ip-api.com/json/{}'
                 '?fields=status,message,country,regionName,city,district,proxy'.format(ip)
             )
+            response.raise_for_status()
             data = response.json()
             if data.get('message'):
                 raise RuntimeError(data['message'])
-            response.raise_for_status()
         except Exception as e:
-            print(e)
-            location = 'unknown'
+            print('Error looking up {}: {}'.format(ip, e), file=sys.stderr)
+            time.sleep(1.5)
+            location = u'unknown'
         else:
             parts = [
                 part
@@ -194,15 +209,20 @@ def get_location_map(ips):
                 for part in (data[key],)
                 if part
             ]
-            location = ', '.join(parts)
+            location = u', '.join(parts)
             if data['proxy']:
-                location += ' [proxy]'
+                location += u' [proxy]'
+
+            try:
+                location.encode('ascii')
+            except Exception:
+                print(location, file=sys.stderr)
 
         location_map.setdefault(location, []).append(ip)
 
         if int(response.headers.get('x-rl') or '0') <= 0:
             secs_to_wait = float(response.headers.get('x-ttl') or '1.5')
-            time.sleep(secs_to_wait + 0.1)
+            time.sleep(secs_to_wait + 3.0)
 
     return location_map
 
