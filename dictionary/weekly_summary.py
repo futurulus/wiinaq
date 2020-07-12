@@ -8,9 +8,9 @@ import smtplib
 import sys
 import time
 import urllib
-from email.mime.text import MIMEText
 from collections import Counter
-from StringIO import StringIO
+from email.mime.text import MIMEText
+from io import BytesIO
 
 import requests
 
@@ -48,6 +48,7 @@ def get_log_lines(papertrail_token):
 
     for block in archive_index:
         url = block['_links']['download']['href']
+        print(url)
         response = requests.get(url, headers=headers)
         try:
             response.raise_for_status()
@@ -55,8 +56,8 @@ def get_log_lines(papertrail_token):
             print('Error downloading logs from {}: {}'.format(url, e), file=sys.stderr)
             continue
 
-        gzip_data = StringIO(response.content)
-        log_text = gzip.GzipFile(fileobj=gzip_data, mode='r').read()
+        gzip_data = BytesIO(response.content)
+        log_text = gzip.GzipFile(fileobj=gzip_data, mode='r').read().decode()
         for line in log_text.splitlines():
             yield line
 
@@ -101,11 +102,11 @@ def summarize_logs(log_lines):
         elif info['status'].startswith('5'):
             summary['paths_5xx'][path] += 1
         elif path.startswith('/ems/search/?q='):
-            query = urllib.unquote_plus(path[len('/ems/search/?q='):])
+            query = urllib.parse.unquote_plus(path[len('/ems/search/?q='):])
             summary['searches'][query] += 1
             summary['ips'][info['fwd'][1:-1]] += 1
         elif path.startswith('/ems/w/'):
-            word = urllib.unquote(path[len('/ems/w/'):])
+            word = urllib.parse.unquote(path[len('/ems/w/'):])
             if word.endswith('/'):
                 word = word[:-1]
             summary['words'][word] += 1
@@ -212,11 +213,6 @@ def get_location_map(ips):
             location = u', '.join(parts)
             if data['proxy']:
                 location += u' [proxy]'
-
-            try:
-                location.encode('ascii')
-            except Exception:
-                print(location, file=sys.stderr)
 
         location_map.setdefault(location, []).append(ip)
 

@@ -17,7 +17,7 @@ class Source(models.Model):
     def annotated(self):
         return '<span class="source" title="%s">%s</span>' % (self.description, self.abbrev)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
 
@@ -31,7 +31,7 @@ class Variety(models.Model):
     def annotated(self):
         return '<span class="variety" title="%s">%s</span>' % (self.description, self.abbrev)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description
 
 
@@ -41,7 +41,7 @@ class Example(models.Model):
                                             'in the future?)')
     english = models.TextField('English', blank=True,
                                help_text='Natural translation of the text into English')
-    source = models.ForeignKey(Source, blank=True, null=True,
+    source = models.ForeignKey(Source, models.SET_NULL, blank=True, null=True,
                                help_text='Dictionary, book, speaker interview, etc. where this '
                                          'word was found')
     source_info = models.CharField('source details', max_length=200, default='', blank=True,
@@ -66,7 +66,7 @@ class Example(models.Model):
                                            '(e.g. if it contains things that are sacred, '
                                            'offensive, etc.)')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'{} | {}'.format(truncatechars(self.vernacular, 20),
                                  truncatechars(self.english, 20))
 
@@ -110,7 +110,7 @@ class Entry(models.Model):
     search_text = models.TextField(editable=False, default='',
                                    help_text="Used in the search algorithm. You probably won't "
                                              'need to worry about this.')
-    source = models.ForeignKey(Source, blank=True, null=True,
+    source = models.ForeignKey(Source, models.SET_NULL, blank=True, null=True,
                                help_text='Dictionary, book, speaker interview, etc. where this '
                                          'word was found')
     comments = models.TextField(help_text="Usage notes, miscellaneous points of interest, etc. "
@@ -125,10 +125,13 @@ class Entry(models.Model):
     source_link = models.URLField(max_length=200, default='', blank=True,
                                   help_text='A URL to link to the source. If not empty, this will '
                                             'turn the "source details" into a hyperlink.')
-    main_entry = models.ForeignKey('Entry', blank=True, null=True,
+    main_entry = models.ForeignKey('Entry', models.SET_NULL, blank=True, null=True,
                                    related_name='subentries',
                                    help_text='If this is a sub-entry, link to the parent entry '
-                                             '(form without a postbase, for example).')
+                                             '(form without a postbase, for example). Use the '
+                                             'magnifying glass icon to search for or create '
+                                             'new entries, then select an entry and its ID will '
+                                             'appear here.')
     varieties = models.ManyToManyField(Variety, through='EntryVarietyInfo', blank=True,
                                        help_text='Broad language variety, dialect, or geographic '
                                                  'region')
@@ -162,52 +165,52 @@ class Entry(models.Model):
         self.fill()
         super(Entry, self).save()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.entry
 
 
 class EntryVarietyInfo(models.Model):
-    entry = models.ForeignKey(Entry)
-    variety = models.ForeignKey(Variety)
+    entry = models.ForeignKey(Entry, models.CASCADE)
+    variety = models.ForeignKey(Variety, models.CASCADE)
     detail = models.CharField(max_length=200, default='', blank=True,
                               help_text='Additional language variety details, e.g. city names, '
                                         'Northern/Southern for Kodiak, or specific speakers')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'{} ({})'.format(self.variety.abbrev, self.detail)
 
 
 class ExampleVarietyInfo(models.Model):
-    example = models.ForeignKey(Example)
-    variety = models.ForeignKey(Variety)
+    example = models.ForeignKey(Example, models.CASCADE)
+    variety = models.ForeignKey(Variety, models.CASCADE)
     detail = models.CharField('details', max_length=200, default='', blank=True,
                               help_text='Additional language variety details, e.g. city names, '
                                         'Northern/Southern for Kodiak, or specific speakers')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'{} ({})'.format(self.variety.abbrev, self.detail)
 
 
 class EntryExampleInfo(models.Model):
-    entry = models.ForeignKey(Entry)
-    example = models.ForeignKey(Example, verbose_name='example ID',
+    entry = models.ForeignKey(Entry, models.CASCADE)
+    example = models.ForeignKey(Example, models.CASCADE, verbose_name='example ID',
                                 help_text='Use the magnifying glass icon to search for or create '
                                           'new examples, then select an example and its ID will '
                                           'appear here.')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'Example for "{}": {}'.format(self.entry, truncatechars(self.example.vernacular, 20))
 
 
 class SeeAlso(models.Model):
-    source = models.ForeignKey(Entry,
+    source = models.ForeignKey(Entry, models.CASCADE,
                                related_name='see_also_outgoing',
                                help_text='The entry on which this "see also" will appear.')
-    target = models.ForeignKey(Entry,
+    target = models.ForeignKey(Entry, models.CASCADE,
                                related_name='see_also_incoming',
                                help_text='The entry this "see also" link will point to. Use the '
-                                         'magnifying glass icon to search for entires, then select '
+                                         'magnifying glass icon to search for entries, then select '
                                          'an entry and its ID will appear here.')
 
-    def __unicode__(self):
+    def __str__(self):
         return u'{}: see also "{}"'.format(self.source, self.target)

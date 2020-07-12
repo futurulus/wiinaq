@@ -18,13 +18,13 @@ def find_bad_entries():
     bad_forms = []
     for i, entry in enumerate(entries):
         if i % 100 == 0:
-            print '{} / {}'.format(i, len(entries))
+            print(f'{i} / {len(entries)}')
         for root in entry.roots:
             word = root.word.replace('(', '').replace(')', '')
             if not is_valid(word):
                 bad_headwords.append(word)
             elif root.pos and root.pos != 'None':
-                for tags, form in get_endings_map(root.root, root.pos).iteritems():
+                for tags, form in get_endings_map(root.root, root.pos).items():
                     form = form.replace('(', '').replace(')', '')
                     if form != '-' and not is_valid(form):
                         bad_forms.append((form, root.word, tags))
@@ -33,10 +33,10 @@ def find_bad_entries():
 
     sample_size = min(100, len(bad_headwords))
     for word in sorted(random.sample(bad_headwords, sample_size)):
-        print(u'{0: <25}'.format(word).encode('utf-8'))
+        print(u'{0: <25}'.format(word))
     sample_size = min(100, len(bad_forms))
     for form, word, tags in sorted(random.sample(bad_forms, sample_size)):
-        print(u'{0: <51} {1}'.format(u'{0: <25} {1}'.format(form, word), tags).encode('utf-8'))
+        print(u'{0: <51} {1}'.format(u'{0: <25} {1}'.format(form, word), tags))
 
 
 if __name__ == '__main__':

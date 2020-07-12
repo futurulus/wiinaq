@@ -7,7 +7,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 import django
 django.setup()
 
-from models import Entry
+from .models import Entry
 
 
 def save_all():

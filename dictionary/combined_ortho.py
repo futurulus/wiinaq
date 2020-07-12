@@ -16,8 +16,8 @@ def substitute(s):
 def multiple_replace(dict, text):
     # https://stackoverflow.com/a/15175239/4481448
     # Create a regular expression  from the dictionary keys
-    regex = re.compile(u"(%s)" % u"|".join(map(re.escape, dict.keys())),
-                       flags=re.UNICODE)
+    options = "|".join(map(re.escape, dict.keys()))
+    regex = re.compile(f'({options})', flags=re.UNICODE)
 
     # For each match, look-up corresponding value in dictionary
     return regex.sub(lambda mo: dict[mo.string[mo.start():mo.end()]], text)
@@ -48,11 +48,11 @@ def load_table():
 def transform_ortho():
     while True:
         try:
-            line = raw_input().decode('utf-8')
+            line = input().decode('utf-8')
         except (EOFError, IOError, KeyboardInterrupt):
             break
 
-        print(substitute(line).encode('utf-8'))
+        print(substitute(line))
 
 
 if __name__ == '__main__':

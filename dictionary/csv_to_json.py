@@ -3,8 +3,7 @@
 import sys
 import json
 
-from json_to_csv import FIELDS, MODEL
-from alutiiq import get_pos, get_root, normalize
+from .json_to_csv import FIELDS, MODEL
 
 # sources_fixture should already exist.
 sources_fixture = 'dictionary/fixtures/sources.json'
@@ -16,11 +15,12 @@ def convert_null(value):
     else:
         return value
 
+
 if __name__ == '__main__':
     if len(sys.argv) >= 3:
-        print 'Usage: csv_to_json.py [sources_fixture] < input.csv > output.json'
-        print 'Default values:'
-        print '    sources_fixture = %s' % (sources_fixture,)
+        print('Usage: csv_to_json.py [sources_fixture] < input.csv > output.json')
+        print('Default values:')
+        print(f'    sources_fixture = {sources_fixture}')
         sys.exit(2)
 
     if len(sys.argv) >= 2:
@@ -31,8 +31,8 @@ if __name__ == '__main__':
         line = line[:-1]
         tabs = line.count('\t')
         if tabs > len(FIELDS):
-            print 'Malformed line:'
-            print repr(line)
+            print('Malformed line:')
+            print(repr(line))
             continue
         elif tabs < len(FIELDS):
             line += '\t' * (len(FIELDS) - tabs)

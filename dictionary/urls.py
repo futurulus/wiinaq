@@ -1,12 +1,12 @@
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^w/(?P<word>.+)/$', views.entry, name='entry'),
-    url(r'^search/$', views.search, name='search'),
-    url(r'^random/$', views.random_entry, name='random'),
-    url(r'^build/$', views.build, name='build'),
-    url(r'^credits/', views.credits, name='credits'),
+    path('', views.index, name='index'),
+    path('w/<str:word>/', views.entry, name='entry'),
+    path('search/', views.search, name='search'),
+    path('random/', views.random_entry, name='random'),
+    path('build/', views.build, name='build'),
+    path('credits/', views.credits, name='credits'),
 ]

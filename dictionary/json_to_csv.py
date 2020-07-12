@@ -21,12 +21,12 @@ def convert_null(val):
     if val is None:
         return '<NULL>'
     else:
-        return unicode(val)
+        return val
 
 
 if __name__ == '__main__':
     if len(sys.argv) >= 2:
-        print 'Usage: json_to_csv.py < input.json > output.csv'
+        print('Usage: json_to_csv.py < input.json > output.csv')
         sys.exit(2)
 
     fixture = json.load(sys.stdin)
@@ -36,4 +36,4 @@ if __name__ == '__main__':
             continue
 
         fields = chunk['fields']
-        print('\t'.join([convert_null(fields[f]) for f in FIELDS]).encode('utf-8'))
+        print('\t'.join([convert_null(fields[f]) for f in FIELDS]))

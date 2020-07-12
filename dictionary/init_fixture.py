@@ -8,7 +8,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 import django
 django.setup()
 
-from models import Entry
+from .models import Entry
 
 words_file = 'dictionary/fixtures/words.csv'
 sources_fixture = 'dictionary/fixtures/sources.json'
@@ -19,10 +19,10 @@ output_fixture = 'dictionary/fixtures/words.json'
 pk_null = False
 
 if len(sys.argv) >= 5:
-    print 'Usage: init_fixture.py [words_file [sources_fixture [output_fixture]]]'
-    print 'Default values:'
-    print '    words_file = %s' % (words_file,)
-    print '    output_fixture = %s' % (output_fixture,)
+    print('Usage: init_fixture.py [words_file [sources_fixture [output_fixture]]]')
+    print('Default values:')
+    print(f'    words_file = {words_file}')
+    print(f'    output_fixture = {output_fixture}')
     sys.exit(2)
 
 if len(sys.argv) >= 4:
@@ -57,8 +57,8 @@ with open(words_file, 'r') as infile:
         line = line[:-1]
         tabs = line.count('\t')
         if tabs > 4:
-            print 'Malformed line:'
-            print repr(line)
+            print('Malformed line:')
+            print(repr(line))
             continue
         elif tabs < 4:
             line += '\t' * (4 - tabs)

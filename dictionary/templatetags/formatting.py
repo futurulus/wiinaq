@@ -13,13 +13,13 @@ def replace_comment_newlines(escaped):
 
 
 def replace_russian_r_nocaps(escaped):
-    return (escaped.replace(u'ř', u'ʀ')
-                   .replace(u'Ř', u'Ʀ'))
+    return (escaped.replace('ř', 'ʀ')
+                   .replace('Ř', 'Ʀ'))
 
 
 def replace_russian_r(escaped):
     escaped = replace_russian_r_nocaps(escaped)
-    return escaped[0:1] + escaped[1:].replace(u'R', u'ʀ')
+    return escaped[0:1] + escaped[1:].replace('R', 'ʀ')
 
 
 def replace_superscript(escaped):
@@ -84,21 +84,21 @@ def root(text, autoescape=True):
 
 
 def format_tildes(escaped):
-    return re.sub(ur'~([^~]+)~', ur'<span class="tildes">\1</span>', escaped)
+    return re.sub(r'~([^~]+)~', r'<span class="tildes">\1</span>', escaped)
 
 
 def format_backticks(escaped):
-    return re.sub(ur'`([^`]+)`', ur'<span class="backticks">\1</span>', escaped)
+    return re.sub(r'`([^`]+)`', r'<span class="backticks">\1</span>', escaped)
 
 
 def format_superscripts(escaped):
-    grouped = re.sub(ur'\$\{([^}]+)\}', ur'<sup>\1</sup>', escaped)
-    return re.sub(ur'\$(\d+|.)', ur'<sup>\1</sup>', grouped)
+    grouped = re.sub(r'\$\{([^}]+)\}', r'<sup>\1</sup>', escaped)
+    return re.sub(r'\$(\d+|.)', r'<sup>\1</sup>', grouped)
 
 
 def format_subscripts(escaped):
-    grouped = re.sub(ur'(?<!&)#\{([^}]+)\}', ur'<sub>\1</sub>', escaped)
-    return re.sub(ur'(?<!&)#(\d+|.)', ur'<sub>\1</sub>', grouped)
+    grouped = re.sub(r'(?<!&)#\{([^}]+)\}', r'<sub>\1</sub>', escaped)
+    return re.sub(r'(?<!&)#(\d+|.)', r'<sub>\1</sub>', grouped)
 
 
 @register.filter(needs_autoescape=True)

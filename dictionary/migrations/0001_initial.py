@@ -38,6 +38,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='chunk',
             name='source',
-            field=models.ForeignKey(to='dictionary.Source', null=True),
+            field=models.ForeignKey(to='dictionary.Source', on_delete=models.SET_NULL, null=True),
         ),
     ]

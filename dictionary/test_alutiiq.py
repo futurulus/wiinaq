@@ -240,7 +240,7 @@ def add_ending_method(args):
         root = None
 
     def check_ending(self):
-        from alutiiq import get_endings_map, get_root
+        from .alutiiq import get_endings_map, get_root
         computed_root = root if root else get_root(word, pos=pos)
         self.assertEqual(get_endings_map(computed_root, pos)[features], expected)
 
@@ -254,7 +254,7 @@ def add_root_method(args):
     word, defn, expected = args
 
     def check_root(self):
-        from alutiiq import get_root
+        from .alutiiq import get_root
         self.assertEqual(get_root(word, defn), expected)
 
     check_root.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
@@ -266,7 +266,7 @@ def add_pos_method(args):
     word, defn, expected = args
 
     def check_pos(self):
-        from alutiiq import get_pos
+        from .alutiiq import get_pos
         self.assertEqual(get_pos(word, defn), expected)
 
     check_pos.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
@@ -286,7 +286,7 @@ for args in ROOT_TEST_CASES:
 
 class TestPastMap(unittest.TestCase):
     def test_3p_sg(self):
-        from alutiiq import PAST_MAP
+        from .alutiiq import PAST_MAP
         self.assertEqual(PAST_MAP['-llria'], '+[+t]uq')
 
 

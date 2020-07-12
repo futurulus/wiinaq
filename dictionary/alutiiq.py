@@ -8,31 +8,30 @@ def normalize(word, g_and_r=True):
     so search is resilient to misspellings of Alutiiq words).
 
     >>> normalize('tuumiaqlluku')
-    u'tumiaklluku'
+    'tumiaklluku'
     >>> normalize("Wiiwaq")
-    u'uiuak'
+    'uiuak'
     >>> normalize("estui'isuun")
-    u'stuisun'
+    'stuisun'
     >>> normalize('giinaq')
-    u'rinak'
+    'rinak'
     >>> normalize('fanaRuq')
-    u'fanaRuk'
+    'fanaRuk'
     >>> normalize('kinguneq')
-    u'kingunk'
+    'kingunk'
     >>> normalize('giinaq', g_and_r=False)
-    u'ginak'
+    'ginak'
     '''
-    word = unicode(word)
     if g_and_r:
-        word = re.sub(ur'(?<!n)g', u'r', word)
-    word = re.sub(ur'[A-QS-Z]|^R', lambda m: m.group().lower(), word)
-    word = (word.replace(u'q', u'k')
-                .replace(u'y', u'i')
-                .replace(u'w', u'u')
-                .replace(u'e', u'')
-                .replace(u"'", u''))
-    for vowel in u'aiu':
-        word = re.sub(vowel + u'+', vowel, word)
+        word = re.sub('(?<!n)g', 'r', word)
+    word = re.sub('[A-QS-Z]|^R', lambda m: m.group().lower(), word)
+    word = (word.replace('q', 'k')
+                .replace('y', 'i')
+                .replace('w', 'u')
+                .replace('e', '')
+                .replace(u"'", ''))
+    for vowel in 'aiu':
+        word = re.sub(vowel + '+', vowel, word)
     return word
 
 
@@ -153,7 +152,7 @@ def get_root(word, pos='', defn=''):
     neg_endings = ['nani', 'natek', 'nateng', 'naku', 'nakek', 'naki']
     for ending in neg_endings:
         if word.endswith('ii' + ending):
-            return word[:-len(ending) - 1] + '\iT'
+            return word[:-len(ending) - 1] + '\\iT'
         elif word.endswith('h' + ending) and len(word) > len(ending) + 1 and \
                 word[-len(ending) - 2] in ('g', 'r'):
             # ikeghnateng => ikegg-
@@ -861,7 +860,7 @@ def build_cells(row_id, widget, endings_map):
         for col_id, header_ in widget.cols:
             sub_map = {
                 external_subset(full_id, [row_id, col_id]): inflection
-                for full_id, inflection in endings_map.iteritems()
+                for full_id, inflection in endings_map.items()
                 if is_active(row_id, col_id, full_id, widget)
             }
             cell = TableCell(':'.join([row_id, col_id]), sub_map)
@@ -869,7 +868,7 @@ def build_cells(row_id, widget, endings_map):
     else:
         sub_map = {
             external_subset(full_id, [row_id]): inflection
-            for full_id, inflection in endings_map.iteritems()
+            for full_id, inflection in endings_map.items()
             if row_id in full_id.split(':')
         }
         cell = TableCell(row_id, sub_map)

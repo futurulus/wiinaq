@@ -22,13 +22,13 @@ ALUTIIQ_SUBDIR = '/ems/'
 SEARCH_LIMIT = 1000
 
 if connection.vendor == 'mysql':
-    SOW = u'(^|[[:space:][:punct:]])'
-    EOW = u'($|[[:space:][:punct:]])'
+    SOW = '(^|[[:space:][:punct:]])'
+    EOW = '($|[[:space:][:punct:]])'
 elif connection.vendor == 'postgresql':
-    SOW = ur'\m'
-    EOW = ur'\M'
+    SOW = r'\m'
+    EOW = r'\M'
 else:
-    SOW = EOW = ur'\b'
+    SOW = EOW = r'\b'
 
 
 def subdir(view):
@@ -36,7 +36,7 @@ def subdir(view):
         if request.path.startswith(ALUTIIQ_SUBDIR):
             new_view = view
         else:
-            print repr(urlencode(request.path))
+            print(repr(urlencode(request.path)))
             new_view = RedirectView.as_view(url=ALUTIIQ_SUBDIR[:-1] +
                                             urlencode(request.path).replace('%', '%%'),
                                             # why is this used as a Python format string???
@@ -243,9 +243,9 @@ def dedupe(entries):
 def root_to_id(pos, root):
     if root is None:
         return pos
-    root = root.encode('utf-8')
-    return '%s-%s%s' % (pos, re.sub('[\W_]+', '', root),
-                        binascii.hexlify(root))
+    root_stripped = re.sub(r'[\W_]+', '', root)
+    root_binary = binascii.hexlify(root.encode('utf-8')).decode('ascii')
+    return f'{pos}-{root_stripped}{root_binary}'
 
 
 def build_root(word, pos, root, chunks, separate_sources=True):
@@ -291,21 +291,21 @@ def run_search_query(query):
     # R matches only R
     alutiiq_query = re.sub(
         r'(?<!n)g', 'r',
-        re.escape(normalize(query, g_and_r=False)).replace(u'r', u'[rRřŘ]')
+        re.escape(normalize(query, g_and_r=False)).replace('r', '[rRřŘ]')
     )
     english_query = re.escape(query.lower())
 
     alutiiq_regexes = [
-        u'^{}-?$'.format(alutiiq_query),
-        u'^{}'.format(alutiiq_query),
-        u'{}-?$'.format(alutiiq_query),
+        '^{}-?$'.format(alutiiq_query),
+        '^{}'.format(alutiiq_query),
+        '{}-?$'.format(alutiiq_query),
         alutiiq_query,
     ]
 
     english_regexes = [
-        u'{}{}{}'.format(SOW, english_query, EOW),
-        u'{}{}'.format(SOW, english_query),
-        u'{}{}'.format(english_query, EOW),
+        '{}{}{}'.format(SOW, english_query, EOW),
+        '{}{}'.format(SOW, english_query),
+        '{}{}'.format(english_query, EOW),
     ]
 
     final_list = []
@@ -383,7 +383,7 @@ def get_404_query(path, get):
             return None
 
 
-def show_404_page(request):
+def show_404_page(request, exception):
     context = {'query': get_404_query(request.path, request.GET),
                'url': request.build_absolute_uri(request.get_full_path())}
     return render(request, 'dictionary/404.html', context, status=404)

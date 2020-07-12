@@ -164,7 +164,7 @@ class FieldGenerator(object):
             if '\t' in self.nextline:
                 break
             elif self.nextline.strip():
-                line = u'{} {}'.format(line, self.nextline.strip())
+                line = '{} {}'.format(line, self.nextline.strip())
 
         self.key, self.value = line.split('\t', 1)
         while self.key.startswith('\\'):
@@ -192,7 +192,7 @@ def parse_combined(infile):
             break
 
     for k, count in garbage.most_common():
-        print(u'{:7d} {}'.format(count, k))
+        print('{:7d} {}'.format(count, k))
 
     print('{} entries'.format(len(entries)))
     print('{} examples'.format(len(examples)))
@@ -205,10 +205,10 @@ def parse_entry(sublevel, f, entries, examples, garbage, main_entry=None):
 
     word, meta_annotations = extract_meta(f.value)
     word, number = extract_superscript(word)
-    letter = u'a'
+    letter = 'a'
     entry = Entry(entry=ortho_fix(word), main_entry=main_entry)
     if meta_annotations:
-        entry.comments = u'\n'.join(meta_annotations)
+        entry.comments = '\n'.join(meta_annotations)
     entries.append(entry)
     f.next()
 
@@ -233,13 +233,13 @@ def parse_entry(sublevel, f, entries, examples, garbage, main_entry=None):
             f.next()
         elif f.key in ('nqq', 'nqj', 'nqa', 'nqs', 'zzz', 'ck'):
             if f.value.strip():
-                note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
-                entry.notes = u'\n'.join((entry.notes, note)) if entry.notes else note
+                note = '{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
+                entry.notes = '\n'.join((entry.notes, note)) if entry.notes else note
             f.next()
         elif f.key in ('cm', 'lit', 'ma', 'st', 'cf', 'see'):
             if f.value.strip():
-                note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
-                entry.comments = u'\n'.join((entry.comments, note)) if entry.comments else note
+                note = '{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
+                entry.comments = '\n'.join((entry.comments, note)) if entry.comments else note
             f.next()
         elif f.key == 'ps':
             if entry.pos:
@@ -257,7 +257,7 @@ def parse_entry(sublevel, f, entries, examples, garbage, main_entry=None):
         elif f.key in ('de', 'al'):
             if entry.defn:
                 if number:
-                    entry.defn = u'.'.join((number + letter, entry.defn.split('.')[1]))
+                    entry.defn = '.'.join((number + letter, entry.defn.split('.')[1]))
                     letter = unichr(ord(letter) + 1)
                 new_entry = Entry(entry.entry, main_entry=entry.main_entry)
                 new_entry.pos = entry.pos
@@ -265,14 +265,14 @@ def parse_entry(sublevel, f, entries, examples, garbage, main_entry=None):
                 entries.append(new_entry)
                 entry = new_entry
             if number:
-                add_letter = u'' if letter == u'a' else letter
-                entry.defn = u'. '.join((number + add_letter, f.value))
+                add_letter = '' if letter == 'a' else letter
+                entry.defn = '. '.join((number + add_letter, f.value))
             else:
                 entry.defn = f.value
             f.next()
         elif f.key == 'sc':
-            note = u'(scientific name: {})'.format(parse_scientific_name(f.value))
-            entry.defn = u' '.join((entry.defn, note)) if entry.defn else note
+            note = '(scientific name: {})'.format(parse_scientific_name(f.value))
+            entry.defn = ' '.join((entry.defn, note)) if entry.defn else note
             f.next()
         elif f.key == 'xv':
             parse_example(f, examples, garbage, entry)
@@ -290,14 +290,14 @@ def parse_entry(sublevel, f, entries, examples, garbage, main_entry=None):
 
 
 def extract_superscript(word):
-    match = re.search(ur'\$(\d*)$', word)
+    match = re.search(r'\$(\d*)$', word)
     if match:
         group = match.groups()[0]
         if group:
             number = group
         else:
             number = None
-        word = re.sub(ur'\$(\d*)$', u'', word)
+        word = re.sub(r'\$(\d*)$', '', word)
     else:
         number = None
 
@@ -319,7 +319,7 @@ def extract_meta(word):
 
 
 def ortho_fix(word):
-    return word[:1] + word[1:].replace(u'ř', u'R')
+    return word[:1] + word[1:].replace('ř', 'R')
 
 
 def parse_example(f, examples, garbage, entry, citation=False):
@@ -341,17 +341,17 @@ def parse_example(f, examples, garbage, entry, citation=False):
             f.next()
         elif f.key in ('cm', 'lit'):
             if f.value.strip():
-                note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
+                note = '{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
                 example.comments = (
-                    u'\n'.join((example.comments, note))
+                    '\n'.join((example.comments, note))
                     if example.comments else
                     note
                 )
             f.next()
         elif f.key in ('nqq', 'nqj', 'nqa', 'nqs', 'zzz', 'ck'):
             if f.value.strip():
-                note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
-                example.notes = u'\n'.join((example.notes, note)) if example.notes else note
+                note = '{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
+                example.notes = '\n'.join((example.notes, note)) if example.notes else note
             f.next()
         elif f.key == 'va' and not citation:
             parse_example_variant(f, examples, garbage, entry)
@@ -367,11 +367,11 @@ def parse_variant(f, entries, examples, garbage, band, main_entry):
     word, number = extract_superscript(word)
     letter = 'a'
     variant = Entry(entry=ortho_fix(word), main_entry=main_entry)
-    variant.defn = u'({}: `{}`)'.format(EXPLANATIONS[band], main_entry.entry)
+    variant.defn = '({}: `{}`)'.format(EXPLANATIONS[band], main_entry.entry)
     if band in ('syn', 'ant', 'va'):
         variant.pos = main_entry.pos
     if meta_annotations:
-        variant.comments = u'\n'.join(meta_annotations)
+        variant.comments = '\n'.join(meta_annotations)
     defn_is_explanation = True
     pos_from_main = True
     entries.append(variant)
@@ -389,7 +389,7 @@ def parse_variant(f, entries, examples, garbage, band, main_entry):
         elif f.key in ('de', 'al'):
             if not defn_is_explanation:
                 if number:
-                    variant.defn = u'.'.join((number + letter, variant.defn.split('.')[1]))
+                    variant.defn = '.'.join((number + letter, variant.defn.split('.')[1]))
                     letter = unichr(ord(letter) + 1)
                 new_variant = Entry(variant.entry, main_entry=variant.main_entry)
                 new_variant.pos = variant.pos
@@ -397,8 +397,8 @@ def parse_variant(f, entries, examples, garbage, band, main_entry):
                 entries.append(new_variant)
                 variant = new_variant
             if number:
-                add_letter = u'' if letter == u'a' else letter
-                variant.defn = u'. '.join((number + add_letter, f.value))
+                add_letter = '' if letter == 'a' else letter
+                variant.defn = '. '.join((number + add_letter, f.value))
             else:
                 variant.defn = f.value
             defn_is_explanation = False
@@ -421,15 +421,15 @@ def parse_variant(f, entries, examples, garbage, band, main_entry):
             f.next()
         elif f.key in ('nqq', 'nqj', 'ck'):
             if f.value.strip():
-                note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
-                variant.notes = u'\n'.join((variant.notes, note)) if variant.notes else note
+                note = '{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
+                variant.notes = '\n'.join((variant.notes, note)) if variant.notes else note
             f.next()
         elif f.key in 'ma' or \
                 (f.key == 'cm' and band == 'va') or \
                 (f.key == 'see' and band == 'xr'):
             if f.value.strip():
-                note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
-                variant.comments = u'\n'.join((variant.comments, note)) if variant.comments else note
+                note = '{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
+                variant.comments = '\n'.join((variant.comments, note)) if variant.comments else note
             f.next()
         elif f.key == 'xv' and band not in ('syn', 'ant'):
             parse_example(f, examples, garbage, variant)
@@ -458,8 +458,8 @@ def parse_example_variant(f, examples, garbage, entry):
             f.next()
         elif f.key in ('nqq', 'nqj', 'nqs', 'nqa', 'zzz', 'ck'):
             if f.value.strip():
-                note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
-                variant.notes = u'\n'.join((variant.notes, note)) if variant.notes else note
+                note = '{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
+                variant.notes = '\n'.join((variant.notes, note)) if variant.notes else note
             f.next()
         else:
             # print('! xv/va ended by {}: {}'.format(f.key, f.line_num))
@@ -468,7 +468,7 @@ def parse_example_variant(f, examples, garbage, entry):
 
 def parse_derivative(f, entries, examples, garbage, band, main_entry):
     derivative = Entry(entry='', main_entry=main_entry)
-    derivative.defn = u'{} of `{}`'.format(f.value, main_entry.entry)
+    derivative.defn = '{} of `{}`'.format(f.value, main_entry.entry)
     entries.append(derivative)
     f.next()
 
@@ -491,7 +491,7 @@ def parse_derivative(f, entries, examples, garbage, band, main_entry):
             word, number = extract_superscript(word)
             derivative.entry = ortho_fix(word)
             if number:
-                derivative.defn = u'sense {} = {}'.format(number, derivative.defn)
+                derivative.defn = 'sense {} = {}'.format(number, derivative.defn)
             derivative.comments += (
                 ('\n' if derivative.comments else '') + '\n'.join(meta_annotations)
             )
@@ -515,8 +515,8 @@ def parse_derivative(f, entries, examples, garbage, band, main_entry):
             derivative.defn = f.value
             f.next()
         elif f.key == 'sc':
-            note = u'(scientific name: {})'.format(parse_scientific_name(f.value))
-            derivative.defn = u' '.join((derivative.defn, note)) if derivative.defn else note
+            note = '(scientific name: {})'.format(parse_scientific_name(f.value))
+            derivative.defn = ' '.join((derivative.defn, note)) if derivative.defn else note
             f.next()
         elif f.key == 'dl':
             derivative.varieties.extend(parse_varieties(f.value))
@@ -526,13 +526,13 @@ def parse_derivative(f, entries, examples, garbage, band, main_entry):
             f.next()
         elif f.key in ('nqq', 'nqj', 'nqa', 'nqs', 'zzz', 'ck'):
             if f.value.strip():
-                note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
-                derivative.notes = u'\n'.join((derivative.notes, note)) if derivative.notes else note
+                note = '{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
+                derivative.notes = '\n'.join((derivative.notes, note)) if derivative.notes else note
             f.next()
         elif f.key in ('lit', 'ma', 'st'):
             if f.value.strip():
-                note = u'{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
-                derivative.comments = u'\n'.join((derivative.comments, note)) if derivative.comments else note
+                note = '{} {}'.format(NOTE_TAGS[f.key], f.value.strip())
+                derivative.comments = '\n'.join((derivative.comments, note)) if derivative.comments else note
             f.next()
         # elif f.key == 'xv':
         #     parse_example(f, examples, garbage, derivative)
@@ -548,42 +548,42 @@ def parse_derivative(f, entries, examples, garbage, band, main_entry):
 def parse_varieties(value):
     '''
     >>> parse_varieties('C KOD [N]')
-    [(u'C', u''), (u'KOD', u'[N]')]
+    [('C', ''), ('KOD', '[N]')]
     >>> parse_varieties('AP ~(???)~ C')
-    [(u'AP', u'~(???)~'), (u'C', u'')]
+    [('AP', '~(???)~'), ('C', '')]
     >>> parse_varieties('StL [K]')
-    [(u'', u'StL'), (u'K', u'')]
+    [('', 'StL'), ('K', '')]
     >>> parse_varieties('C [except not]')
-    [(u'C', u'[except not]')]
+    [('C', '[except not]')]
     '''
     result = []
-    detail = u''
-    tokens = unicode(value).split()
+    detail = ''
+    tokens = value.split()
     while tokens:
         while tokens and remove_punct(tokens[-1]) not in VARIETIES:
-            detail = u' '.join((tokens.pop(), detail))
+            detail = ' '.join((tokens.pop(), detail))
         if tokens:
             result.append((remove_punct(tokens.pop()), detail.strip()))
-            detail = u''
+            detail = ''
 
     if detail.strip():
-        result.append((u'', detail.strip()))
+        result.append(('', detail.strip()))
 
     result.reverse()
     return result
 
 
 def parse_scientific_name(text):
-    return re.sub(ur'\|fs\{([^}]*)\}', ur'_\1_', text, flags=re.UNICODE)
+    return re.sub(r'\|fs\{([^}]*)\}', r'_\1_', text, flags=re.UNICODE)
 
 
 def remove_punct(token):
-    return u''.join(c for c in token if c.isalnum())
+    return ''.join(c for c in token if c.isalnum())
 
 
 def extend_source_info(old, new):
     if old and new:
-        return u'; '.join((old, new))
+        return '; '.join((old, new))
     elif new:
         return new
     else:
@@ -604,7 +604,7 @@ def populate_db(entries, examples):
     for i, entry in enumerate(entries):
         insert_entry(entry)
         if i % 1000 == 0:
-            print(u'entry {} ({})'.format(i, entry.entry).encode('utf-8'))
+            print('entry {} ({})'.format(i, entry.entry))
     for i, example in enumerate(examples):
         insert_example(example)
         if i % 1000 == 0:
@@ -696,7 +696,7 @@ if __name__ == '__main__':
     with codecs.open(sys.argv[1], 'r', encoding='utf-8') as infile:
         entries, examples = parse_combined(infile)
 
-    answer = raw_input('continue and populate database (y/n)? ')
+    answer = input('continue and populate database (y/n)? ')
     if answer.lower() in ('y', 'yes'):
         print('populating...')
         populate_db(entries, examples)
