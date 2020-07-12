@@ -17,13 +17,15 @@ def normalize(word, g_and_r=True):
     u'rinak'
     >>> normalize('fanaRuq')
     u'fanaRuk'
+    >>> normalize('kinguneq')
+    u'kingunk'
     >>> normalize('giinaq', g_and_r=False)
     u'ginak'
     '''
     word = unicode(word)
     if g_and_r:
-        word = re.subn(ur'(?<!n)g', u'r', word)[0]
-    word = re.subn(ur'[A-QS-Z]|^R', lambda m: m.group().lower(), word)[0]
+        word = re.sub(ur'(?<!n)g', u'r', word)
+    word = re.sub(ur'[A-QS-Z]|^R', lambda m: m.group().lower(), word)
     word = (word.replace(u'q', u'k')
                 .replace(u'y', u'i')
                 .replace(u'w', u'u')

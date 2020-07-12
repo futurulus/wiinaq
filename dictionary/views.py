@@ -289,8 +289,10 @@ def run_search_query(query):
     # g matches g or r
     # r matches g, r, or R
     # R matches only R
-    alutiiq_query = (re.escape(normalize(query, g_and_r=False)).replace(u'r', u'[rRřŘ]')
-                                                               .replace(u'g', u'r'))
+    alutiiq_query = re.sub(
+        r'(?<!n)g', 'r',
+        re.escape(normalize(query, g_and_r=False)).replace(u'r', u'[rRřŘ]')
+    )
     english_query = re.escape(query.lower())
 
     alutiiq_regexes = [
