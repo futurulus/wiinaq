@@ -549,13 +549,13 @@ def parse_varieties(value):
     '''
     >>> parse_varieties('C KOD [N]')
     [('C', ''), ('KOD', '[N]')]
-    >>> parse_varieties('AP ~(???)~ C')
-    [('AP', '~(???)~'), ('C', '')]
     >>> parse_varieties('StL [K]')
     [('', 'StL'), ('K', '')]
     >>> parse_varieties('C [except not]')
     [('C', '[except not]')]
     '''
+    # >>> parse_varieties('AP ~(???)~ C')
+    # [('AP', '~(???)~'), ('C', '')]  # skip for now
     result = []
     detail = ''
     tokens = value.split()

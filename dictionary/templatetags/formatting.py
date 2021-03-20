@@ -31,7 +31,7 @@ def replace_double(escaped):
 
 
 def replace_e_noun_stem(escaped):
-    return re.sub(r'A', r'e', escaped)
+    return re.sub(r'[AE]$', r'e', escaped)
 
 
 @register.filter(needs_autoescape=True)

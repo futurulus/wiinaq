@@ -3,15 +3,14 @@ import random
 import re
 import binascii
 import itertools
+from urllib.parse import quote, unquote
 from collections import namedtuple
 
 from django.db import connection
 from django.db.models import Max
 from django.http import Http404
 from django.shortcuts import get_list_or_404, redirect, render
-from django.template.defaultfilters import urlencode
 from django.urls import reverse
-from django.views.generic.base import RedirectView
 
 from .models import Entry as EntryModel, Source as SourceModel
 from .alutiiq import inflection_data, normalize
@@ -34,14 +33,9 @@ else:
 def subdir(view):
     def redirect_to_subdir(request, *args, **kwargs):
         if request.path.startswith(ALUTIIQ_SUBDIR):
-            new_view = view
+            return view(request, *args, **kwargs)
         else:
-            print(repr(urlencode(request.path)))
-            new_view = RedirectView.as_view(url=ALUTIIQ_SUBDIR[:-1] +
-                                            urlencode(request.path).replace('%', '%%'),
-                                            # why is this used as a Python format string???
-                                            query_string=True)
-        return new_view(request, *args, **kwargs)
+            return redirect(view.__name__, *args, **kwargs)
 
     return redirect_to_subdir
 
@@ -59,6 +53,7 @@ def credits(request):
 
 @subdir
 def entry(request, word):
+    word = unquote(word)
     chunks = get_list_or_404(EntryModel, entry=word, hidden=False)
     entries = group_entries(chunks, separate_roots=True)
     assert len(entries) == 1
@@ -233,7 +228,7 @@ def dedupe(entries):
     seen = set()
     result = []
     for entry in entries:
-        url = reverse('entry', kwargs={'word': entry})
+        url = reverse('entry', kwargs={'word': quote(entry.entry, safe="' ")})
         if url not in seen:
             seen.add(url)
             result.append(entry)

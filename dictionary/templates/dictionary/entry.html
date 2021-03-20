@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="listing">
-    <h1>{{ word|russian_r }}</h1>
+    <h1>{{ word|russian_r|markup }}</h1>
 
     {% for root in roots %}
     {% if root.pos %}
@@ -49,7 +49,7 @@
                         <div class="example">
                             <p class="example-native">{{ example.vernacular|russian_r_nocaps|markup}}</p>
                             {% if example.english %}
-                                <p class="example-english">{{ example.english }}</p>
+                                <p class="example-english">{{ example.english|markup }}</p>
                             {% endif %}
                             {% if example.examplevarietyinfo_set.all or example.source %}
                                 <p class="sources">
@@ -101,21 +101,21 @@
                         {% if sense.main_entries %}
                         <p class="main-entry">main entry:
                         {% for chunk in sense.main_entries %}
-                            <a href="{% url 'entry' chunk.entry %}">{{ chunk.entry|russian_r }}</a>{% include "dictionary/comma.html" %}
+                            <a href="{% url 'entry' chunk.entry|urlencode:"$' " %}">{{ chunk.entry|russian_r|markup }}</a>{% include "dictionary/comma.html" %}
                         {% endfor %}
                         </p>
                         {% endif %}
                         {% if sense.subentries %}
                         <p class="subentries">subentries:
                         {% for chunk in sense.subentries %}
-                            <a href="{% url 'entry' chunk.entry %}">{{ chunk.entry|russian_r }}</a>{% include "dictionary/comma.html" %}
+                            <a href="{% url 'entry' chunk.entry|urlencode:"$' " %}">{{ chunk.entry|russian_r|markup }}</a>{% include "dictionary/comma.html" %}
                         {% endfor %}
                         </p>
                         {% endif %}
                         {% if sense.see_also %}
                         <p class="see-also">see also:
                         {% for chunk in sense.see_also %}
-                            <a href="{% url 'entry' chunk.entry %}">{{ chunk.entry|russian_r }}</a>{% include "dictionary/comma.html" %}
+                            <a href="{% url 'entry' chunk.entry|urlencode:"$' " %}">{{ chunk.entry|russian_r|markup }}</a>{% include "dictionary/comma.html" %}
                         {% endfor %}
                         </p>
                         {% endif %}
