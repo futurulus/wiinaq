@@ -114,6 +114,70 @@ def get_pos(entry, defn=''):
         return 'None'
 
 
+r'''
+=== Special notations for roots ===
+
+*
+    Used for nouns with a "strong" g/r root ending. e.g. imar (imarmi) => imar*
+\
+    Means a letter can be dropped in certain circumstances. Cases include:
+        suk (suuget) => su\ug  (vowel dropped before a coda consonant)
+        isuwiq (isuria) => isu\rir  (g or r dropped before a single vowel)
+A
+    Used for nouns ending in -a in the singular but otherwise acting like -e
+    roots. e.g.: piugta (piugtii) => piugtA
+E
+    Used for nouns ending in -eq in the singular but otherwise acting like -e
+    roots (rather than -er). e.g.: niuwasuuteq (niuwasuutii) => niuwasuutE
+N
+    Used for verbs with an inherent negative root, adding "-n'it-",
+    "-(g)kunani", etc. to the "positive" column and canceling them out in the
+    "negative" column. e.g.: nallugkunaku (nallun'itaqa) => nalluN
+T
+    Used for verbs with a negative -t- ending, rather than a negative -n'it-
+    ending (also -nani rather than -kunani). e.g.: cukainani (cukaituq) =>
+    cukaiT
+iX
+    Used for verbs with a negative -it- ending whose positive is -ngq'rt-
+    "to have". e.g. piituq (pingq'rtuq) => piiX
+rr/gg
+    Used for verb roots that trigger -lluni/-lluku endings despite not ending
+    in -te-. e.g:
+        liite ~luku => liilluku
+        pucuu ~luku => pucuuluku
+        pingq'rr ~luni => pingq'rlluni
+
+=== Special notations for endings / postbases ===
+
++
+    This ending does not replace final consonants. e.g. ner +aa => neraa
+-
+    This ending replaces final consonants. e.g. qawar -neq => qawaneq
+~
+    This ending assimilates certain final consonants. e.g.
+        minar ~kii => minaqii
+        taite ~luku => tailluku
+!
+    This ending is negative, and cancels out negative root notations like
+    -N/-T/-X. e.g.
+        minar !-n'itaqa => minan'itaqa
+        nalluN !-n'itaqa => nalluwaqa
+<x>
+    The start of an ending when it comes after a vowel. Replaces any initial
+    +/-/~. e.g.
+        taku +<+g>aa => takugaa
+        liite +<+g>aa => liitaa (not liitgaa)
+[x]
+    The start of an ending when it comes after a consonant. e.g.
+        cana +[+t]uq => canauq
+        qawar +[+t]uq => qawartuq
+{x}
+    The start of an ending when it comes after a "strong" g or r. e.g.
+        napar -{+}mi => napami
+        nater -{+}mi => natermi (not natemi/natmi)
+'''
+
+
 def get_root(word, pos='', defn=''):
     markers = ["lu", "l'u", "kuna"]
     finals = ['ni', 'tek', 'teng', 'ku', 'kek', 'ki']
@@ -245,7 +309,7 @@ def apply_negative(before, center):
                 # nalluN !~aqa => nallu ~aqa => nalluwaqa
                 before = before[:-1]
             elif before.endswith('T'):
-                # asiI !+[+t]uq => asir +[+t]uq => asirtuq
+                # asi\iT !+[+t]uq => asir +[+t]uq => asirtuq
                 if before.endswith(r'\iT'):
                     before = before[:-3] + 'r'
                 elif re.search(r'[au]iT$', before):
@@ -259,7 +323,7 @@ def apply_negative(before, center):
                     before = before[:-1] + 'e'
                     negative = True
             elif before.endswith('iX'):
-                # piiX !+[+t]uq => pinq'rr !+[+t]uq => pingq'rtuq
+                # piiX !+[+t]uq => pingq'rr !+[+t]uq => pingq'rtuq
                 before = before[:-2] + "ngq'rr"
             else:
                 negative = True
