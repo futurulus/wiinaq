@@ -557,7 +557,7 @@ def apply_transformations(before, center, after):
                     'e': 'a',
                     'A': 'a',
                     'E': 'eq',
-                }[center[-1]]
+                }.get(center[-1:], center[-1:])
             elif center.endswith('*') and after.startswith('+e'):
                 #
                 if re.search(r'[aiu][rg]\*$', center):
