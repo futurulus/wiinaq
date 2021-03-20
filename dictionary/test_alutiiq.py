@@ -136,6 +136,7 @@ ENDING_TEST_CASES = [
     ("niuwasuuteq", "n", "ABS:PL:POSS3P:POSSSG", "niuwasuutai"),
     ("niuwasuuteq", "n", "ABS:POSS1P:POSSPL:SG", "niuwasuut'gpet"),
     ("taquka'aq", "taquka\\rar*", "n", "ABS:POSS1P:POSSPL:SG", "taquka'arpet"),
+    ("taquka'aq", "taquka\\rar*", "n", "ABS:POSS1P:POSSSG:SG", "taquka'aqa"),
 
     # Consequential -te- + -ngama = -cama
     ("sun'arauluni", "vi", "1P:CSEQ:POS:SG", "sun'araungama"),

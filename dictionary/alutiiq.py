@@ -466,7 +466,7 @@ def apply_transformations(before, center, after):
                     if center.endswith('gg'):
                         center = center[:-1]
                     # leave one g in place
-                elif center.endswith('gg') or center.endswith('rr'):
+                elif center.endswith(('gg', 'rr', 'g*', 'r*')):
                     center = center[:-2]
                 elif re.search('[aeiou]' + CONSONANT + 'er$', center) and \
                         len(after) >= 3 and after[2] in 'aeiou':
@@ -495,6 +495,8 @@ def apply_transformations(before, center, after):
                         center = center[:-1] + 'u'
                 elif center.endswith('e') and re.search(r'~g' + CONSONANT, after):
                     center = center[:-1] + "'"
+                elif center.endswith(('gg', 'rr', 'g*', 'r*')):
+                    center = center[:-2]
                 elif center[-1] not in 'aeiou':
                     # yaamar ~gci => yaamarci
                     center = center[:-1]
@@ -610,7 +612,7 @@ def apply_transformations(before, center, after):
 
     if before is not None:
         if center.startswith('~k'):
-            if before.endswith('r'):
+            if before.endswith(('r', 'r*')):
                 # kayar ~ka => kayaqa
                 # minar ~kii => minaqii
                 center = 'q' + center[2:]
@@ -618,10 +620,8 @@ def apply_transformations(before, center, after):
                 # nuteg ~ka => nutegka
                 center = center[1:]
         elif center.startswith('~g'):
-            if before.endswith('r'):
+            if before.endswith(('r', 'r*')):
                 center = 'r' + center[2:]
-            elif before.endswith('*'):
-                center = center[2:]
             else:
                 center = center[1:]
         elif center.startswith('~l'):
