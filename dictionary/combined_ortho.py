@@ -27,9 +27,9 @@ def load_table():
     global TABLE
     if TABLE is None:
         TABLE = {}
-        with open(TABLE_FILENAME, 'rb') as infile:
+        with open(TABLE_FILENAME, 'rt') as infile:
             for line in infile:
-                splits = line.decode('utf-8').strip().split(' ', 1)[1:]
+                splits = line.strip().split(' ', 1)[1:]
                 if len(splits) == 0:
                     continue
                 if len(splits) != 1:
@@ -48,7 +48,7 @@ def load_table():
 def transform_ortho():
     while True:
         try:
-            line = input().decode('utf-8')
+            line = input()
         except (EOFError, IOError, KeyboardInterrupt):
             break
 
