@@ -46,6 +46,16 @@ ENDING_TEST_CASES = [
     ("nutek", "n", "LOC:SG:UNPOSS", "nutegmi"),
     ("nutek", "n", "ABS:POSS3P:POSSSG:SG", "nutga"),  # CG p. 143
 
+    # Strong-stem nouns
+    ("arya'aq", "arya\\gar*", "n", "ABS:SG:UNPOSS", "arya'aq"),  # CG p. 37
+    ("arya'aq", "arya\\gar*", "n", "ABS:PL:UNPOSS", "aryagaat"),  # CG p. 37
+    ("arya'aq", "arya\\gar*", "n", "ABL:SG:UNPOSS", "arya'armek"),  # CG p. 38
+    ("arya'aq", "arya\\gar*", "n", "ABL:PL:UNPOSS", "arya'arnek"),  # CG p. 38
+    ("taquka'aq", "taquka\\rar*", "n", "ABS:SG:UNPOSS", "taquka'aq"),  # CG p. 46
+    ("taquka'aq", "taquka\\rar*", "n", "ABS:PL:UNPOSS", "taqukaraat"),  # CG p. 46, learner report
+    ("taquka'aq", "taquka\\rar*", "n", "ABL:SG:UNPOSS", "taquka'armek"),  # CG p. 46
+    ("taquka'aq", "taquka\\rar*", "n", "ABL:PL:UNPOSS", "taquka'arnek"),  # CG p. 46
+
     # Irregular nouns
     ("kuik", "n", "ERG:SG:UNPOSS", "kuigem"),  # CG p. 125
     ("suk", "n", "ABS:SG:UNPOSS", "suk"),  # CG p. 139
@@ -122,6 +132,10 @@ ENDING_TEST_CASES = [
     ("ciqlluaq", "n", "ABS:POSS3P:POSSSG:SG", "ciqllua'a"),  # CG p. 142
     ("erneq", "n", "ABS:PL:POSS3P:POSSSG", "erneri"),  # CG p. 143
     # ("nuliq", "n", "ABS:POSS3P:POSSSG:SG", "nulira"),  # CG p. 143
+    ("niuwasuuteq", "n", "ABS:POSS3P:POSSSG:SG", "niuwasuutii"),  # learner report
+    ("niuwasuuteq", "n", "ABS:PL:POSS3P:POSSSG", "niuwasuutai"),
+    ("niuwasuuteq", "n", "ABS:POSS1P:POSSPL:SG", "niuwasuut'gpet"),
+    ("taquka'aq", "taquka\\rar*", "n", "ABS:POSS1P:POSSPL:SG", "taquka'arpet"),
 
     # Consequential -te- + -ngama = -cama
     ("sun'arauluni", "vi", "1P:CSEQ:POS:SG", "sun'araungama"),
@@ -225,6 +239,7 @@ ROOT_TEST_CASES = [
     ("ikeghnateng", "", "ikeggT"),
     ("leq", "", "ler"),
     ("mingq'lluni", "", "mingqe"),
+    ("niuwasuuteq", "", "niuwasuutE"),
 ]
 
 

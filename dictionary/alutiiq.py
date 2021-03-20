@@ -160,8 +160,10 @@ def get_root(word, pos='', defn=''):
         elif word.endswith(ending):
             return word[:-len(ending)] + 'T'
 
-    if re.search('(^|[^aeiou])[aeiou]teq$', word):
+    if re.search('(^|[^aeiou])[aeio]teq$', word):
         return word[:-1] + 'r'
+    elif word.endswith('uteq'):
+        return word[:-2] + 'E'
     elif re.search('^[^aeiou]?[aiu][qk]$', word):
         # suk => su\ug-
         # leq => ler-
@@ -221,8 +223,7 @@ def apply_vowel_alternation(center, before):
                                 (combine_cons == '-' and
                                  before[-2:-1] in list('Ae')))
                 cons_ending = before[-1:] in 'rg' or before.endswith('ll')
-                strong_fric_ending = (before[-1:] == 'g' or
-                                      before.endswith('er'))
+                strong_fric_ending = before.endswith(('ig', 'ug', 'eg', 'er', '*'))
                 if (left == '<' and vowel_ending or
                         left == '[' and cons_ending or
                         left == '{' and strong_fric_ending):
@@ -343,10 +344,14 @@ def apply_transformations(before, center, after):
 
     if after is not None:
         if after.startswith('-'):
-            if center.endswith('A'):
+            if center.endswith(('A', 'E')):
                 if after[:2] == '-a':
+                    # piugtA -a => piugtii
+                    # niuwasuutE -a => niuwasuutii
                     center = center[:-1] + 'i'
                 elif after[:2] == '-i':
+                    # piugtA -i => piugtai
+                    # niuwasuutE -i => niuwasuutai
                     center = center[:-1] + 'a'
                 else:
                     # akulA +a => akulii
@@ -375,10 +380,7 @@ def apply_transformations(before, center, after):
                         center += "e"
         elif after.startswith('~'):
             noun_stem = False
-            if center.endswith('A') and after == '~k':
-                # piugtA ~k => piugta
-                center = center[:-1] + 'a'
-            elif center.endswith('A'):
+            if center.endswith(('A', 'E')):
                 # piugtA ~ka => piugteka [=> piugt'ka]
                 center = center[:-1] + 'e'
                 noun_stem = True
@@ -390,9 +392,6 @@ def apply_transformations(before, center, after):
                     if noun_stem:
                         # qute ~ka => qutka
                         center = center[:-1]
-                    elif after == '~k':
-                        # suute ~k => suuteq
-                        pass
                     elif len(center) >= 3 and center[-3] not in 'aeiou':
                         center = center[:-2] + "'s"
                     else:
@@ -481,7 +480,26 @@ def apply_transformations(before, center, after):
                     # ike ~na => ikna
                     center = center[:-1]
         elif after.startswith('+'):
-            if center.endswith('e') and len(after) >= 2 and after[1] in "aeiou'":
+            if center.endswith(('*', 'r', 'g', 'e', 'A', 'E')) and after == '+':
+                if center.endswith('te'):
+                    center += 'r'
+                elif center.endswith('*'):
+                    center = center[:-1]
+                center = center[:-1] + {
+                    'r': 'q',
+                    'g': 'k',
+                    'e': 'a',
+                    'A': 'a',
+                    'E': 'eq',
+                }[center[-1]]
+            elif center.endswith('*') and after.startswith('+e'):
+                #
+                if re.search(r'[aiu][rg]\*$', center):
+                    center = center[:-1]
+                center = center[:-1]
+            elif center.endswith('*'):
+                center = center[:-1]
+            elif center.endswith('e') and len(after) >= 2 and after[1] in "aeiou'":
                 # qitenge +uq => qitenguq
                 # ike '\um => ik'\um => ik'um
                 center = center[:-1]
@@ -529,23 +547,17 @@ def apply_transformations(before, center, after):
     if before is not None:
         if center.startswith('~k'):
             if before.endswith('r'):
-                # kayar ~k => kayaq
                 # kayar ~ka => kayaqa
                 # minar ~kii => minaqii
                 center = 'q' + center[2:]
-            elif before.endswith('A') and center == '~k':
-                # piugtA ~k => piugta
-                center = ''
-            elif before.endswith('te') and center == '~k':
-                # suute ~k => suuteq
-                center = 'q'
             else:
-                # nuteg ~k => nutek
                 # nuteg ~ka => nutegka
                 center = center[1:]
         elif center.startswith('~g'):
             if before.endswith('r'):
                 center = 'r' + center[2:]
+            elif before.endswith('*'):
+                center = center[2:]
             else:
                 center = center[1:]
         elif center.startswith('~l'):
@@ -572,8 +584,13 @@ def apply_transformations(before, center, after):
                 center = center[1:]
         elif center[0] in '+-~':
             center = center[1:]
-            if center.startswith('a') and before.endswith('A'):
+            if center.startswith('a') and before.endswith(('A', 'E')):
+                # piugtA -a => piugtii
+                # niuwasuutE -a => niuwasuutii
                 center = 'i' + center[1:]
+            elif center.startswith('e') and re.search(r'[aiu][gr]\*$', before):
+                # taquka\ra +et => taquka\ra at => taqukaraat
+                center = before[-3] + center[1:]
         else:
             center = ' ' + center
 
@@ -582,8 +599,9 @@ def apply_transformations(before, center, after):
         center = re.sub(r'([aiu])\\\1' + CONSONANT + '$', r'\1\2', center)
         # asi\i +tuq => asiituq
         center = re.sub(r'([aiu])\\([aiu])$', r'\1\2', center)
-    elif after and re.search(r'^.' + CONSONANT + '(' + CONSONANT + '|$)', after):
-        # su\ug ~k => suk
+    elif after and re.search(r'^.(' + CONSONANT + '|$)(' + CONSONANT + '|$)', after):
+        # su\ug + => suk
+        center = re.sub(fr'([aiu])\\\1{CONSONANT}$', r'\1\2', center)
         # su\ug ~gci => sugci
         # pi\i +lnguq = pilnguq
         center = re.sub(r'([aiu])\\\1$', r'\1', center)
@@ -594,8 +612,12 @@ def apply_transformations(before, center, after):
     if '\\' in center:
         if before and center.startswith('\\') and before.endswith(center[1:2]):
             center = center[2:]
-        else:
-            center = center.replace('\\', '')
+        if re.search(fr'\\[gr][aiu]({CONSONANT}|$)', center + (after or '')[1:]):
+            center = re.sub(r'([aiu])\\[gr]\1', r"\1'\1", center)
+            center = re.sub(r'i\\[gr]', 'iy', center)
+            center = re.sub(r'u\\[gr]', 'uw', center)
+            center = re.sub(r'a\\[gr]', "'", center)
+        center = center.replace('\\', '')
 
     return center
 
@@ -991,7 +1013,7 @@ PAST_MAP = correspondences_map(VI_PAST, VI_PRES)
 ENDINGS = {
     'n': [
         [
-            ['~k', '-{+e}k', '-{+e}t'],
+            ['+', '-{+e}k', '-{+e}t'],
             [
                 ['~{~}ka', '-{+e}gka', '-{+e}nka'],
                 ['~gpuk', '-{+}puk', '-{+}puk'],
