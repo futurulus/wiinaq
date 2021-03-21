@@ -109,6 +109,7 @@ ENDING_TEST_CASES = [
     ("acigp'ni", "loc", "LOC:POSS2P:POSSSG:SG", "acigp'ni"),
     ("akuliit", "loc", "ABS:POSS3P:POSSPL:SG", "akuliit"),  # CG p. 133
     ("akuliit", "loc", "LOC:POSS3P:POSSPL:SG", "akuliitni"),  # CG p. 128
+    ("cuqllia", "cuqllir*", "loc", "ABS:POSS3P:POSSSG:SG", "cuqllia"),
     # not sure about these; they probably aren't used, but other forms
     # were obviously wrong before correction
     ("akuliit", "loc", "ABS:POSS1P:POSSSG:SG", "akulka"),
@@ -137,6 +138,7 @@ ENDING_TEST_CASES = [
     ("niuwasuuteq", "n", "ABS:POSS1P:POSSPL:SG", "niuwasuut'gpet"),
     ("taquka'aq", "taquka\\rar*", "n", "ABS:POSS1P:POSSPL:SG", "taquka'arpet"),
     ("taquka'aq", "taquka\\rar*", "n", "ABS:POSS1P:POSSSG:SG", "taquka'aqa"),
+    ("taquka'aq", "taquka\\rar*", "n", "ABS:POSS3P:POSSSG:SG", "taqukaraa"),
 
     # Consequential -te- + -ngama = -cama
     ("sun'arauluni", "vi", "1P:CSEQ:POS:SG", "sun'araungama"),

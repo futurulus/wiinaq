@@ -423,6 +423,18 @@ def apply_transformations(before, center, after):
 
             if center.endswith('rr') or center.endswith('gg'):
                 center = center[:-2]
+            elif re.search('[aeiou]' + CONSONANT + 'e[gr]$', center) and \
+                    len(after) >= 2 and after[1] in 'aiu':
+                # nuter -a => nutra
+                center = center[:-2] + center[-1]
+                if len(center) >= 2 and center[-2] == 'w':
+                    # kiweg -a => kiwg -a => kiuga
+                    center = center[:-2] + 'u' + center[-1]
+            elif center.endswith('*'):
+                center = center[:-2]
+            elif center.endswith(('ig', 'ug', 'eg', 'er')) and \
+                    len(after) >= 2 and after[1] in 'aiu':
+                pass
             elif center[-1] not in 'aeiou':
                 center = center[:-1]
             elif center.endswith("t'e"):
@@ -577,7 +589,7 @@ def apply_transformations(before, center, after):
                 center = center[:-1]
             elif re.search('[aeiou]' + CONSONANT + 'e[gr]$', center) and \
                     len(after) >= 2 and after[1] in 'aeiou':
-                # nuter +a => nutra
+                # nater +en => natren
                 center = center[:-2] + center[-1]
                 if len(center) >= 2 and center[-2] == 'w':
                     # kiweg +a => kiwg +a => kiuga
@@ -1089,9 +1101,9 @@ ENDINGS = {
                 ['~gci', '-{+}ci', '-{+}ci'],
             ],
             [
-                ['-<~g>{+}a', '-<~g>{+e}k', '-<~g>{+}i'],
-                ['-<~g>{+}ak', '-<~g>{+}ik', '-<~g>{+}ik'],
-                ['-<~g>{+}at', '-<~g>{+}it', '-<~g>{+}it'],
+                ['-<~g>a', '-<~g>{+e}k', '-<~g>i'],
+                ['-<~g>ak', '-<~g>ik', '-<~g>ik'],
+                ['-<~g>at', '-<~g>it', '-<~g>it'],
             ],
             [
                 ['-{+}ni', '-{+e}gni', '-{+}ni'],
@@ -1164,9 +1176,9 @@ ENDINGS = {
                 ['~gci', '-{+}ci', '-{+}ci'],
             ],
             [
-                ['-<~g>{+}a', '-<~g>{+e}k', '-<~g>{+}i'],
-                ['-<~g>{+}ak', '-<~g>{+}ik', '-<~g>{+}ik'],
-                ['-<~g>{+}at', '-<~g>{+}it', '-<~g>{+}it'],
+                ['-<~g>a', '-<~g>{+e}k', '-<~g>i'],
+                ['-<~g>ak', '-<~g>ik', '-<~g>ik'],
+                ['-<~g>at', '-<~g>it', '-<~g>it'],
             ],
             [
                 ['-{+}ni', '-{+e}gni', '-{+}ni'],
