@@ -40,6 +40,9 @@ ENDING_TEST_CASES = [
     ("quliyanguaqlluku", "vt", "O3P:OSG:POS:PRES:S1P:SSG", "quliyanguaqaqa"),
     ("quliyanguaqlluku", "vt", "CONJ:O3P:OSG:POS", "quliyanguaqlluku"),
 
+    # fricative dropping before transitive endings
+    ("minarluku", "mina\\r", "vt", "O3P:OSG:POS:PRES:S1P:SSG", "mina'aqa"),
+
     # -eq nouns
     ("nateq", "n", "LOC:SG:UNPOSS", "natermi"),
     ("nateq", "n", "ABS:POSS2P:POSSSG:SG", "natren"),

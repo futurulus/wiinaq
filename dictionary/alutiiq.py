@@ -695,7 +695,7 @@ def apply_transformations(before, center, after):
             center = re.sub(r'([aiu])\\[gr]\1', r"\1'\1", center)
             center = re.sub(r'i\\[gr]', 'iy', center)
             center = re.sub(r'u\\[gr]', 'uw', center)
-            center = re.sub(r'a\\[gr]', "'", center)
+            center = re.sub(r'a\\[gr]', "a'", center)
         center = center.replace('\\', '')
 
     return center
