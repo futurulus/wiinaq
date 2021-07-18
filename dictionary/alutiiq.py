@@ -371,8 +371,10 @@ def apply_negative(before, center):
             # ikeggT +[+t]uq => ikegte +uq => ikegtuq
             before = before[:-2] + 'te'
         elif before.endswith('T'):
-            # mikT +[+t]uq => mikte +uq => miktuq
-            before = before[:-1] + 'te'
+            before = before[:-1]
+            if not center.startswith('+n'):
+                # mikT +[+t]uq => mikte +uq => miktuq
+                before += 'te'
         elif negative:
             if before.endswith('N'):
                 before = before[:-1]
@@ -398,7 +400,7 @@ def apply_negative(before, center):
 
 def apply_transformations(before, center, after):
     # from nose.tools import set_trace
-    # if center.startswith('kiw') and '~g' in after and 'nun' in after:
+    # if center.startswith('mik') and '~luni' in after:
     #     set_trace()
 
     before, center = apply_negative(before, center)
@@ -524,8 +526,9 @@ def apply_transformations(before, center, after):
                     # aiwite ~ngama => aiwicama
                     center = center[:-2]
 
-                    if center and center[-1] not in "aeiou'":
+                    if center and center[-1] not in "aeiou'" and not re.search(r'^~(l|ng)[aeiou]', after):
                         # mikte ~lnguq => mik'llnguq
+                        # BUT: pekte ~luni => peklluni
                         center += "'"
                 elif after.startswith('~l') and center.endswith('le'):
                     # ule ~luni => ul'uni

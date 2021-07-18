@@ -20,6 +20,7 @@ ENDING_TEST_CASES = [
     ("tekilluni", "vi", "3P:POS:PRES:SG", "tekituq"),  # CG p. 25
     ("tekilluni", "vi", "3P:CONJ:POS:SG", "tekilluni"),
     ("tekilluni", "vi", "1P:POS:PRES:SG", "tekitua(nga)"),
+    ("peklluni", "pekte", "vi", "3P:CONJ:POS:SG", "peklluni"),
 
     # q-stem transitive verbs
     ("caqlluni", "vi", "3P:CONJ:POS:SG", "caqlluni"),
@@ -174,6 +175,7 @@ ENDING_TEST_CASES = [
     ("tangerlluku", "vt", "NEG:O3P:OSG:PRES:S1P:SSG", "tangen'itaqa"),
 
     ("miknani", "vi", "3P:POS:PRES:SG", "miktuq"),  # CG p. 25
+    ("miknani", "vi", "3P:CONJ:POS:SG", "miknani"),
     ("miknani", "vi", "3P:PAST:POS:SG", "mik'llnguq"),  # mikelnguq?
     ("cainani", "vi", "3P:POS:PRES:SG", "caituq"),
     ("cainani", "vi", "3P:PAST:POS:SG", "cailnguq"),
