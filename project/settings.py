@@ -167,6 +167,9 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL.strip("/"))
 
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
 '''
 # Logging
 LOGGING = {
