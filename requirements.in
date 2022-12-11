@@ -1,0 +1,7 @@
+Django==3.2.16
+django_nose
+gunicorn
+dj-database-url
+psycopg2-binary
+requests
+whitenoise
