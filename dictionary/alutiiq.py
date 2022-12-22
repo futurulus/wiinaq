@@ -1,5 +1,8 @@
+from functools import lru_cache
 import re
-from collections import namedtuple
+from collections import Counter, namedtuple
+
+from .alutiiq_fst import morpho_join
 
 
 def normalize(word, g_and_r=True):
@@ -168,7 +171,7 @@ rr/gg
         taku +<+g>aa => takugaa
         liite +<+g>aa => liitaa (not liitgaa)
 [x]
-    The start of an ending when it comes after a consonant. e.g.
+    The start of an ending when it comes after g, r, or ll. e.g.
         cana +[+t]uq => canauq
         qawar +[+t]uq => qawartuq
 {x}
@@ -701,7 +704,7 @@ def apply_transformations(before, center, after):
     return center
 
 
-def morpho_join(chunks):
+def morpho_join_rules(chunks):
     if '-' in chunks:
         return '-'
 
@@ -976,6 +979,7 @@ def build_cells(row_id, widget, endings_map):
         yield cell
 
 
+@lru_cache(maxsize=128)
 def get_endings_map(root, pos):
     '''
     >>> get_endings_map('yaamar', 'n')['ABS:DU:POSS1P:POSSSG']
@@ -1658,3 +1662,25 @@ def inflect(root):
             for i, s in enumerate(HIERARCHY[root.pos])]
     '''
     return list(build_tables(root))
+
+
+def list_inflections(table=None, counter=None):
+    if table is None:
+        counter = Counter()
+        for table in ENDINGS.values():
+            list_inflections(table, counter)
+        for prefix in counter.most_common():
+            print(prefix)
+
+    if isinstance(table, str):
+        if {'<', '[', '{'} & set(table):
+            prefix = re.match('^[^\[{<]+([\[{<][^\]}>]+[\]}>])*', table).group()
+            counter[prefix] += 1
+        return
+
+    for subtable in table:
+        list_inflections(subtable, counter)
+
+
+if __name__ == '__main__':
+    list_inflections()
