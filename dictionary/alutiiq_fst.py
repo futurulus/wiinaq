@@ -1,6 +1,8 @@
-from functools import lru_cache
+import gzip
 import re
 import sys
+from functools import lru_cache
+from pathlib import Path
 
 import pynini as f
 
@@ -43,7 +45,7 @@ PREFIXES = {
 CONSONANTS = list('ptckqwlysgrmnRbdfhjvxz') + POLYGRAPHS
 VOWELS = list('aeiuo')
 SIGMA_REAL = set([chr(i) for i in range(1, 128)])
-SIGMA = set(
+SIGMA = (
     [chr(i) for i in range(1, 91)] +
     [chr(i) for i in range(94, 128)] +
     [r'\[', r'\\', r'\]', HIGH_BYTE] +
@@ -247,23 +249,19 @@ def translate_multi(s, replacements):
 
 
 def paths(fst):
-    st = symbol_table()
-    p = fst.paths(input_token_type=st, output_token_type=st)
+    ist, ost = fst.input_symbols(), fst.output_symbols()
+    p = fst.paths(input_token_type=ist, output_token_type=ost)
     while not p.done():
         yield (symbols_to_string(p.istring()), symbols_to_string(p.ostring()))
         p.next()
 
 
 def paths_acc(acc):
-    st = symbol_table()
-    p = acc.paths(input_token_type=st, output_token_type=st)
-    while not p.done():
-        yield symbols_to_string(p.istring())
-        p.next()
+    for istr, _ in paths(acc):
+        yield istr
 
 
-@lru_cache(maxsize=1)
-def symbol_table():
+def global_symbol_table():
     st = f.generated_symbols().copy()
     for i in range(0, 256):
         st.add_symbol(chr(i), key=i)
@@ -271,12 +269,15 @@ def symbol_table():
 
 
 def symbols_to_string(sym_str):
-    print(f'  # {sym_str}')
+    r"""
+    >>> symbols_to_string(r'a   ng a ll [ \ u')
+    'a [ng]a[ll]\\[u'
+    """
     return ''.join(
         f'[{sym}]' if len(sym) > 1 else
         fr'\{sym}' if sym in ('\\', '[', ']') else
         sym
-        for sym in sym_str.split(' ')
+        for sym in re.split('( )', sym_str)[::2]
     )
 
 
@@ -286,17 +287,16 @@ def rewrite(rule, before='', after=''):
 
 @lru_cache(maxsize=1)
 def combination_fst():
-    # fst = apply_negative_fst()
-    # vowel_alternate = vowel_alternation_fst()
-    # print("composing", file=sys.stderr)
-    # fst @= vowel_alternate
-    # del vowel_alternate
-    # print(f"  {fst.num_states()}", file=sys.stderr)
-    # print("optimizing", file=sys.stderr)
-    # fst.optimize()
-    # print(f"  {fst.num_states()}", file=sys.stderr)
+    filename = str(Path(__file__).parent / 'combine.fst.gz')
+    try:
+        with gzip.open(filename, 'rb') as infile:
+            return f.Fst.read_from_string(infile.read())
+    except IOError:
+        pass
 
     join = parse_rules(r"""
+        # == Negation rules ==
+
         # Cancel out double negations
         /N !/ /
         /{au\\}iT !/r /
@@ -305,7 +305,7 @@ def combination_fst():
         # /T !/ !/{Ⓥ}/
         # /T !/e !/{Ⓒ}/
 
-        # / / !/{NTX}-/{-+~<}/
+        # / / !/{NTX}/{-+~<}/
 
         # Negatives of -tu- roots
         /tu !/kiT !/
@@ -335,10 +335,10 @@ def combination_fst():
         /T /te /
 
         # Add -(g)ku before +na endings (e.g. -gkunani)
-        / +n/ <Nkun/
+        / +n/ [<N]kun/
         *
 
-        # ===
+        # == Vowel alternation ==
 
         # '<Y': '+<+y>[+c]',
         /[<Y]/+y/{aiou} /
@@ -397,22 +397,7 @@ def combination_fst():
         /[<C]/~/
         *
 
-        # ===
-
-        # # Drop root-final e on special noun endings before k
-        # /{EA} ~k/k/
-        # # Replace root-final e with apostrophe:
-        # #   CKeC  where K is voiceless
-        # /{eEA} {-+~}/'/{Ⓒ}{ptckqsgr[hng][ll][hm][hn]}/{Ⓒ}/
-        # #   KeCC
-        # /{eEA} {-+~}/'/{ptckqsgr[hng][ll][hm][hn]}/{Ⓒ}{Ⓒ}|{Ⓒ}'{Ⓥ}/
-        # #   VgeV.  (or r instead of g)
-        # /{eEA} {-+~}/'/{Ⓥ}{gr}/{Ⓥ}{ⓋⒸ'}/
-        # # Keep it when it would otherwise result in CCC
-        # /{eA} {-+~}/e/{Ⓒ}{Ⓒ}/{Ⓒ}/
-        # /{eA} {-+~}/e/{Ⓒ}/{Ⓒ}{Ⓒ}|{Ⓒ}'{Ⓥ}/
-        # # Otherwise drop it
-        # /{eA} {-+~}//
+        # == Combination ==
 
         # Noun stem endings: -a, -eq
         /{AE} -a/e -a//{ⓋⒸ'}/ ?
@@ -458,14 +443,14 @@ def combination_fst():
         # multiple roots, which demonstratives have (tamaatu-, tamaaku-, tamaa-).
         / +\\/t/aa|ii|uu/
 
+        # Empty noun endings
+        /te +/teq//[EOS]/
+        /r +|r* +/q//[EOS]/
+        /g +|g* +/k//[EOS]/
+        /A +/a//[EOS]/
+        /{eE} +/eq//[EOS]/
         # Concatenate if there's anything after the +
-        / +///{ⓋⒸ'}/
-        # Otherwise: empty noun endings
-        /te +/teq/
-        /r +|r* +/q/
-        /g +|g* +/k/
-        /{eA} +/a/
-        /E +/eq/
+        # / +///{ⓋⒸ'}/
 
         / +//
         *
@@ -575,6 +560,7 @@ def combination_fst():
         /e ~///n/
 
         / ~//
+        *
 
         # Break up triple vowels
         /uu/u'u/{Ⓥ}|{Ⓥ}\\/
@@ -585,7 +571,6 @@ def combination_fst():
         # qaur -a => qauwa
         /u/uw/{Ⓥ}|{Ⓥ}\\/{Ⓥ}/
         /a/a'/{Ⓥ}|{Ⓥ}\\/{Ⓥ}/
-        *
 
         # Get rid of some remaining technical notation
         /rr/r/
@@ -593,7 +578,7 @@ def combination_fst():
         # Backslash-vowel disappears in a closed syllable
         # has to be same vowel?
         # /\\//{aiu}/{aiu}{Ⓒ}{Ⓥ}/
-        # /\\{aiu}//{aiu}/{Ⓒ}{Ⓒ}|{Ⓒ}[EOS]/
+        /\\{aiu}//{aiu}/{Ⓒ}{Ⓒ}|{Ⓒ}[EOS]/
         # *
         # Backslash-g/r disappears before a consonant
         # /X\\X/X/  --which X do we need this for?
@@ -606,125 +591,12 @@ def combination_fst():
         /\\//
         *
     """)
+    st = global_symbol_table()
+    join.set_input_symbols(st)
+    join.set_output_symbols(st)
+    with gzip.open(filename, 'wb') as outfile:
+        outfile.write(join.write_to_string())
     return join
-
-    # print("composing", file=sys.stderr)
-    # fst @= join
-    # del join
-    # print(f"  {fst.num_states()}", file=sys.stderr)
-    # print("optimizing", file=sys.stderr)
-    # fst.optimize()
-    # print(f"  {fst.num_states()}", file=sys.stderr)
-
-    # return fst
-
-
-@lru_cache(maxsize=1)
-def apply_negative_fst():
-    return parse_rules(r"""
-        # Cancel out double negations
-        /N !/ /
-        /{au\\}iT !/r /
-        /kiT !/tu /
-        /iX !/[ng]q'rr /
-        # /T !/ !/{Ⓥ}/
-        # /T !/e !/{Ⓒ}/
-
-        # / / !/{NTX}-/{-+~<}/
-
-        # Negatives of -tu- roots
-        /tu !/kiT !/
-        /tuN !/kiT !/
-        /ki !+n/kin/
-        /ki !~l[ng]u/kil[ng]u/
-        /ki !~l/kin'[ll]/
-
-        # Negative endings
-        /!~luten/+nak/
-        /!~lua/+nii/
-        /!~lu/+na/
-        /!~l[ng]u/-nil[ng]u/
-        /!~l/-n'[ll]/
-        /!-[ll]{r'}ianga/~l[ng]ua(nga)/
-        /!-[ll]{r'}i{ai}/~l[ng]u//{tkc}/
-        /!-[ll]{r'}ia/~l[ng]uq/
-        /!~[ng]/~l[ng]/
-        /!{-+~}/~ll//k/
-        /!/-n'ite /
-
-        # Negative -te- roots
-        /iT ~l/i ~l/
-        /ggT /gte /
-        /rrT /rte /
-        /T +n/n/
-        /T /te /
-
-        # Add -(g)ku before +na endings (e.g. -gkunani)
-        / +n/ <Nkun/
-        *
-    """)
-
-
-@lru_cache(maxsize=1)
-def vowel_alternation_fst():
-    return parse_rules(r"""
-        # '<Y': '+<+y>[+c]',
-        /[<Y]/+y/{aiou} /
-        /[<Y]/+c/{gr[ll]} /
-        /[<Y]/+/
-        # '<J': '-<~g>{+e}',
-        /[<J]/~g/{Ⓥ} /
-        /[<J]/+e/* |{iue}g |er /
-        /[<J]/-/
-        # '<I': '+<+y>[+ci]',
-        /[<I]/+y/{aiou} /
-        /[<I]/+ci/{gr[ll]} /
-        /[<I]/+/
-        # '<D': '+<+g>[+t]',
-        /[<D]/+g/{aiou} /
-        /[<D]/+t/{gr[ll]} /
-        /[<D]/+/
-        # '<S': '+<+s>[+ci]',
-        /[<S]/+s/{aiou} /
-        /[<S]/+ci/{gr[ll]} /
-        /[<S]/+/
-
-        # '<H': "+'<+>",
-        /[<H]/+/{aiou} /
-        /[<H]/+'/
-        # '<K': '-g{+k}',
-        /[<K]/+k/* |{iue}g |er /
-        /[<K]/-g/
-        # '<N': '+g[~]',
-        /[<N]/~/{gr[ll]} /
-        /[<N]/+g/
-
-        # '<A': '-{+}',
-        /[<A]/+/* |{iue}g |er /
-        /[<A]/-/
-        # '<E': '-{+e}',
-        /[<E]/+e/* |{iue}g |er /
-        /[<E]/-/
-        # '<G': '-<~g>',
-        #   special rule: -<...> is valid after {eA}
-        /[<G]/~g/{ⓋA} /
-        /[<G]/-/
-        # '<T': '~[+t]',
-        /[<T]/+t/{gr[ll]} /
-        /[<T]/~/
-        # '<P': '+<~g>',
-        /[<P]/~g/{aiou} /
-        /[<P]/+/
-        # '<Z': '+[+t]',
-        /[<Z]/+t/{gr[ll]} /
-        /[<Z]/+/
-        # '<W': '~{~}',
-        /[<W]/~/
-        # '<C': '~[+c]',
-        /[<C]/+c/{gr[ll]} /
-        /[<C]/~/
-        *
-    """)
 
 
 def confusion(a, b, before_a='', after_a='', before_b='', after_b=''):
@@ -764,11 +636,8 @@ def parse_rules(rules):
         if len(cols) >= 4:
             after = parse_acc(cols[3])
 
-        rule_fst = rewrite(
-            x(parse_acc(src), parse_acc(tgt)),
-            before,
-            after,
-        )
+        cross = x(parse_acc(src), parse_acc(tgt))
+        rule_fst = rewrite(cross, before, after)
         if fst is None:
             fst = rule_fst
         else:
@@ -830,9 +699,9 @@ def parse_acc(expr):
                 \}
             ''', term, flags=re.VERBOSE)
             if match is None:
-                seq_acc += escape(debackslash(term))
+                seq_acc += debackslash(term)
                 break
-            seq_acc += escape(debackslash(match.group(1)))
+            seq_acc += debackslash(match.group(1))
             chars = match.group(2)
             chars = chars.replace('Ⓒ', ''.join(CONSONANTS)).replace('Ⓥ', ''.join(VOWELS))
             seq_acc += f.union(*(
