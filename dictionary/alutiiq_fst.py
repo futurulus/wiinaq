@@ -7,14 +7,17 @@ import pynini as f
 u = f.string_map
 x = f.cross
 
-POLYGRAPHS = {
-    'Ⓖ': 'ng',
-    'Ⓗ': 'hng',
-    'Ⓛ': 'll',
-    'Ⓜ': 'hm',
-    'Ⓝ': 'hn',
-}  # ⒶⒷⒸⒹⒺⒻⒾⒿⓀⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ
-
+# Various single-symbol substitutions of multi-character strings
+HIGH_BYTE = 'HB'
+SPACE = 'SPACE'
+POLYGRAPHS = [
+    # Longer polygraphs should come first so they don't get shadowed
+    'hng',
+    'ng',
+    'll',
+    'hm',
+    'hn',
+]
 PREFIXES = {
     # Longer prefixes should come first so they don't get shadowed
     '<Y': '+<+y>[+c]',
@@ -37,14 +40,14 @@ PREFIXES = {
     '<C': '~[+c]',
 }
 
-CONSONANTS = 'ptckqwlysgrmnRⒼⒽⓁⓂⓃbdfhjvxz'
-VOWELS = 'aeiuo'
-SIGMA_REAL = set([chr(i) for i in range(1, 256)])
+CONSONANTS = list('ptckqwlysgrmnRbdfhjvxz') + POLYGRAPHS
+VOWELS = list('aeiuo')
+SIGMA_REAL = set([chr(i) for i in range(1, 128)])
 SIGMA = set(
     [chr(i) for i in range(1, 91)] +
-    ['\\[', '\\\\', '\\]'] +
-    [chr(i) for i in range(94, 256)] +
-    list(POLYGRAPHS)
+    [chr(i) for i in range(94, 128)] +
+    [r'\[', r'\\', r'\]', HIGH_BYTE] +
+    [f'[{p}]' for p in POLYGRAPHS + list(PREFIXES)]
 )
 SIGMA_STAR = u(SIGMA).star
 
@@ -52,42 +55,42 @@ SIGMA_STAR = u(SIGMA).star
 def morpho():
     lexicon = {
         '^n': ['qeneq', 'iraluq', 'iluwaq', 'suk'],
-        '^i': ['qawar-', 'kuingte-', 'age-', 'alinge-', 'kuimar-', 'mite-', "mingq'rte-"],
-        '^t': ["tang'r-", 'atur-', 'niute-'],
-        '^w': ['ner-', 'pitur-', 'liite-'],
-        '^*': ['ai-', 'pi-'],
+        '^i': ['qawar', 'kuingte', 'age', 'alinge', 'kuimar', 'mite', "mingq'rte"],
+        '^t': ["tang'r", 'atur', 'niute'],
+        '^w': ['ner', 'pitur', 'liite'],
+        '^*': ['ai', 'pi'],
 
         'nn': ['+piaq', '-sinaq'],
-        'ni': ['-li-', '-yug-'],
-        'nt': ['+illqur-', '+ir-'],
+        'ni': ['-li', '-yug'],
+        'nt': ['+illqur', '+ir'],
         'nw': ['-ngcar'],
         'n*': ['-ku', '-ipia'],
 
         'in': ['-lleq'],
-        'ii': ['+uaqiinar-'],
-        'it': ['+sqe-', '+ute-'],
+        'ii': ['+uaqiinar'],
+        'it': ['+sqe', '+ute'],
         'iw': [],
         'i*': ['+uaqitek'],
 
         'tn': ['-lleq'],
-        'ti': ['+i-', '-qsag-'],
-        'tt': ["+t'staar-"],
+        'ti': ['+i', '-qsag'],
+        'tt': ["+t'staar"],
         'tw': [],
         't*': [],
 
         'vn': ['+suuteq', '+wik'],
-        'vv': ['+piar-', "-n'ite-", '-yug-', "-ngnaq'rte-"],
-        'vi': ['+yugnga-'],
-        'vt': ['+ciaqe-'],
+        'vv': ['+piar', "-n'ite", '-yug', "-ngnaq'rte"],
+        'vi': ['+yugnga'],
+        'vt': ['+ciaqe'],
         'vw': [],
         'v*': ['+nguaqina'],
 
         '*n': ['-rwalleq'],
-        '*v': ['+ar-'],
-        '*i': ['+guirte-'],
-        '*t': ["+gui'a-"],
-        '*w': ['+te-'],
-        '**': ['+ku-'],
+        '*v': ['+ar'],
+        '*i': ['+guirte'],
+        '*t': ["+gui'a"],
+        '*w': ['+te'],
+        '**': ['+ku'],
 
         'n$': ['-k', '-t', '-mi'],
         'i$': ['-uq', '-ua', '-llria', '+kuma'],
@@ -130,9 +133,9 @@ def morpho():
     # for pos, words in distributed_lexicon.items():
     #     seqs @= rewrite(x(f'@{pos}@', u(set(words))))
 
-    # infer_framework = f.invert(seqs)
+    # # infer_framework = f.invert(seqs)
 
-    # combine = combination_fst()
+    combine = combination_fst()
 
     # words = seqs.project('output') @ combine
 
@@ -169,27 +172,24 @@ def morpho():
     # print('---\n')
 
     for query in [
-        "alinge- +<+y>[+c]ug- -n'ite- -uq",
-        "kuimar- -llria",
-        "mite- -aqa",
-        "mingq'rte- -ngnaq'rte- +kuma",
-        "qawar- -{+}uq",
-        "pi- -n'ite- -ua",
+        ['alinge', '+<+y>[+c]ug', "-n'ite", '-uq'],
+        ['kuimar', '-llria'],
+        ['mite', '-aqa'],
+        ["mingq'rte", "-ngnaq'rte", '+kuma'],
+        ['qawar', '-{+}uq'],
+        ['pi', "-n'ite", '-ua'],
     ]:
         print(query)
-        # for istr, ostr in paths(query @ combine):
-        #     print(f'  {ostr}')
-        chunks = [chunk.rstrip('-') for chunk in query.split()]
-        print(f'  {morpho_join(chunks)}')
+        print(f'  {morpho_join(query)}')
         print('')
 
 
 def morpho_join(chunks):
-    query = escape("- ".join(chunks))
+    query = " ".join([escape(chunk) for chunk in chunks])
 
     combine = combination_fst()
     try:
-        _, ostr = next(paths(query @ combine))
+        _, ostr = next(paths(f.accep(query) @ combine))
     except StopIteration:
         raise StopIteration(query) from None
     return unescape(ostr)
@@ -197,61 +197,87 @@ def morpho_join(chunks):
 
 def escape(s):
     r'''
-    >>> escape('[中\\文]')
-    '\\[\xe4\xb8\xad\\\\\xe6\x96\x87\\]'
+    >>> escape('[中 \xa0\\文ng]')
+    '\\[[HB]d[HB]8[HB]-[SPACE][HB]B[HB][SPACE]\\\\[HB]f[HB]\x16[HB]\x07[ng]\\]'
     '''
+    s = s.encode('utf-8').decode('latin-1')
+    s = f.escape(s)
     s = map_character_combinations(s)
-    return s.encode('utf-8').decode('latin-1').translate(str.maketrans({
-        '\\': r'\\',
-        '[': r'\[',
-        ']': r'\]',
-    }))
+    return s
 
 
 def unescape(s):
     r'''
-    >>> unescape('\\[\xe4\xb8\xad\\\\\xe6\x96\x87\\]')
-    '[中\\文]'
+    >>> unescape('\\[[HB]d[HB]8[HB]-[SPACE][HB]B[HB][SPACE]\\\\\xe6\x96\x87[ng]\\]')
+    '[中 \xa0\\文ng]'
     '''
-    return unmap_character_combinations(debackslash(s.encode('latin-1').decode('utf-8')))
+    s = unmap_character_combinations(s)
+    s = debackslash(s)
+    s = s.encode('latin-1').decode('utf-8')
+    return s
 
 
 def map_character_combinations(s):
     r"""
-    >>> map_character_combinations(r'alla- +<+y>[+c]ug')
-    'aⓁa- <Yug'
+    >>> map_character_combinations('äÂ\xa0allahng +<+y>[+c]ug')
+    '[HB]d[HB]B[HB][SPACE]a[ll]a[hng][SPACE][<Y]ug'
     """
-    for short, long in PREFIXES.items():
-        s = s.replace(long, short)
-    for short, long in POLYGRAPHS.items():
-        s = s.replace(long, short)
+    s = translate_multi(s, {f.escape(long): f'[{short}]' for short, long in PREFIXES.items()})
+    s = translate_multi(s, {f.escape(polygraph): f'[{polygraph}]' for polygraph in POLYGRAPHS})
+    s = re.sub(r'[\x80-\xff]', lambda match: f'[{HIGH_BYTE}]' + chr(ord(match[0]) - 0x80), s)
+    s = s.replace(' ', f'[{SPACE}]')
     return s
 
 
 def unmap_character_combinations(s):
     r"""
-    >>> unmap_character_combinations("aⓁa- <Yug")
-    'alla- +<+y>[+c]ug'
+    >>> unmap_character_combinations('[HB]d[HB]B[HB][SPACE]a[ll]a[hng] [<Y]ug')
+    'äÂ\xa0allahng +<+y>[+c]ug'
     """
-    for short, long in POLYGRAPHS.items():
-        s = s.replace(short, long)
-    for short, long in PREFIXES.items():
-        s = s.replace(short, long)
+    s = s.replace(f'[{SPACE}]', ' ')
+    s = re.sub(fr'\[{HIGH_BYTE}\].', lambda match: chr(ord(match[0][-1]) + 0x80), s)
+    s = translate_multi(s, {f'[{polygraph}]': f.escape(polygraph) for polygraph in POLYGRAPHS})
+    s = translate_multi(s, {f'[{short}]': f.escape(long) for short, long in PREFIXES.items()})
     return s
 
 
+def translate_multi(s, replacements):
+    to_replace = "|".join(re.escape(key) for key, _ in replacements.items())
+    return re.sub(to_replace, (lambda match: replacements[match[0]]), s)
+
+
 def paths(fst):
-    p = fst.paths()
+    st = symbol_table()
+    p = fst.paths(input_token_type=st, output_token_type=st)
     while not p.done():
-        yield (p.istring(), p.ostring())
+        yield (symbols_to_string(p.istring()), symbols_to_string(p.ostring()))
         p.next()
 
 
 def paths_acc(acc):
-    p = acc.paths()
+    st = symbol_table()
+    p = acc.paths(input_token_type=st, output_token_type=st)
     while not p.done():
-        yield p.istring()
+        yield symbols_to_string(p.istring())
         p.next()
+
+
+@lru_cache(maxsize=1)
+def symbol_table():
+    st = f.generated_symbols().copy()
+    for i in range(0, 256):
+        st.add_symbol(chr(i), key=i)
+    return st
+
+
+def symbols_to_string(sym_str):
+    print(f'  # {sym_str}')
+    return ''.join(
+        f'[{sym}]' if len(sym) > 1 else
+        fr'\{sym}' if sym in ('\\', '[', ']') else
+        sym
+        for sym in sym_str.split(' ')
+    )
 
 
 def rewrite(rule, before='', after=''):
@@ -260,197 +286,305 @@ def rewrite(rule, before='', after=''):
 
 @lru_cache(maxsize=1)
 def combination_fst():
-    fst = apply_negative_fst()
-
-    vowel_alternate = vowel_alternation_fst()
-    print("composing", file=sys.stderr)
-    fst @= vowel_alternate
-    del vowel_alternate
-    print("optimizing", file=sys.stderr)
-    fst.optimize()
+    # fst = apply_negative_fst()
+    # vowel_alternate = vowel_alternation_fst()
+    # print("composing", file=sys.stderr)
+    # fst @= vowel_alternate
+    # del vowel_alternate
+    # print(f"  {fst.num_states()}", file=sys.stderr)
+    # print("optimizing", file=sys.stderr)
+    # fst.optimize()
+    # print(f"  {fst.num_states()}", file=sys.stderr)
 
     join = parse_rules(r"""
+        # Cancel out double negations
+        /N !/ /
+        /{au\\}iT !/r /
+        /kiT !/tu /
+        /iX !/[ng]q'rr /
+        # /T !/ !/{Ⓥ}/
+        # /T !/e !/{Ⓒ}/
+
+        # / / !/{NTX}-/{-+~<}/
+
+        # Negatives of -tu- roots
+        /tu !/kiT !/
+        /tuN !/kiT !/
+        /ki !+n/kin/
+        /ki !~l[ng]u/kil[ng]u/
+        /ki !~l/kin'[ll]/
+
+        # Negative endings
+        /!~luten/+nak/
+        /!~lua/+nii/
+        /!~lu/+na/
+        /!~l[ng]u/-nil[ng]u/
+        /!~l/-n'[ll]/
+        /!-ll{r'}ia[ng]a/~l[ng]ua([ng]a)/
+        /!-ll{r'}i{ai}/~l[ng]u//{tkc}/
+        /!-ll{r'}ia/~l[ng]uq/
+        /!~[ng]/~l[ng]/
+        /!{-+~}/~[ll]//k/
+        /!/-n'ite /
+
+        # Negative -te- roots
+        /iT ~l/i ~l/
+        /ggT /gte /
+        /rrT /rte /
+        /T +n/n/
+        /T /te /
+
+        # Add -(g)ku before +na endings (e.g. -gkunani)
+        / +n/ <Nkun/
+        *
+
+        # ===
+
+        # '<Y': '+<+y>[+c]',
+        /[<Y]/+y/{aiou} /
+        /[<Y]/+c/{gr[ll]} /
+        /[<Y]/+/
+        # '<J': '-<~g>{+e}',
+        /[<J]/~g/{Ⓥ} /
+        /[<J]/+e/* |{iue}g |er /
+        /[<J]/-/
+        # '<I': '+<+y>[+ci]',
+        /[<I]/+y/{aiou} /
+        /[<I]/+ci/{gr[ll]} /
+        /[<I]/+/
+        # '<D': '+<+g>[+t]',
+        /[<D]/+g/{aiou} /
+        /[<D]/+t/{gr[ll]} /
+        /[<D]/+/
+        # '<S': '+<+s>[+ci]',
+        /[<S]/+s/{aiou} /
+        /[<S]/+ci/{gr[ll]} /
+        /[<S]/+/
+
+        # '<H': "+'<+>",
+        /[<H]/+/{aiou} /
+        /[<H]/+'/
+        # '<K': '-g{+k}',
+        /[<K]/+k/* |{iue}g |er /
+        /[<K]/-g/
+        # '<N': '+g[~]',
+        /[<N]/~/{gr[ll]} /
+        /[<N]/+g/
+
+        # '<A': '-{+}',
+        /[<A]/+/* |{iue}g |er /
+        /[<A]/-/
+        # '<E': '-{+e}',
+        /[<E]/+e/* |{iue}g |er /
+        /[<E]/-/
+        # '<G': '-<~g>',
+        #   special rule: -<...> is valid after {eA}
+        /[<G]/~g/{ⓋA} /
+        /[<G]/-/
+        # '<T': '~[+t]',
+        /[<T]/+t/{gr[ll]} /
+        /[<T]/~/
+        # '<P': '+<~g>',
+        /[<P]/~g/{aiou} /
+        /[<P]/+/
+        # '<Z': '+[+t]',
+        /[<Z]/+t/{gr[ll]} /
+        /[<Z]/+/
+        # '<W': '~{~}',
+        /[<W]/~/
+        # '<C': '~[+c]',
+        /[<C]/+c/{gr[ll]} /
+        /[<C]/~/
+        *
+
+        # ===
+
         # # Drop root-final e on special noun endings before k
-        # /[EA]- ~k/k/
+        # /{EA} ~k/k/
         # # Replace root-final e with apostrophe:
         # #   CKeC  where K is voiceless
-        # /[eEA]- [-+~]/'/[Ⓒ][ptckqsgrⒽⓁⓂⓃ]/[Ⓒ]/
+        # /{eEA} {-+~}/'/{Ⓒ}{ptckqsgr[hng][ll][hm][hn]}/{Ⓒ}/
         # #   KeCC
-        # /[eEA]- [-+~]/'/[ptckqsgrⒽⓁⓂⓃ]/[Ⓒ][Ⓒ]|[Ⓒ]'[Ⓥ]/
+        # /{eEA} {-+~}/'/{ptckqsgr[hng][ll][hm][hn]}/{Ⓒ}{Ⓒ}|{Ⓒ}'{Ⓥ}/
         # #   VgeV.  (or r instead of g)
-        # /[eEA]- [-+~]/'/[Ⓥ][gr]/[Ⓥ][^]/
+        # /{eEA} {-+~}/'/{Ⓥ}{gr}/{Ⓥ}{ⓋⒸ'}/
         # # Keep it when it would otherwise result in CCC
-        # /[eA]- [-+~]/e/[Ⓒ][Ⓒ]/[Ⓒ]/
-        # /[eA]- [-+~]/e/[Ⓒ]/[Ⓒ][Ⓒ]|[Ⓒ]'[Ⓥ]/
+        # /{eA} {-+~}/e/{Ⓒ}{Ⓒ}/{Ⓒ}/
+        # /{eA} {-+~}/e/{Ⓒ}/{Ⓒ}{Ⓒ}|{Ⓒ}'{Ⓥ}/
         # # Otherwise drop it
-        # /[eA]- [-+~]//
+        # /{eA} {-+~}//
 
         # Noun stem endings: -a, -eq
-        /[AE]- -a/e- -a//[^]/ ?
-        /[AE]- -i/e- -i//[^]/ ?
+        /{AE} -a/e -a//{ⓋⒸ'}/ ?
+        /{AE} -i/e -i//{ⓋⒸ'}/ ?
         # piugtA -a => piugtii, niuwasuutE -a => niuwasuutii
-        /[AE]- -a/ii/
+        /{AE} -a/ii/
         # piugtA -i => piugtai, niuwasuutE -i => niuwasuutai
-        /[AE]- -i/ai/
+        /{AE} -i/ai/
 
         # "Strong" noun stem endings
         # taquka\ra +et => taquka\ra at => taqukaraat
-        /a[gr]*- [-+~]e/aa/
-        /i[gr]*- [-+~]e/ii/
-        /u[gr]*- [-+~]e/uu/
+        /a{gr}* {-+~}e/aa/
+        /i{gr}* {-+~}e/ii/
+        /u{gr}* {-+~}e/uu/
         # nuter -a => nutra
-        /rr- -|gg- -//
+        /rr -|gg -//
         # kiweg -a => kiuga
-        /weg- -/ug/[Ⓥ][Ⓒ]/[aiu]/
-        /wer- -/ur/[Ⓥ][Ⓒ]/[aiu]/
-        /eg- -/g/[Ⓥ][Ⓒ]/[aiu]/
-        /er- -/r/[Ⓥ][Ⓒ]/[aiu]/
+        /weg -/ug/{Ⓥ}/{aiu}/
+        /wer -/ur/{Ⓥ}/{aiu}/
+        /eg -/g/{Ⓥ}{Ⓒ}/{aiu}/
+        /er -/r/{Ⓥ}{Ⓒ}/{aiu}/
+        *
 
         # Plus-type + endings mostly concatenate
         # ??? what happens to the e here?
-        /[rg]*- +e//[aiu]/
-        /*- +///[ⓋⒸ']/
+        /{rg}* +e//{aiu}/
+        /* +///{ⓋⒸ'}/
         # nere +uq => ner'uq
-        /e- +/'/[gr]/[Ⓥ']/
+        /e +/'/{gr}/{Ⓥ'}/
         # qitenge +uq => qitenguq, ike '\um => ik'\um => ik'um
-        /e- +///[Ⓥ']/
-        /'- +///[Ⓒ]/
+        /e +///{Ⓥ'}/
+        /' +///{Ⓒ}/
         # kiweg +a => kiwg +a => kiuga
-        /weg- +/ug/[Ⓥ][Ⓒ]/[Ⓥ]/
-        /wer- +/ur/[Ⓥ][Ⓒ]/[Ⓥ]/
-        /eg- +/g/[Ⓥ][Ⓒ]/[Ⓥ]/
+        /weg +/ug/{Ⓥ}/{Ⓥ}/
+        /wer +/ur/{Ⓥ}/{Ⓥ}/
+        /eg +/g/{Ⓥ}{Ⓒ}/{Ⓥ}/
         # nater +en => natren
-        /er- +/r/[Ⓥ][Ⓒ]/[Ⓥ]/
+        /er +/r/{Ⓥ}{Ⓒ}/{Ⓥ}/
         # tape +gkunani => tap'gkunani
-        /e- +/'/[stpkqc]/[gr]/
+        /e +/'/{stpkqc}/{gr}/
         # Demonstrative ending: tamaa +\um => tamaatum
         # This is a horrible hack. The good alternative would be to allow having
         # multiple roots, which demonstratives have (tamaatu-, tamaaku-, tamaa-).
-        /- +\\/t/aa|ii|uu/
+        / +\\/t/aa|ii|uu/
 
         # Concatenate if there's anything after the +
-        /- +///[ⓋⒸ']/
+        / +///{ⓋⒸ'}/
         # Otherwise: empty noun endings
-        /te- +/teq/
-        /r- +|r*- +/q/
-        /g- +|g*- +/k/
-        /[eA]- +/a/
-        /E- +/eq/
+        /te +/teq/
+        /r +|r* +/q/
+        /g +|g* +/k/
+        /{eA} +/a/
+        /E +/eq/
 
-        /- +//
-
-        # Minus-type - endings subtract the previous consonant
-        /*- -//
-        /g- -//[iue]/[aiu]/
-        /er- -/e//[aiu]/
-        /[Ⓒ]- -//
-        /t'e- -/t'- -/
-        /pe- -p/pe/
-        /te- -t/te/
-        /ce- -c/ce/
-        /ke- -k/ke/
-        /qe- -q/qe/
-        /se- -s/se/
-        /ge- -g/ge/
-        /re- -r/re/
-        /Ⓗe- -Ⓗ/Ⓗe/
-        /Ⓛe- -Ⓛ/Ⓛe/
-        /Ⓜe- -Ⓜ/Ⓜe/
-        /Ⓝe- -Ⓝ/Ⓝe/
-        /e- -/'/[ptckqsgrⒼⒽⓁⓂⓃ]/[ptckqsgrⒽⓁⓂⓃ][Ⓒ]/
-        # qutA -mnek => qute -mnek => qutemnek
-        /e- -/e/[Ⓒ]/[Ⓒ][Ⓒ]/
-        # piugtA -gun => piugte -gun => piugt'gun
-        /e- -/'/[Ⓒ][ptckqsgrⒼⒽⓁⓂⓃ]/[ptckqsgrⒼⒽⓁⓂⓃ]/
-        # piugtA -mi => piugte -mi => piugtemi
-        /e- -/e/[Ⓒ][Ⓒ]/[Ⓒ]/
-        /e- -/'//[Ⓥ]/
-        /e- -//
-
-        /- -//
+        / +//
         *
 
-        # # Assimilating ~ endings are mostly like plus-type, but sometimes combine
-        # # Special noun endings
-        # # qute ~ka => qutka
-        # /t[AE]- ~k/tk/[Ⓥ]/
-        # # piugtA ~ka => piugteka [=> piugt'ka]
-        # /t[AE]- ~k/tk/
-        # /[AE]- ~/e- ~/
+        # Minus-type - endings subtract the previous consonant
+        /* -//
+        /g -//{iue}/{aiu}/
+        /er -/r//{aiu}/
+        /r -//
+        # /{Ⓒ} -//
+        /t'e -/t' -/
+        /pe -p/pep/
+        /te -t/tet/
+        /ce -c/cec/
+        /ke -k/kek/
+        /qe -q/qeq/
+        /se -s/ses/
+        /ge -g/geg/
+        /re -r/rer/
+        /[hng]e -[hng]/[hng]e/
+        /[ll]e -[ll]/[ll]e/
+        /[hm]e -[hm]/[hm]e/
+        /[hn]e -[hn]/[hn]e/
+        /e -/'/{ptckqsgr[ng][ll][hm][hn][hng]}/{ptckqsgr[ll][hm][hn][hng]}{Ⓒ}/
+        # qutA -mnek => qute -mnek => qutemnek
+        /e -/e/{Ⓒ}/{Ⓒ}{Ⓒ}/
+        # piugtA -gun => piugte -gun => piugt'gun
+        /e -/'/{Ⓒ}{ptckqsgr[ng][ll][hm][hn][hng]}/{ptckqsgr[ll][hm][hn][hng]}/
+        # piugtA -mi => piugte -mi => piugtemi
+        /e -/e/{Ⓒ}{Ⓒ}/{Ⓒ}/
+        /e -/'//{Ⓥ}/
+        /e -//
 
-        # /t'e- ~k/Ⓛk/
-        # /te- ~k/sk//[Ⓥ]/
-        # /te- ~k/'sk///
-        # /e- ~k/'gk/[kq]/
-        # # nuteg ~ka => nutegka
-        # /gg- ~k|g*- ~k|g- ~k/gk//[Ⓥ]/
-        # /gg- ~k|g*- ~k|g- ~k/k/
-        # # nater ~ka => natqa
-        # /er- ~k/q/[Ⓥ][Ⓒ]/[Ⓥ]/
-        # # kayar ~ka => kayaqa, minar ~kii => minaqii
-        # /rr- ~k|r*- ~k|r- ~k/q/
-        # /- ~k/k/[aioul]/
-        # /[ⒸⓋ]- ~k/k/
-        # # missing apostrophe additions for triple consonants here?
+        / -//{Ⓥ}/
+        *
 
-        # # kiweg ~ganun => kiw ~ganun => kiuganun
-        # /wer- ~g/ur/[Ⓥ]/[Ⓥ]/
-        # /weg- ~g/ug/[Ⓥ]/[Ⓥ]/
-        # # nater ~ga => natra
-        # /er- ~g/r/[Ⓥ][Ⓒ]/[Ⓥ]/
-        # /eg- ~g/g/[Ⓥ][Ⓒ]/[Ⓥ]/
-        # /e- ~g/'g//[Ⓒ]/
-        # /gg- ~g|g*- ~g/g/
-        # /rr- ~g|r*- ~g|r- ~g/r/
-        # /[Ⓒ]- ~g/g/
+        # Assimilating ~ endings are mostly like plus-type, but sometimes combine
+        # Special noun endings
+        # qute ~ka => qutka
+        /t{AE} ~k/tk/{Ⓥ}/
+        # piugtA ~ka => piugteka [=> piugt'ka]
+        /t{AE} ~k/t'k/{Ⓒ}/
+        /{AE} ~/e ~/
 
-        # # et'e ~luni => ell'uni
-        # /t'e- ~l/Ⓛ'/
-        # # et'e ~ngama => ellngama
-        # /t'e- ~/Ⓛ//Ⓖ/
-        # # mikte ~lnguq => mik'llnguq
-        # /te- ~l/'Ⓛ/[Ⓒ]/[Ⓒ]/
-        # # pekte ~luni => peklluni
-        # /te- ~l/Ⓛ/
-        # # aiwite ~ngama => aiwicama
-        # /te- ~Ⓖ/'c/[Ⓒ]/[Ⓒ]/
-        # /te- ~Ⓖ/c/
-        # # ule ~luni => ul'uni
-        # /le- ~l/l'/
-        # /e- ~l/'Ⓛ/[Ⓒ][ptckqsgrⒽⓁⓂⓃ]/
-        # /e- ~Ⓖ/'Ⓖ/[Ⓒ][ptckqsgrⒽⓁⓂⓃ]/
-        # # cupugg ~luni => cupuglluni
-        # /gg- ~l/gⓁ/
-        # # angq'rr ~luni => angq'rlluni
-        # /rr- ~l/rⓁ/
-        # # caqe ~luni => caqlluni
-        # /e- ~l/Ⓛ/[qk]/
-        # # age ~luni => agluni
-        # /e- ~//
+        /t'e ~k/[ll]k/
+        /te ~k/sk//{Ⓥ}/
+        /te ~k/'sk///
+        /e ~k/'gk/{kq}/
+        # nuteg ~ka => nutegka
+        /gg ~k|g* ~k|g ~k/gk//{Ⓥ}/
+        /gg ~k|g* ~k|g ~k/k/
+        # nater ~ka => natqa
+        /er ~k/q/{Ⓥ}{Ⓒ}/{Ⓥ}/
+        # kayar ~ka => kayaqa, minar ~kii => minaqii
+        /rr ~k|r* ~k|r ~k/q/
+        / ~k/k/{aioul}/
+        # /{ⒸⓋ} ~k/k/
+        # missing apostrophe additions for triple consonants here?
 
-        # /a- ~a/a'a/
-        # /i- ~i/i'i/
-        # /u- ~u/u'u/
-        # /e- ~///[aiu]/
-        # /i- ~/iy//[au]/
-        # /u- ~/uw//[ai]/
+        # kiweg ~ganun => kiw ~ganun => kiuganun
+        /wer ~g/ur/{Ⓥ}/{Ⓥ}/
+        /weg ~g/ug/{Ⓥ}/{Ⓥ}/
+        # nater ~ga => natra
+        /er ~g/r/{Ⓥ}{Ⓒ}/{Ⓥ}/
+        /eg ~g/g/{Ⓥ}{Ⓒ}/{Ⓥ}/
+        /e ~g/'g//{Ⓒ}/
+        /gg ~g|g* ~g/g/
+        /rr ~g|r* ~g|r ~g/r/
+        # /{Ⓒ} ~g/g/
 
-        # # kate ~na => kan'a
-        # /te- ~n/n'/
-        # # ike ~na => ikna
-        # /e- ~///n/
+        # et'e ~luni => ell'uni
+        /t'e ~l/[ll]'/
+        # et'e ~ngama => ellngama
+        /t'e ~/[ll]//[ng]/
+        # mikte ~lnguq => mik'llnguq
+        /te ~l/'[ll]/{Ⓒ}/{Ⓒ}/
+        # pekte ~luni => peklluni
+        /te ~l/[ll]/{Ⓥ'}/
+        /te ~l/[ll]//{Ⓥ}/
+        # aiwite ~ngama => aiwicama
+        /te ~[ng]/'c/{Ⓒ}/{Ⓒ}/
+        /te ~[ng]/c/{Ⓥ'}/
+        /te ~[ng]/c//{Ⓥ}/
+        # ule ~luni => ul'uni
+        /le ~l/l'/
+        /e ~l/'[ll]/{Ⓒ}{pckqsgr[ll][hm][hn][hng]}/
+        /e ~[ng]/'[ng]/{Ⓒ}{pckqsgr[ll][hm][hn][hng]}/
+        # cupugg ~luni => cupuglluni
+        /gg ~l/g[ll]/
+        # angq'rr ~luni => angq'rlluni
+        /rr ~l/r[ll]/
+        # caqe ~luni => caqlluni
+        /e ~l/[ll]/{qk}/
+        # age ~luni => agluni
+        /e ~//
 
-        /- ~//
+        /a ~a/a'a/
+        /i ~i/i'i/
+        /u ~u/u'u/
+        /e ~///{aiu}/
+        /i ~/iy//{au}/
+        /u ~/uw//{ai}/
+
+        # kate ~na => kan'a
+        /te ~n/n'/
+        # ike ~na => ikna
+        /e ~///n/
+
+        / ~//
 
         # Break up triple vowels
-        /uu/u'u/[Ⓥ]|[Ⓥ]\\/
+        /uu/u'u/{Ⓥ}|{Ⓥ}\\/
         # ki\ir -it => kii'it
-        /ii/i'i/[Ⓥ]|[Ⓥ]\\/
+        /ii/i'i/{Ⓥ}|{Ⓥ}\\/
         # ki\ir -a => kiiya
-        /i/iy/[Ⓥ]|[Ⓥ]\\/[Ⓥ]/
+        /i/iy/{Ⓥ}|{Ⓥ}\\/{Ⓥ}/
         # qaur -a => qauwa
-        /u/uw/[Ⓥ]|[Ⓥ]\\/[Ⓥ]/
-        /a/a'/[Ⓥ]|[Ⓥ]\\/[Ⓥ]/
+        /u/uw/{Ⓥ}|{Ⓥ}\\/{Ⓥ}/
+        /a/a'/{Ⓥ}|{Ⓥ}\\/{Ⓥ}/
         *
 
         # Get rid of some remaining technical notation
@@ -458,67 +592,72 @@ def combination_fst():
         /gg/g/
         # Backslash-vowel disappears in a closed syllable
         # has to be same vowel?
-        /\\//[aiu]/[aiu][Ⓒ][Ⓥ]/
-        /\\[aiu]//[aiu]/[Ⓒ]/
+        # /\\//{aiu}/{aiu}{Ⓒ}{Ⓥ}/
+        # /\\{aiu}//{aiu}/{Ⓒ}{Ⓒ}|{Ⓒ}[EOS]/
+        # *
         # Backslash-g/r disappears before a consonant
         # /X\\X/X/  --which X do we need this for?
-        /\\///[gr][aiu][Ⓥ]/
-        /a\\[gr]a/a'a//[Ⓒ]/
-        /i\\[gr]i/i'i//[Ⓒ]/
-        /u\\[gr]u/u'u//[Ⓒ]/
-        /i\\[gr]/iy//[au][Ⓒ]/
-        /u\\[gr]/uw//[ai][Ⓒ]/
+        # /\\///{gr}{aiu}{Ⓥ}/
+        # /\\{gr}/'/a/a{Ⓒ}/
+        # /\\{gr}/'/i/i{Ⓒ}/
+        # /\\{gr}/'/u/u{Ⓒ}/
+        # /\\{gr}/y/i/{au}{Ⓒ}/
+        # /\\{gr}/w/u/{ai}{Ⓒ}/
         /\\//
         *
     """)
-    print("composing", file=sys.stderr)
-    fst @= join
-    del join
-    print("optimizing", file=sys.stderr)
-    fst.optimize()
+    return join
 
-    return fst
+    # print("composing", file=sys.stderr)
+    # fst @= join
+    # del join
+    # print(f"  {fst.num_states()}", file=sys.stderr)
+    # print("optimizing", file=sys.stderr)
+    # fst.optimize()
+    # print(f"  {fst.num_states()}", file=sys.stderr)
+
+    # return fst
 
 
 @lru_cache(maxsize=1)
 def apply_negative_fst():
     return parse_rules(r"""
         # Cancel out double negations
-        /N- !/- /
-        /[au\\]iT- !/r- /
-        /kiT- !/tu- /
-        /iX- !/ngq'rr- /
-        # /T- !/- !/[Ⓥ]/
-        # /T- !/e- !/[Ⓒ]/
+        /N !/ /
+        /{au\\}iT !/r /
+        /kiT !/tu /
+        /iX !/[ng]q'rr /
+        # /T !/ !/{Ⓥ}/
+        # /T !/e !/{Ⓒ}/
 
-        # / / !/[NTX]-/[-+~<]/
+        # / / !/{NTX}-/{-+~<}/
 
         # Negatives of -tu- roots
-        /tu- !/kiT- !/
-        /tuN- !/kiT- !/
-        /ki- !+n/kin/
-        /ki- !~lngu/kilngu/
-        /ki- !~l/kin'll/
+        /tu !/kiT !/
+        /tuN !/kiT !/
+        /ki !+n/kin/
+        /ki !~l[ng]u/kil[ng]u/
+        /ki !~l/kin'[ll]/
 
         # Negative endings
         /!~luten/+nak/
         /!~lua/+nii/
         /!~lu/+na/
-        /!~lngu/-nilngu/
-        /!~l/-n'll/
-        /!-ll[r']ianga/~lngua(nga)/
-        /!-ll[r']i[ai]/~lngu//[tkc]/
-        /!-ll[r']ia/~lnguq/
-        /!~ng/~lng/
-        /![-+~]/~ll//k/
-        /!/-n'ite- /
+        /!~l[ng]u/-nil[ng]u/
+        /!~l/-n'[ll]/
+        /!-[ll]{r'}ianga/~l[ng]ua(nga)/
+        /!-[ll]{r'}i{ai}/~l[ng]u//{tkc}/
+        /!-[ll]{r'}ia/~l[ng]uq/
+        /!~[ng]/~l[ng]/
+        /!{-+~}/~ll//k/
+        /!/-n'ite /
 
         # Negative -te- roots
-        /iT- ~l/i- ~l/
-        /ggT- /gte- /
-        /rrT- /rte- /
-        /T- +n/n/
-        /T- /te- /
+        /iT ~l/i ~l/
+        /ggT /gte /
+        /rrT /rte /
+        /T +n/n/
+        /T /te /
 
         # Add -(g)ku before +na endings (e.g. -gkunani)
         / +n/ <Nkun/
@@ -530,60 +669,60 @@ def apply_negative_fst():
 def vowel_alternation_fst():
     return parse_rules(r"""
         # '<Y': '+<+y>[+c]',
-        /<Y/+y/[aiou]- /
-        /<Y/+c/[grⓁ]- /
-        /<Y/+/
+        /[<Y]/+y/{aiou} /
+        /[<Y]/+c/{gr[ll]} /
+        /[<Y]/+/
         # '<J': '-<~g>{+e}',
-        /<J/~g/[Ⓥ]- /
-        /<J/+e/*- |[iue]g- |er- /
-        /<J/-/
+        /[<J]/~g/{Ⓥ} /
+        /[<J]/+e/* |{iue}g |er /
+        /[<J]/-/
         # '<I': '+<+y>[+ci]',
-        /<I/+y/[aiou]- /
-        /<I/+ci/[grⓁ]- /
-        /<I/+/
+        /[<I]/+y/{aiou} /
+        /[<I]/+ci/{gr[ll]} /
+        /[<I]/+/
         # '<D': '+<+g>[+t]',
-        /<D/+g/[aiou]- /
-        /<D/+t/[grⓁ]- /
-        /<D/+/
+        /[<D]/+g/{aiou} /
+        /[<D]/+t/{gr[ll]} /
+        /[<D]/+/
         # '<S': '+<+s>[+ci]',
-        /<S/+s/[aiou]- /
-        /<S/+ci/[grⓁ]- /
-        /<S/+/
+        /[<S]/+s/{aiou} /
+        /[<S]/+ci/{gr[ll]} /
+        /[<S]/+/
 
         # '<H': "+'<+>",
-        /<H/+/[aiou]- /
-        /<H/+'/
+        /[<H]/+/{aiou} /
+        /[<H]/+'/
         # '<K': '-g{+k}',
-        /<K/+k/*- |[iue]g- |er- /
-        /<K/-g/
+        /[<K]/+k/* |{iue}g |er /
+        /[<K]/-g/
         # '<N': '+g[~]',
-        /<N/~/[grⓁ]- /
-        /<N/+g/
+        /[<N]/~/{gr[ll]} /
+        /[<N]/+g/
 
         # '<A': '-{+}',
-        /<A/+/*- |[iue]g- |er- /
-        /<A/-/
+        /[<A]/+/* |{iue}g |er /
+        /[<A]/-/
         # '<E': '-{+e}',
-        /<E/+e/*- |[iue]g- |er- /
-        /<E/-/
+        /[<E]/+e/* |{iue}g |er /
+        /[<E]/-/
         # '<G': '-<~g>',
-        #   special rule: -<...> is valid after [eA]
-        /<G/~g/[ⓋA]- /
-        /<G/-/
+        #   special rule: -<...> is valid after {eA}
+        /[<G]/~g/{ⓋA} /
+        /[<G]/-/
         # '<T': '~[+t]',
-        /<T/+t/[grⓁ]- /
-        /<T/~/
+        /[<T]/+t/{gr[ll]} /
+        /[<T]/~/
         # '<P': '+<~g>',
-        /<P/~g/[aiou]- /
-        /<P/+/
+        /[<P]/~g/{aiou} /
+        /[<P]/+/
         # '<Z': '+[+t]',
-        /<Z/+t/[grⓁ]- /
-        /<Z/+/
+        /[<Z]/+t/{gr[ll]} /
+        /[<Z]/+/
         # '<W': '~{~}',
-        /<W/~/
+        /[<W]/~/
         # '<C': '~[+c]',
-        /<C/+c/[grⓁ]- /
-        /<C/~/
+        /[<C]/+c/{gr[ll]} /
+        /[<C]/~/
         *
     """)
 
@@ -599,11 +738,20 @@ def confusion(a, b, before_a='', after_a='', before_b='', after_b=''):
 def parse_rules(rules):
     lines = rules.splitlines()
     fst = None
+    old_states = 1
+    old_arcs = 1
 
     for line in lines:
         if fst and line.strip() == "*":
             print("optimizing", file=sys.stderr)
             fst.optimize()
+            states = fst.num_states()
+            delta_states = states * 1. / old_states - 1.
+            old_states = states
+            arcs = num_arcs(fst)
+            delta_arcs = arcs * 1. / old_arcs - 1.
+            old_arcs = arcs
+            print(f"  {states} ({delta_states:.2f}) {arcs} ({delta_arcs:.2f})", file=sys.stderr)
             continue
         if '/' not in line or line.strip().startswith('#'):
             continue
@@ -626,26 +774,34 @@ def parse_rules(rules):
         else:
             fst @= rule_fst
 
+        states = fst.num_states()
+        delta_states = states * 1. / old_states - 1.
+        old_states = states
+        arcs = num_arcs(fst)
+        delta_arcs = arcs * 1. / old_arcs - 1.
+        old_arcs = arcs
+        print(f"  {states} ({delta_states:.2f}) {arcs} ({delta_arcs:.2f})", file=sys.stderr)
+
     return fst
 
 
 def parse_acc(expr):
     r'''
-    Builds an FST from an expression in a dramatically simplified subset of
-    regex syntax.
+    Builds an acceptor FST from an expression in a dramatically simplified
+    subset of regex syntax.
 
     An expression can be a disjunction of strings separated by vertical bar
     characters |, where each of the strings can contain character sets enclosed
-    in [square brackets]. A character set that starts with a caret ^ is negated.
-    Square brackets and vertical bars can be escaped with backslashes, and
-    backslashes can themselves be escaped by doubling them.  There are no
-    parentheses (so disjunctions cannot be nested or partial).
+    in {braces}. A character set that starts with a caret ^ is negated. Braces
+    and vertical bars can be escaped with backslashes, and backslashes can
+    themselves be escaped by doubling them.  There are no parentheses (so
+    disjunctions cannot be nested or partial).
 
-    >>> sorted(paths_acc(parse_acc('ab|[cd]')))
+    >>> sorted(paths_acc(parse_acc('ab|{cd}')))
     ['ab', 'c', 'd']
-    >>> sorted(paths_acc(parse_acc('a\\|b|[c\\|d]')))
-    ['a|b', 'c', 'd', '|']
-    >>> not_cd = parse_acc('[^cd]'); sorted(SIGMA_REAL - set(paths_acc(not_cd)))
+    >>> sorted(paths_acc(parse_acc('a\\|\\{b|{c\\|d}')))
+    ['a|{b', 'c', 'd', '|']
+    >>> not_cd = parse_acc('{^cd}'); sorted(SIGMA_REAL - set(paths_acc(not_cd)))
     ['c', 'd']
     '''
     terms = [
@@ -665,20 +821,20 @@ def parse_acc(expr):
         while True:
             match = re.match(r'''
                 (
-                    (?:[^[\\]|\\.)*      # Zero or more non-brackets and escaped characters
+                    (?:[^{\\]|\\.)*      # Zero or more non-brackets and escaped characters
                 )
-                \[
+                \{
                     (
-                        (?:[^]\\]|\\.)+  # followed by a bracketed group of non-brackets and
+                        (?:[^}\\]|\\.)+  # followed by a bracketed group of non-brackets and
                     )                    # escaped characters (non-empty)
-                \]
+                \}
             ''', term, flags=re.VERBOSE)
             if match is None:
                 seq_acc += escape(debackslash(term))
                 break
             seq_acc += escape(debackslash(match.group(1)))
             chars = match.group(2)
-            chars = chars.replace('Ⓒ', CONSONANTS).replace('Ⓥ', VOWELS)
+            chars = chars.replace('Ⓒ', ''.join(CONSONANTS)).replace('Ⓥ', ''.join(VOWELS))
             seq_acc += f.union(*(
                 SIGMA - charset(chars[1:])
                 if chars[0] == '^'
@@ -691,22 +847,31 @@ def parse_acc(expr):
 
 def debackslash(s):
     r'''
-    >>> debackslash(r'a\\\[a')
-    'a\\[a'
+    >>> debackslash(r'a\\\{a')
+    'a\\{a'
     '''
     return re.sub(r'\\(.)', r'\1', s)
 
 
 def charset(chars):
-    chars = debackslash(chars)
-    accepted = set(chars)
-    if '[' in accepted:
-        accepted = (accepted | {'\\['}) - {'['}
-    if ']' in accepted:
-        accepted = (accepted | {'\\]'}) - {']'}
-    if '\\' in accepted:
-        accepted = (accepted | {'\\\\'}) - {'\\'}
+    chunks = re.split(r'(\\.|\[[^\]]*\])', chars)
+    accepted = set()
+    for chunk in chunks:
+        if chunk.startswith('\\'):
+            assert len(chunk) == 2
+            if chunk[1] in ('[', ']', '\\'):
+                accepted.add(chunk)
+            else:
+                accepted.add(chunk[1])
+        elif chunk.startswith('['):
+            accepted.add(chunk)
+        else:
+            accepted.update(chunk)
     return accepted
+
+
+def num_arcs(fst):
+    return sum(fst.num_arcs(state) for state in fst.states())
 
 
 if __name__ == '__main__':
