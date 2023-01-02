@@ -263,9 +263,10 @@ def add_ending_method(args):
         root = None
 
     def check_ending(self):
-        from .alutiiq import get_endings_map, get_root
+        from .alutiiq import get_inflection, get_root
         computed_root = root if root else get_root(word, pos=pos)
-        self.assertEqual(get_endings_map(computed_root, pos)[features], expected)
+        params = {'word': word, 'root': computed_root, 'pos': pos, 'features': features}
+        self.assertEqual(get_inflection(computed_root, pos, features), expected, msg=str(params))
 
     check_ending.__name__ = re.sub('[^a-zA-Z0-9_]', '_',
                                    'test_ending_%s_%s_%s__%s' %

@@ -1,6 +1,6 @@
-from functools import lru_cache
 import re
 from collections import Counter, namedtuple
+from functools import lru_cache
 
 from .alutiiq_fst import morpho_join
 
@@ -892,7 +892,7 @@ TableCell = namedtuple('TableCell', ['id', 'map'])
 
 
 def build_tables(root):
-    endings_map = get_endings_map(root.root, root.pos)
+    endings_map = get_inflections_map(root.root, root.pos)
 
     for w in HIERARCHY[root.pos]:
         column_headers = [header for id_, header in w.cols]
@@ -980,18 +980,25 @@ def build_cells(row_id, widget, endings_map):
 
 
 @lru_cache(maxsize=128)
-def get_endings_map(root, pos):
+def get_inflections_map(root, pos):
     '''
-    >>> get_endings_map('yaamar', 'n')['ABS:DU:POSS1P:POSSSG']
+    >>> get_inflections_map('yaamar', 'n')['ABS:DU:POSS1P:POSSSG']
     'yaamagka'
-    >>> get_endings_map('silug', 'vi')['1P:PL:POS:PRES']
+    >>> get_inflections_map('silug', 'vi')['1P:PL:POS:PRES']
     'silugtukut'
-    >>> get_endings_map('nallu', 'vt')['O3P:OSG:POS:PRES:S1P:SSG']
+    >>> get_inflections_map('nallu', 'vt')['O3P:OSG:POS:PRES:S1P:SSG']
     'nalluwaqa'
     '''
-    endings_map = {}
-    build_endings(endings_map, ID_LISTS[pos], root, ENDINGS[pos])
-    return endings_map
+    endings_map = get_endings_map(pos)
+    return {
+        features: morpho_join([root, ending])
+        for features, ending in endings_map.items()
+    }
+
+
+def get_inflection(root, pos, features):
+    endings_map = get_endings_map(pos)
+    return morpho_join([root, endings_map[features]])
 
 
 def spanned(id_list, id_curr):
@@ -1021,14 +1028,21 @@ def spanned(id_list, id_curr):
     return any(c.issubset(id_curr) for c in conds)
 
 
-def build_endings(endings_map, id_lists, root, endings, id_curr=None):
+@lru_cache(maxsize=128)
+def get_endings_map(pos):
+    endings_map = {}
+    build_endings_map(endings_map, ID_LISTS[pos], ENDINGS[pos])
+    return endings_map
+
+
+def build_endings_map(endings_map, id_lists, endings, id_curr=None):
     '''
     >>> TEST_ENDINGS = [['+a', '+b'], ['+A', '+B']]
     >>> TEST_ID_LISTS = [['LOWER', 'UPPER'], ['A', 'B']]
     >>> result = {}
-    >>> build_endings(result, TEST_ID_LISTS, 'x', TEST_ENDINGS)
+    >>> build_endings_map(result, TEST_ID_LISTS, TEST_ENDINGS)
     >>> result['B:LOWER']
-    'xb'
+    '+b'
     '''
     if id_curr is None:
         id_curr = []
@@ -1036,18 +1050,15 @@ def build_endings(endings_map, id_lists, root, endings, id_curr=None):
     if id_lists:
         curr_list = id_lists[0]
         if spanned(curr_list, id_curr):
-            build_endings(endings_map, id_lists[1:], root,
-                          endings, id_curr=id_curr)
+            build_endings_map(endings_map, id_lists[1:], endings, id_curr=id_curr)
         else:
             for id, sub_endings in zip(curr_list, endings):
                 if '-' in id:
                     id = id.split('-')[0]
-                build_endings(endings_map, id_lists[1:], root,
-                              sub_endings, id_curr=id_curr + [id])
+                build_endings_map(endings_map, id_lists[1:], sub_endings, id_curr=id_curr + [id])
     else:
         full_id = ':'.join(sorted(id_curr))
-        cell = morpho_join([root, endings])
-        endings_map[full_id] = cell
+        endings_map[full_id] = endings
 
 
 def negatives(table):

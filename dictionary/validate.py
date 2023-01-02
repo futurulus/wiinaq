@@ -11,7 +11,7 @@ import random
 def find_bad_entries():
     from .models import Entry
     from .views import group_entries
-    from .alutiiq import get_endings_map, is_valid
+    from .alutiiq import get_inflections_map, is_valid
 
     entries = group_entries(Entry.objects.all(), separate_roots=True)
     bad_headwords = []
@@ -24,7 +24,7 @@ def find_bad_entries():
             if not is_valid(word):
                 bad_headwords.append(word)
             elif root.pos and root.pos != 'None':
-                for tags, form in get_endings_map(root.root, root.pos).items():
+                for tags, form in get_inflections_map(root.root, root.pos).items():
                     form = form.replace('(', '').replace(')', '')
                     if form != '-' and not is_valid(form):
                         bad_forms.append((form, root.word, tags))
