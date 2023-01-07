@@ -38,11 +38,15 @@ def debug():
             if fst and line.strip() == "*":
                 fst.optimize()
             else:
-                rule_fst = af.parse_rule(line)
-                if fst is None:
-                    fst = rule_fst
-                else:
-                    fst @= rule_fst
+                try:
+                    rule_fst = af.parse_rule(line)
+                    if fst is None:
+                        fst = rule_fst
+                    else:
+                        fst @= rule_fst
+                except Exception:
+                    progress.write(line.strip())
+                    raise
 
             new_result = process(fst, query)
             if new_result != result:

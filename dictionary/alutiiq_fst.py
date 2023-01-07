@@ -42,8 +42,8 @@ PREFIXES = {
     '<C': '~[+c]',
 }
 
-CONSONANTS = list('ptckqwlysgrmnRbdfhjvxz') + POLYGRAPHS
-VOWELS = list('aeiuo')
+CONSONANTS = list('ptckqwlysgrmnR') + [f'[{p}]' for p in POLYGRAPHS]  # bdfhjvxz
+VOWELS = list('aeiu')  # o
 SIGMA_REAL = set([chr(i) for i in range(1, 128)])
 SIGMA = (
     [chr(i) for i in range(1, 91)] +
@@ -54,6 +54,11 @@ SIGMA = (
 SIGMA_STAR = u(SIGMA).star
 SIGMA_STAR.optimize()
 
+LL_BEFORE_NEGATION_PREFIXES = [
+    f"[{short}]"
+    for short, long in PREFIXES.items()
+    if '[+t' in long or '[+c' in long
+]
 COMBINATION_RULES = r"""
     # == Negation rules ==
 
@@ -65,11 +70,12 @@ COMBINATION_RULES = r"""
     # /T !/ !/{Ⓥ}/
     # /T !/e !/{Ⓒ}/
 
-    # / / !/{NTX}/{-+~<}/
+    # Inherent negative roots add a negation
+    / / !/{NTX}/{-+~<}/
 
     # Negatives of -tu- roots
     /tu !/kiT !/
-    /tuN !/kiT !/
+    # /tuN !/kiT !/
     /ki !+n/kin/
     /ki !~l[ng]u/kil[ng]u/
     /ki !~l/kin'[ll]/
@@ -80,18 +86,20 @@ COMBINATION_RULES = r"""
     /!~lu/+na/
     /!~l[ng]u/-nil[ng]u/
     /!~l/-n'[ll]/
-    /!-ll{r'}ia[ng]a/~l[ng]ua([ng]a)/
-    /!-ll{r'}i{ai}/~l[ng]u//{tkc}/
-    /!-ll{r'}ia/~l[ng]uq/
-    /!~[ng]/~l[ng]/
-    /!{-+~}/~[ll]//k/
+    /!-[ll]{r'}ia[ng]a/~l[ng]ua([ng]a)/
+    /!-[ll]{r'}i{ai}/~l[ng]u//{tkc}/
+    /!-[ll]{r'}ia/~l[ng]uq/
+    /!~[ng]/-n'[ll][ng]/
+    /!{-+~}/~[ll]/{NTX} /k/
+    /!{-+~}/-n'[ll]//k/
     /!/-n'ite /
 
     # Negative -te- roots
-    /iT ~l/i ~l/
+""" + f"/T /[ll] //{{{''.join(LL_BEFORE_NEGATION_PREFIXES)}}}{{aei}}|+{{ct}}{{aei}}/" + r"""
+    /T//i/ ~{l[ll]}/
     /ggT /gte /
     /rrT /rte /
-    /T +n/n/
+    /T +///n/
     /T /te /
 
     # Add -(g)ku before +na endings (e.g. -gkunani)
@@ -138,8 +146,9 @@ COMBINATION_RULES = r"""
     /[<E]/+e/* |{iue}g |er /
     /[<E]/-/
     # '<G': '-<~g>',
-    #   special rule: -<...> is valid after {eA}
-    /[<G]/~g/{ⓋA} /
+    #   old code had special rule: -<...> uses the <> after {eA}
+    #   but that results in the wrong endings for e.g. piugtii, nunai?
+    /[<G]/~g/{aiou} /
     /[<G]/-/
     # '<T': '~[+t]',
     /[<T]/+t/{gr[ll]} /
@@ -159,37 +168,17 @@ COMBINATION_RULES = r"""
 
     # == Combination ==
 
-    # Noun stem endings: -a, -eq
-    /{AE} -a/e -a//{ⓋⒸ'}/ ?
-    /{AE} -i/e -i//{ⓋⒸ'}/ ?
-    # piugtA -a => piugtii, niuwasuutE -a => niuwasuutii
-    /{AE} -a/ii/
-    # piugtA -i => piugtai, niuwasuutE -i => niuwasuutai
-    /{AE} -i/ai/
-
     # "Strong" noun stem endings
     # taquka\ra +et => taquka\ra at => taqukaraat
     /a{gr}* {-+~}e/aa/
     /i{gr}* {-+~}e/ii/
     /u{gr}* {-+~}e/uu/
-    # nuter -a => nutra
-    /rr -|gg -//
-    # kiweg -a => kiuga
-    /weg -/ug/{Ⓥ}/{aiu}/
-    /wer -/ur/{Ⓥ}/{aiu}/
-    /eg -/g/{Ⓥ}{Ⓒ}/{aiu}/
-    /er -/r/{Ⓥ}{Ⓒ}/{aiu}/
     *
 
     # Plus-type + endings mostly concatenate
-    # ??? what happens to the e here?
-    /{rg}* +e//{aiu}/
-    /* +///{ⓋⒸ'}/
+
     # nere +uq => ner'uq
     /e +/'/{gr}/{Ⓥ'}/
-    # qitenge +uq => qitenguq, ike '\um => ik'\um => ik'um
-    /e +///{Ⓥ'}/
-    /' +///{Ⓒ}/
     # kiweg +a => kiwg +a => kiuga
     /weg +/ug/{Ⓥ}/{Ⓥ}/
     /wer +/ur/{Ⓥ}/{Ⓥ}/
@@ -202,6 +191,12 @@ COMBINATION_RULES = r"""
     # This is a horrible hack. The good alternative would be to allow having
     # multiple roots, which demonstratives have (tamaatu-, tamaaku-, tamaa-).
     / +\\/t/aa|ii|uu/
+    # ??? what happens to the e here?
+    /{rg}* +e//{aiu}/
+    /* +///{ⓋⒸ'}/
+    # qitenge +uq => qitenguq, ike '\um => ik'\um => ik'um
+    /e +///{Ⓥ'}/
+    /' +///{Ⓒ}/
 
     # Empty noun endings
     /te +/teq//[EOS]/
@@ -211,40 +206,57 @@ COMBINATION_RULES = r"""
     /{eE} +/eq//[EOS]/
     # Concatenate if there's anything after the +
     # / +///{ⓋⒸ'}/
-
-    / +//
     *
 
     # Minus-type - endings subtract the previous consonant
-    /* -//
-    /g -//{iue}/{aiu}/
-    /er -/r//{aiu}/
-    /r -//
+
+    # Noun stem endings: -a, -eq
+    # /{AE} -e/e -a//{ⓋⒸ'}/
+    # /{AE} -i/e -i//{ⓋⒸ'}/
+    # piugtA -a => piugtii, niuwasuutE -a => niuwasuutii
+    /{AE} -a/ii/
+    # piugtA -i => piugtai, niuwasuutE -i => niuwasuutai
+    /{AE} -i/ai/
+    /{AE}/e// -/
+
+    /wer -/ur/{Ⓥ}/{aiu}/
+    # kiweg -a => kiuga
+    /weg -/ug/{Ⓥ}/{aiu}/
+    # nuter -a => nutra
+    /er -/r/{Ⓥ}{Ⓒ}/{aiu}/
+    /eg -/g/{Ⓥ}{Ⓒ}/{aiu}/
+    # qellter -a => nutra
+    /er -/er/{Ⓒ}{Ⓒ}/
+    /eg -/eg/{Ⓒ}{Ⓒ}/
     # /{Ⓒ} -//
     /t'e -/t' -/
-    /pe -p/pep/
+    # /pe -p/pep/
     /te -t/tet/
-    /ce -c/cec/
+    # /ce -c/cec/
     /ke -k/kek/
-    /qe -q/qeq/
+    # /qe -q/qeq/
     /se -s/ses/
     /ge -g/geg/
     /re -r/rer/
-    /[hng]e -[hng]/[hng]e/
-    /[ll]e -[ll]/[ll]e/
-    /[hm]e -[hm]/[hm]e/
-    /[hn]e -[hn]/[hn]e/
-    /e -/'/{ptckqsgr[ng][ll][hm][hn][hng]}/{ptckqsgr[ll][hm][hn][hng]}{Ⓒ}/
+    # /[hng]e -[hng]/[hng]e[hng]/
+    /[ll]e -[ll]/[ll]e[ll]/
+    # /[hm]e -[hm]/[hm]e[hm]/
+    # /[hn]e -[hn]/[hn]e[hn]/
+    /{gr}* -//
+    /rr -|gg -//
+    #   originally only deleted g between {iue} and {aiu}. not sure why
+    /g -//{Ⓥ}//
+    /r -//
+    # nanite -n'ituq => nanin'ituq (?)
+    /te -///n'{Ⓥ}/
     # qutA -mnek => qute -mnek => qutemnek
-    /e -/e/{Ⓒ}/{Ⓒ}{Ⓒ}/
+    /e -/e/{Ⓒ}/{Ⓒ}{Ⓒ'}/
     # piugtA -gun => piugte -gun => piugt'gun
     /e -/'/{Ⓒ}{ptckqsgr[ng][ll][hm][hn][hng]}/{ptckqsgr[ll][hm][hn][hng]}/
     # piugtA -mi => piugte -mi => piugtemi
     /e -/e/{Ⓒ}{Ⓒ}/{Ⓒ}/
     /e -/'//{Ⓥ}/
     /e -//
-
-    / -//{Ⓥ}/
     *
 
     # Assimilating ~ endings are mostly like plus-type, but sometimes combine
@@ -280,6 +292,7 @@ COMBINATION_RULES = r"""
     /gg ~g|g* ~g/g/
     /rr ~g|r* ~g|r ~g/r/
     # /{Ⓒ} ~g/g/
+    *
 
     # et'e ~luni => ell'uni
     /t'e ~l/[ll]'/
@@ -304,22 +317,24 @@ COMBINATION_RULES = r"""
     /rr ~l/r[ll]/
     # caqe ~luni => caqlluni
     /e ~l/[ll]/{qk}/
-    # age ~luni => agluni
-    /e ~//
+
+    # kate ~na => kan'a
+    /te ~n/n'/
 
     /a ~a/a'a/
     /i ~i/i'i/
     /u ~u/u'u/
-    /e ~///{aiu}/
     /i ~/iy//{au}/
     /u ~/uw//{ai}/
 
-    # kate ~na => kan'a
-    /te ~n/n'/
     # ike ~na => ikna
-    /e ~///n/
+    # age ~luni => agluni
+    /e ~//
+    *
 
+    / +//
     / ~//
+    / -//{Ⓥ}/
     *
 
     # Break up triple vowels
@@ -342,12 +357,12 @@ COMBINATION_RULES = r"""
     # *
     # Backslash-g/r disappears before a consonant
     # /X\\X/X/  --which X do we need this for?
-    # /\\///{gr}{aiu}{Ⓥ}/
-    # /\\{gr}/'/a/a{Ⓒ}/
-    # /\\{gr}/'/i/i{Ⓒ}/
-    # /\\{gr}/'/u/u{Ⓒ}/
-    # /\\{gr}/y/i/{au}{Ⓒ}/
-    # /\\{gr}/w/u/{ai}{Ⓒ}/
+    /\\///{gr}{aiu}{Ⓥ}/
+    /\\{gr}/'/a/a{Ⓒ}/
+    /\\{gr}/'/i/i{Ⓒ}/
+    /\\{gr}/'/u/u{Ⓒ}/
+    /\\{gr}/y/i/{au}{Ⓒ}/
+    /\\{gr}/w/u/{ai}{Ⓒ}/
     /\\//
     *
 """
@@ -600,13 +615,49 @@ def combination_fst():
     except IOError:
         pass
 
-    combine = parse_rules(COMBINATION_RULES)
+    combine = parse_rules(COMBINATION_RULES, accept=valid_morpho_acceptor())
     st = global_symbol_table()
     combine.set_input_symbols(st)
     combine.set_output_symbols(st)
     with gzip.open(filename, 'wb') as outfile:
         outfile.write(combine.write_to_string())
     return combine
+
+
+def valid_morpho_acceptor():
+    """
+    Builds and returns an FST acceptor for valid morphology strings.  Many
+    strings are valid morphology strings, but disallowing some sequences
+    (hopefully) helps keep the number of states in control. In particular: the
+    boundary between two morphemes must have a valid Alutiiq letter on either
+    side, except that the very last morpheme may be empty. A morpheme boundary
+    consists of a space, followed by an optional ! character, followed by a
+    "join" punctuation character, one of
+        - + ~
+    Some morphemes feature vowel alternation, which is represented here by
+    symbols in PREFIXES, like [<Y]. Vowel alternation prefixes are assumed to
+    be potentially empty, and must therefore be followed by an Alutiiq letter
+    (again, unless they are the beginning of the last morpheme).
+    """
+    # Short summary:
+    #   x*(a (!)?-(ax*|))*
+    # where
+    #   a  is any Alutiiq letter (consonant, vowel, or apostrophe),
+    #   -  is any "join" punctuation character or vowel alternation prefix, and
+    #   x* is any sequence of characters that does not contain a space
+    #          followed by a "join" character or vowel alternation prefix
+    prefixes = ''.join(f'[{p}]' for p in PREFIXES)
+    join = parse_acc(f'{{-+~{prefixes}}}')
+    anything = parse_acc(f'{{^ }}| {{^!-+~{prefixes}}}').star
+    alutiiq_letter = parse_acc(r"{ⓋⒸ'\\*AENTX}")
+
+    valid_string = anything + (
+        alutiiq_letter
+        + " " + f.accep("!").ques + join
+        + f.union(alutiiq_letter + anything, "")
+    ).star
+    valid_string.optimize()
+    return valid_string
 
 
 def confusion(a, b, before_a='', after_a='', before_b='', after_b=''):
@@ -617,9 +668,9 @@ def confusion(a, b, before_a='', after_a='', before_b='', after_b=''):
     )
 
 
-def parse_rules(rules):
+def parse_rules(rules, accept=None):
     lines = rules.splitlines()
-    fst = None
+    fst = accept
     old_states = 1
     old_arcs = 1
 
@@ -715,7 +766,6 @@ def parse_acc(expr):
                 break
             seq_acc += debackslash(match.group(1))
             chars = match.group(2)
-            chars = chars.replace('Ⓒ', ''.join(CONSONANTS)).replace('Ⓥ', ''.join(VOWELS))
             seq_acc += f.union(*(
                 set(SIGMA) - charset(chars[1:])
                 if chars[0] == '^'
@@ -747,7 +797,14 @@ def charset(chars):
         elif chunk.startswith('['):
             accepted.add(chunk)
         else:
-            accepted.update(chunk)
+            chunk_set = set(chunk)
+            if 'Ⓒ' in chunk_set:
+                chunk_set.remove('Ⓒ')
+                chunk_set.update(CONSONANTS)
+            if 'Ⓥ' in chunk_set:
+                chunk_set.remove('Ⓥ')
+                chunk_set.update(VOWELS)
+            accepted.update(chunk_set)
     return accepted
 
 
