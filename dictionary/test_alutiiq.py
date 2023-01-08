@@ -167,6 +167,9 @@ ENDING_TEST_CASES = [
     ("nalluluni", "vi", "2P:CONJ:NEG:SG", "nallugkunak"),
     ("nalluluni", "vi", "3P:CONJ:NEG:PL", "nallugkunateng"),
 
+    ("liilluni", "vi", "3P:NEG:PAST:SG", "litnilnguq"),
+    ("liilluni", "vi", "3P:INTERR:NEG:SG", "liiten'llta"),  # ?
+
     ("agnguarluni", "vi", "3P:CONJ:NEG:SG", "agnguaqunani"),
     ("agluni", "vi", "3P:CONJ:NEG:SG", "agegkunani"),
     ("agatuluni", "vi", "3P:CONJ:NEG:SG", "agakinani"),

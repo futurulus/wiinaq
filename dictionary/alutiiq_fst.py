@@ -228,35 +228,14 @@ COMBINATION_RULES = r"""
     # qellter -a => nutra
     /er -/er/{Ⓒ}{Ⓒ}/
     /eg -/eg/{Ⓒ}{Ⓒ}/
-    # /{Ⓒ} -//
-    /t'e -/t' -/
-    # /pe -p/pep/
-    /te -t/tet/
-    # /ce -c/cec/
-    /ke -k/kek/
-    # /qe -q/qeq/
-    /se -s/ses/
-    /ge -g/geg/
-    /re -r/rer/
-    # /[hng]e -[hng]/[hng]e[hng]/
-    /[ll]e -[ll]/[ll]e[ll]/
-    # /[hm]e -[hm]/[hm]e[hm]/
-    # /[hn]e -[hn]/[hn]e[hn]/
     /{gr}* -//
     /rr -|gg -//
-    #   originally only deleted g between {iue} and {aiu}. not sure why
-    /g -//{Ⓥ}//
+    # kuig -a => kuiga (g is "strong" after eiu)
+    / -//{eiu}g/{aiu}/
+    /g -//
     /r -//
     # nanite -n'ituq => nanin'ituq (?)
     /te -///n'{Ⓥ}/
-    # qutA -mnek => qute -mnek => qutemnek
-    /e -/e/{Ⓒ}/{Ⓒ}{Ⓒ'}/
-    # piugtA -gun => piugte -gun => piugt'gun
-    /e -/'/{Ⓒ}{ptckqsgr[ng][ll][hm][hn][hng]}/{ptckqsgr[ll][hm][hn][hng]}/
-    # piugtA -mi => piugte -mi => piugtemi
-    /e -/e/{Ⓒ}{Ⓒ}/{Ⓒ}/
-    /e -/'//{Ⓥ}/
-    /e -//
     *
 
     # Assimilating ~ endings are mostly like plus-type, but sometimes combine
@@ -326,15 +305,47 @@ COMBINATION_RULES = r"""
     /u ~u/u'u/
     /i ~/iy//{au}/
     /u ~/uw//{ai}/
-
-    # ike ~na => ikna
-    # age ~luni => agluni
-    /e ~//
     *
 
+    # Rules for handling roots ending in e
+
+    # /{Ⓒ} -//
+    /t'e -/t' -/
+
+    # X'X is not allowed, make it XeX
+    /te {-+}t/tet/
+    /ce {-+}c/cec/
+    /se {-+}s/ses/
+    # These endings probably don't exist
+    # /pe {-+}p/pep/
+    # /[hm]e {-+}[hm]/[hm]e[hm]/
+    # /[hn]e {-+}[hn]/[hn]e[hn]/
+    # /[hng]e {-+}[hng]/[hng]e[hng]/
+    /ke {-+~}k/kek/
+    /qe {-+~}q/qeq/
+    /ge {-+~}g/geg/
+    /re {-+~}r/rer/
+    /[ll]e {-+~}[ll]/[ll]e[ll]/
+
+    # Keep e (or change to ' between voiceless sounds) to block 3-consonant clusters
+    # qutA -mnek => qute -mnek => qutemnek
+    /e {-+~}/e/{Ⓒ}/{Ⓒ}{Ⓒ'}/
+    # piugtA -gun => piugte -gun => piugt'gun
+    /e {-+~}/'/{Ⓒ}{ptckqsgr[ng][ll][hm][hn][hng]}/{ptckqsgr[ll][hm][hn][hng]}/
+    # piugtA -mi => piugte -mi => piugtemi
+    /e {-+~}/e/{Ⓒ}{Ⓒ}/{Ⓒ}/
+    # Doubled e endings
+    # /e -/'//{Ⓥ}/
+
+    # Otherwise delete it
+    # ike ~na => ikna
+    # age ~luni => agluni
+    /e {-+~}//
+
+    # Clean up any remaining morpheme boundaries
     / +//
     / ~//
-    / -//{Ⓥ}/
+    / -//
     *
 
     # Break up triple vowels
